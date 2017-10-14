@@ -32,3 +32,4 @@ Route::post('/emails/sendmail', function(\Illuminate\Http\Request $request){
     print_r($response->headers());
     echo $response->body();
 });
+
