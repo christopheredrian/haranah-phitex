@@ -33,3 +33,12 @@ Route::post('/emails/sendmail', function(\Illuminate\Http\Request $request){
     echo $response->body();
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('admin/sellers', 'Admin\\SellersController');
+Route::resource('admin/buyers', 'Admin\\BuyersController');
+Route::resource('admin/administrators', 'Admin\\AdministratorsController');
+Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
