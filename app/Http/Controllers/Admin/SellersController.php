@@ -61,8 +61,8 @@ class SellersController extends Controller
      */
     public function store(Request $request)
     {
-        $request->password = bcrypt($request->password);
         $requestData = $request->all();
+        $requestData["password"] = bcrypt($requestData["password"]);
         $email = $request->email;
 
         User::create($requestData);

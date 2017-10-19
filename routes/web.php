@@ -36,9 +36,11 @@ Route::post('/emails/sendmail', function(\Illuminate\Http\Request $request){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('admin/sellers', 'Admin\\SellersController');
+    Route::resource('admin/buyers', 'Admin\\BuyersController');
+    Route::resource('admin/administrators', 'Admin\\AdministratorsController');
+    Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
+});
 
-Route::resource('admin/sellers', 'Admin\\SellersController');
-Route::resource('admin/buyers', 'Admin\\BuyersController');
-Route::resource('admin/administrators', 'Admin\\AdministratorsController');
-Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
+Route::get('/home', 'HomeController@index')->name('home');
