@@ -15,11 +15,12 @@ class SuperAdministratorTableSeeder extends Seeder
         $limit = 150;
         for ($i = 0; $i < $limit; $i++) {
             DB::table('super_administrators')->insert([ //,
-                'id' => $faker->numberBetween(0, 100),
                 'user_id' => $faker->numberBetween(0, 100),
-                'timestamp' =>  $faker->date($format = 'Y-m-d', $max = 'now')
+                'created_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'updated_at' => $faker->date($format = 'Y-m-d', $max = 'now')
             ]);
+        }
+
+
     }
-
-
 }
