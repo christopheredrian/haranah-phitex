@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/buyers', 'Admin\\BuyersController');
     Route::resource('admin/administrators', 'Admin\\AdministratorsController');
     Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
+    
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('admin/events', 'Admin\\EventsController');
