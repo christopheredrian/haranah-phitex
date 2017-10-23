@@ -21,6 +21,11 @@
                         Sellers
                     </a>
                 </li>
+                <li role="presentation">
+                    <a href="{{ url('/admin/events') }}">
+                        Events
+                    </a>
+                </li>
                 {{--<li role="presentation">--}}
                     {{--<a href="{{ url('/admin/administrators') }}">--}}
                         {{--Administrators--}}
