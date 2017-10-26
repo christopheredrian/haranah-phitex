@@ -1,6 +1,6 @@
-@extends('base.layout')
+@extends('layouts.app')
 @section('page_title','(base)')
 <!-- main content -->
-@section('body')
-	<p> this is the main body</p> 
+@section('content')
+	<p> this is the main body</p>
 @endsection

@@ -20,7 +20,7 @@ Route::get('/emails', function(){ return view('emails.index'); });
 Route::post('/emails/sendmail', 'Admin\\MailController@testMail');
 
 
-Auth::routes();
+
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/sellers', 'Admin\\SellersController');
@@ -29,6 +29,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
 
 });
-
+Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('admin/events', 'Admin\\EventsController');
