@@ -1,6 +1,5 @@
-@extends('layouts.app')
-@section('page_title','(base)')
-<!-- main content -->
-@section('content')
-	<p> this is the main body</p>
-@endsection
+@extends('layouts.public')
+
+<h1>Welcome!</h1>
+
+<a class="btn btn-primary" href="/login">Login</a>
