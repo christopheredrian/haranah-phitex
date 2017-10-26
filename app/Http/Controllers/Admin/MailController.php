@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-    //
-
     function testMail(Request $request){
         $data = [
             'body' => $request->input('body'), // this should be required
