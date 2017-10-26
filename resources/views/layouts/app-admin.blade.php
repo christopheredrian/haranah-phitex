@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +23,7 @@
 
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
+    @yield('styles')
 </head>
 
 <body class="nav-md">
@@ -32,50 +32,26 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <a href="index.html" class="site_title"><i class="fa fa-plane"></i> <span>Haranah-Phitex</span></a>
                 </div>
 
                 <div class="clearfix"></div>
 
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
-                    <div class="profile_pic">
-                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-                    </div>
-                    <div class="profile_info">
+                    {{--<div class="profile_pic">--}}
+                        {{--<img src="images/img.jpg" alt="..." class="img-circle profile_img">--}}
+                    {{--</div>--}}
+                    <div class=" text-center">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2>{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
 
                 <br />
 
-                <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <h3>General</h3>
-                        <ul class="nav side-menu">
-                            {{--<li><a><i class="fa fa-home"></i> Users <span class="fa fa-chevron-down"></span></a>--}}
-                                {{--<ul class="nav child_menu">--}}
-                                    {{--<li><a href="index.html">Dashboard</a></li>--}}
-                                    {{--<li><a href="index2.html">Dashboard2</a></li>--}}
-                                    {{--<li><a href="index3.html">Dashboard3</a></li>--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
-                            <li><a><i class="fa fa-home"></i> Users <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="/administrators">Administrators</a></li>
-                                    <li><a href="/buyers">Buyers</a></li>
-                                    <li><a href="/sellers">Sellers</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-
-                </div>
-                <!-- /sidebar menu -->
+               @include('layouts.sidebar')
             </div>
         </div>
 
@@ -90,7 +66,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John
+                                <img src="images/img.jpg" alt="">
+                                {{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -190,7 +167,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                2017 Haranah-Phitex <a href="https://colorlib.com">Colorlib</a>
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -199,44 +176,45 @@
 </div>
 
 <!-- jQuery -->
-<script src="../vendors/jquery/dist/jquery.min.js"></script>
+<script src="/vendors/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
-<script src="../vendors/fastclick/lib/fastclick.js"></script>
+<script src="/vendors/fastclick/lib/fastclick.js"></script>
 <!-- NProgress -->
-<script src="../vendors/nprogress/nprogress.js"></script>
+<script src="/vendors/nprogress/nprogress.js"></script>
 <!-- Chart.js -->
-<script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+<script src="/vendors/Chart.js/dist/Chart.min.js"></script>
 <!-- jQuery Sparklines -->
-<script src="../vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<script src="/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 <!-- morris.js -->
-<script src="../vendors/raphael/raphael.min.js"></script>
-<script src="../vendors/morris.js/morris.min.js"></script>
+<script src="/vendors/raphael/raphael.min.js"></script>
+<script src="/vendors/morris.js/morris.min.js"></script>
 <!-- gauge.js -->
-<script src="../vendors/gauge.js/dist/gauge.min.js"></script>
+<script src="/vendors/gauge.js/dist/gauge.min.js"></script>
 <!-- bootstrap-progressbar -->
-<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<script src="/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 <!-- Skycons -->
-<script src="../vendors/skycons/skycons.js"></script>
+<script src="/vendors/skycons/skycons.js"></script>
 <!-- Flot -->
-<script src="../vendors/Flot/jquery.flot.js"></script>
-<script src="../vendors/Flot/jquery.flot.pie.js"></script>
-<script src="../vendors/Flot/jquery.flot.time.js"></script>
-<script src="../vendors/Flot/jquery.flot.stack.js"></script>
-<script src="../vendors/Flot/jquery.flot.resize.js"></script>
+<script src="/vendors/Flot/jquery.flot.js"></script>
+<script src="/vendors/Flot/jquery.flot.pie.js"></script>
+<script src="/vendors/Flot/jquery.flot.time.js"></script>
+<script src="/vendors/Flot/jquery.flot.stack.js"></script>
+<script src="/vendors/Flot/jquery.flot.resize.js"></script>
 <!-- Flot plugins -->
-<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-<script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+<script src="/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="/vendors/flot.curvedlines/curvedLines.js"></script>
 <!-- DateJS -->
-<script src="../vendors/DateJS/build/date.js"></script>
+<script src="/vendors/DateJS/build/date.js"></script>
 <!-- bootstrap-daterangepicker -->
-<script src="../vendors/moment/min/moment.min.js"></script>
-<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/vendors/moment/min/moment.min.js"></script>
+<script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="../build/js/custom.min.js"></script>
+<script src="/build/js/custom.min.js"></script>
+@yield('scripts')
 
 </body>
 </html>

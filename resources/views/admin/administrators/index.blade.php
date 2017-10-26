@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.app-admin')
 
 @section('content')
     <div class="container">
         <div class="row">
 
-            <div class="col-md-9">
-                <div class="panel panel-default">
+            <div>
+                <div class="panel x_panel">
                     <div class="panel-heading">Administrators</div>
                     <div class="panel-body">
                         <a href="{{ url('/administrators/create') }}" class="btn btn-success btn-sm" title="Add New Administrator">
@@ -25,7 +25,7 @@
 
                         <br/>
                         <br/>
-                        <div class="table-responsive">
+                        <div>
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
