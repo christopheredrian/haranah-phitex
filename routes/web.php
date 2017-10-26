@@ -23,10 +23,10 @@ Route::post('/emails/sendmail', 'Admin\\MailController@testMail');
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('admin/sellers', 'Admin\\SellersController');
-    Route::resource('admin/buyers', 'Admin\\BuyersController');
-    Route::resource('admin/administrators', 'Admin\\AdministratorsController');
-    Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
+    Route::resource('sellers', 'Admin\\SellersController');
+    Route::resource('buyers', 'Admin\\BuyersController');
+    Route::resource('administrators', 'Admin\\AdministratorsController');
+    Route::resource('super-administrators', 'Admin\\SuperAdministratorsController');
 
 });
 Auth::routes();

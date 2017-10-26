@@ -19,6 +19,8 @@ class UsersTableSeeder extends Seeder
                 'last_name' => 'Admin',
                 'email' => 'superadmin@haranah.com',
                 'password' => bcrypt('superadmin'),
+                'role' => ('superadmin'),
+                'activated' => 1,
                 'created_at' => \Carbon\Carbon::now()
             ],
         );

@@ -31,13 +31,13 @@
     </div>
 </div>
 
-<div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
-    <label for="password" class="col-md-4 control-label">{{ 'Password' }}</label>
-    <div class="col-md-6">
-        <input class="form-control" type="password" name="password" id="password" value="{{ $buyer->first_name or ''}}">
-        {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
+{{--<div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">--}}
+    {{--<label for="password" class="col-md-4 control-label">{{ 'Password' }}</label>--}}
+    {{--<div class="col-md-6">--}}
+        {{--<input class="form-control" type="password" name="password" id="password" value="{{ $buyer->first_name or ''}}">--}}
+        {{--{!! $errors->first('password', '<p class="help-block">:message</p>') !!}--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 {{--<div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">--}}
     {{--<label for="confirm_password" class="col-md-4 control-label">{{ 'Confirm Password' }}</label>--}}

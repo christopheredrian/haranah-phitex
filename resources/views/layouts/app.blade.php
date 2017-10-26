@@ -56,11 +56,18 @@
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                            {{--<li><a><i class="fa fa-home"></i> Users <span class="fa fa-chevron-down"></span></a>--}}
+                                {{--<ul class="nav child_menu">--}}
+                                    {{--<li><a href="index.html">Dashboard</a></li>--}}
+                                    {{--<li><a href="index2.html">Dashboard2</a></li>--}}
+                                    {{--<li><a href="index3.html">Dashboard3</a></li>--}}
+                                {{--</ul>--}}
+                            {{--</li>--}}
+                            <li><a><i class="fa fa-home"></i> Users <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="index.html">Dashboard</a></li>
-                                    <li><a href="index2.html">Dashboard2</a></li>
-                                    <li><a href="index3.html">Dashboard3</a></li>
+                                    <li><a href="/administrators">Administrators</a></li>
+                                    <li><a href="/buyers">Buyers</a></li>
+                                    <li><a href="/sellers">Sellers</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -83,7 +90,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
+                                <img src="images/img.jpg" alt="">John
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">

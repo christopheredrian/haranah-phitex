@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Buyer;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -20,26 +21,23 @@ class BuyersController extends Controller
      */
     public function index(Request $request)
     {
+
         $keyword = $request->get('search');
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $buyers = DB::table('buyers')
-                ->join('users', 'users.id', '=', 'buyers.user_id')
-                ->select('users.*')
-                ->where('user_id', 'LIKE', "%$keyword%")
+            $buyers = Buyer::where('user_id', 'LIKE', "%$keyword%")
                 ->orWhere('last_name', 'LIKE', "%$keyword%")
                 ->orWhere('first_name', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
-            $buyers = DB::table('buyers')
-                ->join('users', 'users.id', '=', 'buyers.user_id')
-                ->select('users.*')
-                ->paginate($perPage);
+            $buyers = Buyer::paginate($perPage);
         }
 
         return view('admin.buyers.index', compact('buyers'));
+//        return view('admin.buyers.index')
+//            ->with('buyers', $buyers);
     }
 
     /**
@@ -61,11 +59,18 @@ class BuyersController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->all();
-        $requestData["password"] = bcrypt($requestData["password"]);
         $email = $request->email;
 
-        User::create($requestData);
+        $user = new User();
+        $user->last_name = $request->last_name;
+        $user->first_name = $request->first_name;
+        $user->password = bcrypt("password");
+        $user->email = $request->email;
+        $user->created_at = Carbon::now();
+        $user->role = "buyer";
+        $user->activated = 0;
+        $user->save();
+
         $user = User::where('email', $email)->first();
 
         $buyer = new Buyer();

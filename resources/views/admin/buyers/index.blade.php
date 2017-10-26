@@ -3,17 +3,16 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">Buyers</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/buyers/create') }}" class="btn btn-success btn-sm" title="Add New Buyer">
+                        <a href="{{ url('/buyers/create') }}" class="btn btn-success btn-sm" title="Add New Buyer">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
-                        <form method="GET" action="{{ url('/admin/buyers') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
+                        <form method="GET" action="{{ url('/buyers') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search...">
                                 <span class="input-group-btn">
@@ -39,14 +38,14 @@
                                 <tbody>
                                 @foreach($buyers as $item)
                                     <tr>
-                                        <td>{{ $item->last_name }}</td>
-                                        <td>{{ $item->first_name }}</td>
-                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->user->last_name }}</td>
+                                        <td>{{ $item->user->first_name }}</td>
+                                        <td>{{ $item->user->email }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/buyers/' . $item->id) }}" title="View Buyer"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/admin/buyers/' . $item->id . '/edit') }}" title="Edit Buyer"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/buyers/' . $item->id) }}" title="View Buyer"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/buyers/' . $item->id . '/edit') }}" title="Edit Buyer"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
-                                            <form method="POST" action="{{ url('/admin/buyers' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                            <form method="POST" action="{{ url('/buyers' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-xs" title="Delete Buyer" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
