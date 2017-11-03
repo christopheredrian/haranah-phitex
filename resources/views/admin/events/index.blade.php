@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-admin')
 
 @section('content')
     <div class="container">
@@ -29,7 +29,11 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Event Name</th><th>Actions</th>
+                                        <th>#</th>
+                                        <th>Event Name</th>
+                                        <th>Event Date</th>
+                                        <th>Event Place</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -37,6 +41,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
                                         <td>{{ $item->event_name }}</td>
+                                        <td>{{ $item->event_date }} </td>
+                                        <td>{{ $item->event_place }}</td>
                                         <td>
                                             <a href="{{ url('/admin/events/' . $item->id) }}" title="View Event"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/events/' . $item->id . '/edit') }}" title="Edit Event"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

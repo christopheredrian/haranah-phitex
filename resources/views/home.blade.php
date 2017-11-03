@@ -1,5 +1,5 @@
-@extends('layouts.public')
-
+@extends('layouts.app-admin')
+<!-- changed from layouts.public -dean-->
 @section('content')
 <div class="container">
     <div class="row">

@@ -6,6 +6,21 @@
     </div>
 </div>
 
+<div class="form-group {{ $errors->has('event_place') ? 'has-error' : ''}}">
+    <label for="event_place" class="col-md-4 control-label">{{ 'Event Place' }}</label>
+    <div class="col-md-6">
+        <input class="form-control" name="event_place" type="text" id="event_place" value="{{ $event->event_place or ''}}" >
+        {!! $errors->first('event_place', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+<div class="form-group {{ $errors->has('event_date') ? 'has-error' : ''}}">
+    <label for="event_date" class="col-md-4 control-label">{{ 'Event Date' }}</label>
+    <div class="col-md-6">
+        <input class="form-control" name="event_date" type="date" id="event_date" value="{{ $event->event_date or ''}}" >
+        {!! $errors->first('event_date', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
         <input class="btn btn-primary" type="submit" value="{{ $submitButtonText or 'Create' }}">

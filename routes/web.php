@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/list', function () {
+    return view('admin.buyers.list');
+});
+
+
 Route::get('/emails', function(){ return view('emails.index'); });
 // Just my test route for sending mails Will put in Controller later
 Route::post('/emails/sendmail', 'Admin\\MailController@testMail');
@@ -31,4 +36,5 @@ Route::group(['middleware' => ['auth']], function () {
 });
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('admin/events', 'Admin\\EventsController');

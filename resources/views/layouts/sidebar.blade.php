@@ -17,6 +17,7 @@
                     <li><a href="/sellers"><i class="fa fa-users" aria-hidden="true"></i>Sellers</a></li>
                 </ul>
             </li>
+            <li><a href="/admin/events"><i class="fa fa-table"></i>Events</a></li>
         </ul>
     </div>
 

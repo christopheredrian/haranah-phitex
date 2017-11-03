@@ -21,7 +21,7 @@ class EventsController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $events = Event::where('event_name', 'LIKE', "%$keyword%")
+            $events = Event::where('event_name', 'LIKE', "%$keyword%")->orWhere('event_place', 'LIKE', "%$keyword%")->orWhere('event_date', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
             $events = Event::paginate($perPage);
