@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-admin')
 @section('content')
     <h1>Email Demonstration</h1>
     <hr>
