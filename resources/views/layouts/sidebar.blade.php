@@ -12,9 +12,9 @@
             {{--</li>--}}
             <li><a><i class="fa fa-home"></i> Users <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="/administrators"> <i class="fa fa-user"></i> Administrators</a></li>
-                    <li><a href="/buyers"><i class="fa fa-money" aria-hidden="true"></i>Buyers</a></li>
-                    <li><a href="/sellers"><i class="fa fa-users" aria-hidden="true"></i>Sellers</a></li>
+                    <li><a href="/admin/administrators"> <i class="fa fa-user"></i> Administrators</a></li>
+                    <li><a href="/admin/buyers"><i class="fa fa-money" aria-hidden="true"></i>Buyers</a></li>
+                    <li><a href="/admin/sellers"><i class="fa fa-users" aria-hidden="true"></i>Sellers</a></li>
                 </ul>
             </li>
             <li><a href="/admin/events"><i class="fa fa-table"></i>Events</a></li>

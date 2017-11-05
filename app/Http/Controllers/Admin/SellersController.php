@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Seller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -24,7 +25,7 @@ class SellersController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $sellers = DB::table('buyers')
+            $sellers = DB::table('sellers')
                 ->join('users', 'users.id', '=', 'sellers.user_id')
                 ->select('users.*')
                 ->where('user_id', 'LIKE', "%$keyword%")
@@ -35,7 +36,7 @@ class SellersController extends Controller
         } else {
             $sellers = DB::table('sellers')
                 ->join('users', 'users.id', '=', 'sellers.user_id')
-                ->select('users.*')
+                ->select('users.*', 'sellers.id as seller_id')
                 ->paginate($perPage);
         }
 
@@ -61,11 +62,18 @@ class SellersController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->all();
-        $requestData["password"] = bcrypt($requestData["password"]);
         $email = $request->email;
 
-        User::create($requestData);
+        $user = new User();
+        $user->last_name = $request->last_name;
+        $user->first_name = $request->first_name;
+        $user->password = bcrypt("password");
+        $user->email = $request->email;
+        $user->created_at = Carbon::now();
+        $user->role = "buyer";
+        $user->activated = 0;
+        $user->save();
+
         $user = User::where('email', $email)->first();
 
         $seller = new Seller();

@@ -26,18 +26,26 @@ class BuyersController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $buyers = Buyer::where('user_id', 'LIKE', "%$keyword%")
+            // Join buyers table to users table, filter, then paginate
+
+            $buyers = DB::table('buyers')
+                ->join('users', 'buyers.user_id', '=', 'users.id')
+                ->select('users.*', 'buyers.id as buyer_id')
+                ->where('user_id', 'LIKE', "%$keyword%")
                 ->orWhere('last_name', 'LIKE', "%$keyword%")
                 ->orWhere('first_name', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
-            $buyers = Buyer::paginate($perPage);
+            // Join buyers table to users table, then paginate
+
+            $buyers = DB::table('buyers')
+                ->join('users', 'buyers.user_id', '=', 'users.id')
+                ->select('users.*', 'buyers.id as buyer_id')
+                ->paginate($perPage);
         }
 
         return view('admin.buyers.index', compact('buyers'));
-//        return view('admin.buyers.index')
-//            ->with('buyers', $buyers);
     }
 
     /**

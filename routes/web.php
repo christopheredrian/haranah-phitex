@@ -10,8 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 
@@ -28,12 +30,13 @@ Route::post('/emails/sendmail', 'Admin\\MailController@testMail');
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('sellers', 'Admin\\SellersController');
-    Route::resource('buyers', 'Admin\\BuyersController');
-    Route::resource('administrators', 'Admin\\AdministratorsController');
-    Route::resource('super-administrators', 'Admin\\SuperAdministratorsController');
-
+    Route::resource('admin/administrators', 'Admin\\AdministratorsController');
+    Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
+    Route::resource('admin/buyers', 'Admin\\BuyersController');
+    Route::resource('admin/sellers', 'Admin\\SellersController');
 });
+
+
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 

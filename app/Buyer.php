@@ -31,5 +31,4 @@ class Buyer extends Model
 	{
 		return $this->belongsTo('App\User');
 	}
-	
 }

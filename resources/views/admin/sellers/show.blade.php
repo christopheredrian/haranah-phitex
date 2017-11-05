@@ -24,10 +24,21 @@
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
-                                    <tr>
-                                        <th>ID</th><td>{{ $seller->id }}</td>
-                                    </tr>
-                                    <tr><th> User Id </th><td> {{ $seller->user_id }} </td></tr>
+                                <tr><th>First Name</th>
+                                    <td>{{ $seller->user->first_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Name</th>
+                                    <td>{{ $seller->user->last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ $seller->user->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status:</th>
+                                    <td>{{ ($seller->user->activated > 0 ? "Activated" : "Deactivated") }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

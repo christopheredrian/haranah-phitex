@@ -8,7 +8,7 @@
                 <div class="panel x_panel">
                     <div class="panel-heading">Administrators</div>
                     <div class="panel-body">
-                        <a href="{{ url('/administrators/create') }}" class="btn btn-success btn-sm" title="Add New Administrator">
+                        <a href="{{ url('admin/administrators/create') }}" class="btn btn-success btn-sm" title="Add New Administrator">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 

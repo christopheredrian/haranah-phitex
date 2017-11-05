@@ -8,7 +8,7 @@
                 <div class="x_panel">
                     <div class="panel-heading">Create New Buyer</div>
                     <div class="panel-body">
-                        <a href="{{ url('/buyers') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('admin/buyers') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -20,7 +20,7 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/buyers') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('admin/buyers') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('admin.buyers.form')

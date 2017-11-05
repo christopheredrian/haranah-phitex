@@ -7,10 +7,10 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
-            <div class="col-md-9">
-                <div class="panel panel-default">
+
+            <div class="col-md-12">
+                <div class="panel x-panel">
                     <div class="panel-heading">Buyer {{ $buyer->id }}</div>
                     <div class="panel-body">
 
@@ -28,10 +28,21 @@
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
-                                    <tr>
-                                        <th>ID</th><td>{{ $buyer->id }}</td>
+                                    <tr><th>First Name</th>
+                                        <td>{{ $buyer->user->first_name }}</td>
                                     </tr>
-                                    <tr><th> User Id </th><td> {{ $buyer->user_id }} </td></tr>
+                                    <tr>
+                                        <th>Last Name</th>
+                                        <td>{{ $buyer->user->last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ $buyer->user->email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status:</th>
+                                        <td>{{ ($buyer->user->activated > 0 ? "Activated" : "Deactivated") }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
