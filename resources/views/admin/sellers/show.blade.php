@@ -3,10 +3,9 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
-            <div class="col-md-9">
-                <div class="panel panel-default">
+            <div class="col-md-12">
+                <div class="panel x_panel">
                     <div class="panel-heading">Seller {{ $seller->id }}</div>
                     <div class="panel-body">
 
@@ -36,9 +35,14 @@
                                     <td>{{ $seller->user->email }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Phone</th>
+                                    <td>{{ $seller->phone }}</td>
+                                </tr>
+                                <tr>
                                     <th>Status:</th>
                                     <td>{{ ($seller->user->activated > 0 ? "Activated" : "Deactivated") }}</td>
                                 </tr>
+
                                 </tbody>
                             </table>
                         </div>

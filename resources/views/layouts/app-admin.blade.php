@@ -20,14 +20,19 @@
     <link href="/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
+    <style>
+        ul.alert.alert-danger{
+            list-style: none;
+        }
+    </style>
     @yield('styles')
 
 </head>
 
 <body class="nav-md">
+
 <div class="container body">
     <div class="main_container">
         <div class="col-md-3 left_col">
@@ -161,6 +166,19 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            @if(Session::has('flash_message')))
+            <div class="alert alert-success">
+                {{ Session::get('flash_message') }}
+            </div>
+            {{--<script>--}}
+                {{--new PNotify({--}}
+                    {{--title: 'Success',--}}
+                    {{--text: '{{ Session::get('flash_message') }}',--}}
+                    {{--type: 'success',--}}
+                    {{--styling: 'bootstrap3'--}}
+                {{--});--}}
+            {{--</script>--}}
+            @endif
             @yield('content')
         </div>
         <!-- /page content -->
@@ -168,7 +186,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                2017 Haranah-Phitex <a href="https://colorlib.com">Colorlib</a>
+                2017 Haranah-Phitex
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -215,6 +233,16 @@
 
 <!-- Custom Theme Scripts -->
 <script src="/build/js/custom.min.js"></script>
+<script>
+    console.log($('.undisable'));
+
+    $(document).ready(function(){
+        $('button.undisable').click(function(){
+            $('input[disabled]').removeAttr('disabled');
+        });
+    });
+</script>
+
 @yield('scripts')
 
 </body>

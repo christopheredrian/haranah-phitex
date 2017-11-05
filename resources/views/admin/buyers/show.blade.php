@@ -40,6 +40,10 @@
                                         <td>{{ $buyer->user->email }}</td>
                                     </tr>
                                     <tr>
+                                        <th>Phone</th>
+                                        <td>{{ $buyer->phone }}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Status:</th>
                                         <td>{{ ($buyer->user->activated > 0 ? "Activated" : "Deactivated") }}</td>
                                     </tr>

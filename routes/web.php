@@ -12,15 +12,23 @@
 */
 use Illuminate\Support\Facades\Auth;
 
+Route::get('/buyer_profile/profile', function () {
+    return view('buyer_profile.profile');
+});
+
 Route::get('/', function () {
+    return view('public');
+});
+Route::get('/login', function () {
     return view('welcome');
+});
+Route::get('/register', function () {
+    return view('admin.auth.register');
 });
 Route::get('/list', function () {
     return view('admin.buyers.list');
 });
-Route::get('/buyer_profile/profile', function () {
-    return view('buyer_profile.profile');
-});
+
 Route::group(['middleware' => ['auth']], function () {
     // Resources
     Route::resource('admin/administrators', 'Admin\\AdministratorsController');
@@ -30,7 +38,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/events', 'Admin\\EventsController');
     // Mailing
     Route::get('/admin/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
-//    Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@');
+    Route::post('/admin/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
+//    Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@testmail');
+
+
     Route::get('/mail/run', 'Admin\\MailController@run');
 });
 

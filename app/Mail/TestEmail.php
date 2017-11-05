@@ -36,7 +36,7 @@ class TestEmail extends Mailable
         $subject = isset($this->data['subject']) ? $this->data['subject'] : 'From Haranah-Phitex testing!';
         $name = isset($this->data['name']) ? $this->data['name'] : 'Chris Espiritu (Haranah developer)';
 
-        return $this->view('emails.test')
+        return $this->view('emails.generic')
             ->from($address, $name)
             ->cc($address, $name)
             ->bcc($address, $name)

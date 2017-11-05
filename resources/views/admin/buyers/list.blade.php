@@ -2,6 +2,28 @@
 
 @section('styles')
 <link rel="stylesheet" type="text/css" href="/bower_components/DataTables/datatables.css">
+<style type="text/css">
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+table#selected-buyer-list tr.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+table#selected-buyer-list tr.placeholder:before {
+  position: absolute;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;  
+  border-left: 60px solid green;
+}
+</style>
 @endsection
 
 <!-- main content -->
@@ -139,7 +161,7 @@
 		    ordering   : false,
 	    	pagingType: "simple"
 	    });
-	    $('#selected-buyer-list').sortable({
+	$('#selected-buyer-list').sortable({
 		  containerSelector: 'table',
 		  itemPath: '> tbody',
 		  itemSelector: 'tr',

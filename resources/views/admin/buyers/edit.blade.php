@@ -4,8 +4,8 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-9">
-                <div class="panel panel-default">
+            <div class="col-md-12">
+                <div class="panel x_panel">
                     <div class="panel-heading">Edit {{ $buyer->user->last_name }}, {{ $buyer->user->first_name }}</div>
                     <div class="panel-body">
                         <a href="{{ url('admin/buyers') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
