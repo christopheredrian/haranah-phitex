@@ -14,6 +14,12 @@ use Session;
 
 class SellersController extends Controller
 {
+    private $seller_validation = [
+        'last_name' => 'required',
+        'first_name' => 'required',
+        'email' => 'unique:users,email|email',
+        'phone' => 'nullable',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -62,6 +68,7 @@ class SellersController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->seller_validation);
         $email = $request->email;
 
         $user = new User();
@@ -123,12 +130,14 @@ class SellersController extends Controller
      */
     public function update($id, Request $request)
     {
-        
+        $request->validate($this->seller_validation);
         $requestData = $request->all();
-        
+
         $seller = Seller::findOrFail($id);
         $seller->update($requestData);
 
+        $user = User::findOrFail($seller->user->id);
+        $user->update($requestData);
         Session::flash('flash_message', 'Seller updated!');
 
         return redirect('admin/sellers');

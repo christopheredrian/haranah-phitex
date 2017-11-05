@@ -25,7 +25,7 @@ class Seller extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'phone'];
 
     public function user()
 	{
