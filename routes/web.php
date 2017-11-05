@@ -11,9 +11,11 @@
 |
 */
 use Illuminate\Support\Facades\Auth;
-
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { return view('public'); });
+Route::get('/login', function () { return view('welcome'); });
+Route::get('/register', function () { return view('admin.auth.register'); });
 Route::get('/list', function () { return view('admin.buyers.list'); });
+
 Route::group(['middleware' => ['auth']], function () {
     // Resources
     Route::resource('admin/administrators', 'Admin\\AdministratorsController');
