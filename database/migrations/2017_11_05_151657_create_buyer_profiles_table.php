@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBuyersTable extends Migration
+class CreateBuyerProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,8 @@ class CreateBuyersTable extends Migration
      */
     public function up()
     {
-        Schema::create('buyers', function(Blueprint $table) {
+        Schema::create('buyer_profiles', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('phone')->nullable();
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ class CreateBuyersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('buyers');
+        Schema::drop('buyer_profiles');
     }
 }

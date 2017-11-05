@@ -22,11 +22,17 @@
     <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
+    <style>
+        ul.alert.alert-danger{
+            list-style: none;
+        }
+    </style>
     @yield('styles')
 
 </head>
 
 <body class="nav-md">
+
 <div class="container body">
     <div class="main_container">
         <div class="col-md-3 left_col">
@@ -160,6 +166,19 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            @if(Session::has('flash_message')))
+            <div class="alert alert-success">
+                {{ Session::get('flash_message') }}
+            </div>
+            {{--<script>--}}
+                {{--new PNotify({--}}
+                    {{--title: 'Success',--}}
+                    {{--text: '{{ Session::get('flash_message') }}',--}}
+                    {{--type: 'success',--}}
+                    {{--styling: 'bootstrap3'--}}
+                {{--});--}}
+            {{--</script>--}}
+            @endif
             @yield('content')
         </div>
         <!-- /page content -->
@@ -214,6 +233,16 @@
 
 <!-- Custom Theme Scripts -->
 <script src="/build/js/custom.min.js"></script>
+<script>
+    console.log($('.undisable'));
+
+    $(document).ready(function(){
+        $('button.undisable').click(function(){
+            $('input[disabled]').removeAttr('disabled');
+        });
+    });
+</script>
+
 @yield('scripts')
 
 </body>
