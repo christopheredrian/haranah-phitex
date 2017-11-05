@@ -4,10 +4,7 @@
     <meta charset="utf-8">
 </head>
 <body>
-<h2>Test Email</h2>
-<p>hello World!</p>
-<p>
-    <strong>{{ $data['body']}}</strong>
-</p>
+<h2>{{ $data['subject'] }}</h2>
+<strong>{{ $data['body']}}</strong>
 </body>
 </html>

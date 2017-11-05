@@ -168,7 +168,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                2017 Haranah-Phitex <a href="https://colorlib.com">Colorlib</a>
+                2017 Haranah-Phitex
             </div>
             <div class="clearfix"></div>
         </footer>

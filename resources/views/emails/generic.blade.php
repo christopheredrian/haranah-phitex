@@ -1,8 +1,8 @@
 @extends('layouts.mail')
 
 @section('content')
-    <h2 class="page-header">Email from Haranah</h2>
-    <p>
-        {{ $data['body']}}
-    </p>
+    <h2 class="page-header">{{ $data['subject'] }}</h2>
+
+    {!! $data['body'] !!}
+
 @endsection
