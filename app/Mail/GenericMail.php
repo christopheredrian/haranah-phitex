@@ -12,15 +12,15 @@ class GenericMail extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * GenericMail constructor.
+     * @param $data
      */
     public function __construct($data)
     {
         $this->data = $data;
     }
 
+    protected $data = [];
     public function build()
     {
         // From address

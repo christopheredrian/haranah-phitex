@@ -23,7 +23,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/events', 'Admin\\EventsController');
     // Mailing
     Route::get('/admin/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
-//    Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@');
+    Route::post('/admin/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
+//    Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@testmail');
+
+
     Route::get('/mail/run', 'Admin\\MailController@run');
 });
 
