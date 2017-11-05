@@ -13,6 +13,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script>
+        $(window).load(function(){
+            jQuery(document).ready(function(e) {
+                jQuery('#mymodal').trigger('click');
+            });
+        });
+    </script>
 </head>
 <body>
     <div id="app">
