@@ -12,32 +12,21 @@
 */
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-
-    return view('welcome');
-});
-
-Route::get('/list', function () {
-    return view('admin.buyers.list');
-});
-
-
-Route::get('/emails', function(){ return view('emails.index'); });
-// Just my test route for sending mails Will put in Controller later
-Route::post('/emails/sendmail', 'Admin\\MailController@testMail');
-
-
-
-
+Route::get('/', function () { return view('welcome'); });
+Route::get('/list', function () { return view('admin.buyers.list'); });
 Route::group(['middleware' => ['auth']], function () {
+    // Resources
     Route::resource('admin/administrators', 'Admin\\AdministratorsController');
     Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
     Route::resource('admin/buyers', 'Admin\\BuyersController');
     Route::resource('admin/sellers', 'Admin\\SellersController');
+    Route::resource('admin/events', 'Admin\\EventsController');
+    // Mailing
+    Route::get('/admin/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
+//    Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@');
+    Route::get('/mail/run', 'Admin\\MailController@run');
 });
 
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('admin/events', 'Admin\\EventsController');
