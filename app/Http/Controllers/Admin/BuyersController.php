@@ -9,7 +9,10 @@ use App\Buyer;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 use Session;
 
 class BuyersController extends Controller
@@ -20,6 +23,7 @@ class BuyersController extends Controller
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
     ];
+
     /**
      * Display a listing of the resource.
      *
@@ -93,6 +97,22 @@ class BuyersController extends Controller
         $buyer->phone = $request->phone;
         $buyer->user_id = $user->id;
         $buyer->save();
+
+        // haha
+        $user = User::find($user->id);
+        $credentials = ['email' => $user->email];
+        $response = Password::sendResetLink($credentials, function (Message $message) {
+            $message->subject($this->getEmailSubject());
+        });
+
+        switch ($response) {
+            case Password::RESET_LINK_SENT:
+                Session::flash('flash_message', 'Password reset confirmation link sent to the user!');
+                return redirect()->back()->with('status', trans($response));
+            case Password::INVALID_USER:
+                Session::flash('flash_message', 'Password reset confirmation link not sent to the user!');
+                return redirect()->back()->withErrors(['email' => trans($response)]);
+        }
 
         Session::flash('flash_message', 'Buyer added!');
 
