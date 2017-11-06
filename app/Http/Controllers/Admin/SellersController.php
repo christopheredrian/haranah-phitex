@@ -56,7 +56,8 @@ class SellersController extends Controller
      */
     public function create()
     {
-        return view('admin.sellers.create');
+        return view('admin.sellers.create')
+            ->with('isCreate', true);
     }
 
     /**
