@@ -6,7 +6,13 @@
             <div class="animate form login_form">
                 <section class="login_content">
                     <h1>Login Form</h1>
-
+                    <!-- page content -->
+                    <div class="right_col" role="main">
+                        @if(Session::has('flash_message'))
+                            <div class="alert alert-danger">
+                                {{ Session::get('flash_message') }}
+                            </div>
+                        @endif
                     <div class="panel-body">
                         <section class="login_content">
                             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
