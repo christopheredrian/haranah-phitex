@@ -25,9 +25,21 @@
                             <table class="table table-borderless">
                                 <tbody>
                                     <tr>
-                                        <th>ID</th><td>{{ $administrator->id }}</td>
+                                        <th>Last Name</th>
+                                        <td>{{ $administrator->last_name }}</td>
                                     </tr>
-                                    <tr><th> User Id </th><td> {{ $administrator->user_id }} </td></tr>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <td>{{ $administrator->first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ $administrator->email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status:</th>
+                                        <td>{{ ($administrator->activated > 0 ? "Activated" : "Deactivated") }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
