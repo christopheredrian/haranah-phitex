@@ -6,11 +6,19 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Administrator;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
 
 class AdministratorsController extends Controller
 {
+    private $admin_validation = [
+        'last_name' => 'required',
+        'first_name' => 'required',
+        'email' => 'unique:users,email|email',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -22,10 +30,12 @@ class AdministratorsController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $administrators = Administrator::where('user_id', 'LIKE', "%$keyword%")
+            $administrators = User::where('role', "admin")
+                ->where('user_id', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
-            $administrators = Administrator::paginate($perPage);
+            $administrators = User::where('role', "admin")
+                ->paginate($perPage);
         }
 
         return view('admin.administrators.index', compact('administrators'));
@@ -38,7 +48,8 @@ class AdministratorsController extends Controller
      */
     public function create()
     {
-        return view('admin.administrators.create');
+        return view('admin.administrators.create')
+            ->with('isCreate', true);
     }
 
     /**
@@ -51,9 +62,31 @@ class AdministratorsController extends Controller
     public function store(Request $request)
     {
         
-        $requestData = $request->all();
-        
-        Administrator::create($requestData);
+//        $requestData = $request->all();
+//
+//        Administrator::create($requestData);
+//
+//        Session::flash('flash_message', 'Administrator added!');
+//
+//        return redirect('admin/administrators');
+
+        // check for User uniqueness (email)
+        $request->validate($this->admin_validation);
+        $email = $request->email;
+        $user = new User();
+        $user->last_name = $request->last_name;
+        $user->first_name = $request->first_name;
+
+        // insert password generator here
+        $user->password = bcrypt("password");
+
+        $user->email = $request->email;
+        $user->created_at = Carbon::now();
+        $user->role = "admin";
+        $user->activated = 1;
+        $user->save();
+
+        $user = User::where('email', $email)->first();
 
         Session::flash('flash_message', 'Administrator added!');
 
@@ -69,7 +102,7 @@ class AdministratorsController extends Controller
      */
     public function show($id)
     {
-        $administrator = Administrator::findOrFail($id);
+        $administrator = User::findOrFail($id);
 
         return view('admin.administrators.show', compact('administrator'));
     }
@@ -83,7 +116,7 @@ class AdministratorsController extends Controller
      */
     public function edit($id)
     {
-        $administrator = Administrator::findOrFail($id);
+        $administrator = User::findOrFail($id);
 
         return view('admin.administrators.edit', compact('administrator'));
     }
@@ -101,7 +134,7 @@ class AdministratorsController extends Controller
         
         $requestData = $request->all();
         
-        $administrator = Administrator::findOrFail($id);
+        $administrator = User::findOrFail($id);
         $administrator->update($requestData);
 
         Session::flash('flash_message', 'Administrator updated!');
@@ -118,7 +151,7 @@ class AdministratorsController extends Controller
      */
     public function destroy($id)
     {
-        Administrator::destroy($id);
+        User::destroy($id);
 
         Session::flash('flash_message', 'Administrator deleted!');
 
