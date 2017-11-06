@@ -25,47 +25,96 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'first_name' => 'Manager',
-                'last_name' => 'One',
+                'first_name' => 'Chris',
+                'last_name' => 'Espiritu',
                 'email' => 'admin@haranah.com',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('admin'),
                 'role' => ('admin'),
                 'activated' => 1,
                 'created_at' => \Carbon\Carbon::now()
             ],
             [
                 'id' => 3,
-                'first_name' => 'Buyer',
-                'last_name' => 'One',
-                'email' => 'buyer@haranah.com',
-                'password' => bcrypt('password'),
+                'first_name' => 'Anne',
+                'last_name' => 'Zheng',
+                'email' => 'annezheng@haranah.com',
+                'password' => bcrypt('buyer'),
                 'role' => ('buyer'),
                 'activated' => 1,
                 'created_at' => \Carbon\Carbon::now()
             ],
-            ['id' => 4,
-                'first_name' => 'Seller',
-                'last_name' => 'One',
-                'email' => 'seller@haranah.com',
-                'password' => bcrypt('password'),
+            [
+                'id' => 4,
+                'first_name' => 'Sean',
+                'last_name' => 'Genove',
+                'email' => 'seangenove@haranah.com',
+                'password' => bcrypt('seller'),
                 'role' => ('seller'),
                 'activated' => 1,
-                'created_at' => \Carbon\Carbon::now()]
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'id' => 5,
+                'first_name' => 'Ling',
+                'last_name' => 'Fama',
+                'email' => 'lingfama@haranah.com',
+                'password' => bcrypt('buyer'),
+                'role' => ('buyer'),
+                'activated' => 1,
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'id' => 6,
+                'first_name' => 'Jay',
+                'last_name' => 'Garcia',
+                'email' => 'jaygarcia@haranah.com',
+                'password' => bcrypt('seller'),
+                'role' => ('seller'),
+                'activated' => 1,
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'id' => 7,
+                'first_name' => 'Dean',
+                'last_name' => 'Donglawen',
+                'email' => 'deanearl@haranah.com',
+                'password' => bcrypt('buyer'),
+                'role' => ('buyer'),
+                'activated' => 1,
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'id' => 8,
+                'first_name' => 'Jane',
+                'last_name' => 'Zheng',
+                'email' => 'janezheng@haranah.com',
+                'password' => bcrypt('seller'),
+                'role' => ('seller'),
+                'activated' => 1,
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'id' => 9,
+                'first_name' => 'Mark',
+                'last_name' => 'Eslao',
+                'email' => 'markeslao@haranah.com',
+                'password' => bcrypt('buyer'),
+                'role' => ('buyer'),
+                'activated' => 1,
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'id' => 10,
+                'first_name' => 'Joshua',
+                'last_name' => 'Eslao',
+                'email' => 'josheslao@haranah.com',
+                'password' => bcrypt('seller'),
+                'role' => ('seller'),
+                'activated' => 1,
+                'created_at' => \Carbon\Carbon::now()
+            ],
         );
 
         User::insert($users);
-        \App\Buyer::insert([[
-            'id' => 1,
-            'user_id' => 3,
-            'phone' => '09995678',
-            'created_at' => \Carbon\Carbon::now()
-        ]]);
-
-        \App\Seller::insert([[
-            'id' => 1,
-            'user_id' => 4,
-            'phone' => '9765432',
-            'created_at' => \Carbon\Carbon::now()
-        ]]);
     }
 }

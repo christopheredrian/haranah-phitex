@@ -13,7 +13,7 @@
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('public');
+    return view('welcome');
 });
 Route::get('/login', function () {
     return view('welcome');
@@ -69,13 +69,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR BUYER
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
-        Route::get('/buyer/home', 'HomeController@buyerIndex')->name('buyerHome');
+        Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
 
     });
 
     // MIDDLEWARE FOR SELLER
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
-        Route::get('/seller/home', 'HomeController@sellerIndex')->name('sellerHome');
+        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
 
     });
 });
@@ -85,6 +85,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
+Route::resource('seller', 'Seller\\SellerController');
 
 Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
 Route::resource('admin/event-buyers', 'Admin\\EventBuyersController');

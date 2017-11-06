@@ -16,7 +16,7 @@ class CreateEventParamsTable extends Migration
             $table->increments('id');
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
-            $table->integer('event_id')->nullable();
+            $table->integer('event_id')->unsigned()->nullable();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
