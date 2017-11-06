@@ -44,6 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Admin - Events
     Route::resource('admin/events', 'Admin\\EventsController');
+    // Admin - Event Parameters
+    Route::resource('admin/event-params', 'Admin\\EventParamsController');
     // Mailing
     Route::get('admin/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
     Route::post('admin/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
@@ -58,3 +60,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
+
+
