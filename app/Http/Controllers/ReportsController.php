@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Buyer;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportsController extends Controller
@@ -36,5 +41,25 @@ class ReportsController extends Controller
             });
 
         })->download('xls');;
+    }
+
+    public function downloadPdf()
+    {
+        //$event_id, $user_id
+        $view = 'reports.events.admin';
+        // dd(Auth::user()->hasRole('superadmin'));
+
+        if (Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('admin')) {
+            $view = 'reports.events.admin';
+        } elseif (Auth::user()->hasRole('buyer')) {
+            $view = 'reports.events.buyer';
+        } elseif (Auth::user()->hasRole('seller')) {
+            $view = 'reports.events.seller';
+        } else{
+            abort(404);
+        }
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView($view, ['buyer' => Buyer::all()->first()]);
+        return $pdf->download('invoice.pdf');
     }
 }

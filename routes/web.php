@@ -49,8 +49,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('admin/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
     // Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@testmail');
     //Route::get('/mail/run', 'Admin\\MailController@run');
+
     // Reports
     Route::get('/reports/{event_id}', 'ReportsController@downloadSchedule');
+    Route::get('/reports/{event_id}/pdf', 'ReportsController@downloadPdf');
+
 });
 
 
