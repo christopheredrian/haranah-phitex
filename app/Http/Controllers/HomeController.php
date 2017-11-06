@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function adminIndex()
     {
-        return view('home');
+        $role = (Auth::user()->role == "superadmin" ? "Super Administrator" : "Administrator");
+
+        return view('home', ['role' => $role]);
     }
+
+    public function buyerIndex()
+    {
+    //  Insert app-buyer
+        return view('home', ['role' => 'Buyer']);
+    }
+
+
+    public function sellerIndex()
+    {
+        //  Insert app-buyer
+        return view('home', ['role' => 'Seller']);
+    }
+
 }
