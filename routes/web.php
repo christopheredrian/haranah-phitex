@@ -12,10 +12,6 @@
 */
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/buyer_profile/profile', function () {
-    return view('buyer_profile.profile');
-});
-
 Route::get('/', function () {
     return view('public');
 });
@@ -28,7 +24,9 @@ Route::get('/register', function () {
 Route::get('/list', function () {
     return view('admin.buyers.list');
 });
-
+Route::get('/buyer_profile/profile', function () {
+    return view('buyer_profile.profile');
+});
 Route::group(['middleware' => ['auth']], function () {
     // Resources
     Route::resource('admin/administrators', 'Admin\\AdministratorsController');
@@ -48,5 +46,4 @@ Route::group(['middleware' => ['auth']], function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
