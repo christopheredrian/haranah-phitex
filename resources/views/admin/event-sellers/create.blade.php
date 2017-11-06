@@ -3,12 +3,13 @@
 @section('content')
     <div class="container">
         <div class="row">
+            @include('admin.sidebar')
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Create New Administrator</div>
+                    <div class="panel-heading">Create New EventSeller</div>
                     <div class="panel-body">
-                        <a href="{{ url('admin/administrators') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/event-sellers') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -20,10 +21,10 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('admin/administrators') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/admin/event-sellers') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include ('admin.administrators.form')
+                            @include ('admin.event-sellers.form')
 
                         </form>
 

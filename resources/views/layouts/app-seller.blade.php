@@ -51,17 +51,6 @@
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
-            <div class="col-lg-6">
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                    </div>
-                </form>
-            </div>
 
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
@@ -114,34 +103,21 @@
                         <p>{{ Auth::user()->role }} </p>
                     </div>
             </div>
-
-            <!-- search form (Optional) -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-                </div>
-            </form>
-            <!-- /.search form -->
-
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Navigator</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="{{ url('/sellers.index') }}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Profile</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
+                        <li><a href="{{ url('/sellers') }}">View</a></li>
+                        <li><a href="{{ url('/sellers') }}">Edit</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Account</span></a></li>
+                <li><a href="{{ url('/sellers') }}"><i class="fa fa-link"></i> <span>Account</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -150,27 +126,7 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
-        </section>
-
-        <!-- Main content -->
-        <section class="content container-fluid">
-
-            <!--------------------------
-              | Your Page Content Here |
-              -------------------------->
-
-        </section>
-        <!-- /.content -->
+        @yield('content')
     </div>
     <!-- /.content-wrapper -->
 
