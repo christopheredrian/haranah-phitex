@@ -24,9 +24,15 @@ Route::get('/register', function () {
 Route::get('/list', function () {
     return view('admin.buyers.list');
 });
+
+//BUYER PROFILE
 Route::get('/buyer_profile/profile', function () {
     return view('buyer_profile.profile');
 });
+Route::get('/buyer_profile/events', function () {
+    return view('buyer_profile.events');
+});
+
 Route::group(['middleware' => ['auth']], function () {
 
     // Reports
