@@ -17,7 +17,7 @@ Route::get('/buyer_profile/profile', function () {
 });
 
 Route::get('/', function () {
-    return view('public');
+    return view('welcome');
 });
 Route::get('/login', function () {
     return view('welcome');
