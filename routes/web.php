@@ -79,3 +79,6 @@ Auth::routes();
 Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
 
 
+
+Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
+Route::resource('admin/event-buyers', 'Admin\\EventBuyersController');
