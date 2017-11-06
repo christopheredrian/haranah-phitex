@@ -14,8 +14,8 @@ class CreateEventSellersTable extends Migration
     {
         Schema::create('event_sellers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('event_id')->nullable();
-            $table->integer('seller_id')->nullable();
+            $table->integer('event_id')->unsigned()->nullable();
+            $table->integer('seller_id')->unsigned()->nullable();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
