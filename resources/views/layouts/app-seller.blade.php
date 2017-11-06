@@ -39,7 +39,7 @@
     <!-- Main Header -->
     <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
@@ -63,17 +63,14 @@
                             <!-- The user image in the navbar-->
                             <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">{{ Auth::user()->last_name }}
-                                , {{ Auth::user()->first_name  }}</span>
+                            <span class="hidden-xs">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
                                 <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
                                 <p>
-                                    {{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}
-                                    - {{Auth::user()->role }}
+                                    {{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }} - {{Auth::user()->role }}
                                 </p>
                             </li>
                             <!-- Menu Footer-->
@@ -86,7 +83,7 @@
                                 <div a href="#" class="text-center">
                                     <a class="btn btn-default btn-lg btn-flat" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                       document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -112,7 +109,7 @@
                     <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</p>
+                    <p>{{ Auth::user()->last_name }}, {{Auth::user()->first_name  }}</p>
                     {{--<!-- Status -->--}}
                     {{--<p>{{ Auth::user()->role }} </p>--}}
                 </div>
@@ -121,8 +118,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Navigator</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="{{ url('/sellers.index') }}"><i class="fa fa-link"></i>
-                        <span>Dashboard</span></a></li>
+                <li class="active"><a href="{{ url('/sellers') }}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Profile</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -169,7 +165,7 @@
                 <h3 class="control-sidebar-heading">Recent Activity</h3>
                 <ul class="control-sidebar-menu">
                     <li>
-                        <a href="javascript:;">
+                        <a href="javascript:">
                             <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
                             <div class="menu-info">
@@ -185,7 +181,7 @@
                 <h3 class="control-sidebar-heading">Tasks Progress</h3>
                 <ul class="control-sidebar-menu">
                     <li>
-                        <a href="javascript:;">
+                        <a href="javascript:">
                             <h4 class="control-sidebar-subheading">
                                 Custom Template Design
                                 <span class="pull-right-container">
