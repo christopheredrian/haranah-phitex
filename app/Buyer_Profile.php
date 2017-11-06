@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Buyer extends Model
+class Buyer_Profile extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'buyers';
+    protected $table = 'buyer_profiles';
 
     /**
     * The database primary key value.
@@ -25,10 +25,7 @@ class Buyer extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id','phone'];
+    protected $fillable = [''];
 
-    public function user()
-	{
-		return $this->belongsTo('App\User');
-	}
+    
 }

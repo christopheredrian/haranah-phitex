@@ -20,14 +20,19 @@
     <link href="/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
+    <style>
+        ul.alert.alert-danger{
+            list-style: none;
+        }
+    </style>
     @yield('styles')
 
 </head>
 
 <body class="nav-md">
+
 <div class="container body">
     <div class="main_container">
         <div class="col-md-3 left_col">
@@ -89,70 +94,6 @@
                             </ul>
                         </li>
 
-                        {{--<li role="presentation" class="dropdown">--}}
-                            {{--<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">--}}
-                                {{--<i class="fa fa-envelope-o"></i>--}}
-                                {{--<span class="badge bg-green">6</span>--}}
-                            {{--</a>--}}
-                            {{--<ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">--}}
-                                {{--<li>--}}
-                                    {{--<a>--}}
-                                        {{--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>--}}
-                                        {{--<span>--}}
-                          {{--<span>John Smith</span>--}}
-                          {{--<span class="time">3 mins ago</span>--}}
-                        {{--</span>--}}
-                                        {{--<span class="message">--}}
-                          {{--Film festivals used to be do-or-die moments for movie makers. They were where...--}}
-                        {{--</span>--}}
-                                    {{--</a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a>--}}
-                                        {{--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>--}}
-                                        {{--<span>--}}
-                          {{--<span>John Smith</span>--}}
-                          {{--<span class="time">3 mins ago</span>--}}
-                        {{--</span>--}}
-                                        {{--<span class="message">--}}
-                          {{--Film festivals used to be do-or-die moments for movie makers. They were where...--}}
-                        {{--</span>--}}
-                                    {{--</a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a>--}}
-                                        {{--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>--}}
-                                        {{--<span>--}}
-                          {{--<span>John Smith</span>--}}
-                          {{--<span class="time">3 mins ago</span>--}}
-                        {{--</span>--}}
-                                        {{--<span class="message">--}}
-                          {{--Film festivals used to be do-or-die moments for movie makers. They were where...--}}
-                        {{--</span>--}}
-                                    {{--</a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a>--}}
-                                        {{--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>--}}
-                                        {{--<span>--}}
-                          {{--<span>John Smith</span>--}}
-                          {{--<span class="time">3 mins ago</span>--}}
-                        {{--</span>--}}
-                                        {{--<span class="message">--}}
-                          {{--Film festivals used to be do-or-die moments for movie makers. They were where...--}}
-                        {{--</span>--}}
-                                    {{--</a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<div class="text-center">--}}
-                                        {{--<a>--}}
-                                            {{--<strong>See All Alerts</strong>--}}
-                                            {{--<i class="fa fa-angle-right"></i>--}}
-                                        {{--</a>--}}
-                                    {{--</div>--}}
-                                {{--</li>--}}
-                            {{--</ul>--}}
-                        {{--</li>--}}
                     </ul>
                 </nav>
             </div>
@@ -161,6 +102,19 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            @if(Session::has('flash_message'))
+            <div class="alert alert-success">
+                {{ Session::get('flash_message') }}
+            </div>
+            {{--<script>--}}
+                {{--new PNotify({--}}
+                    {{--title: 'Success',--}}
+                    {{--text: '{{ Session::get('flash_message') }}',--}}
+                    {{--type: 'success',--}}
+                    {{--styling: 'bootstrap3'--}}
+                {{--});--}}
+            {{--</script>--}}
+            @endif
             @yield('content')
         </div>
         <!-- /page content -->
@@ -215,6 +169,17 @@
 
 <!-- Custom Theme Scripts -->
 <script src="/build/js/custom.min.js"></script>
+<script>
+    /* Helper function for disabled inputs and buttons */
+    $(document).ready(function(){
+        $('button.undisable').click(function(){
+            $('input[disabled]').removeAttr('disabled');
+        });
+
+        $('ul.nav.side-menu li ul').attr('style', 'display:block;');
+    });
+</script>
+
 @yield('scripts')
 
 </body>

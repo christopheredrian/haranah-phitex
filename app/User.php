@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -27,6 +28,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Returns true if the current user has a particular role
+     * @param $role
+     * @return bool
+     */
     public function hasRole($role){
         if($this->role === $role){
             return true;
@@ -34,4 +40,5 @@ class User extends Authenticatable
             return false;
         }
     }
+
 }

@@ -14,6 +14,12 @@ use Session;
 
 class BuyersController extends Controller
 {
+    private $buyer_validation = [
+        'last_name' => 'required',
+        'first_name' => 'required',
+        'email' => 'unique:users,email|email',
+        'phone' => 'nullable',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +61,8 @@ class BuyersController extends Controller
      */
     public function create()
     {
-        return view('admin.buyers.create');
+        return view('admin.buyers.create')
+            ->with('isCreate', true);
     }
 
     /**
@@ -67,8 +74,9 @@ class BuyersController extends Controller
      */
     public function store(Request $request)
     {
+        // check for User uniqueness (email)
+        $request->validate($this->buyer_validation);
         $email = $request->email;
-
         $user = new User();
         $user->last_name = $request->last_name;
         $user->first_name = $request->first_name;
@@ -82,6 +90,7 @@ class BuyersController extends Controller
         $user = User::where('email', $email)->first();
 
         $buyer = new Buyer();
+        $buyer->phone = $request->phone;
         $buyer->user_id = $user->id;
         $buyer->save();
 
@@ -114,7 +123,6 @@ class BuyersController extends Controller
     public function edit($id)
     {
         $buyer = Buyer::findOrFail($id);
-
         return view('admin.buyers.edit', compact('buyer'));
     }
 
@@ -128,14 +136,16 @@ class BuyersController extends Controller
      */
     public function update($id, Request $request)
     {
-        
+        $request->validate($this->buyer_validation);
         $requestData = $request->all();
-        
+
         $buyer = Buyer::findOrFail($id);
         $buyer->update($requestData);
 
-        Session::flash('flash_message', 'Buyer updated!');
+        $user = User::findOrFail($buyer->user->id);
+        $user->update($requestData);
 
+        Session::flash('flash_message', 'Buyer updated!');
         return redirect('admin/buyers');
     }
 
