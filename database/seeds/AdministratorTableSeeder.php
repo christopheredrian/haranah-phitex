@@ -1,5 +1,6 @@
 <?php
 
+use App\Administrator;
 use Illuminate\Database\Seeder;
 
 class AdministratorTableSeeder extends Seeder
@@ -11,7 +12,14 @@ class AdministratorTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $administrators = array(
+            [
+                'user_id' => '2',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
+        );
+        /*$faker = Faker\Factory::create();
         $limit = 150;
         for ($i = 0; $i < $limit; $i++) {
             DB::table('administrators')->insert([ //,
@@ -19,7 +27,7 @@ class AdministratorTableSeeder extends Seeder
                 'created_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'updated_at' => $faker->date($format = 'Y-m-d', $max = 'now')
             ]);
-        }
-
+        }*/
+    Administrator::insert($administrators);
     }
 }
