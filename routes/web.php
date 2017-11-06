@@ -30,15 +30,23 @@ Route::get('/list', function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+    // Admin users
+    Route::post('admin/users/{user_id}/reset_password', 'Admin\\UsersController@reset_password');
+
     // Resources
     Route::resource('admin/administrators', 'Admin\\AdministratorsController');
     Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
+
+    // Admin - Buyers
     Route::resource('admin/buyers', 'Admin\\BuyersController');
+    // Admin - Sellers
     Route::resource('admin/sellers', 'Admin\\SellersController');
+
+    // Admin - Events
     Route::resource('admin/events', 'Admin\\EventsController');
     // Mailing
-    Route::get('/admin/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
-    Route::post('/admin/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
+    Route::get('admin/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
+    Route::post('admin/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
 //    Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@testmail');
 
 
