@@ -84,18 +84,16 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-    protected function resetPassword($user, $password)
-    {
-        $user->password = Hash::make($password);
-
-        $user->setRememberToken(Str::random(60));
-
-        $user->activated = 1;
-
-        $user->save();
-
-        event(new PasswordReset($user));
-
-        $this->guard()->login($user);
-    }
+//    protected function resetPassword($user, $password)
+//    {
+//        $user->password = Hash::make($password);
+//
+//        $user->setRememberToken(Str::random(60));
+//
+//        $user->save();
+//
+//        event(new PasswordReset($user));
+//
+//        $this->guard()->login($user);
+//    }
 }

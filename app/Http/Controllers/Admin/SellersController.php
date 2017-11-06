@@ -9,7 +9,9 @@ use App\Seller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
 use Session;
 
 class SellersController extends Controller
@@ -89,6 +91,22 @@ class SellersController extends Controller
         $seller->save();
 
         Session::flash('flash_message', 'Seller added!');
+
+        // haha
+        $user = User::find($user->id);
+        $credentials = ['email' => $user->email];
+        $response = Password::sendResetLink($credentials, function (Message $message) {
+            $message->subject($this->getEmailSubject());
+        });
+
+        switch ($response) {
+            case Password::RESET_LINK_SENT:
+                Session::flash('flash_message', 'Password reset confirmation link sent to the user!');
+                return redirect()->back()->with('status', trans($response));
+            case Password::INVALID_USER:
+                Session::flash('flash_message', 'Password reset confirmation link not sent to the user!');
+                return redirect()->back()->withErrors(['email' => trans($response)]);
+        }
 
         return redirect('admin/sellers');
     }

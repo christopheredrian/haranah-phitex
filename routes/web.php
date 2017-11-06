@@ -79,6 +79,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
+Route::resource('seller', 'Seller\\SellerController');
 
 Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
 Route::resource('admin/event-buyers', 'Admin\\EventBuyersController');

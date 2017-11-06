@@ -1,5 +1,6 @@
 <?php
 
+use App\Buyer;
 use Illuminate\Database\Seeder;
 
 class BuyerTableSeeder extends Seeder
@@ -11,7 +12,35 @@ class BuyerTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $buyers = array(
+            [
+                'user_id' => '3',
+                'phone' => '',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'user_id' => '5',
+                'phone' => '',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'user_id' => '7',
+                'phone' => '',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'user_id' => '9',
+                'phone' => '',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
+        );
+
+        Buyer::insert($buyers);
+        /*$faker = Faker\Factory::create();
         $limit = 150;
         for ($i = 0; $i < $limit; $i++) {
             DB::table('buyers')->insert([ //,
@@ -19,8 +48,6 @@ class BuyerTableSeeder extends Seeder
                 'created_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'updated_at' => $faker->date($format = 'Y-m-d', $max = 'now')
             ]);
-        }
-
-
+        }*/
     }
 }
