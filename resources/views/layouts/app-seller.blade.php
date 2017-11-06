@@ -107,7 +107,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Navigator</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="{{ url('/sellers.index') }}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="{{ url('/sellers') }}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Profile</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
