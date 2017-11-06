@@ -33,14 +33,14 @@ class HomeController extends Controller
     public function buyerIndex()
     {
     //  Insert app-buyer
-        return view('home', ['role' => 'Buyer']);
+        return view('buyer.index', ['role' => 'Buyer']);
     }
 
 
     public function sellerIndex()
     {
         //  Insert app-buyer
-        return view('sellers.index', ['role' => 'Seller']);
+        return view('seller.index', ['role' => 'Seller']);
     }
 
 }
