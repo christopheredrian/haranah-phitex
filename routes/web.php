@@ -72,6 +72,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
 
     });
+
+    Route::post('/admin/buyers/{user_id}/change_status', function($user_id){
+       $user = \App\User::findOrFail($user_id);
+       $user->activated = ($user->activated > 0 ? 0 : 1);
+       $user->save();
+       return back();
+    });
 });
 
 Auth::routes();
