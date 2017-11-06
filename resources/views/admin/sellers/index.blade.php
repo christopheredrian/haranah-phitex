@@ -1,5 +1,11 @@
 @extends('layouts.app-admin')
-
+@section('styles')
+    <style>
+        td > * {
+            float: left;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <div class="row">
@@ -38,18 +44,23 @@
                                 <tbody>
                                 @foreach($sellers as $item)
                                     <tr>
+
                                         <td>{{ $item->last_name }}</td>
                                         <td>{{ $item->first_name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>
                                             <a href="{{ url('admin/sellers/' . $item->seller_id) }}" title="View Seller"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('admin/sellers/' . $item->seller_id . '/edit') }}" title="Edit Seller"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-
+                                            <form method="POST" action="{{ url('admin/users' . '/' . $item->id . '/reset_password') }}" accept-charset="UTF-8" style="display:inline">
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-warning btn-xs" title="Reset Password" onclick="return confirm('Send reset password via emai?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Reset Password</button>
+                                            </form>
                                             <form method="POST" action="{{ url('admin/sellers' . '/' . $item->seller_id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-xs" title="Delete Seller" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             </form>
+
                                         </td>
                                     </tr>
                                 @endforeach
