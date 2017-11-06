@@ -30,31 +30,48 @@ Route::get('/list', function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
-    // Admin users
-    Route::post('admin/users/{user_id}/reset_password', 'Admin\\UsersController@reset_password');
-
-    // Resources
-    Route::resource('admin/administrators', 'Admin\\AdministratorsController');
-    Route::resource('admin/super-administrators', 'Admin\\SuperAdministratorsController');
-
-    // Admin - Buyers
-    Route::resource('admin/buyers', 'Admin\\BuyersController');
-    // Admin - Sellers
-    Route::resource('admin/sellers', 'Admin\\SellersController');
-
-    // Admin - Events
-    Route::resource('admin/events', 'Admin\\EventsController');
-    // Mailing
-    Route::get('admin/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
-    Route::post('admin/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
-    // Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@testmail');
-    //Route::get('/mail/run', 'Admin\\MailController@run');
     // Reports
     Route::get('/reports/{event_id}', 'ReportsController@downloadSchedule');
+
+    // MIDDLEWARE FOR ADMIN
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+        Route::get('/home', 'HomeController@adminIndex')->name('adminHome');
+
+
+        // Admin users
+        Route::post('/users/{user_id}/reset_password', 'Admin\\UsersController@reset_password');
+
+        // Resources
+        Route::resource('/administrators', 'Admin\\AdministratorsController');
+        Route::resource('/super-administrators', 'Admin\\SuperAdministratorsController');
+
+        // Admin - Buyers
+        Route::resource('/buyers', 'Admin\\BuyersController');
+        // Admin - Sellers
+        Route::resource('/sellers', 'Admin\\SellersController');
+
+        // Admin - Events
+        Route::resource('/events', 'Admin\\EventsController');
+        // Mailing
+        Route::get('/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
+        Route::post('/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
+        // Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@testmail');
+        //Route::get('/mail/run', 'Admin\\MailController@run');
+    });
+
+    // MIDDLEWARE FOR BUYER
+    Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
+        Route::get('/buyer/home', 'HomeController@buyerIndex')->name('buyerHome');
+
+    });
+
+    // MIDDLEWARE FOR SELLER
+    Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
+        Route::get('/seller/home', 'HomeController@sellerIndex')->name('sellerHome');
+
+    });
 });
 
-
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
