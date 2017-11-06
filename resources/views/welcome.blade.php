@@ -17,9 +17,12 @@
     div {
         overflow-y: hidden;
     }
+    p {
+        font-family: "Verdana", Geneva, sans-serif;
+    }
 </style>
 {{--images are not owned by the developers, all credit belongs to the rightful owner--}}
-<div class="container" align="center">
+<div class="container" align="center" style="overflow: hidden">
     <div class="row">
         <div class="col-md-12">
             <img class="img-responsive" src="/img/banner.jpg" alt="Banner" style="width: 100%; height: 75%">
@@ -53,8 +56,6 @@
     </div>
 </div>
 
-
-
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -65,7 +66,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">About PHITEX</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="">
                 <p>Philippine Travel Exchange (PHITEX) is a marketing activity conceived in 1996 with the end-goal of increasing tourist arrivals in the country.</p>
 
                 <p>Patterned after ASEAN Tourism Forum (ATF), this event hosts qualified buyers all over the world to participate in a one and half days table top business appointments with Philippine sellers and have actual experience of what the country can offer as a tourism destination through pre/post tours.</p>

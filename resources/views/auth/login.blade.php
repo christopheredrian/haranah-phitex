@@ -1,12 +1,20 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="container">
+    <style>
+        .featured-image {
+            background: no-repeat center;
+            width: 100%;
+            height: 590px;
+            background-size: cover;
+            
+        }
+    </style>
+<div class="container featured-image" style="background-image:url('/img/terraces.jpg');">
         <div class="login_wrapper">
             <div class="animate form login_form">
                 <section class="login_content">
-                    <h1>Login Form</h1>
-
+                    <img src="/img/Phitex Logo.jpg" alt="logo" style="width: 100px; height: 150px">
                     <div class="panel-body">
                         <section class="login_content">
                             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
