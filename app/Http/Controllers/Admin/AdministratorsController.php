@@ -143,6 +143,15 @@ class AdministratorsController extends Controller
     }
 
     /**
+     * Show the profile of the admin
+     *
+     * @return \Illuminate\View\View
+     */
+    public function account()
+    {
+        return view('admin.administrators.account');
+    }
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

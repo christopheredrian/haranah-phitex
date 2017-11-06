@@ -1,7 +1,7 @@
 @extends('layouts.public')
 <style>
     .caption {
-        background-color: rgba(0, 0, 0, 0);
+        background-color:#072B6A;
         color: orange;
         font-size: 1.2em;
         left: 0px;
@@ -25,7 +25,7 @@
 <div class="container" align="center" style="overflow: hidden">
     <div class="row">
         <div class="col-md-12">
-            <img class="img-responsive" src="/img/banner.jpg" alt="Banner" style="width: 100%; height: 75%">
+            <img class="img-responsive" src="/img/sails.jpg" alt="Banner" style="width: 100%; height: 95%;  background-color:#072B6A;">
             <div class="caption">
                 <h1>WELCOME TO PHITEX</h1>
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">About</button>
