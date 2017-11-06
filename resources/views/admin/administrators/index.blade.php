@@ -1,5 +1,11 @@
 @extends('layouts.app-admin')
-
+@section('styles')
+    <style>
+        td > * {
+            float: left;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <div class="row">
@@ -29,22 +35,31 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>User Id</th><th>Actions</th>
+                                        <th>Last Name</th>
+                                        <th>First Name</th>
+                                        <th>Email</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($administrators as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration or $item->id }}</td>
-                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->last_name }}</td>
+                                        <td>{{ $item->first_name }}</td>
+                                        <td>{{ $item->email }}</td>
                                         <td>
-                                            <a href="{{ url('/administrators/' . $item->id) }}" title="View Administrator"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/administrators/' . $item->id . '/edit') }}" title="Edit Administrator"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('admin/administrators/' . $item->id) }}" title="View Administrator"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('admin/administrators/' . $item->id . '/edit') }}" title="Edit Administrator"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
-                                            <form method="POST" action="{{ url('/administrators' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                            <form method="POST" action="{{ url('admin/users' . '/' . $item->id . '/reset_password') }}" accept-charset="UTF-8" style="display:inline">
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-warning btn-xs" title="Reset Password" onclick="return confirm('Send reset password via email?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Reset Password</button>
+                                            </form>
+
+                                            <form method="POST" action="{{ url('admin/administrators' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete Administrator" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete Administrator" onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             </form>
                                         </td>
                                     </tr>
