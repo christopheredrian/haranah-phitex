@@ -46,9 +46,10 @@
                 {{--<span class="input-group-btn">--}}
                     {{--<button type="button" class="undisable btn btn-danger pull-right">Change Email</button>--}}
                  {{--</span>--}}
-                {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+
 
             </div>
+            {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
         </div>
     @endif
 
