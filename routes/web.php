@@ -32,6 +32,9 @@ Route::get('/buyer_profile/profile', function () {
 Route::get('/buyer_profile/events', function () {
     return view('buyer_profile.events');
 });
+Route::get('/buyer_profile/dashboard', function () {
+    return view('buyer_profile.index');
+});
 
 Route::group(['middleware' => ['auth']], function () {
 

@@ -46,19 +46,39 @@
             </div>
 
             <ul class="nav">
-                <li>
-                    <a href="/buyer_profile">
+                <?php
+                function url_contains($str)
+                {
+                    if (strpos(URL::current(), $str) !== false) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                function is_active($arr){
+                    foreach ($arr as $item){
+                        if (url_contains($item)){
+                            return 'active';
+                        }
+                    }
+                    return '';
+                }
+
+                ?>
+                <li class = {{ is_active(['/dashboard' ]) }}>
+                    <a href="/buyer_profile/dashboard">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="active">
+                <li class = {{ is_active(['/profile' ]) }}>
                     <a href="/buyer_profile/profile">
                         <i class="pe-7s-user"></i>
                         <p>Profile</p>
                     </a>
                 </li>
-                <li>
+                <li class = {{ is_active(['/events' ]) }}>
                     <a href="/buyer_profile/events">
                         <i class="pe-7s-note2"></i>
                         <p>Events</p>
@@ -85,12 +105,6 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-                                <p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-globe"></i>
@@ -118,25 +132,16 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="">
-                                <p>Account</p>
-                            </a>
-                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <p>
-                                    Dropdown
+                                    Account
                                     <b class="caret"></b>
                                 </p>
 
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
+                                <li><a href="/buyer_profile/profile">Edit Profile</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Separated link</a></li>
                             </ul>
