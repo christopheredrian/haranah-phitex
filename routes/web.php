@@ -54,6 +54,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/events', 'Admin\\EventsController');
         // Admin - Event Parameters
         Route::resource('admin/event-params', 'Admin\\EventParamsController');
+        // Admin - Account
+        Route::resource('/account', 'Admin\\AdministratorsController');
         // Mailing
         Route::get('/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
         Route::post('/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
@@ -71,6 +73,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
         Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
 
+    });
+
+    Route::post('/admin/buyers/{user_id}/change_status', function($user_id){
+       $user = \App\User::findOrFail($user_id);
+       $user->activated = ($user->activated > 0 ? 0 : 1);
+       $user->save();
+       return back();
     });
 });
 
