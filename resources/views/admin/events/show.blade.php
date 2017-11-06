@@ -17,6 +17,7 @@
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-danger btn-xs" title="Delete Event" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                         </form>
+                        <a href="{{ url('admin/event-params/create') }}" title="Add Param"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Params </button></a>
                         <br/>
                         <br/>
 

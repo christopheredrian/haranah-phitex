@@ -30,8 +30,10 @@ Route::get('/list', function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+
     // Reports
     Route::get('/reports/{event_id}', 'ReportsController@downloadSchedule');
+    Route::get('/reports/{event_id}/pdf', 'ReportsController@downloadPdf');
 
     // MIDDLEWARE FOR ADMIN
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
@@ -52,6 +54,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Admin - Events
         Route::resource('/events', 'Admin\\EventsController');
+        // Admin - Event Parameters
+        Route::resource('admin/event-params', 'Admin\\EventParamsController');
         // Mailing
         Route::get('/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
         Route::post('/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
@@ -75,3 +79,8 @@ Route::group(['middleware' => ['auth']], function () {
 Auth::routes();
 
 Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
+
+
+
+Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
+Route::resource('admin/event-buyers', 'Admin\\EventBuyersController');
