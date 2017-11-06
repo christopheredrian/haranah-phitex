@@ -20,7 +20,7 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/administrators') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('admin/administrators') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('admin.administrators.form')
