@@ -6,6 +6,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Event;
+use App\Seller;
+use App\User;
+use App\Buyer;
 use Illuminate\Http\Request;
 
 class EventsController extends Controller
@@ -68,6 +71,14 @@ class EventsController extends Controller
     {
         $event = Event::findOrFail($id);
 
+        $sellers = Seller::table('sellers')
+                ->join('users', 'users.id', '=', 'sellers.user_id')
+                ->select('users.*', 'sellers.id as seller_id');
+
+        $buyers = Buyer::table('buyers')
+                ->join('users', 'buyers.user_id', '=', 'users.id')
+                ->select('users.*', 'buyers.id as buyer_id');
+        
         return view('admin.events.show', compact('event'));
     }
 
@@ -81,6 +92,8 @@ class EventsController extends Controller
     public function edit($id)
     {
         $event = Event::findOrFail($id);
+
+
 
         return view('admin.events.edit', compact('event'));
     }
