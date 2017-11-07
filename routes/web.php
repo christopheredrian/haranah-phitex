@@ -12,12 +12,8 @@
 */
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/buyer_profile/profile', function () {
-    return view('buyer_profile.profile');
-});
-
 Route::get('/', function () {
-    return view('public');
+    return view('welcome');
 });
 Route::get('/login', function () {
     return view('welcome');
@@ -29,9 +25,22 @@ Route::get('/list', function () {
     return view('admin.buyers.list');
 });
 
+//BUYER PROFILE
+Route::get('/buyer_profile/profile', function () {
+    return view('buyer_profile.profile');
+});
+Route::get('/buyer_profile/events', function () {
+    return view('buyer_profile.events');
+});
+Route::get('/buyer_profile/dashboard', function () {
+    return view('buyer_profile.index');
+});
+
 Route::group(['middleware' => ['auth']], function () {
+
     // Reports
     Route::get('/reports/{event_id}', 'ReportsController@downloadSchedule');
+    Route::get('/reports/{event_id}/pdf', 'ReportsController@downloadPdf');
 
     // MIDDLEWARE FOR ADMIN
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
@@ -53,8 +62,13 @@ Route::group(['middleware' => ['auth']], function () {
         // Admin - Events
         Route::resource('/events', 'Admin\\EventsController');
         // Admin - Event Parameters
+
         Route::resource('/event-params', 'Admin\\EventParamsController');
         //Route::get('/event-params/{event_id}', 'EventParamsController@create')->name('event-params.create');
+
+        // Admin - Account
+        Route::resource('/account', 'Admin\\AdministratorsController');
+
         // Mailing
         Route::get('/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
         Route::post('/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
@@ -64,22 +78,30 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR BUYER
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
-        Route::get('/buyer/home', 'HomeController@buyerIndex')->name('buyerHome');
+        Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
 
     });
 
     // MIDDLEWARE FOR SELLER
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
-        Route::get('/seller/home', 'HomeController@sellerIndex')->name('sellerHome');
+        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
 
+    });
+
+    Route::post('/admin/buyers/{user_id}/change_status', function($user_id){
+       $user = \App\User::findOrFail($user_id);
+       $user->activated = ($user->activated > 0 ? 0 : 1);
+       $user->save();
+       return back();
     });
 });
 
 Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
-
-
+Route::resource('seller', 'Seller\\SellerController');
 
 Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
 Route::resource('admin/event-buyers', 'Admin\\EventBuyersController');

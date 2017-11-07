@@ -53,14 +53,17 @@
                                             <a href="{{ url('admin/sellers/' . $item->seller_id . '/edit') }}" title="Edit Seller"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             <form method="POST" action="{{ url('admin/users' . '/' . $item->id . '/reset_password') }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-warning btn-xs" title="Reset Password" onclick="return confirm('Send reset password via emai?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Reset Password</button>
+                                                <button type="submit" class="btn btn-warning btn-xs" title="Reset Password" onclick="return confirm('Send reset password via email?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Reset Password</button>
                                             </form>
                                             <form method="POST" action="{{ url('admin/sellers' . '/' . $item->seller_id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-xs" title="Delete Seller" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             </form>
-
+                                            <form method="POST" action="{{ url('admin/buyers' . '/' . $item->id . '/change_status') }}" accept-charset="UTF-8" style="display:inline">
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-info btn-xs" title={{ $item->activated > 0 ? 'Deactivate Buyer' : 'Activate Buyer' }} onclick="return confirm({{ $item->activated > 0 ? 'Deactivate user?' : 'Activate User?' }})"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ $item->activated > 0 ? 'Deactivate' : 'Activate' }}</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
