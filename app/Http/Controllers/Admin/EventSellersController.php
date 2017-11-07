@@ -13,7 +13,7 @@ class EventSellersController extends Controller
     private function getSellerNames()
     {
         $seller_names = [];
-        $sellers = EventSeller::orderBy('name')->get();
+        $sellers = \App\Seller::orderBy('user_id')->get();
         foreach ($sellers as $seller) {
             $seller_names[$seller->id] = $seller->user_id;
         }
@@ -47,7 +47,7 @@ class EventSellersController extends Controller
      */
     public function create()
     {
-        return view('admin.event-sellers.create')->with('fs_names',$this->getBuyerNames());
+        return view('admin.event-sellers.create')->with('fs_names',$this->getSellerNames());
     }
 
     /**

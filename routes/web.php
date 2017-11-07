@@ -53,7 +53,8 @@ Route::group(['middleware' => ['auth']], function () {
         // Admin - Events
         Route::resource('/events', 'Admin\\EventsController');
         // Admin - Event Parameters
-        Route::resource('admin/event-params', 'Admin\\EventParamsController');
+        Route::resource('/event-params', 'Admin\\EventParamsController');
+        //Route::get('/event-params/{event_id}', 'EventParamsController@create')->name('event-params.create');
         // Mailing
         Route::get('/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
         Route::post('/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');

@@ -13,7 +13,7 @@ class EventBuyersController extends Controller
     private function getBuyerNames()
     {
         $buyer_names = [];
-        $buyers = EventBuyer::orderBy('name')->get();
+        $buyers = \App\Buyer::orderBy('user_id')->get();
         foreach ($buyers as $buyer) {
             $buyer_names[$buyer->id] = $buyer->user_id;
         }
