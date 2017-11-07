@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class EventBuyersController extends Controller
 {
+    private function getBuyerNames()
+    {
+        $buyer_names = [];
+        $buyers = EventBuyer::orderBy('name')->get();
+        foreach ($buyers as $buyer) {
+            $buyer_names[$buyer->id] = $buyer->user_id;
+        }
+        return $buyer_names;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +47,7 @@ class EventBuyersController extends Controller
      */
     public function create()
     {
-        return view('admin.event-buyers.create');
+        return view('admin.event-buyers.create')->with('fs_names',$this->getBuyerNames());
     }
 
     /**
