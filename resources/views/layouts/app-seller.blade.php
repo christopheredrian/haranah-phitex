@@ -31,6 +31,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+          @yield('styles')
 </head>
 
 
@@ -129,6 +130,7 @@
                     </ul>
                 </li>
                 <li><a href="{{ url('/sellers') }}"><i class="fa fa-link"></i> <span>Account</span></a></li>
+                <li><a href="{{ url('/list') }}"><i class="fa fa-link"></i> <span>List</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -242,5 +244,6 @@
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+    @yield('scripts')
 </body>
 </html>

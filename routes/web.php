@@ -22,7 +22,7 @@ Route::get('/register', function () {
     return view('admin.auth.register');
 });
 Route::get('/list', function () {
-    return view('admin.buyers.list');
+    return view('seller.list');
 });
 
 //BUYER PROFILE

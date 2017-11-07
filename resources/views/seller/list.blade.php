@@ -1,4 +1,4 @@
-@extends('layouts.app-admin')
+@extends('layouts.app-seller')
 
 @section('styles')
 <link rel="stylesheet" type="text/css" href="/bower_components/DataTables/datatables.css">
@@ -25,7 +25,6 @@ table#selected-buyer-list tr.placeholder:before {
 <!-- main content -->
 @section('content')
 	<!-- List of All Buyers-->
-	<p> this is the main for the data tables</p>
 	<div class="container">
 		<table id="buyer-list" class="display">
 		    <thead>
