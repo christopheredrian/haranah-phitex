@@ -19,6 +19,10 @@ class EventSellersController extends Controller
         }
         return $seller_names;
     }
+    public function createWithEvent($event_id)
+    {
+        return view('admin.event-sellers.create')->with('event_id',$event_id);
+    }
     /**
      * Display a listing of the resource.
      *
