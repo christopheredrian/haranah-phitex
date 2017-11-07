@@ -10,6 +10,20 @@ use Illuminate\Http\Request;
 
 class EventSellersController extends Controller
 {
+    private function getSellerNames()
+    {
+        $seller_names = [];
+        $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        foreach ($sellers as $seller) {
+            $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');
+            $seller_names[$sellerid] = $seller->last_name.", ".$seller->first_name;
+        }
+        return $seller_names;
+    }
+    public function createWithEvent($event_id)
+    {
+        return view('admin.event-sellers.create')->with('event_id',$event_id)->with('seller_names', $this->getSellerNames());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +52,7 @@ class EventSellersController extends Controller
      */
     public function create()
     {
-        return view('admin.event-sellers.create');
+        return view('admin.event-sellers.create')->with('fs_names',$this->getSellerNames());
     }
 
     /**
