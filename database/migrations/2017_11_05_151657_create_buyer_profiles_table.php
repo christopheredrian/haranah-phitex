@@ -21,7 +21,6 @@ class CreateBuyerProfilesTable extends Migration
             $table->string('post_code');
             $table->string('about_me');
 
-
             $table->foreign('user_id')->references('id')->on('buyers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

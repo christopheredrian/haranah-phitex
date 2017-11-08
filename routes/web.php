@@ -26,14 +26,14 @@ Route::get('/list', function () {
 });
 
 //BUYER PROFILE
-Route::get('/buyer_profile/profile', function () {
-    return view('buyer_profile.profile');
+Route::get('/buyer/buyer_profile/profile', function () {
+    return view('buyer.buyer_profile.profile');
 });
-Route::get('/buyer_profile/events', function () {
-    return view('buyer_profile.events');
+Route::get('/buyer/buyer_profile/events', function () {
+    return view('buyer.buyer_profile.events');
 });
-Route::get('/buyer_profile/dashboard', function () {
-    return view('buyer_profile.index');
+Route::get('/buyer/buyer_profile/dashboard', function () {
+    return view('buyer.buyer_profile.index');
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -109,6 +109,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
         Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
 
+        // NOT TESTED
+        Route::resource('seller', 'Seller\\SellerController');
     });
 
     Route::post('/admin/buyers/{user_id}/change_status', function($user_id){
@@ -122,7 +124,7 @@ Route::group(['middleware' => ['auth']], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('seller', 'Seller\\SellerController');
+
 
 
 
