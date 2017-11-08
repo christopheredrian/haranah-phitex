@@ -37,7 +37,7 @@ table#selected-buyer-list tr.placeholder:before {
 		    <tbody>
 		    	@foreach ($buyers as $item)
 		    		<tr>
-		    			<td> {{ $item->first_name }}</td>
+		    			<td> {{ $item->last_name.", ".$item->first_name }}</td>
 		    			<td> {{ $item->country }}</td>
 
 		        	<td>

@@ -21,7 +21,17 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('admin.auth.register');
 });
-//Route::get('/list', function () {    return view('seller.list'); });
+
+//Seller
+Route::get('/seller/index', function () {
+    return view('seller.index');
+});
+Route::get('/seller/event', function () {
+    return view('seller.event');
+});
+Route::get('/list', function () {
+    return view('seller.list');
+});
 
 Route::group(['middleware' => ['auth']], function () {
 

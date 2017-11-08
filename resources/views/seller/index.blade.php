@@ -1,101 +1,192 @@
 @extends('layouts.app-seller')
 
 @section('content')
-    <div class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-info">
-                    <div class="box-header">Dashboard</div>
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="box box-solid">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Event #1 </h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <img src="http://www.researchassociatesinc.com/RAI/media/RAIMedia/bizinvestigations.jpg" style="width: 100%; height: 300px; padding-bottom: 10px">
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-md-4">
-                                <div class="box box-solid with-border box-hover">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Event #2</h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <img src="http://www.researchassociatesinc.com/RAI/media/RAIMedia/bizinvestigations.jpg" style="width: 100%; height: 300px; padding-bottom: 10px">
+<img src="http://www.researchassociatesinc.com/RAI/media/RAIMedia/bizinvestigations.jpg" style="width: 100%; max-height: 250px; padding-bottom: 10px">
 
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-md-4">
-                                <div class="box box-solid">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Event #3</h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <img src="http://www.researchassociatesinc.com/RAI/media/RAIMedia/bizinvestigations.jpg" style="width: 100%; height: 300px; padding-bottom: 10px">
-
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                            </div>
-                            <div class="col-md-4">
-                                <div class="box box-solid">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Event #4 </h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <img src="http://www.researchassociatesinc.com/RAI/media/RAIMedia/bizinvestigations.jpg" style="width: 100%; height: 300px; padding-bottom: 10px">
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                            </div>
-                            <div class="col-md-4">
-                                <div class="box box-solid">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Event #5 </h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <img src="http://www.researchassociatesinc.com/RAI/media/RAIMedia/bizinvestigations.jpg" style="width: 100%; height: 300px; padding-bottom: 10px">
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                            </div>
-                            <div class="col-md-4">
-                                <div class="box box-solid">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Event #6 </h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <img src="http://www.researchassociatesinc.com/RAI/media/RAIMedia/bizinvestigations.jpg" style="width: 100%; height: 300px; padding-bottom: 10px">
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                            </div>
-                            <!-- ./col -->
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-header">Event Name</div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p> Description of Event</p>
+                            <p> Event Place</p>
+                            <p> Date of Event</p>
                         </div>
-                        <!-- /.row -->
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">List of interested buyers</h3>
+
+                    <div class="box-tools pull-right">
+                        <div class="has-feedback">
+                            <input type="text" class="form-control input-sm" placeholder="Search">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <div class="mailbox-controls">
+                                <!-- Check all button -->
+                                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                                </button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                                <div class="pull-right">
+                                    1-50/200
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                    </div>
+                                    <!-- /.btn-group -->
+                                </div>
+                                <!-- /.pull-right -->
+                            </div>
+
+                            <div class="table-responsive mailbox-messages">
+                                <table class="table table-hover table-striped">
+                                    <tbody>
+                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
+                                        <td><input type="checkbox"></td>
+                                        <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                                        <td class="mailbox-subject"><b>Email</b>
+                                        </td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-date">5 mins ago</td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
+                                        <td><input type="checkbox"></td>
+                                        <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                                        <td class="mailbox-subject"><b>Email</b>
+                                        </td>
+                                        <td class="mailbox-attachment">
+                                        <td class="mailbox-attachment">
+                                        <td class="mailbox-date">1 hour ago</td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
+                                        <td><input type="checkbox"></td>
+                                        <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                                        <td class="mailbox-subject"><b>Email</b>
+                                        </td>
+                                        <td class="mailbox-attachment">
+                                        <td class="mailbox-attachment">
+                                        <td class="mailbox-date">11 hours ago</td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
+                                        <td><input type="checkbox"></td>
+                                        <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                                        <td class="mailbox-subject"><b>Email</b>
+                                        </td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-date">15 hours ago</td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <!-- /.table -->
+                            </div>
+                            <!-- /.mail-box-messages -->
+                        </div>
+
+                        <div class="modal fade" id="modal-default">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Buyer Profile</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Get Information about the buyer</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success">Add to List</button>
+                                        <button type="button" class="btn btn-danger">Remove</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                <!-- /.modal -->
+                <!-- /.box-body -->--}}
+                <div class="box-footer no-padding">
+                    <div class="mailbox-controls">
+                        <!-- Check all button -->
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                        </div>
+                        <!-- /.btn-group -->
+                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                        <div class="pull-right">
+                            1-50/200
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                        </div>
+                        <!-- /.pull-right -->
+                    </div>
+                </div>
+            </div>
+            <!-- /. box -->
+        </div>
+        <!-- /.col -->
     </div>
+</div>
 @endsection
