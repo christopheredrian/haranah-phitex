@@ -36,7 +36,7 @@ class LoginController extends Controller
         if(Auth::user()->hasRole("admin") or Auth::user()->hasRole("superadmin")){
             return '/admin/home';
         } else if(Auth::user()->hasRole("buyer")){
-            return '/buyer/buyer_profile/dashboard';
+            return '/buyer/home';
         } else {
             return '/seller/home';
         }

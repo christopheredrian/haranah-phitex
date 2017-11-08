@@ -22,17 +22,6 @@ Route::get('/register', function () {
     return view('admin.auth.register');
 });
 
-//BUYER PROFILE
-Route::get('/buyer/buyer_profile/profile', function () {
-    return view('buyer.buyer_profile.profile');
-});
-Route::get('/buyer/buyer_profile/events', function () {
-    return view('buyer.buyer_profile.events');
-});
-Route::get('/buyer/buyer_profile/dashboard', function () {
-    return view('buyer.buyer_profile.index');
-});
-
 //Seller
 Route::get('/seller/index', function () {
     return view('seller.index');
@@ -102,14 +91,24 @@ Route::group(['middleware' => ['auth']], function () {
     // MIDDLEWARE FOR BUYER
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
         Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
-        Route::get('/profile', 'Buyer\\Buyer_ProfileController@index');
+//        Route::get('/profile', 'Buyer\\BuyerProfilesController@index');
 
         // TEMPORARY!!!
         Route::get('/dashboard', function(){
-            dd("Dashboard");
+//            dd("Dashboard");
+            return view('buyer.index');
         });
         Route::get('/events', function(){
-            dd("Events");
+//            dd("Events");
+            return view('buyer.events');
+        });
+        Route::get('/profile', function(){
+//            dd("Events");
+            return view('buyer.show');
+        });
+        Route::get('/edit', function(){
+//            dd("Events");
+            return view('buyer.edit');
         });
     });
 
@@ -137,10 +136,4 @@ Route::group(['middleware' => ['auth']], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-
-
-
 Route::resource('admin/seller-preferences', 'Admin\\SellerPreferencesController');
