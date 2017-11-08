@@ -10,10 +10,11 @@ use Illuminate\Http\Request;
 
 class EventSellersController extends Controller
 {
-    private function getSellerNames()
+    private function getSellerNames($event_id)
     {
         $seller_names = [];
         $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        //whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id))
         foreach ($sellers as $seller) {
             $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');
             $seller_names[$sellerid] = $seller->last_name.", ".$seller->first_name;
@@ -22,7 +23,7 @@ class EventSellersController extends Controller
     }
     public function createWithEvent($event_id)
     {
-        return view('admin.event-sellers.create')->with('event_id',$event_id)->with('seller_names', $this->getSellerNames());
+        return view('admin.event-sellers.create')->with('event_id',$event_id)->with('seller_names', $this->getSellerNames($event_id));
     }
     /**
      * Display a listing of the resource.
@@ -69,7 +70,7 @@ class EventSellersController extends Controller
         
         EventSeller::create($requestData);
 
-        return redirect('admin/event-sellers')->with('flash_message', 'EventSeller added!');
+        return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventSeller added!');
     }
 
     /**

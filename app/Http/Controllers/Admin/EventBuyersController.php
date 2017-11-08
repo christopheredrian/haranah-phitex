@@ -70,7 +70,7 @@ class EventBuyersController extends Controller
         
         EventBuyer::create($requestData);
 
-        return redirect('admin/event-buyers')->with('flash_message', 'EventBuyer added!');
+        return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventBuyer added!');
     }
 
     /**

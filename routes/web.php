@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
         ]);
 
         //Admin - Event Sellers
-        Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
+        Route::resource('/event-sellers', 'Admin\\EventSellersController');
         Route::get('/event-sellers/create/{event_id}', [
             'as' => 'create.event.sellers',
             'uses' => 'Admin\\EventSellersController@createWithEvent'

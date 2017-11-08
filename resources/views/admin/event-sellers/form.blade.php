@@ -7,7 +7,7 @@
 </div><div class="form-group {{ $errors->has('seller_id') ? 'has-error' : ''}}">
     <label for="seller_id" class="col-md-4 control-label">{{ 'Seller Id' }}</label>
     <div class="col-md-6">
-        <select name="buyer_id" id="buyer_id" class="form-control">
+        <select name="seller_id" id="seller_id" class="form-control">
             @foreach($seller_names as $seller_name)
                 <option value="{{array_search ($seller_name, $seller_names)}}">{{$seller_name}}</option>
             @endforeach
