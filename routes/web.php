@@ -21,9 +21,7 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('admin.auth.register');
 });
-Route::get('/list', function () {
-    return view('seller.list');
-});
+//Route::get('/list', function () {    return view('seller.list'); });
 
 //BUYER PROFILE
 Route::get('/buyer/buyer_profile/profile', function () {
@@ -111,6 +109,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         // NOT TESTED
         Route::resource('seller', 'Seller\\SellerController');
+
+        Route::get('/seller/list/{id}', [
+            'as' => 'list.buyer',
+            'uses' => 'Seller\\SellerController@showList'
+        ]);
     });
 
     Route::post('/admin/buyers/{user_id}/change_status', function($user_id){
@@ -129,3 +132,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
+
+Route::resource('admin/seller-preferences', 'Admin\\SellerPreferencesController');

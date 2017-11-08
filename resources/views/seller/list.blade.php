@@ -35,31 +35,17 @@ table#selected-buyer-list tr.placeholder:before {
 		        </tr>
 		    </thead>
 		    <tbody>
-		        <tr>
-	                <td>Mikoto Kusaki</td>
-	                <td>Japan</td>
+		    	@foreach ($buyers as $item)
+		    		<tr>
+		    			<td> {{ $item->first_name }}</td>
+		    			<td> {{ "Phillpines" }}</td>
+
 		        	<td>
 		        		<button type="button" class="btn btn-md btn-primary">View Profile</button>
 		        		<button type="button" class="btn btn-md btn-success">Add to List</button>
 		        	</td>
-		        </tr>
-		        <tr>
-                  <td>Juan Dela Cruz</td>
-                  <td>Philippines</td>
-                  <td>
-		        		<button type="button" class="btn btn-md btn-primary">View Profile</button>
-		        		<button type="button" class="btn btn-md btn-success">Add to List</button>
-		        	</td>
-                </tr>
-                <tr>
-                  <td>Jane Doe</td>
-                  <td>USA</td>
-                  <td>
-		        		<button type="button" class="btn btn-md btn-primary">View Profile</button>
-		        		<button type="button" class="btn btn-md btn-success">Add to List</button>
-		        	</td>
-                </tr>
-
+		    		</tr>
+		    	@endforeach
 		    </tbody>
 		</table>
 		<a href="javascript:showonlyone(selected-buyers)"><button class="btn btn-warning" >Done</button></a>

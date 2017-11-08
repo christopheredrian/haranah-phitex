@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Seller;
 
 use Illuminate\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 use App\Seller;
 use App\User;
+use App\Buyer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
@@ -25,5 +26,12 @@ class SellerController extends Controller
         }
 
         return view('sellers.index', compact('seller'));
+    }
+
+    public function showList() 
+    {
+      $buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*')->get(); 
+        return view('seller.list')->with('buyers', $buyers);
+       // return view('seller.list');
     }
 }

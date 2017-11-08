@@ -130,7 +130,7 @@
                     </ul>
                 </li>
                 <li><a href="{{ url('/sellers') }}"><i class="fa fa-link"></i> <span>Account</span></a></li>
-                <li><a href="{{ url('/list') }}"><i class="fa fa-link"></i> <span>List</span></a></li>
+                <li><a href="{{ route('list.buyer', 1) }}"><i class="fa fa-link"></i> <span>List</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>

@@ -48,7 +48,11 @@
 
                                     <!-- LOOP content -->
                                 <div class="modal-body">
-                                   
+                                   <ol>
+                                    @foreach($eventsellers as $item)
+                                    <li> {{$item->last_name. ", " .$item->first_name}}</li>   
+                                    @endforeach 
+                                </ol>
                                 </div>
 
                                 <div class="modal-footer">
@@ -68,8 +72,7 @@
                                 <div class="modal-body">
                                  <ol>
                                     @foreach($eventbuyers as $item)
-                                    <p> true </p>
-                                    <li> {{$item->first()->last_name}}</li>   
+                                    <li> {{$item->last_name. ", " .$item->first_name}}</li>   
                                     @endforeach 
                                 </ol>
                                 </div>
