@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\Buyer;
 use App\BuyerProfile;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Buyer_Profile;
 use Illuminate\Http\Request;
 use Session;
 
-class Buyer_ProfileController extends Controller
+class BuyerProfilesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +23,12 @@ class Buyer_ProfileController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $buyer_profile = Buyer_Profile::paginate($perPage);
+            $buyer_profile = BuyerProfile::paginate($perPage);
         } else {
-            $buyer_profile = Buyer_Profile::paginate($perPage);
+            $buyer_profile = BuyerProfile::paginate($perPage);
         }
 
-        return view('buyer.buyer_profile.index', compact('buyer.buyer_profile'));
+        return view('buyer.index', compact('buyer'));
     }
 
     /**
@@ -38,7 +38,7 @@ class Buyer_ProfileController extends Controller
      */
     public function create()
     {
-        return view('buyer.buyer_profile.create');
+        return view('buyer.create');
     }
 
     /**
@@ -53,11 +53,11 @@ class Buyer_ProfileController extends Controller
         
         $requestData = $request->all();
 
-        Buyer_Profile::create($requestData);
+        BuyerProfile::create($requestData);
 
-        Session::flash('flash_message', 'buyer.buyer_profile added!');
+        Session::flash('flash_message', 'buyer added!');
 
-        return redirect('buyer.buyer_profile');
+        return redirect('buyer');
     }
 
     /**
@@ -69,9 +69,9 @@ class Buyer_ProfileController extends Controller
      */
     public function show($id)
     {
-        $buyer_profile = Buyer_Profile::findOrFail($id);
+        $buyer_profile = BuyerProfile::findOrFail($id);
 
-        return view('buyer.buyer_profile.show', compact('buyer.buyer_profile'));
+        return view('buyer.show', compact('buyer'));
     }
 
     /**
@@ -83,9 +83,9 @@ class Buyer_ProfileController extends Controller
      */
     public function edit($id)
     {
-        $buyer_profile = Buyer_Profile::findOrFail($id);
+        $buyer_profile = BuyerProfile::findOrFail($id);
 
-        return view('buyer.buyer_profile.edit', compact('buyer.buyer_profile'));
+        return view('buyer.edit', compact('buyer'));
     }
 
     /**
@@ -101,12 +101,12 @@ class Buyer_ProfileController extends Controller
         
         $requestData = $request->all();
         
-        $buyer_profile = Buyer_Profile::findOrFail($id);
+        $buyer_profile = BuyerProfile::findOrFail($id);
         $buyer_profile->update($requestData);
 
-        Session::flash('flash_message', 'buyer.buyer_profile updated!');
+        Session::flash('flash_message', 'buyer updated!');
 
-        return redirect('buyer.buyer_profile');
+        return redirect('buyer');
     }
 
     /**
@@ -118,10 +118,10 @@ class Buyer_ProfileController extends Controller
      */
     public function destroy($id)
     {
-        Buyer_Profile::destroy($id);
+        BuyerProfile::destroy($id);
 
-        Session::flash('flash_message', 'buyer.buyer_profile deleted!');
+        Session::flash('flash_message', 'buyer deleted!');
 
-        return redirect('buyer.buyer_profile');
+        return redirect('buyer');
     }
 }

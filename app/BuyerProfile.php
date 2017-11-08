@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Buyer_Profile extends Model
+class BuyerProfile extends Model
 {
     /**
      * The database table used by the model.

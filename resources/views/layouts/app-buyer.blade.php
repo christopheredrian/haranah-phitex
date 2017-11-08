@@ -82,7 +82,7 @@
                 <ul class="sub-menu collapse" id="prof">
                     <li class="{{ is_active(['/profile' ]) }}"><a href="/buyer/profile"><i class="pe-7s-user"></i><p>View</p></a>
                     </li>
-                    <li class="{{ is_active(['/edit' ]) }}"><a href="/buyer/profile/edit"><i class="pe-7s-user"></i><p>Edit</p></a>
+                    <li class="{{ is_active(['/edit' ]) }}"><a href="/buyer/edit"><i class="pe-7s-user"></i><p>Edit</p></a>
                     </li>
                 </ul>
 
@@ -109,7 +109,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">User</a>
+                    <a class="navbar-brand" href="#">{{ Auth::user()->first_name  }} {{ Auth::user()->last_name }}</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
