@@ -18,6 +18,11 @@ class AdministratorTableSeeder extends Seeder
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
+            [
+                'user_id' => '3',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
         );
         /*$faker = Faker\Factory::create();
         $limit = 150;

@@ -15,43 +15,37 @@ class SellerTableSeeder extends Seeder
         $sellers = array(
             [
                 'user_id' => '4',
-                'phone' => '',
+                'phone' => '9444444444',
                 'country' => 'Philippines',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
             [
                 'user_id' => '6',
-                'phone' => '',
+                'phone' => '9666666666',
                 'country' => 'Philippines',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
             [
                 'user_id' => '8',
-                'phone' => '',
+                'phone' => '9888888888',
                 'country' => 'Philippines',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
-            [
-                'user_id' => '10',
-                'phone' => '',
-                'country' => 'Philippines',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-       /* $faker = Faker\Factory::create();
-        $limit = 10;
+       );
+        Seller::insert($sellers);
+        $faker = Faker\Factory::create();
+        $limit = 50;
         for ($i = 0; $i < $limit; $i++) {
             DB::table('sellers')->insert([ //,
-                'user_id' => $faker->unique()->numberBetween(0, 15),
+                'user_id' => $faker->unique()->numberBetween(10, 160),
                 'phone' => $faker->numberBetween(900000000,9999999999),
+                'country' => $faker->country,
                 'created_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'updated_at' => $faker->date($format = 'Y-m-d', $max = 'now')
             ]);
-        }*/
-       );
-        Seller::insert($sellers);
+        }
     }
 }

@@ -12,7 +12,7 @@ class EventTableSeeder extends Seeder
      */
     public function run()
     {
-        $events = array (
+        /*$events = array (
            [
              'event_name' => 'Auction',
              'event_place' => 'Manila',
@@ -48,21 +48,20 @@ class EventTableSeeder extends Seeder
                 'event_status' => 'Activated',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
-            ],
-
-        );
-        /*$faker = Faker\Factory::create();
+            ],*/
+        $faker = Faker\Factory::create();
         $limit = 150;
         for ($i = 0; $i < $limit; $i++) {
             DB::table('events')->insert([ //,
                 'event_name' => $faker->randomElement(['Tour Package', 'Auction', 'Discountable Packages']),
                 'event_place' => $faker->randomElement(['BAGUIO', 'TUBA', 'MANILA']),
                 'event_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'event_status' => $faker->randomElement(['Registration Open', 'Registration Closed']),
                 'event_description' => $faker->text($maxNbChars = 500),
                 'created_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'updated_at' => $faker->date($format = 'Y-m-d', $max = 'now')
             ]);
-        }*/
-        Event::insert($events);
+        }
+//        Event::insert($events);
     }
 }

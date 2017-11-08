@@ -1,6 +1,8 @@
 <?php
 
+use App\Buyer_Profile;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BuyerProfileTableSeeder extends Seeder
 {
@@ -11,7 +13,21 @@ class BuyerProfileTableSeeder extends Seeder
      */
     public function run()
     {
-        $buyer_profiles = array(
+        $faker = Faker\Factory::create();
+        $limit = 50;
+        for ($i = 0; $i < $limit; $i++) {
+            DB::table('buyer_profiles')->insert([ //,
+                'user_id' => $faker->unique()->numberBetween(1, 100),
+                'address' => $faker->address,
+                'city' => $faker->city,
+                'country' => $faker->country,
+                'post_code' => $faker->postcode,
+                'about_me' => $faker->text($maxNbChars = 300),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ]);
+        }
+        /*$buyer_profiles = array(
             [
                 'user_id' => '3',
                 'address' => '#1233 Caranglaan District',
@@ -23,5 +39,6 @@ class BuyerProfileTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now()
             ]
         );
+        Buyer_Profile::insert($buyer_profiles);*/
     }
 }

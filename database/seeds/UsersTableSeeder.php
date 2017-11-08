@@ -38,8 +38,8 @@ class UsersTableSeeder extends Seeder
                 'first_name' => 'Anne',
                 'last_name' => 'Zheng',
                 'email' => 'annezheng@haranah.com',
-                'password' => bcrypt('buyer'),
-                'role' => ('buyer'),
+                'password' => bcrypt('admin'),
+                'role' => ('admin'),
                 'activated' => 1,
                 'created_at' => \Carbon\Carbon::now()
             ],
@@ -103,18 +103,20 @@ class UsersTableSeeder extends Seeder
                 'activated' => 1,
                 'created_at' => \Carbon\Carbon::now()
             ],
-            [
-                'id' => 10,
-                'first_name' => 'Joshua',
-                'last_name' => 'Eslao',
-                'email' => 'josheslao@haranah.com',
-                'password' => bcrypt('seller'),
-                'role' => ('seller'),
+        );
+        User::insert($users);
+        $faker = Faker\Factory::create();
+        $limit = 150;
+        for ($i = 0; $i < $limit; $i++) {
+            DB::table('users')->insert([ //,
+                'first_name' => $faker->firstName(),
+                'last_name' => $faker->lastName,
+                'email' => $faker->email,
+                'password' => bcrypt('random'),
+                'role' => $faker->randomElement(['buyer', 'seller']),
                 'activated' => 1,
                 'created_at' => \Carbon\Carbon::now()
-            ],
-        );
-
-        User::insert($users);
+            ]);
+        }
     }
 }

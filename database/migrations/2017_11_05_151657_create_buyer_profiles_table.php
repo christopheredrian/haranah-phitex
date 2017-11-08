@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateBuyerProfilesTable extends Migration
@@ -19,8 +20,7 @@ class CreateBuyerProfilesTable extends Migration
             $table->string('city');
             $table->string('country');
             $table->string('post_code');
-            $table->string('about_me');
-
+            $table->text('about_me');
             $table->foreign('user_id')->references('id')->on('buyers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

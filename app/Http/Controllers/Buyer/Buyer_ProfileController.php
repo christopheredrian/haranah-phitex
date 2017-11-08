@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers\Buyer;
 
-use App\BuyerProfile;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
 use App\Buyer_Profile;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 
