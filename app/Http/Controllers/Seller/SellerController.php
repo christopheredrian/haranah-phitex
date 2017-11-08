@@ -24,6 +24,6 @@ class SellerController extends Controller
             $seller = seller::paginate($perPage);
         }
 
-        return view('sellers.index', compact('seller'));
+        return view('seller.index', compact('seller'));
     }
 }
