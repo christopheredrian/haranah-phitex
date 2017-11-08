@@ -25,81 +25,97 @@ table#selected-buyer-list tr.placeholder:before {
 <!-- main content -->
 @section('content')
 	<!-- List of All Buyers-->
-	<div class="container">
-		<table id="buyer-list" class="display">
-		    <thead>
-		        <tr>
-		            <th>Buyer Name</th>
-		            <th>Country</th>
-		            <th>Action</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-		    	@foreach ($buyers as $item)
-		    		<tr>
-		    			<td> {{ $item->last_name.", ".$item->first_name }}</td>
-		    			<td> {{ $item->country }}</td>
+	<div class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box box-info">
+					<div class="box-header">List</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<table id="buyer-list" class="display">
+									<thead>
+										<tr>
+											<th>Buyer Name</th>
+											<th>Country</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach ($buyers as $item)
+											<tr>
+												<td> {{ $item->last_name.", ".$item->first_name }}</td>
+												<td> {{ $item->country }}</td>
 
-		        	<td>
-		        		<button type="button" class="btn btn-md btn-primary">View Profile</button>
-		        		<button type="button" class="btn btn-md btn-success">Add to List</button>
-		        	</td>
-		    		</tr>
-		    	@endforeach
-		    </tbody>
-		</table>
-		<a href="javascript:showonlyone(selected-buyers)"><button class="btn btn-warning" >Done</button></a>
-	</div>
+											<td>
+												<button type="button" class="btn btn-md btn-primary">View Profile</button>
+												<button type="button" class="btn btn-md btn-success">Add to List</button>
+											</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+								<a href="javascript:showonlyone(selected-buyers)"><button class="btn btn-warning" >Done</button></a>
+							</div>
+						</div>
+					</div>
+				</div>
 
-
-	<!-- Second Table Selected Buyer List-->
-	<div class="container" id="selected-buyers">	
-	<p> this will show the list of selected buyers</p> 
-		<table id="selected-buyer-list" class="display">
-		    <thead>
-		        <tr>
-		            <th>Buyer Name</th>
-		            <th>Country</th>
-		            <th>Action</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-		        <tr>
-                  <td>Yuso Antenov</td>
-                  <td>Russia</td>
-                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-                </tr>
-                 <tr>
-                  <td>Solara Arceus</td>
-                  <td>Italy</td>
-                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-                </tr>
-                <tr>
-                  <td>Kimhara Cajun</td>
-                  <td>Taiwan</td>
-                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-                </tr>
-                <tr>
-                  <td>Shana Marie</td>
-                  <td>Australia</td>
-                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-                </tr>
-                 <tr>
-                  <td>Louise Branford</td>
-                  <td>England</td>
-                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-                </tr>
-                <tr>
-                  <td>Corell Mard</td>
-                  <td>USA</td>
-                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-                </tr>
-		    </tbody>
-		</table>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Submit List</button>
-
-
-
+				<div class="box box-info">
+					<div class="box-header">List of selected buyers</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-lg-12"><!-- Second Table Selected Buyer List-->
+								<div class="container" id="selected-buyers">
+									<table id="selected-buyer-list" class="display">
+										<thead>
+											<tr>
+												<th>Buyer Name</th>
+												<th>Country</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+											  <td>Yuso Antenov</td>
+											  <td>Russia</td>
+											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
+											</tr>
+											 <tr>
+											  <td>Solara Arceus</td>
+											  <td>Italy</td>
+											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
+											</tr>
+											<tr>
+											  <td>Kimhara Cajun</td>
+											  <td>Taiwan</td>
+											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
+											</tr>
+											<tr>
+											  <td>Shana Marie</td>
+											  <td>Australia</td>
+											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
+											</tr>
+											 <tr>
+											  <td>Louise Branford</td>
+											  <td>England</td>
+											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
+											</tr>
+											<tr>
+											  <td>Corell Mard</td>
+											  <td>USA</td>
+											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
+											</tr>
+										</tbody>
+									</table>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Submit List</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		  <div class="modal fade" id="myModal" role="dialog">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
@@ -117,7 +133,7 @@ table#selected-buyer-list tr.placeholder:before {
 		      
 		    </div>
 		  </div>
-	</div>
+	</div>s
 
 @endsection
 
