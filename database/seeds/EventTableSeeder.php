@@ -17,7 +17,7 @@ class EventTableSeeder extends Seeder
              'event_name' => 'Auction',
              'event_place' => 'Manila',
              'event_date' => Carbon\Carbon::now(),
-             'event_description' => 'Offering never been seen before antiques all over the Philippines. Rare unattainable products are also available!',
+             'event_description' => 'Offering never been seen before antiques all over the Philippines',
              'created_at' => \Carbon\Carbon::now(),
              'updated_at' => \Carbon\Carbon::now()
            ],
@@ -25,7 +25,7 @@ class EventTableSeeder extends Seeder
                 'event_name' => 'XXX Young Adult Convention',
                 'event_place' => 'Baguio City',
                 'event_date' => Carbon\Carbon::now(),
-                'event_description' => 'Convention for young adults to get to know each other disregarding race and profession. Activities are offered to strengthen the bonds of friends you meet along the way.',
+                'event_description' => 'Convention for young adults to get to know each other disregarding race and profession. ',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
@@ -33,7 +33,7 @@ class EventTableSeeder extends Seeder
                 'event_name' => 'Educational Tour for IT Students',
                 'event_place' => 'Manila',
                 'event_date' => Carbon\Carbon::now(),
-                'event_description' => 'An educational tour for IT students to get to know the environment they will be entering upon graduating from their colleges. Different IT companies in Manila will be visited and an educational seminar would also be conducted.',
+                'event_description' => 'An educational tour for IT students to get to know the environment they will be entering upon',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
@@ -41,7 +41,7 @@ class EventTableSeeder extends Seeder
                 'event_name' => 'YYY Arts Convention',
                 'event_place' => 'Manila',
                 'event_date' => Carbon\Carbon::now(),
-                'event_description' => 'Rare artworks, discussions, and professionals gather world wide to this convention to get to know and buy artworks of their preferences. Enthusiasts are also allowed to join.',
+                'event_description' => 'Rare artworks, discussions, and professionals gather world wide to this convention to get ',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],

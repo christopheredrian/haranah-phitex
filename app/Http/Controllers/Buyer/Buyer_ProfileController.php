@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\BuyerProfile;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Buyer_Profile;
-use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
 
@@ -24,9 +23,9 @@ class Buyer_ProfileController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $buyer_profile = buyer_profile::paginate($perPage);
+            $buyer_profile = Buyer_Profile::paginate($perPage);
         } else {
-            $buyer_profile = buyer_profile::paginate($perPage);
+            $buyer_profile = Buyer_Profile::paginate($perPage);
         }
 
         return view('buyer_profile.index', compact('buyer_profile'));
@@ -53,8 +52,8 @@ class Buyer_ProfileController extends Controller
     {
         
         $requestData = $request->all();
-        
-        buyer_profile::create($requestData);
+
+        Buyer_Profile::create($requestData);
 
         Session::flash('flash_message', 'buyer_profile added!');
 
@@ -70,7 +69,7 @@ class Buyer_ProfileController extends Controller
      */
     public function show($id)
     {
-        $buyer_profile = buyer_profile::findOrFail($id);
+        $buyer_profile = Buyer_Profile::findOrFail($id);
 
         return view('buyer_profile.show', compact('buyer_profile'));
     }
@@ -84,7 +83,7 @@ class Buyer_ProfileController extends Controller
      */
     public function edit($id)
     {
-        $buyer_profile = buyer_profile::findOrFail($id);
+        $buyer_profile = Buyer_Profile::findOrFail($id);
 
         return view('buyer_profile.edit', compact('buyer_profile'));
     }
@@ -102,7 +101,7 @@ class Buyer_ProfileController extends Controller
         
         $requestData = $request->all();
         
-        $buyer_profile = buyer_profile::findOrFail($id);
+        $buyer_profile = Buyer_Profile::findOrFail($id);
         $buyer_profile->update($requestData);
 
         Session::flash('flash_message', 'buyer_profile updated!');
@@ -119,7 +118,7 @@ class Buyer_ProfileController extends Controller
      */
     public function destroy($id)
     {
-        buyer_profile::destroy($id);
+        Buyer_Profile::destroy($id);
 
         Session::flash('flash_message', 'buyer_profile deleted!');
 

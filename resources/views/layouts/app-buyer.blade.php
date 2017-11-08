@@ -68,19 +68,19 @@
 
                 ?>
                 <li class = {{ is_active(['/dashboard' ]) }}>
-                    <a href="/buyer_profile/dashboard">
+                    <a href="/buyer/dashboard">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class = {{ is_active(['/profile' ]) }}>
-                    <a href="/buyer_profile/profile">
+                    <a href="/buyer/profile">
                         <i class="pe-7s-user"></i>
                         <p>Profile</p>
                     </a>
                 </li>
                 <li class = {{ is_active(['/events' ]) }}>
-                    <a href="/buyer_profile/events">
+                    <a href="/buyer/events">
                         <i class="pe-7s-note2"></i>
                         <p>Events</p>
                     </a>
@@ -148,9 +148,15 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#">
-                                <p>Log out</p>
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                Logout
                             </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
                         </li>
                         <li class="separator hidden-lg hidden-md"></li>
                     </ul>
