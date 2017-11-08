@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 
 use App\Event;
 use App\Seller;
+use App\EventSeller;
 use App\User;
+use App\EventBuyer;
 use App\Buyer;
 use Illuminate\Http\Request;
 
@@ -71,15 +73,11 @@ class EventsController extends Controller
     {
         $event = Event::findOrFail($id);
 
-        $sellers = Seller::table('sellers')
-                ->join('users', 'users.id', '=', 'sellers.user_id')
-                ->select('users.*', 'sellers.id as seller_id');
-
-        $buyers = Buyer::table('buyers')
-                ->join('users', 'buyers.user_id', '=', 'users.id')
-                ->select('users.*', 'buyers.id as buyer_id');
+        //$eventsellers = User::whereIn('user_id', Seller::whereIn('id',EventSeller::where('event_id' , '=','$id')))->pluck('last_name');
+        //SELECT * FROM `users`  WHERE id IN (SELECT user_id from buyers WHERE id IN (SELECT buyer_id FROM `event_buyers`))
+        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)->pluck('buyer_id'))->pluck('user_id'));
         
-        return view('admin.events.show', compact('event'));
+        return view('admin.events.show', compact('event'))->with('eventbuyers',$eventbuyers);
     }
 
     /**

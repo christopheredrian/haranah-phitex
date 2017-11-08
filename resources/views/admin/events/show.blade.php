@@ -48,7 +48,7 @@
 
                                     <!-- LOOP content -->
                                 <div class="modal-body">
-                                  <p>Lorem Ipsum...</p>
+                                   
                                 </div>
 
                                 <div class="modal-footer">
@@ -66,8 +66,12 @@
                                   <h4 class="modal-title">BUYER</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- LOOP content -->
-                                  <p>Lorem Ipsum...</p>
+                                 <ol>
+                                    @foreach($eventbuyers as $item)
+                                    <p> true </p>
+                                    <li> {{$item->first()->last_name}}</li>   
+                                    @endforeach 
+                                </ol>
                                 </div>
                                 
                                 <div class="modal-footer">
