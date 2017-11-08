@@ -25,7 +25,7 @@ class Buyer_Profile extends Model
      *
      * @var array
      */
-    protected $fillable = [''];
+    protected $fillable = ['user_id'];
 
     
 }

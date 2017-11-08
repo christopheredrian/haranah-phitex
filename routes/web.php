@@ -26,14 +26,14 @@ Route::get('/list', function () {
 });
 
 //BUYER PROFILE
-Route::get('/buyer_profile/profile', function () {
-    return view('buyer_profile.profile');
+Route::get('/buyer/buyer_profile/profile', function () {
+    return view('buyer.buyer_profile.profile');
 });
-Route::get('/buyer_profile/events', function () {
-    return view('buyer_profile.events');
+Route::get('/buyer/buyer_profile/events', function () {
+    return view('buyer.buyer_profile.events');
 });
-Route::get('/buyer_profile/dashboard', function () {
-    return view('buyer_profile.index');
+Route::get('/buyer/buyer_profile/dashboard', function () {
+    return view('buyer.buyer_profile.index');
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -96,7 +96,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('buyer_profile', 'Buyer\\Buyer_ProfileController');
+Route::resource('buyer/buyer_profile', 'Buyer\\Buyer_ProfileController');
 Route::resource('seller', 'Seller\\SellerController');
 
 Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
