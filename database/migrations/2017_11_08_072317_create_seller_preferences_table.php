@@ -14,14 +14,14 @@ class CreateSellerPreferencesTable extends Migration
     {
         Schema::create('seller_preferences', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('event_id')->nullable();
-            $table->integer('buyer_id')->nullable();
-            $table->integer('seller_id')->nullable();
+            $table->integer('event_id')->unsigned()->nullable();
+            $table->integer('buyer_id')->unsigned()->nullable();
+            $table->integer('seller_id')->unsigned()->nullable();
             $table->integer('rank')->nullable();
             $table->integer('priority')->nullable();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('buyer_id')->references('id')->on('buyers')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('seller_id')->references('id')->on('seller')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
