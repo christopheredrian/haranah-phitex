@@ -16,24 +16,28 @@ class SellerTableSeeder extends Seeder
             [
                 'user_id' => '4',
                 'phone' => '',
+                'country' => 'Philippines',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
             [
                 'user_id' => '6',
                 'phone' => '',
+                'country' => 'Philippines',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
             [
                 'user_id' => '8',
                 'phone' => '',
+                'country' => 'Philippines',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
             [
                 'user_id' => '10',
                 'phone' => '',
+                'country' => 'Philippines',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],

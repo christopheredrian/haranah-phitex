@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Seller;
 use App\User;
+use App\Buyer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
@@ -177,4 +178,6 @@ class SellersController extends Controller
 
         return redirect('admin/sellers');
     }
+
+
 }

@@ -5,15 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Event;
-use App\Seller;
-use App\EventSeller;
-use App\User;
-use App\EventBuyer;
-use App\Buyer;
+use App\SellerPreference;
 use Illuminate\Http\Request;
 
-class EventsController extends Controller
+class SellerPreferencesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,13 +21,17 @@ class EventsController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $events = Event::where('event_name', 'LIKE', "%$keyword%")->orWhere('event_place', 'LIKE', "%$keyword%")->orWhere('event_date', 'LIKE', "%$keyword%")
+            $sellerpreferences = SellerPreference::where('event_id', 'LIKE', "%$keyword%")
+                ->orWhere('buyer_id', 'LIKE', "%$keyword%")
+                ->orWhere('seller_id', 'LIKE', "%$keyword%")
+                ->orWhere('rank', 'LIKE', "%$keyword%")
+                ->orWhere('priority', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
-            $events = Event::paginate($perPage);
+            $sellerpreferences = SellerPreference::paginate($perPage);
         }
 
-        return view('admin.events.index', compact('events'));
+        return view('admin.seller-preferences.index', compact('sellerpreferences'));
     }
 
     /**
@@ -42,7 +41,7 @@ class EventsController extends Controller
      */
     public function create()
     {
-        return view('admin.events.create');
+        return view('admin.seller-preferences.create');
     }
 
     /**
@@ -57,9 +56,9 @@ class EventsController extends Controller
         
         $requestData = $request->all();
         
-        Event::create($requestData);
+        SellerPreference::create($requestData);
 
-        return redirect('admin/events')->with('flash_message', 'Event added!');
+        return redirect('admin/seller-preferences')->with('flash_message', 'SellerPreference added!');
     }
 
     /**
@@ -71,21 +70,9 @@ class EventsController extends Controller
      */
     public function show($id)
     {
-        $event = Event::findOrFail($id);
+        $sellerpreference = SellerPreference::findOrFail($id);
 
-        //$eventsellers = User::whereIn('user_id', Seller::whereIn('id',EventSeller::where('event_id' , '=','$id')))->pluck('last_name');
-        //SELECT * FROM `users`  WHERE id IN (SELECT user_id from buyers WHERE id IN (SELECT buyer_id FROM `event_buyers`))
-        $eventsellers = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$id)
-                    ->pluck('seller_id'))
-                    ->pluck('user_id'))
-                    ->get();
-
-        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)
-            ->pluck('buyer_id'))
-            ->pluck('user_id'))
-            ->get();
-
-        return view('admin.events.show', compact('event'))->with('eventbuyers',$eventbuyers)->with('eventsellers',$eventsellers);
+        return view('admin.seller-preferences.show', compact('sellerpreference'));
     }
 
     /**
@@ -97,11 +84,9 @@ class EventsController extends Controller
      */
     public function edit($id)
     {
-        $event = Event::findOrFail($id);
+        $sellerpreference = SellerPreference::findOrFail($id);
 
-
-
-        return view('admin.events.edit', compact('event'));
+        return view('admin.seller-preferences.edit', compact('sellerpreference'));
     }
 
     /**
@@ -117,10 +102,10 @@ class EventsController extends Controller
         
         $requestData = $request->all();
         
-        $event = Event::findOrFail($id);
-        $event->update($requestData);
+        $sellerpreference = SellerPreference::findOrFail($id);
+        $sellerpreference->update($requestData);
 
-        return redirect('admin/events')->with('flash_message', 'Event updated!');
+        return redirect('admin/seller-preferences')->with('flash_message', 'SellerPreference updated!');
     }
 
     /**
@@ -132,8 +117,8 @@ class EventsController extends Controller
      */
     public function destroy($id)
     {
-        Event::destroy($id);
+        SellerPreference::destroy($id);
 
-        return redirect('admin/events')->with('flash_message', 'Event deleted!');
+        return redirect('admin/seller-preferences')->with('flash_message', 'SellerPreference deleted!');
     }
 }

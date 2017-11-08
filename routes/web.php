@@ -22,7 +22,6 @@ Route::get('/register', function () {
     return view('admin.auth.register');
 });
 
-
 //BUYER PROFILE
 Route::get('/buyer/buyer_profile/profile', function () {
     return view('buyer.buyer_profile.profile');
@@ -120,6 +119,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         // NOT TESTED
         Route::resource('seller', 'Seller\\SellerController');
+
+        Route::get('/seller/list/{id}', [
+            'as' => 'list.buyer',
+            'uses' => 'Seller\\SellerController@showList'
+        ]);
     });
 
     Route::post('/admin/buyers/{user_id}/change_status', function($user_id){
@@ -138,3 +142,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
+
+Route::resource('admin/seller-preferences', 'Admin\\SellerPreferencesController');
