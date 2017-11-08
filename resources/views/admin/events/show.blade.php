@@ -17,7 +17,13 @@
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-danger btn-xs" title="Delete Event" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                         </form>
+
+                        <a href="#"><button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewSellerModal">Show Sellers</button></a>
+                        <a href="#"><button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewBuyerModal">Show Buyers</button></a>
+                        <br>
                         <a href="{{ url('admin/event-params/create') }}" title="Add Param"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Params </button></a>
+                        <a href="{{ route('create.event.buyers', ['event_id' => $event->id]) }}" title="Add Buyers"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Buyers </button></a>
+                        <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Sellers </button></a>
                         <br/>
                         <br/>
 
@@ -31,6 +37,48 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="modal fade in" id="myViewSellerModal" role="dialog">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">SELLER</h4>
+                                </div>
+
+                                    <!-- LOOP content -->
+                                <div class="modal-body">
+                                  <p>Lorem Ipsum...</p>
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Accept</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                        <div class="modal fade in" id="myViewBuyerModal" role="dialog">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">BUYER</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- LOOP content -->
+                                  <p>Lorem Ipsum...</p>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Accept</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+          </div>
 
                     </div>
                 </div>

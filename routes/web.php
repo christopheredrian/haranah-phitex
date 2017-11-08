@@ -22,7 +22,7 @@ Route::get('/register', function () {
     return view('admin.auth.register');
 });
 Route::get('/list', function () {
-    return view('admin.buyers.list');
+    return view('seller.list');
 });
 
 //BUYER PROFILE
@@ -56,15 +56,34 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Admin - Buyers
         Route::resource('/buyers', 'Admin\\BuyersController');
+
         // Admin - Sellers
         Route::resource('/sellers', 'Admin\\SellersController');
 
         // Admin - Events
         Route::resource('/events', 'Admin\\EventsController');
         // Admin - Event Parameters
-        Route::resource('admin/event-params', 'Admin\\EventParamsController');
+        Route::resource('/event-params', 'Admin\\EventParamsController');
+        //Route::get('/event-params/{event_id}', 'EventParamsController@create')->name('event-params.create');
+
+        //Admin - Event Buyers
+        Route::resource('/event-buyers', 'Admin\\EventBuyersController');
+        Route::get('/event-buyers/create/{event_id}', [
+            'as' => 'create.event.buyers',
+            'uses' => 'Admin\\EventBuyersController@createWithEvent'
+        ]);
+
+        //Admin - Event Sellers
+        Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
+        Route::get('/event-sellers/create/{event_id}', [
+            'as' => 'create.event.sellers',
+            'uses' => 'Admin\\EventSellersController@createWithEvent'
+        ]);
+
         // Admin - Account
         Route::resource('/account', 'Admin\\AdministratorsController');
+
+
         // Mailing
         Route::get('/event/{event_id}/mail', 'Admin\\MailController@mailParticipants');
         Route::post('/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
@@ -99,5 +118,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('buyer/buyer_profile', 'Buyer\\Buyer_ProfileController');
 Route::resource('seller', 'Seller\\SellerController');
 
-Route::resource('admin/event-sellers', 'Admin\\EventSellersController');
-Route::resource('admin/event-buyers', 'Admin\\EventBuyersController');
+
+
+
