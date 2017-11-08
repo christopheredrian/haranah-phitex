@@ -1,4 +1,4 @@
-@extends('layouts.app-admin')
+@extends('layouts.app-seller')
 
 @section('styles')
 <link rel="stylesheet" type="text/css" href="/bower_components/DataTables/datatables.css">
@@ -15,13 +15,9 @@ body.dragging, body.dragging * {
 
 table#selected-buyer-list tr.placeholder {
   position: relative;
-  /** More li styles **/
 }
 table#selected-buyer-list tr.placeholder:before {
   position: absolute;
-  border-top: 60px solid transparent;
-  border-bottom: 60px solid transparent;  
-  border-left: 60px solid green;
 }
 </style>
 @endsection
@@ -29,7 +25,6 @@ table#selected-buyer-list tr.placeholder:before {
 <!-- main content -->
 @section('content')
 	<!-- List of All Buyers-->
-	<p> this is the main for the data tables</p>
 	<div class="container">
 		<table id="buyer-list" class="display">
 		    <thead>
@@ -44,24 +39,24 @@ table#selected-buyer-list tr.placeholder:before {
 	                <td>Mikoto Kusaki</td>
 	                <td>Japan</td>
 		        	<td>
-		        		<button type="button" class="btn btn-block btn-primary">View Profile</button>
-		        		<button type="button" class="btn btn-block btn-success">Add to List</button>
+		        		<button type="button" class="btn btn-md btn-primary">View Profile</button>
+		        		<button type="button" class="btn btn-md btn-success">Add to List</button>
 		        	</td>
 		        </tr>
 		        <tr>
                   <td>Juan Dela Cruz</td>
                   <td>Philippines</td>
                   <td>
-		        		<button type="button" class="btn btn-block btn-primary">View Profile</button>
-		        		<button type="button" class="btn btn-block btn-success">Add to List</button>
+		        		<button type="button" class="btn btn-md btn-primary">View Profile</button>
+		        		<button type="button" class="btn btn-md btn-success">Add to List</button>
 		        	</td>
                 </tr>
                 <tr>
                   <td>Jane Doe</td>
                   <td>USA</td>
                   <td>
-		        		<button type="button" class="btn btn-block btn-primary">View Profile</button>
-		        		<button type="button" class="btn btn-block btn-success">Add to List</button>
+		        		<button type="button" class="btn btn-md btn-primary">View Profile</button>
+		        		<button type="button" class="btn btn-md btn-success">Add to List</button>
 		        	</td>
                 </tr>
 
@@ -86,32 +81,32 @@ table#selected-buyer-list tr.placeholder:before {
 		        <tr>
                   <td>Yuso Antenov</td>
                   <td>Russia</td>
-                  <td><button type="button" class="btn btn-block btn-danger">Remove from list</button></td>
+                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
                 </tr>
                  <tr>
                   <td>Solara Arceus</td>
                   <td>Italy</td>
-                  <td><button type="button" class="btn btn-block btn-danger">Remove from list</button></td>
+                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
                 </tr>
                 <tr>
                   <td>Kimhara Cajun</td>
                   <td>Taiwan</td>
-                  <td><button type="button" class="btn btn-block btn-danger">Remove from list</button></td>
+                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
                 </tr>
                 <tr>
                   <td>Shana Marie</td>
                   <td>Australia</td>
-                  <td><button type="button" class="btn btn-block btn-danger">Remove from list</button></td>
+                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
                 </tr>
                  <tr>
                   <td>Louise Branford</td>
                   <td>England</td>
-                  <td><button type="button" class="btn btn-block btn-danger">Remove from list</button></td>
+                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
                 </tr>
                 <tr>
                   <td>Corell Mard</td>
                   <td>USA</td>
-                  <td><button type="button" class="btn btn-block btn-danger">Remove from list</button></td>
+                  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
                 </tr>
 		    </tbody>
 		</table>
