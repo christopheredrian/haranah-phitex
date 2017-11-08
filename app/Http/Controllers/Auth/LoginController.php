@@ -55,6 +55,10 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
+        if (User::where('email',$request->email)->get()->first() === null){
+            Session::flash('flash_message', 'Invalid Credentials!');
+            return view('auth.login');
+        }
 
         if (User::where('email',$request->email)->get()->first()->activated === 0){
             Session::flash('flash_message', 'You are not activated! Please contact the administrators');
