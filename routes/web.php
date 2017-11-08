@@ -29,6 +29,9 @@ Route::get('/seller/index', function () {
 Route::get('/seller/event', function () {
     return view('seller.event');
 });
+Route::get('/seller/account', function () {
+    return view('seller.account');
+});
 Route::get('/list', function () {
     return view('seller.list');
 });
