@@ -38,7 +38,7 @@ table#selected-buyer-list tr.placeholder:before {
 		    	@foreach ($buyers as $item)
 		    		<tr>
 		    			<td> {{ $item->first_name }}</td>
-		    			<td> {{ "Phillpines" }}</td>
+		    			<td> {{ $item->country }}</td>
 
 		        	<td>
 		        		<button type="button" class="btn btn-md btn-primary">View Profile</button>

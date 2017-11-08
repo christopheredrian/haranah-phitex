@@ -30,7 +30,7 @@ class SellerController extends Controller
 
     public function showList() 
     {
-      $buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*')->get(); 
+      $buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*', 'buyers.country')->get(); 
         return view('seller.list')->with('buyers', $buyers);
        // return view('seller.list');
     }

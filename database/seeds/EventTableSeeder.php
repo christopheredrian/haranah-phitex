@@ -27,7 +27,7 @@ class EventTableSeeder extends Seeder
                 'event_place' => 'Baguio City',
                 'event_date' => Carbon\Carbon::now(),
                 'event_description' => 'Convention for young adults to get to know each other disregarding race and profession. Activities are offered to strengthen the bonds of friends you meet along the way.',
-             'event_status' => 'Activated',
+                'event_status' => 'Activated',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
             ],
