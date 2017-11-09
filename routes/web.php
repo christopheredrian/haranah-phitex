@@ -143,3 +143,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('admin/seller-preferences', 'Admin\\SellerPreferencesController');
+Route::resource('admin/final_-schedules', 'Admin\\Final_SchedulesController');
+Route::resource('admin/final-schedules', 'Admin\\FinalSchedulesController');
