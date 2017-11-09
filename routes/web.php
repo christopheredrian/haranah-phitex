@@ -88,17 +88,8 @@ Route::group(['middleware' => ['auth']], function () {
     // MIDDLEWARE FOR BUYER
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
         Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
-//        Route::get('/profile', 'Buyer\\BuyerProfilesController@index');
 
         // TEMPORARY!!!
-        Route::get('/dashboard', function(){
-//            dd("Dashboard");
-            return view('buyer.index');
-        });
-        Route::get('/events', function(){
-//            dd("Events");
-            return view('buyer.events');
-        });
         Route::get('/profile', function(){
 //            dd("Events");
             return view('buyer.show');
