@@ -31,32 +31,20 @@
                             </button>
                         </form>
 
-                        <a href="#">
-                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewSellerModal">
-                                Show Sellers
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewBuyerModal">
-                                Show Buyers
-                            </button>
-                        </a>
-                        <br>
-                        <a href="{{ url('admin/event-params/create') }}" title="Add Param">
-                            <button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o"
-                                                                      aria-hidden="true"></i> Add Schedule
-                            </button>
-                        </a>
-                        <a href="{{ route('create.event.buyers', ['event_id' => $event->id]) }}" title="Add Buyers">
-                            <button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o"
-                                                                      aria-hidden="true"></i> Add Buyers
-                            </button>
-                        </a>
-                        <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers">
-                            <button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o"
-                                                                      aria-hidden="true"></i> Add Sellers
-                            </button>
-                        </a>
+                        {{--<a href="#">--}}
+                            {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewSellerModal">--}}
+                                {{--Show Sellers--}}
+                            {{--</button>--}}
+                        {{--</a>--}}
+                        {{--<a href="#">--}}
+                            {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewBuyerModal">--}}
+                                {{--Show Buyers--}}
+                            {{--</button>--}}
+                        {{--</a>--}}
+
+
+
+
                         <br/>
                         @if($event->event_status == "Registration Closed")
                             <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration" method="post">
@@ -74,7 +62,9 @@
                                 <button type="submit" class="btn btn-primary">Close Registration</button>
                             </form>
                         @endif
-
+                        <a href="{{ route('show.final.schedule', ['event_id' => $event->id]) }}" title="Edit Event">
+                            <button class="btn btn-primary">Edit Final Schedule</button>
+                        </a>
                         <br/>
                         <br/>
 
@@ -108,14 +98,23 @@
                                 </tbody>
                             </table>
                         </div>
-                        <h2>Schedules</h2>
+                        <h2>Schedules <br/>
+                            <a href="{{ route('create.event.params', ['event_id' => $event->id]) }}" title="Add Param">
+                                <button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o"
+                                                                          aria-hidden="true"></i> Add Schedule
+                                </button>
+                            </a></h2>
                         <ul>
                             @foreach($event->event_params as $s)
                                 <li>{{ $s->start_time }} - {{ $s->end_time }}</li>
                             @endforeach
                         </ul>
                         <div class="table-responsive">
-                            <h2 class="page-header">Sellers</h2>
+                            <h2 class="page-header">Sellers<br/> <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers">
+                                    <button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o"
+                                                                              aria-hidden="true"></i> Add Sellers
+                                    </button>
+                                </a></h2>
                             <table id="sellers-table" class="table table-compresed table-borderless data-table">
                                 <thead>
                                 <tr>
@@ -150,7 +149,13 @@
                         </div>
 
                         <div class="table-responsive">
-                            <h2 class="page-header">Buyers</h2>
+
+                            <h2 class="page-header">Buyers<br/> <a href="{{ route('create.event.buyers', ['event_id' => $event->id]) }}" title="Add Buyers">
+                                    <button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o"
+                                                                              aria-hidden="true"></i> Add Buyers
+                                    </button>
+                                </a>
+                                </h2>
                             <table id="buyers-table" class="table table-compresed table-borderless data-table">
                                 <thead>
                                 <tr>

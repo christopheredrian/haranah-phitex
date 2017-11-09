@@ -1,7 +1,7 @@
 <div class="form-group {{ $errors->has('event_id') ? 'has-error' : ''}}">
     <label for="event_id" class="col-md-4 control-label">{{ 'Event Id' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="event_id" type="number" id="event_id" value="{{ $event_id or $eventbuyer->event_id or ''}}" >
+        <input class="form-control" name="event_id" type="number" id="event_id" value="{{ $event_id or ''}}" >
         {!! $errors->first('event_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('buyer_id') ? 'has-error' : ''}}">
