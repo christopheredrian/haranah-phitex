@@ -49,7 +49,7 @@ table#selected-buyer-list tr.placeholder:before {
 
 											<td>
 												<button type="button" class="btn btn-md btn-primary">View Profile</button>
-												<button type="button" class="btn btn-md btn-success">Add to List</button>
+												<button type="button" class="btn btn-md btn-success" onclick="printList('{{$item->last_name}}','{{$item->first_name}}','{{$item->id}}')">Add to List</button>
 											</td>
 											</tr>
 										@endforeach
@@ -75,37 +75,9 @@ table#selected-buyer-list tr.placeholder:before {
 												<th>Action</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-											  <td>Yuso Antenov</td>
-											  <td>Russia</td>
-											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-											</tr>
-											 <tr>
-											  <td>Solara Arceus</td>
-											  <td>Italy</td>
-											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-											</tr>
-											<tr>
-											  <td>Kimhara Cajun</td>
-											  <td>Taiwan</td>
-											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-											</tr>
-											<tr>
-											  <td>Shana Marie</td>
-											  <td>Australia</td>
-											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-											</tr>
-											 <tr>
-											  <td>Louise Branford</td>
-											  <td>England</td>
-											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-											</tr>
-											<tr>
-											  <td>Corell Mard</td>
-											  <td>USA</td>
-											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-											</tr>
+										<tbody id="preference_table">
+
+
 										</tbody>
 									</table>
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Submit List</button>
@@ -142,6 +114,42 @@ table#selected-buyer-list tr.placeholder:before {
 <script type="text/javascript" charset="utf8" src="/bower_components/DataTables/datatables.js"></script>
 <script type="text/javascript" src="/bower_components/jquery-sortable/jquery-sortable.js"></script>
 <script type="text/javascript">
+    var array = new Array();
+    function printList(a,b,c) {
+        var old_tbody=document.getElementById("preference_table");
+		old_tbody.innerHTML='';
+
+		array.push({last_name:a,first_name:b,id:c});
+        printTable(array);
+
+    }
+
+    function printTable(array) {
+        var table = document.getElementById("preference_table");
+
+        for (var i = 0, len = array.length; i < len; i++) {
+            var row = table.insertRow(0);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML=array[i].last_name+" "+array[i].first_name;
+            cell3.innerHTML='<button type="button" class="btn btn-md btn-danger" onclick="removeFromList('+i+');">Remove from list</button>';
+        }
+    }
+    function removeFromList(i){
+        array.splice(i, 1);
+//        var new_tbody = document.createElement('tbody');
+//        new_tbody.id="preference_table";
+        var old_tbody=document.getElementById("preference_table");
+//        old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
+		old_tbody.innerHTML='';
+        printTable(array);
+
+
+
+
+    }
+
 	$(document).ready(function() {
     $('#buyer-list').DataTable({
     	searching: true,
