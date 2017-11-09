@@ -105,18 +105,18 @@ class UsersTableSeeder extends Seeder
             ],
         );
         User::insert($users);
-        $faker = Faker\Factory::create();
-        $limit = 150;
-        for ($i = 0; $i < $limit; $i++) {
-            DB::table('users')->insert([ //,
-                'first_name' => $faker->firstName(),
-                'last_name' => $faker->lastName,
-                'email' => $faker->email,
-                'password' => bcrypt('random'),
-                'role' => $faker->randomElement(['buyer', 'seller']),
-                'activated' => 1,
-                'created_at' => \Carbon\Carbon::now()
-            ]);
-        }
+//        $faker = Faker\Factory::create();
+//        $limit = 150;
+//        for ($i = 0; $i < $limit; $i++) {
+//            DB::table('users')->insert([ //,
+//                'first_name' => $faker->firstName(),
+//                'last_name' => $faker->lastName,
+//                'email' => $faker->email,
+//                'password' => bcrypt('random'),
+//                'role' => $faker->randomElement(['buyer', 'seller']),
+//                'activated' => 1,
+//                'created_at' => \Carbon\Carbon::now()
+//            ]);
+//        }
     }
 }

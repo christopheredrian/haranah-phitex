@@ -22,6 +22,7 @@ class BuyersController extends Controller
         'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
+        'country' => 'required'
     ];
 
     /**
@@ -95,6 +96,7 @@ class BuyersController extends Controller
 
         $buyer = new Buyer();
         $buyer->phone = $request->phone;
+        $buyer->country = $request->country;
         $buyer->user_id = $user->id;
         $buyer->save();
 

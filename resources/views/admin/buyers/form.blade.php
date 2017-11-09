@@ -51,6 +51,15 @@
     </div>
 </div>
 
+<div class="form-group {{ $errors->has('country') ? 'has-error' : ''}}">
+    <label for="country" class="col-md-4 col-xs-4 control-label">{{ 'Country' }}</label>
+    <div class="col-md-6 col-xs-6">
+        <input class="form-control" type="text" name="country" id="country"
+               value="{{ old('country', isset($buyer) ? $buyer->country : '') }}">
+        {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
         <input class="btn btn-primary" type="submit" value="{{ $submitButtonText or 'Create' }}">

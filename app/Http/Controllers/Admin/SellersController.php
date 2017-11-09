@@ -22,6 +22,7 @@ class SellersController extends Controller
         'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
+        'country' => 'required'
     ];
     /**
      * Display a listing of the resource.
@@ -88,6 +89,8 @@ class SellersController extends Controller
         $user = User::where('email', $email)->first();
 
         $seller = new Seller();
+        $seller->phone = $request->phone;
+        $seller->country = $request->country;
         $seller->user_id = $user->id;
         $seller->save();
 
