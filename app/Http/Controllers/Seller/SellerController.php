@@ -65,10 +65,24 @@ class SellerController extends Controller
     }
     public function submitPreferences(Request $request, $id)
     {
+
         // Jay do the logic here
-        echo "Event id: $id <br>";
-        echo 'The values ($request->values): <br>';
-        print_r($request->values);
-        echo  'Where $request->values contains an array of: (buyer_id-rank)';
+
+//        echo "Event id: $id <br>";
+//        echo 'The values ($request->values): <br>';
+//        print_r($request->values);
+//        echo  'Where $request->values contains an array of: (buyer_id-rank)';
+        foreach($request->values as $item){
+            $seller_preference = \App\SellerPreference::create();
+            $seller_preference->event_id=$id;
+            $pieces = explode("-", $item);
+            $seller_preference->buyer_id=$pieces[0];
+            $seller_preference->rank=$pieces[1];
+            $seller_preference->save();
+        }
+        $seller = Seller::where('user_id', Auth::user()->id)
+            ->first();
+        return view('seller.event')->with('events',$seller->events);;
+
     }
 }
