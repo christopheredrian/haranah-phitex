@@ -35,7 +35,9 @@
             <li {{ is_active(['/administrators', '/buyers', '/sellers' ]) }}><a><i class="fa fa-user">
                     </i> Users <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li class="{{ url_contains('/administrators') ? 'current-page' : '' }}"><a href="/admin/administrators"> <i class="fa fa-user"></i> Administrators</a></li>
+                    @if(\Illuminate\Support\Facades\Auth::user()->role === 'superadmin')
+                        <li class="{{ url_contains('/administrators') ? 'current-page' : '' }}"><a href="/admin/administrators"> <i class="fa fa-user"></i> Administrators</a></li>
+                    @endif
                     <li class="{{ url_contains('/buyers') ? 'current-page' : '' }}"><a href="/admin/buyers"><i class="fa fa-money" aria-hidden="true"></i>Buyers</a></li>
                     <li class="{{ url_contains('/sellers') ? 'current-page' : '' }}"><a href="/admin/sellers"><i class="fa fa-users" aria-hidden="true"></i>Sellers</a></li>
                 </ul>
