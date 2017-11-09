@@ -31,105 +31,96 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-          @yield('styles')
+    @yield('styles')
 </head>
 
 
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-purple layout-top-nav">
 <div class="wrapper">
     <!-- Main Header -->
     <header class="main-header">
-        <!-- Logo -->
-        <a href="#" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Haranah</b></span>
-        </a>
-        <!-- Header Navbar -->
-        <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                <span class="sr-only">Toggle navigation</span>
-            </a>
+        <nav class="navbar navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="{{ url('/seller/index') }}" class="navbar-brand"><b>Haranah</b> Phitex</a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
 
-            <!-- Navbar Right Menu -->
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                    <!-- User Account Menu -->
-
-                    <li class="dropdown user user-menu">
-                        <!-- Menu Toggle Button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <!-- The user image in the navbar-->
-                            <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- The user image in the menu -->
-                            <li class="user-header">
-                                <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                <p>
-                                    {{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }} - {{Auth::user()->role }}
-                                </p>
-                            </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                {{--<a href="{{ route('logout') }}"--}}
-                                {{--onclick="event.preventDefault();--}}
-                                {{--document.getElementById('logout-form').submit();">--}}
-                                {{--Logout--}}
-                                {{--</a>--}}
-                                <div a href="#" class="text-center">
-                                    <a class="btn btn-default btn-lg btn-flat" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                       document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="drop down user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!-- The user image in the navbar-->
+                                <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                <span class="hidden-xs">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- The user image in the menu -->
+                                <li class="user-header">
+                                    <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <p>
+                                        {{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }} - {{Auth::user()->role }}
+                                    </p>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div a href="#" class="pull-left">
+                                        <a class="btn btn-default btn-lg btn-flat" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="/seller/account" class="btn btn-default btn-lg btn-flat">Change Password</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+{{--<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
 
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
 
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>{{ Auth::user()->last_name }}, {{Auth::user()->first_name  }}</p>
-                    {{--<!-- Status -->--}}
-                    {{--<p>{{ Auth::user()->role }} </p>--}}
-                </div>
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
-            <!-- Sidebar Menu -->
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">Navigator</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li class="{{ Request::is('/seller/index*') ? 'active' : '' }}"><a href="{{ url('/seller/index') }}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                <li class="{{ Request::is('/seller/event*') ? 'active' : '' }}"><a href="{{ route('list.events') }}"><i class="fa fa-link"></i> <span>Events</span></a></li>
-                <li class="{{ Request::is('list.buyer*') ? 'active' : '' }}"><a href="{{ route('list.buyer', 1) }}"><i class="fa fa-link"></i> <span>List</span></a></li>
-                <li class="{{ Request::is('list.account*') ? 'active' : '' }}"><a href="{{ url('/seller/account') }}"><i class="fa fa-link"></i> <span>Account</span></a></li>
-            </ul>
-            <!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-    </aside>
+            <div class="pull-left info">
+                <p>{{ Auth::user()->last_name }}, {{Auth::user()->first_name  }}</p>
+                --}}{{--<!-- Status -->--}}{{--
+                --}}{{--<p>{{ Auth::user()->role }} </p>--}}{{--
+            </div>
+        </div>
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">Navigator</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li class="{{ Request::is('/seller/index*') ? 'active' : '' }}"><a href="{{ url('/seller/index') }}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+            <li class="{{ Request::is('/seller/event*') ? 'active' : '' }}"><a href="{{ route('list.events') }}"><i class="fa fa-link"></i> <span>Events</span></a></li>
+            <li class="{{ Request::is('list.buyer*') ? 'active' : '' }}"><a href="{{ route('list.buyer', 1) }}"><i class="fa fa-link"></i> <span>List</span></a></li>
+            <li class="{{ Request::is('list.account*') ? 'active' : '' }}"><a href="{{ url('/seller/account') }}"><i class="fa fa-link"></i> <span>Account</span></a></li>
+        </ul>
+        <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+</aside>--}}
 
-    <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         @yield('content')
     </div>
@@ -158,6 +149,6 @@
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-    @yield('scripts')
+@yield('scripts')
 </body>
 </html>
