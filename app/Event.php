@@ -35,4 +35,9 @@ class Event extends Model
     {
         return $this->belongsToMany('App\Seller','event_sellers');
     }
+    public function event_params()
+    {
+        return $this->hasMany('App\EventParam');
+        return $this->hasMany('App\EventParam');
+    }
 }

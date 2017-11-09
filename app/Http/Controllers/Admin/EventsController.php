@@ -85,7 +85,11 @@ class EventsController extends Controller
             ->pluck('user_id'))
             ->get();
 
-        return view('admin.events.show', compact('event'))->with('eventbuyers',$eventbuyers)->with('eventsellers',$eventsellers);
+        return view('admin.events.show', compact('event'))
+            ->with('eventbuyers',$eventbuyers)
+            ->with('eventsellers',$eventsellers)
+            ->with('buyers', $event->buyers)
+            ->with('sellers', $event->sellers);
     }
 
     /**

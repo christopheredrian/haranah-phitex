@@ -22,6 +22,10 @@
     <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
+
+    {{-- TODO: Non Local --}}
+    <link rel="stylesheet" href="/bower_components/DataTables/datatables.min.css">
+
     <style>
         ul.alert.alert-danger{
             list-style: none;
@@ -159,6 +163,7 @@
 <!-- bootstrap-daterangepicker -->
 <script src="/vendors/moment/min/moment.min.js"></script>
 <script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/bower_components/DataTables/datatables.min.js"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="/build/js/custom.min.js"></script>
@@ -170,6 +175,9 @@
         });
 
         $('ul.nav.side-menu li ul').attr('style', 'display:block;');
+
+        // Datatables
+        $('.data-tables').DataTable();
     });
 </script>
 
