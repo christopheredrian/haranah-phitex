@@ -121,7 +121,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         // NOT TESTED
         Route::resource('seller', 'Seller\\SellerController');
-
+        Route::get('/events', [
+            'as' => 'list.events',
+            'uses' => 'Seller\\SellerController@showEvents'
+        ]);
         Route::get('/seller/list/{id}', [
             'as' => 'list.buyer',
             'uses' => 'Seller\\SellerController@showList'

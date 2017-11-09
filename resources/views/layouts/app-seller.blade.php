@@ -120,9 +120,9 @@
                 <li class="header">Navigator</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="{{ Request::is('/seller/index*') ? 'active' : '' }}"><a href="{{ url('/seller/index') }}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                <li class="{{ Request::is('/seller/event*') ? 'active' : '' }}"><a href="{{ url('/seller/event') }}"><i class="fa fa-link"></i> <span>Events</span></a></li>
+                <li class="{{ Request::is('/seller/event*') ? 'active' : '' }}"><a href="{{ route('list.events') }}"><i class="fa fa-link"></i> <span>Events</span></a></li>
                 <li class="{{ Request::is('list.buyer*') ? 'active' : '' }}"><a href="{{ route('list.buyer', 1) }}"><i class="fa fa-link"></i> <span>List</span></a></li>
-                <li class="{{ Request::is('list.account*') ? 'active' : '' }}><a href="{{ url('/seller/account') }}"><i class="fa fa-link"></i> <span>Account</span></a></li>
+                <li class="{{ Request::is('list.account*') ? 'active' : '' }}"><a href="{{ url('/seller/account') }}"><i class="fa fa-link"></i> <span>Account</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
