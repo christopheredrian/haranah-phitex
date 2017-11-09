@@ -24,6 +24,7 @@ class SellersController extends Controller
         'phone' => 'nullable',
         'country' => 'required'
     ];
+
     /**
      * Display a listing of the resource.
      *
@@ -83,7 +84,7 @@ class SellersController extends Controller
         $user->email = $request->email;
         $user->created_at = Carbon::now();
         $user->role = "buyer";
-        $user->activated = 0;
+        $user->activated = $request->activate === 'true' ? 1 : 0;
         $user->save();
 
         $user = User::where('email', $email)->first();
@@ -95,30 +96,30 @@ class SellersController extends Controller
         $seller->save();
 
         Session::flash('flash_message', 'Seller added!');
+        if ($user->activated === 0) {
+            // haha
+            $user = User::find($user->id);
+            $credentials = ['email' => $user->email];
+            $response = Password::sendResetLink($credentials, function (Message $message) {
+                $message->subject($this->getEmailSubject());
+            });
 
-        // haha
-        $user = User::find($user->id);
-        $credentials = ['email' => $user->email];
-        $response = Password::sendResetLink($credentials, function (Message $message) {
-            $message->subject($this->getEmailSubject());
-        });
-
-        switch ($response) {
-            case Password::RESET_LINK_SENT:
-                Session::flash('flash_message', 'Password reset confirmation link sent to the user!');
-                return redirect()->back()->with('status', trans($response));
-            case Password::INVALID_USER:
-                Session::flash('flash_message', 'Password reset confirmation link not sent to the user!');
-                return redirect()->back()->withErrors(['email' => trans($response)]);
+            switch ($response) {
+                case Password::RESET_LINK_SENT:
+                    Session::flash('flash_message', 'Password reset confirmation link sent to the user!');
+                    return redirect()->back()->with('status', trans($response));
+                case Password::INVALID_USER:
+                    Session::flash('flash_message', 'Password reset confirmation link not sent to the user!');
+                    return redirect()->back()->withErrors(['email' => trans($response)]);
+            }
         }
-
         return redirect('admin/sellers');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -132,7 +133,7 @@ class SellersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -146,7 +147,7 @@ class SellersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -169,7 +170,7 @@ class SellersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

@@ -67,7 +67,7 @@
                 }
 
                 ?>
-                <li class = {{ is_active(['/dashboard' ]) }}>
+                <li class= {{ is_active(['/dashboard' ]) }}>
                     <a href="/buyer/dashboard">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
@@ -80,9 +80,11 @@
                     </a>
                 </li>
                 <ul class="sub-menu collapse" id="prof">
-                    <li class="{{ is_active(['/profile' ]) }}"><a href="/buyer/profile"><i class="pe-7s-user"></i><p>View</p></a>
+                    <li class="{{ is_active(['/profile' ]) }}"><a href="/buyer/profile"><i class="pe-7s-user"></i>
+                            <p>View</p></a>
                     </li>
-                    <li class="{{ is_active(['/edit' ]) }}"><a href="/buyer/edit"><i class="pe-7s-user"></i><p>Edit</p></a>
+                    <li class="{{ is_active(['/edit' ]) }}"><a href="/buyer/edit"><i class="pe-7s-user"></i>
+                            <p>Edit</p></a>
                     </li>
                 </ul>
 
@@ -172,7 +174,11 @@
         </nav>
 
         <div class="content">
-            @yield('content')
+            <div class="container-fluid">
+                <div class="row">
+                    @yield('content')
+                </div>
+            </div>
         </div>
 
         <footer class="footer">
