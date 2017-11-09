@@ -58,7 +58,7 @@
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-xs" title="Delete Buyer" onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             </form>
-                                            <form method="POST" action="{{ url('admin/buyers' . '/' . $item->id . '/change_status') }}" accept-charset="UTF-8" style="display:inline">
+                                            <form method="POST" action="{{ url('/change-status/'.$item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-info btn-xs" title={{ $item->activated > 0 ? 'Deactivate Buyer' : 'Activate Buyer' }} onclick="return confirm({{ $item->activated > 0 ? 'Deactivate user?' : 'Activate User?' }})"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ $item->activated > 0 ? 'Deactivate' : 'Activate' }}</button>
                                             </form>

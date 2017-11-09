@@ -80,6 +80,7 @@
                                 <li><a href="javascript:;"> Profile</a></li>
 
                                 <li><a href="javascript:;">Help</a></li>
+                                <li><a href="/change-password">Change Password</a></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -103,17 +104,9 @@
         <!-- page content -->
         <div class="right_col" role="main">
             @if(Session::has('flash_message'))
-            <div class="alert alert-success">
+            <div class="alert {{Session::get('alert-class', 'alert-success')}}" style="margin-top: 8vh;">
                 {{ Session::get('flash_message') }}
             </div>
-            {{--<script>--}}
-                {{--new PNotify({--}}
-                    {{--title: 'Success',--}}
-                    {{--text: '{{ Session::get('flash_message') }}',--}}
-                    {{--type: 'success',--}}
-                    {{--styling: 'bootstrap3'--}}
-                {{--});--}}
-            {{--</script>--}}
             @endif
             @yield('content')
         </div>

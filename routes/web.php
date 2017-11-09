@@ -24,6 +24,8 @@ Route::get('/register', function () {
 
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/change-password', 'Admin\\UsersController@passwordForm');
+    Route::post('/change-password', 'Admin\\UsersController@changePassword');
 
     // Reports
     Route::get('/reports/{event_id}', 'ReportsController@downloadSchedule');
@@ -35,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/home', 'HomeController@adminIndex')->name('adminHome');
 
+        Route::get('/home', 'HomeController@adminIndex')->name('adminHome');
         // Admin users
         Route::post('/users/{user_id}/reset_password', 'Admin\\UsersController@reset_password');
 
@@ -137,12 +140,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     });
 
-    Route::post('/admin/buyers/{user_id}/change_status', function($user_id){
-       $user = \App\User::findOrFail($user_id);
-       $user->activated = ($user->activated > 0 ? 0 : 1);
-       $user->save();
-       return back();
-    });
+    Route::post('/change-status/{user_id}', 'Admin\\UsersController@changeStatus');
 });
 
 Auth::routes();
