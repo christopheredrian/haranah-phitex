@@ -89,9 +89,8 @@ class BuyersController extends Controller
         $user->email = $request->email;
         $user->created_at = Carbon::now();
         $user->role = "buyer";
-        $user->activated = 0;
+        $user->activated = $request->activate === 'true' ? 1 : 0;
         $user->save();
-
         $user = User::where('email', $email)->first();
 
         $buyer = new Buyer();
@@ -101,19 +100,21 @@ class BuyersController extends Controller
         $buyer->save();
 
         // haha
-        $user = User::find($user->id);
-        $credentials = ['email' => $user->email];
-        $response = Password::sendResetLink($credentials, function (Message $message) {
-            $message->subject($this->getEmailSubject());
-        });
+        if ($user->activated === 0){
+            $user = User::find($user->id);
+            $credentials = ['email' => $user->email];
+            $response = Password::sendResetLink($credentials, function (Message $message) {
+                $message->subject($this->getEmailSubject());
+            });
 
-        switch ($response) {
-            case Password::RESET_LINK_SENT:
-                Session::flash('flash_message', 'Password reset confirmation link sent to the user!');
-                return redirect()->back()->with('status', trans($response));
-            case Password::INVALID_USER:
-                Session::flash('flash_message', 'Password reset confirmation link not sent to the user!');
-                return redirect()->back()->withErrors(['email' => trans($response)]);
+            switch ($response) {
+                case Password::RESET_LINK_SENT:
+                    Session::flash('flash_message', 'Password reset confirmation link sent to the user!');
+                    return redirect()->back()->with('status', trans($response));
+                case Password::INVALID_USER:
+                    Session::flash('flash_message', 'Password reset confirmation link not sent to the user!');
+                    return redirect()->back()->withErrors(['email' => trans($response)]);
+            }
         }
 
         Session::flash('flash_message', 'Buyer added!');
