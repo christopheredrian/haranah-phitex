@@ -12,7 +12,7 @@
                 <div class="panel-body">
 
                     {{--                        <a href="{{ url('/buyer/home') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>--}}
-                    <a href="{{ url('/buyer/'.$buyer -> id.'/edit') }}" title="Edit buyer">
+                    <a href="{{ url('/buyer/'.$buyer->id.'/edit') }}" title="Edit buyer">
                         <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             Edit
                         </button>

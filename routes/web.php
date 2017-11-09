@@ -98,10 +98,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
         Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
 
-        Route::get('/home', [
-            'as' => 'buyers.index',
-            'uses' => 'Buyer\\BuyerProfilesController@index'
-        ]);
         // TEMPORARY!!!
 //        Route::get('/profile', function(){
 //            return view('buyer.show');

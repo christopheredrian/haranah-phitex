@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Auth;
 use Mockery\Generator\StringManipulation\Pass\Pass;
+use Illuminate\Database\Eloquent\Builder;
 use Session;
 
 
@@ -103,7 +105,7 @@ class BuyerProfilesController extends Controller
         $buyer->save();
 
         // haha
-        if ($user->activated === 0){
+        if ($user->activated === 0) {
             $user = User::find($user->id);
             $credentials = ['email' => $user->email];
             $response = Password::sendResetLink($credentials, function (Message $message) {
@@ -128,34 +130,33 @@ class BuyerProfilesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
     public function show($id)
     {
         $buyer = Buyer::findOrFail($id);
-
         return view('buyer.show', compact('buyer'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
     public function edit($id)
     {
-        $buyer = Buyer::findOrFail($id);
+        $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
         return view('buyer.edit', compact('buyer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -180,7 +181,7 @@ class BuyerProfilesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
