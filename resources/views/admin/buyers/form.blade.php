@@ -29,10 +29,12 @@
     @else
         <div class="col-md-6 col-xs-6">
             <div class="input-group">
-                <input style="cursor: pointer" disabled="disabled" class="form-control" type="email" name="email" id="email"
+                <input style="cursor: pointer" disabled="disabled" class="form-control" type="email" name="email"
+                       id="email"
                        value="{{ old('email', isset($buyer) ? $buyer->user->email : '') }}">
                 <span class="input-group-btn">
-                  <button style="margin-right:0" type="button" class="undisable btn btn-danger pull-right">Change Email</button>
+                  <button style="margin-right:0" type="button"
+                          class="undisable btn btn-danger pull-right">Change Email</button>
               </span>
 
             </div>
@@ -59,6 +61,17 @@
         {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+
+
+@if($isCreate)
+    <div class="form-group">
+        <label for="activate" class="col-md-4 col-xs-4 control-label">{{ 'Activation' }}</label>
+        <div class="col-md-6 col-xs-6">
+            Send Activation via Email<input type="radio" checked="checked" name="activate" value="false">
+            Activate Immediately: <input  type="radio" name="activate" value="true">
+        </div>
+    </div>
+@endif
 
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
