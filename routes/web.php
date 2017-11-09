@@ -56,8 +56,17 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Admin - Events
         Route::resource('/events', 'Admin\\EventsController');
+        Route::post('/events/{id}/openRegistration', [
+            'as' => 'open.registration',
+            'uses' => 'Admin\\EventsController@openRegistration'
+        ]);
+        Route::post('/events/{id}/closeRegistration', [
+            'as' => 'close.registration',
+            'uses' => 'Admin\\EventsController@closeRegistration'
+        ]);
         // Admin - Event Parameters
         Route::resource('/event-params', 'Admin\\EventParamsController');
+
         //Route::get('/event-params/{event_id}', 'EventParamsController@create')->name('event-params.create');
 
         //Admin - Event Buyers

@@ -75,6 +75,7 @@ class SellerController extends Controller
         foreach($request->values as $item){
             $seller_preference = \App\SellerPreference::create();
             $seller_preference->event_id=$id;
+            $seller_preference->seller_id=\App\Seller::where('user_id','=',Auth::user()->id)->first()->id;
             $pieces = explode("-", $item);
             $seller_preference->buyer_id=$pieces[0];
             $seller_preference->rank=$pieces[1];
@@ -82,7 +83,7 @@ class SellerController extends Controller
         }
         $seller = Seller::where('user_id', Auth::user()->id)
             ->first();
-        return view('seller.event')->with('events',$seller->events);;
+        return view('seller.event')->with('events',$seller->events);
 
     }
 }
