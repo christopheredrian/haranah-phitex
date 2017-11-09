@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Event;
+use App\EventSeller;
 use Illuminate\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Seller;
 use App\User;
@@ -28,20 +31,58 @@ class SellerController extends Controller
 
         return view('seller.index', compact('seller'));
     }
+
+    /**
+     * Shows all event for this particular logged in seller
+     * @return
+     */
     public function showEvents()
     {
-
-        //$events=\App\Event::whereIn('id',\App\EventSeller::where('seller_id','=',));
-        return view('seller.event');//->with('events',$events);
+        // TODO: Another refactor later
+        $seller = Seller::where('user_id', Auth::user()->id)
+            ->first();
+        return view('seller.event')
+            ->with('events',$seller->events);
     }
-    public function showList($id)
+
+    /**
+     * Shows the seller preference form
+     * @param $id
+     * @return
+     */
+    public function sellerPreference($id)
     {
-        $buyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',1)
-            ->pluck('buyer_id'))
-            ->pluck('user_id'))
-            ->get();
-      //$buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*', 'buyers.country')->get();
-        return view('seller.list')->with('buyers', $buyers);
-       // return view('seller.list');
+        //$buyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',1)
+            //->pluck('buyer_id'))
+            //->pluck('user_id'))
+            //->get();
+        //$buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*', 'buyers.country')->get();
+        // return view('seller.list');
+        $event = Event::find($id);
+        return view('seller.list')
+            ->with('buyers', $event->buyers)
+            ->with('event', $event);
+    }
+    public function submitPreferences(Request $request, $id)
+    {
+
+        // Jay do the logic here
+
+//        echo "Event id: $id <br>";
+//        echo 'The values ($request->values): <br>';
+//        print_r($request->values);
+//        echo  'Where $request->values contains an array of: (buyer_id-rank)';
+        foreach($request->values as $item){
+            $seller_preference = \App\SellerPreference::create();
+            $seller_preference->event_id=$id;
+            $pieces = explode("-", $item);
+            $seller_preference->buyer_id=$pieces[0];
+            $seller_preference->rank=$pieces[1];
+            $seller_preference->save();
+        }
+        $seller = Seller::where('user_id', Auth::user()->id)
+            ->first();
+        return view('seller.event')->with('events',$seller->events);;
+
     }
 }
