@@ -1,6 +1,8 @@
 <?php
 
 use App\Seller;
+use App\User;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class SellerTableSeeder extends Seeder
@@ -12,40 +14,17 @@ class SellerTableSeeder extends Seeder
      */
     public function run()
     {
-        $sellers = array(
-            [
-                'user_id' => '4',
-                'phone' => '9444444444',
-                'country' => 'Philippines',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'user_id' => '6',
-                'phone' => '9666666666',
-                'country' => 'Philippines',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'user_id' => '8',
-                'phone' => '9888888888',
-                'country' => 'Philippines',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-       );
-        Seller::insert($sellers);
-        $faker = Faker\Factory::create();
-        $limit = 50;
-        for ($i = 0; $i < $limit; $i++) {
-            DB::table('sellers')->insert([ //,
-                'user_id' => $faker->unique()->numberBetween(10, 160),
-                'phone' => $faker->numberBetween(900000000,9999999999),
-                'country' => $faker->country,
-                'created_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
-                'updated_at' => $faker->date($format = 'Y-m-d', $max = 'now')
-            ]);
+        // Insert all SELLER users in buyers table
+        $faker = Factory::create();
+        $all_sellers = User::all()
+            ->where('role', '=', 'seller');
+
+        foreach ($all_sellers as $seller){
+            $new_seller = new Seller();
+            $new_seller->phone = "1234567890";
+            $new_seller->user_id = $seller->id;
+            $new_seller->country = $faker->country;
+            $new_seller->save();
         }
     }
 }
