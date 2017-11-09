@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Event;
 use App\EventSeller;
 use Illuminate\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -51,13 +52,23 @@ class SellerController extends Controller
      */
     public function sellerPreference($id)
     {
-
-        $buyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',1)
-            ->pluck('buyer_id'))
-            ->pluck('user_id'))
-            ->get();
-      //$buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*', 'buyers.country')->get();
-        return view('seller.list')->with('buyers', $buyers);
-       // return view('seller.list');
+        //$buyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',1)
+            //->pluck('buyer_id'))
+            //->pluck('user_id'))
+            //->get();
+        //$buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*', 'buyers.country')->get();
+        // return view('seller.list');
+        $event = Event::find($id);
+        return view('seller.list')
+            ->with('buyers', $event->buyers)
+            ->with('event', $event);
+    }
+    public function submitPreferences(Request $request, $id)
+    {
+        // Jay do the logic here
+        echo "Event id: $id <br>";
+        echo 'The values ($request->values): <br>';
+        print_r($request->values);
+        echo  'Where $request->values contains an array of: (buyer_id-rank)';
     }
 }

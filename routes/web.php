@@ -126,6 +126,12 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Seller\\SellerController@sellerPreference'
         ]);
 
+        Route::post('/events/{id}/submit', [
+            'as' => 'list.buyer',
+            'uses' => 'Seller\\SellerController@submitPreferences'
+        ]);
+
+
         //Seller
         Route::get('/index', function () {
             return view('seller.index');

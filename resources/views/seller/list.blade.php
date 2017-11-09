@@ -33,7 +33,7 @@ table#selected-buyer-list tr.placeholder:before {
 					<div class="box-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<table id="buyer-list" class="display">
+								<table id="buyer-list" class="display table table-responsive table-striped">
 									<thead>
 										<tr>
 											<th>Buyer Name</th>
@@ -42,15 +42,18 @@ table#selected-buyer-list tr.placeholder:before {
 										</tr>
 									</thead>
 									<tbody>
-										@foreach ($buyers as $item)
+										@foreach ($buyers as $buyer)
 											<tr>
-												<td> {{ $item->last_name.", ".$item->first_name }}</td>
-												<td> {{ $item->country }}</td>
+												<td> {{ $buyer->user->last_name.", ".$buyer->user->first_name }}</td>
+												<td> {{ $buyer->country }}
+                                                    <input type="text" name="values[]" class="buyer-id" value="{{ $buyer->id }}">
 
-											<td>
-												<button type="button" class="btn btn-md btn-primary">View Profile</button>
-												<button type="button" class="btn btn-md btn-success" onclick="printList('{{$item->last_name}}','{{$item->first_name}}','{{$item->id}}')">Add to List</button>
-											</td>
+                                                </td>
+
+                                                <td class="action-btn-group">
+                                                    <button type="button" class="btn btn-md btn-primary">View Profile</button>
+                                                    <button type="button" class="add-btn btn btn-md btn-success">Add to List</button>
+                                                </td>
 											</tr>
 										@endforeach
 									</tbody>
@@ -66,13 +69,14 @@ table#selected-buyer-list tr.placeholder:before {
 					<div class="box-body">
 						<div class="row">
 							<div class="col-lg-12"><!-- Second Table Selected Buyer List-->
-								<div class="container" id="selected-buyers">
-									<table id="selected-buyer-list" class="display">
+								<div class="" id="selected-buyers">
+									<table id="selected-buyer-table" class="display table table-striped">
 										<thead>
 											<tr>
-												<th>Buyer Name</th>
+                                                <th>Buyer Name</th>
 												<th>Country</th>
-												<th>Action</th>
+                                                <th>Action</th>
+                                                <th>Rank</th>
 											</tr>
 										</thead>
 										<tbody id="preference_table">
@@ -80,7 +84,12 @@ table#selected-buyer-list tr.placeholder:before {
 
 										</tbody>
 									</table>
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Submit List</button>
+                                    <form id="submit-form" action="/seller/events/{{ $event->id }}/submit" method="post">
+                                        {{ csrf_field() }}
+									    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
+                                            {{--Submit List</button>--}}
+                                        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                                    </form>
 								</div>
 							</div>
 						</div>
@@ -102,7 +111,7 @@ table#selected-buyer-list tr.placeholder:before {
 		          <button type="button" class="btn btn-default" data-dismiss="modal">Accept</button>
 		        </div>
 		      </div>
-		      
+
 		    </div>
 		  </div>
 	</div>s
@@ -113,65 +122,119 @@ table#selected-buyer-list tr.placeholder:before {
 
 <script type="text/javascript" charset="utf8" src="/bower_components/DataTables/datatables.js"></script>
 <script type="text/javascript" src="/bower_components/jquery-sortable/jquery-sortable.js"></script>
-<script type="text/javascript">
-    var array = new Array();
-    function printList(a,b,c) {
-        var old_tbody=document.getElementById("preference_table");
-		old_tbody.innerHTML='';
+{{--<script type="text/javascript">--}}
+    {{--var array = new Array();--}}
+    {{--function printList(a,b,c) {--}}
+        {{--var old_tbody=document.getElementById("preference_table");--}}
+		{{--old_tbody.innerHTML='';--}}
 
-		array.push({last_name:a,first_name:b,id:c});
-        printTable(array);
+		{{--array.push({last_name:a,first_name:b,id:c});--}}
+        {{--printTable(array);--}}
 
-    }
+    {{--}--}}
 
-    function printTable(array) {
-        var table = document.getElementById("preference_table");
+    {{--function printTable(array) {--}}
+        {{--var table = document.getElementById("preference_table");--}}
 
-        for (var i = 0, len = array.length; i < len; i++) {
-            var row = table.insertRow(0);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML=array[i].last_name+" "+array[i].first_name;
-            cell3.innerHTML='<button type="button" class="btn btn-md btn-danger" onclick="removeFromList('+i+');">Remove from list</button>';
+        {{--for (var i = 0, len = array.length; i < len; i++) {--}}
+            {{--var row = table.insertRow(0);--}}
+            {{--var cell1 = row.insertCell(0);--}}
+            {{--var cell2 = row.insertCell(1);--}}
+            {{--var cell3 = row.insertCell(2);--}}
+            {{--cell1.innerHTML=array[i].last_name+" "+array[i].first_name;--}}
+            {{--cell3.innerHTML='<button type="button" class="btn btn-md btn-danger" onclick="removeFromList('+i+');">Remove from list</button>';--}}
+        {{--}--}}
+    {{--}--}}
+    {{--function removeFromList(i){--}}
+        {{--array.splice(i, 1);--}}
+{{--//        var new_tbody = document.createElement('tbody');--}}
+{{--//        new_tbody.id="preference_table";--}}
+        {{--var old_tbody=document.getElementById("preference_table");--}}
+{{--//        old_tbody.parentNode.replaceChild(new_tbody, old_tbody);--}}
+		{{--old_tbody.innerHTML='';--}}
+        {{--printTable(array);--}}
+
+
+
+
+    {{--}--}}
+
+	{{--$(document).ready(function() {--}}
+    {{--$('#buyer-list').DataTable({--}}
+    	{{--searching: true,--}}
+    	{{--stateSave: true,--}}
+    	{{--autoWidth : true,--}}
+    	{{--pagingType: "simple",--}}
+    {{--});--}}
+    {{--$('#selected-buyer-list').DataTable({--}}
+	    	{{--searching: false,--}}
+	    	{{--stateSave: true,--}}
+	    	{{--autoWidth : true,--}}
+		    {{--lengthChange: false,--}}
+		    {{--searching  : false,--}}
+		    {{--ordering   : false,--}}
+	    	{{--pagingType: "simple"--}}
+	    {{--});--}}
+	{{--$('#selected-buyer-list').sortable({--}}
+		  {{--containerSelector: 'table',--}}
+		  {{--itemPath: '> tbody',--}}
+		  {{--itemSelector: 'tr',--}}
+		  {{--placeholder: '<tr class="placeholder"/>'--}}
+		{{--});--}}
+{{--})--}}
+{{--</script>--}}
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+        function updateHiddenInputs(){
+            // add input type hidden
+            $('#submit-form input.buyer-id').remove();
+            $('#preference_table input.buyer-id').each(function(index, value){
+                // for each of the input
+                $input = $(value).clone(true);
+                $input.val($input.val() + '-' + (index + 1));
+                $('#submit-form').append($input);
+            });
         }
-    }
-    function removeFromList(i){
-        array.splice(i, 1);
-//        var new_tbody = document.createElement('tbody');
-//        new_tbody.id="preference_table";
-        var old_tbody=document.getElementById("preference_table");
-//        old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
-		old_tbody.innerHTML='';
-        printTable(array);
+        var util = function(){
+
+            var currentElement = $(this).parent().parent();
+            currentElement.find('button').remove();
+            var removeBtn = $('<button class="btn btn-danger">');
+            removeBtn.text("Remove");
+
+            // Append this element to above
+            removeBtn.click(function(){
+                var tdToRemove = $(this).parent().parent();
+                var addBtn = $('<button class="add-btn btn btn-success">');
+                addBtn.text("Add to List");
+                addBtn.click(util);
+                tdToRemove.find('.action-btn-group').append(addBtn);
+                tdToRemove.find('.btn-danger').remove();
+                tdToRemove.appendTo('#buyer-list')
+                updateHiddenInputs();
+            });
 
 
+            currentElement.find('.action-btn-group').append(removeBtn);
+            currentElement.append('<td class="rank">');
+            $('#preference_table').append(currentElement);
+            updateHiddenInputs();
+        };
 
+        $('.add-btn').on('click',util);
 
-    }
-
-	$(document).ready(function() {
-    $('#buyer-list').DataTable({
-    	searching: true,
-    	stateSave: true,
-    	autoWidth : true,
-    	pagingType: "simple",
+        /**
+         * Sorting
+         */
+        $( "#preference_table" ).sortable( {
+            update: function( event, ui ) {
+                $(this).children().each(function(index) {
+                    $(this).find('td').last().html(index + 1)
+                });
+            }
+        });
     });
-    $('#selected-buyer-list').DataTable({
-	    	searching: false,
-	    	stateSave: true,
-	    	autoWidth : true,
-		    lengthChange: false,
-		    searching  : false,
-		    ordering   : false,
-	    	pagingType: "simple"
-	    });
-	$('#selected-buyer-list').sortable({
-		  containerSelector: 'table',
-		  itemPath: '> tbody',
-		  itemSelector: 'tr',
-		  placeholder: '<tr class="placeholder"/>'
-		});
-})
 </script>
 @endsection
