@@ -45,7 +45,10 @@ table#selected-buyer-list tr.placeholder:before {
 										@foreach ($buyers as $buyer)
 											<tr>
 												<td> {{ $buyer->user->last_name.", ".$buyer->user->first_name }}</td>
-												<td> {{ $buyer->country }}</td>
+												<td> {{ $buyer->country }}
+                                                    <input type="text" name="values[]" class="buyer-id" value="{{ $buyer->id }}">
+
+                                                </td>
 
                                                 <td class="action-btn-group">
                                                     <button type="button" class="btn btn-md btn-primary">View Profile</button>
@@ -67,12 +70,13 @@ table#selected-buyer-list tr.placeholder:before {
 						<div class="row">
 							<div class="col-lg-12"><!-- Second Table Selected Buyer List-->
 								<div class="" id="selected-buyers">
-									<table id="selected-buyer-list" class="display table table-striped">
+									<table id="selected-buyer-table" class="display table table-striped">
 										<thead>
 											<tr>
                                                 <th>Buyer Name</th>
 												<th>Country</th>
-												<th>Action</th>
+                                                <th>Action</th>
+                                                <th>Rank</th>
 											</tr>
 										</thead>
 										<tbody id="preference_table">
@@ -80,7 +84,12 @@ table#selected-buyer-list tr.placeholder:before {
 
 										</tbody>
 									</table>
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Submit List</button>
+                                    <form id="submit-form" action="/seller/events/{{ $event->id }}/submit" method="post">
+                                        {{ csrf_field() }}
+									    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
+                                            {{--Submit List</button>--}}
+                                        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                                    </form>
 								</div>
 							</div>
 						</div>
@@ -174,10 +183,22 @@ table#selected-buyer-list tr.placeholder:before {
 		{{--});--}}
 {{--})--}}
 {{--</script>--}}
-
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script>
     $(document).ready(function(){
+
+        function updateHiddenInputs(){
+            // add input type hidden
+            $('#submit-form input.buyer-id').remove();
+            $('#preference_table input.buyer-id').each(function(index, value){
+                // for each of the input
+                $input = $(value).clone(true);
+                $input.val($input.val() + '-' + (index + 1));
+                $('#submit-form').append($input);
+            });
+        }
         var util = function(){
+
             var currentElement = $(this).parent().parent();
             currentElement.find('button').remove();
             var removeBtn = $('<button class="btn btn-danger">');
@@ -192,12 +213,28 @@ table#selected-buyer-list tr.placeholder:before {
                 tdToRemove.find('.action-btn-group').append(addBtn);
                 tdToRemove.find('.btn-danger').remove();
                 tdToRemove.appendTo('#buyer-list')
+                updateHiddenInputs();
             });
+
+
             currentElement.find('.action-btn-group').append(removeBtn);
+            currentElement.append('<td class="rank">');
             $('#preference_table').append(currentElement);
+            updateHiddenInputs();
         };
 
         $('.add-btn').on('click',util);
+
+        /**
+         * Sorting
+         */
+        $( "#preference_table" ).sortable( {
+            update: function( event, ui ) {
+                $(this).children().each(function(index) {
+                    $(this).find('td').last().html(index + 1)
+                });
+            }
+        });
     });
 </script>
 @endsection
