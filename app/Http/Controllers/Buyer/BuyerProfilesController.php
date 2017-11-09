@@ -167,7 +167,7 @@ class BuyerProfilesController extends Controller
         $request->validate($this->buyer_validation);
         $requestData = $request->all();
 
-        $buyer = Buyer::findOrFail($id);
+        $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
         $buyer->update($requestData);
 
         $user = User::findOrFail($buyer->user->id);
@@ -175,7 +175,7 @@ class BuyerProfilesController extends Controller
 
         Session::flash('flash_message', 'Buyer updated!');
 
-        return redirect('buyer');
+        return redirect('buyer/{user_id}/profile');
     }
 
     /**

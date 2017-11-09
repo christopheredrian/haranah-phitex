@@ -24,7 +24,7 @@
                     </ul>
                 @endif
 
-                <form method="POST" action="{{ url('/buyer/' . $buyer->id) }}" accept-charset="UTF-8"
+                <form method="POST" action="{{ url('/buyer/' . Auth::user()->id.'/update') }}" accept-charset="UTF-8"
                       class="form-horizontal" enctype="multipart/form-data">
                     {{ method_field('PATCH') }}
                     {{ csrf_field() }}

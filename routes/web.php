@@ -122,6 +122,11 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'buyers.edit',
             'uses' => 'Buyer\\BuyerProfilesController@edit'
         ]);
+
+        Route::post('/{user_id}/update', [
+            'as' => 'buyers.update',
+            'uses' => 'Buyer\\BuyerProfilesController@update'
+        ]);
     });
 
     // MIDDLEWARE FOR SELLER
