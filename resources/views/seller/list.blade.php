@@ -76,11 +76,7 @@ table#selected-buyer-list tr.placeholder:before {
 											</tr>
 										</thead>
 										<tbody id="preference_table">
-											<tr>
-											  <td>Yuso Antenov</td>
-											  <td>Russia</td>
-											  <td><button type="button" class="btn btn-md btn-danger">Remove from list</button></td>
-											</tr>
+
 
 										</tbody>
 									</table>
