@@ -120,7 +120,8 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Seller\\SellerController@showEvents'
         ]);
 
-        Route::get('/list/{id}', [
+        Route::get('/events/{id}', [
+
             'as' => 'list.buyer',
             'uses' => 'Seller\\SellerController@sellerPreference'
         ]);
