@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\EventSeller;
 use Illuminate\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Seller;
 use App\User;
@@ -28,14 +30,28 @@ class SellerController extends Controller
 
         return view('seller.index', compact('seller'));
     }
+
+    /**
+     * Shows all event for this particular logged in seller
+     * @return
+     */
     public function showEvents()
     {
-
-        //$events=\App\Event::whereIn('id',\App\EventSeller::where('seller_id','=',));
-        return view('seller.event');//->with('events',$events);
+        // TODO: Another refactor later
+        $seller = Seller::where('user_id', Auth::user()->id)
+            ->first();
+        return view('seller.event')
+            ->with('events',$seller->events);
     }
-    public function showList($id)
+
+    /**
+     * Shows the seller preference form
+     * @param $id
+     * @return
+     */
+    public function sellerPreference($id)
     {
+
         $buyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',1)
             ->pluck('buyer_id'))
             ->pluck('user_id'))

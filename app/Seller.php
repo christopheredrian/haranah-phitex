@@ -31,5 +31,10 @@ class Seller extends Model
 	{
 		return $this->belongsTo('App\User');
 	}
+
+	public function events()
+    {
+        return $this->belongsToMany('App\Event','event_sellers');
+    }
 	
 }
