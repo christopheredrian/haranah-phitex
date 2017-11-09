@@ -136,4 +136,46 @@ class EventsController extends Controller
 
         return redirect('admin/events')->with('flash_message', 'Event deleted!');
     }
+
+    public function openRegistration($id)
+    {
+        $event = Event::FindorFail($id);
+        $event->event_status="Registration Open";
+        $event->save();
+        return redirect('admin/events/'.$id)->with('flash_message', 'Event updated!');
+    }
+    public function closeRegistration($id)
+    {
+        $event = Event::FindorFail($id);
+        $event->event_status="Registration Closed";
+        $event->save();
+        $event_params = \App\EventParam::where('event_id','=',$id)->orderBy('start_time')->pluck('id');
+        $seller_preference = \App\SellerPreference::where('event_id', '=', $id)->orderBy('created_at')->orderBy('rank')->get();
+        $sellercount = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$id)
+            ->pluck('seller_id'))
+            ->pluck('user_id'))
+            ->count();
+        foreach($event_params as $event_param) {
+            for ($i = 1; $i <= $sellercount; $i++) {
+                foreach ($seller_preference as $item) {
+                    if (\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('event_param_id','=',$event_param)->first() == null) {
+
+                        if (\App\FinalSchedule::where('buyer_id', '=', $item->buyer_id)->where('event_param_id','=',$event_param)->first() == null) {
+                            if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->first() == null) {
+                                $final_schedule = \App\FinalSchedule::create();
+                                $final_schedule->event_id = $id;
+                                $final_schedule->seller_id = $item->seller_id;
+                                $final_schedule->event_param_id = $event_param;
+                                $final_schedule->buyer_id=$item->buyer_id;
+                                $final_schedule->save();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return redirect('admin/events/'.$id)->with('flash_message', 'Event updated!');
+    }
+
 }

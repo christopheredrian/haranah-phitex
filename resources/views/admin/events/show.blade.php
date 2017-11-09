@@ -26,10 +26,20 @@
                         <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Sellers </button></a>
                         <br/>
                         @if($event->event_status == "Registration Closed")
-                            <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Open Registration </button></a>
+                            <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration" method="post">
+                                {{ csrf_field() }}
+                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
+                                {{--Submit List</button>--}}
+                                <button type="submit" class="btn btn-primary">Open Registration</button>
+                            </form>
                         @endif
                         @if($event->event_status == "Registration Open")
-                            <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers"><button class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Close Registration </button></a>
+                            <form id="submit-form" action="/admin/events/{{ $event->id }}/closeRegistration" method="post">
+                                {{ csrf_field() }}
+                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
+                                {{--Submit List</button>--}}
+                                <button type="submit" class="btn btn-primary">Close Registration</button>
+                            </form>
                         @endif
                         <br/>
                         <br/>
@@ -41,6 +51,7 @@
                                         <th>ID</th><td>{{ $event->id }}</td>
                                     </tr>
                                     <tr><th> Event Name </th><td> {{ $event->event_name }} </td></tr>
+                                    <tr><th> Event Status </th><td> {{ $event->event_status }} </td></tr>
                                 </tbody>
                             </table>
                         </div>
