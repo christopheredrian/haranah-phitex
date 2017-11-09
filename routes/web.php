@@ -66,7 +66,10 @@ Route::group(['middleware' => ['auth']], function () {
         ]);
         // Admin - Event Parameters
         Route::resource('/event-params', 'Admin\\EventParamsController');
-
+        Route::get('/event-params/create/{event_id}', [
+            'as' => 'create.event.params',
+            'uses' => 'Admin\\EventParamsController@createWithEvent'
+        ]);
         //Route::get('/event-params/{event_id}', 'EventParamsController@create')->name('event-params.create');
 
         //Admin - Event Buyers
@@ -81,6 +84,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/event-sellers/create/{event_id}', [
             'as' => 'create.event.sellers',
             'uses' => 'Admin\\EventSellersController@createWithEvent'
+        ]);
+
+        //Admin - Final Schedule
+        Route::resource('/final-schedules', 'Admin\\FinalSchedulesController');
+        Route::get('/final-schedules/list/{event_id}', [
+            'as' => 'show.final.schedule',
+            'uses' => 'Admin\\FinalSchedulesController@showWithEvent'
         ]);
 
         // Admin - Account
@@ -160,5 +170,3 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('admin/seller-preferences', 'Admin\\SellerPreferencesController');
-Route::resource('admin/final_-schedules', 'Admin\\Final_SchedulesController');
-Route::resource('admin/final-schedules', 'Admin\\FinalSchedulesController');

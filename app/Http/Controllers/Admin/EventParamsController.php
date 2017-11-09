@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class EventParamsController extends Controller
 {
+    public function createWithEvent($event_id)
+    {
+        return view('admin.event-params.create')->with('event_id',$event_id);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -56,7 +60,7 @@ class EventParamsController extends Controller
         
         EventParam::create($requestData);
 
-        return redirect('admin/event-params')->with('flash_message', 'EventParam added!');
+        return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventBuyer added!');
     }
 
     /**

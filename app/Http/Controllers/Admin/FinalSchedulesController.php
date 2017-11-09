@@ -10,6 +10,25 @@ use Illuminate\Http\Request;
 
 class FinalSchedulesController extends Controller
 {
+    public function showWithEvent($event_id){
+        //$keyword = $request->get('search');
+
+        $perPage = 25;
+
+//        if (!empty($keyword)) {
+//            $finalschedules = FinalSchedule::where('event_id', '=', $id)
+//                ->orWhere('buyer_id', 'LIKE', "%$keyword%")
+//                ->orWhere('seller_id', 'LIKE', "%$keyword%")
+//                ->orWhere('event_param_id', 'LIKE', "%$keyword%")
+//                ->paginate($perPage);
+//        } else {
+//            $finalschedules = FinalSchedule::paginate($perPage);
+//        }
+        $finalschedules = FinalSchedule::where('event_id', '=', $event_id)->paginate($perPage);
+
+        return view('admin.final-schedules.index', compact('finalschedules'));
+    }
+
     /**
      * Display a listing of the resource.
      *
