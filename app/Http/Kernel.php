@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\Administrator;
 use App\Http\Middleware\Buyer;
 use App\Http\Middleware\Seller;
+use App\Http\Middleware\SuperAdministrator;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,5 +64,6 @@ class Kernel extends HttpKernel
         'buyer' => Buyer::class,
         'seller' => Seller::class,
         'admin' => Administrator::class,
+        'superadmin' => SuperAdministrator::class,
     ];
 }

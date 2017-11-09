@@ -22,19 +22,6 @@ Route::get('/register', function () {
     return view('admin.auth.register');
 });
 
-//Seller
-Route::get('/seller/index', function () {
-    return view('seller.index');
-});
-Route::get('/seller/event', function () {
-    return view('seller.event');
-});
-Route::get('/seller/account', function () {
-    return view('seller.account');
-});
-Route::get('/list', function () {
-    return view('seller.list');
-});
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -42,17 +29,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/reports/{event_id}', 'ReportsController@downloadSchedule');
     Route::get('/reports/{event_id}/pdf', 'ReportsController@downloadPdf');
 
+
+
     // MIDDLEWARE FOR ADMIN
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/home', 'HomeController@adminIndex')->name('adminHome');
 
-
         // Admin users
         Route::post('/users/{user_id}/reset_password', 'Admin\\UsersController@reset_password');
 
-        // Resources
-        Route::resource('/administrators', 'Admin\\AdministratorsController');
-        Route::resource('/super-administrators', 'Admin\\SuperAdministratorsController');
+        // Administrators CRUD is only for Super Administrators
+        Route::group(['middleware' => 'superadmin'], function () {
+            Route::resource('/administrators', 'Admin\\AdministratorsController');
+            Route::resource('/super-administrators', 'Admin\\SuperAdministratorsController');
+        });
+
 
         // Admin - Buyers
         Route::resource('/buyers', 'Admin\\BuyersController');
@@ -129,6 +120,21 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'list.buyer',
             'uses' => 'Seller\\SellerController@showList'
         ]);
+
+        //Seller
+        Route::get('/seller/index', function () {
+            return view('seller.index');
+        });
+        Route::get('/seller/event', function () {
+            return view('seller.event');
+        });
+        Route::get('/seller/account', function () {
+            return view('seller.account');
+        });
+        Route::get('/list', function () {
+            return view('seller.list');
+        });
+
     });
 
     Route::post('/admin/buyers/{user_id}/change_status', function($user_id){
