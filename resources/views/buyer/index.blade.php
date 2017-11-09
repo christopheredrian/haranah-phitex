@@ -12,7 +12,7 @@
             <!--    Hover Rows  -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Hover Rows
+                    Events
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">

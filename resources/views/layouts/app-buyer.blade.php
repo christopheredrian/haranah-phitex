@@ -97,9 +97,9 @@
                                 {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                                 <b class="caret"></b>
                             </a>
-                            <ul class="dropdown-menu dropdown-settings"
-                            ">
-                        <li><a href="#" style="color: black!important">Edit Password</a></li>
+                            <ul class="dropdown-menu dropdown-settings">
+                                
+                        <li><a href="/change-password" style="color: black!important">Edit Password</a></li>
                         <li class="divider"></li>
                         <li>
                             <a href="{{ route('logout') }}"
