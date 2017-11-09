@@ -15,6 +15,13 @@ use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {
+    private $event_validation = [
+        'event_name' => 'required',
+        'event_place' => 'required',
+        'event_date' => 'required',
+        'event_status' => 'required',
+        'event_description' => 'required',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +61,7 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate($this->event_validation);
         $requestData = $request->all();
         
         Event::create($requestData);
@@ -85,7 +92,11 @@ class EventsController extends Controller
             ->pluck('user_id'))
             ->get();
 
-        return view('admin.events.show', compact('event'))->with('eventbuyers',$eventbuyers)->with('eventsellers',$eventsellers);
+        return view('admin.events.show', compact('event'))
+            ->with('eventbuyers',$eventbuyers)
+            ->with('eventsellers',$eventsellers)
+            ->with('buyers', $event->buyers)
+            ->with('sellers', $event->sellers);
     }
 
     /**
@@ -114,7 +125,7 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $request->validate($this->event_validation);
         $requestData = $request->all();
         
         $event = Event::findOrFail($id);

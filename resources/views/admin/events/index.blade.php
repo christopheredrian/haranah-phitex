@@ -3,8 +3,8 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-9">
-                <div class="panel panel-default">
+            <div class="col-md-12">
+                <div class="x_panel">
                     <div class="panel-heading">Events</div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/events/create') }}" class="btn btn-success btn-sm" title="Add New Event">
@@ -28,10 +28,10 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Event Name</th>
-                                        <th>Event Date</th>
-                                        <th>Event Place</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Place</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -39,10 +39,10 @@
 
                                 @foreach($events as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration or $item->id }}</td>
                                         <td>{{ $item->event_name }}</td>
                                         <td>{{ $item->event_date }} </td>
                                         <td>{{ $item->event_place }}</td>
+                                        <td>{{ $item->event_status }}</td>
                                         <td>
                                             <a href="{{ url('/admin/events/' . $item->id) }}" title="View Event"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/events/' . $item->id . '/edit') }}" title="Edit Event"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

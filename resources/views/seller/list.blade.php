@@ -58,7 +58,6 @@ table#selected-buyer-list tr.placeholder:before {
 										@endforeach
 									</tbody>
 								</table>
-								<a href="javascript:showonlyone(selected-buyers)"><button class="btn btn-warning" >Done</button></a>
 							</div>
 						</div>
 					</div>
@@ -73,6 +72,7 @@ table#selected-buyer-list tr.placeholder:before {
 									<table id="selected-buyer-table" class="display table table-striped">
 										<thead>
 											<tr>
+                                                <th>Sort</th>
                                                 <th>Buyer Name</th>
 												<th>Country</th>
                                                 <th>Action</th>
@@ -216,7 +216,7 @@ table#selected-buyer-list tr.placeholder:before {
                 updateHiddenInputs();
             });
 
-
+            currentElement.prepend('<td><i class="fa fa-sort"></i></td>');
             currentElement.find('.action-btn-group').append(removeBtn);
             currentElement.append('<td class="rank">');
             $('#preference_table').append(currentElement);
@@ -234,6 +234,13 @@ table#selected-buyer-list tr.placeholder:before {
                     $(this).find('td').last().html(index + 1)
                 });
             }
+        });
+
+        $( "#preference_table" ).on('sortchange sortreceive sortover ', function(){
+            $('#preference_table').children().each(function(index) {
+                $('#preference_table').find('td').last().html(index + 1)
+            });
+           updateHiddenInputs();
         });
     });
 </script>
