@@ -119,19 +119,19 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'list.events',
             'uses' => 'Seller\\SellerController@showEvents'
         ]);
-        Route::get('/seller/list/{id}', [
+        Route::get('/list/{id}', [
             'as' => 'list.buyer',
             'uses' => 'Seller\\SellerController@showList'
         ]);
 
         //Seller
-        Route::get('/seller/index', function () {
+        Route::get('/index', function () {
             return view('seller.index');
         });
         Route::get('/seller/event', function () {
             return view('seller.event');
         });
-        Route::get('/seller/account', function () {
+        Route::get('/account', function () {
             return view('seller.account');
         });
         Route::get('/list', function () {
