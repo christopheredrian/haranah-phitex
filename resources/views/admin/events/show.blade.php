@@ -21,9 +21,16 @@
                         <a href="#"><button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewSellerModal">Show Sellers</button></a>
                         <a href="#"><button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewBuyerModal">Show Buyers</button></a>
                         <br>
-                        <a href="{{ url('admin/event-params/create') }}" title="Add Param"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Params </button></a>
+                        <a href="{{ url('admin/event-params/create') }}" title="Add Param"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Schedule </button></a>
                         <a href="{{ route('create.event.buyers', ['event_id' => $event->id]) }}" title="Add Buyers"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Buyers </button></a>
                         <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Sellers </button></a>
+                        <br/>
+                        @if($event->event_status == "Registration Closed")
+                            <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers"><button class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Open Registration </button></a>
+                        @endif
+                        @if($event->event_status == "Registration Open")
+                            <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers"><button class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Close Registration </button></a>
+                        @endif
                         <br/>
                         <br/>
 
