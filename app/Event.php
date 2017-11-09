@@ -25,7 +25,7 @@ class Event extends Model
      *
      * @var array
      */
-    protected $fillable = ['event_name','event_place','event_date','event_status'];
+    protected $fillable = ['event_name','event_place','event_date','event_status', 'event_description'];
 
     public function buyers()
     {
@@ -37,7 +37,6 @@ class Event extends Model
     }
     public function event_params()
     {
-        return $this->hasMany('App\EventParam');
         return $this->hasMany('App\EventParam');
     }
 }

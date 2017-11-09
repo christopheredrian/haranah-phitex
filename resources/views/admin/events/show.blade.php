@@ -6,7 +6,7 @@
 
             <div class="col-xs-12">
                 <div class="panel x_panel">
-                    <div class="panel-heading">Event {{ $event->id }}</div>
+                    <div class="panel-heading">Event: <b>{{ $event->event_name }}</b></div>
                     <div class="panel-body">
 
                         <a href="{{ url('/admin/events') }}" title="Back">
