@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Event;
 use App\EventSeller;
 use Illuminate\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -51,13 +52,13 @@ class SellerController extends Controller
      */
     public function sellerPreference($id)
     {
-
-        $buyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',1)
-            ->pluck('buyer_id'))
-            ->pluck('user_id'))
-            ->get();
+        $event = Event::find($id);
+//        $buyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',1)
+//            ->pluck('buyer_id'))
+//            ->pluck('user_id'))
+//            ->get();
       //$buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*', 'buyers.country')->get();
-        return view('seller.list')->with('buyers', $buyers);
+        return view('seller.list')->with('buyers', $event->buyers);
        // return view('seller.list');
     }
 }
