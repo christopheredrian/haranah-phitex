@@ -108,15 +108,24 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
         Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
 
+        Route::get('/home', [
+            'as' => 'buyers.index',
+            'uses' => 'Buyer\\BuyerProfilesController@index'
+        ]);
         // TEMPORARY!!!
-        Route::get('/profile', function(){
-//            dd("Events");
-            return view('buyer.show');
-        });
-        Route::get('/edit', function(){
-//            dd("Events");
-            return view('buyer.edit');
-        });
+//        Route::get('/profile', function(){
+//            return view('buyer.show');
+//        });
+
+        Route::get('/{user_id}/profile', [
+            'as' => 'buyers.show',
+            'uses' => 'Buyer\\BuyerProfilesController@show'
+        ]);
+
+        Route::get('/{buyer_id}/edit', [
+            'as' => 'buyers.edit',
+            'uses' => 'Buyer\\BuyerProfilesController@edit'
+        ]);
     });
 
     // MIDDLEWARE FOR SELLER
