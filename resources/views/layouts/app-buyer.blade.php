@@ -91,14 +91,15 @@
                         ?>
 
                         <li><a class="{{ is_active(['/home' ]) }}" href="/buyer/home">Dashboard</a></li>
-                        <li><a class="{{ is_active(['/profile' ]) }}" href="/buyer/profile">Profile</a></li>
+
+                        <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/' . Auth::user()->id . '/profile') }}">Profile</a></li>
                         <li class="{{ is_active(['#' ]) }} dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu dropdown-settings">
-                                
+
                         <li><a href="/change-password" style="color: black!important">Edit Password</a></li>
                         <li class="divider"></li>
                         <li>
