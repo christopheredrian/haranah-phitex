@@ -56,7 +56,7 @@ class EventTableSeeder extends Seeder
                 'event_name' => $faker->randomElement(['Tour Package', 'Auction', 'Discountable Packages']),
                 'event_place' => $faker->randomElement(['BAGUIO', 'TUBA', 'MANILA']),
                 'event_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
-                'event_status' => $faker->randomElement(['Registration Open', 'Registration Closed']),
+                'event_status' => $faker->randomElement(['Registration Open', 'Registration Closed', 'New Event']),
                 'event_description' => $faker->text($maxNbChars = 500),
                 'created_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'updated_at' => $faker->date($format = 'Y-m-d', $max = 'now')

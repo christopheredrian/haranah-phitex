@@ -64,6 +64,10 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'close.registration',
             'uses' => 'Admin\\EventsController@closeRegistration'
         ]);
+        Route::post('/events/{id}/finalizeSchedule', [
+            'as' => 'finalize.schedule',
+            'uses' => 'Admin\\EventsController@finalizeSchedule'
+        ]);
         // Admin - Event Parameters
         Route::resource('/event-params', 'Admin\\EventParamsController');
         Route::get('/event-params/create/{event_id}', [
@@ -92,6 +96,7 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'show.final.schedule',
             'uses' => 'Admin\\FinalSchedulesController@showWithEvent'
         ]);
+
 
         // Admin - Account
         Route::resource('/account', 'Admin\\AdministratorsController');

@@ -13,16 +13,16 @@
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
-                        <form method="GET" action="{{ url('/admin/final-schedules') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
+                        {{--<form method="GET" action="{{ url('/admin/final-schedules') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">--}}
+                            {{--<div class="input-group">--}}
+                                {{--<input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">--}}
+                                {{--<span class="input-group-btn">--}}
+                                    {{--<button class="btn btn-default" type="submit">--}}
+                                        {{--<i class="fa fa-search"></i>--}}
+                                    {{--</button>--}}
+                                {{--</span>--}}
+                            {{--</div>--}}
+                        {{--</form>--}}
 
                         <br/>
                         <br/>
@@ -30,16 +30,16 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Event Id</th><th>Buyer Id</th><th>Seller Id</th><th>Actions</th>
+                                        <th>#</th><th>Event Id</th><th>Buyer Id</th><th>Seller Id</th><th>Event Param</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($finalschedules as $item)
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
-                                        <td>{{ $item->event_id }}</td><td>{{ $item->buyer_id }}</td><td>{{ $item->seller_id }}</td>
+                                        <td>{{ $item->event_id }}</td><td>{{ $item->buyer_id }}</td><td>{{ $item->seller_id }}</td><td>{{ $item->event_param_id }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/final-schedules/' . $item->id) }}" title="View FinalSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            {{--<a href="{{ url('/admin/final-schedules/' . $item->id) }}" title="View FinalSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>--}}
                                             <a href="{{ url('/admin/final-schedules/' . $item->id . '/edit') }}" title="Edit FinalSchedule"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
                                             <form method="POST" action="{{ url('/admin/final-schedules' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
@@ -54,7 +54,12 @@
                             </table>
                             <div class="pagination-wrapper"> {!! $finalschedules->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
-
+                        <form id="submit-form" action="/admin/events/{{ $finalschedules->first()->event_id }}/finalizeSchedule" method="post">
+                            {{ csrf_field() }}
+                            {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
+                            {{--Submit List</button>--}}
+                            <button type="submit" class="btn btn-primary pull-right">Finalize Schedule</button>
+                        </form>
                     </div>
                 </div>
             </div>

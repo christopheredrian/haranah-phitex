@@ -167,8 +167,11 @@ class EventsController extends Controller
             ->pluck('user_id'))
             ->count();
         foreach($event_params as $event_param) {
+
             for ($i = 1; $i <= $sellercount; $i++) {
+
                 foreach ($seller_preference as $item) {
+
                     if (\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('event_param_id','=',$event_param)->first() == null) {
 
                         if (\App\FinalSchedule::where('buyer_id', '=', $item->buyer_id)->where('event_param_id','=',$event_param)->first() == null) {
@@ -186,6 +189,13 @@ class EventsController extends Controller
             }
         }
 
+        return redirect('admin/events/'.$id)->with('flash_message', 'Event updated!');
+    }
+    public function finalizeSchedule($id)
+    {
+        $event = Event::FindorFail($id);
+        $event->event_status="Schedule Finalized";
+        $event->save();
         return redirect('admin/events/'.$id)->with('flash_message', 'Event updated!');
     }
 
