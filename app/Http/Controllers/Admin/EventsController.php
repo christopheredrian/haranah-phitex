@@ -64,7 +64,9 @@ class EventsController extends Controller
         $request->validate($this->event_validation);
         $requestData = $request->all();
         
-        Event::create($requestData);
+        $event = Event::create($requestData);
+        $event->status = 'New Event';
+        $event->save();
 
         return redirect('admin/events')->with('flash_message', 'Event added!');
     }
