@@ -147,6 +147,11 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Seller\\SellerController@showEvents'
         ]);
 
+        Route::get('/{user_id}/profile', [
+            'as' => 'seller.cbuyer',
+            'uses' => 'Seller\\SellerController@showBuyerProfile'
+        ]);
+
         Route::get('/events/{id}', [
 
             'as' => 'list.buyer',

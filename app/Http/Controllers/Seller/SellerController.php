@@ -84,4 +84,11 @@ class SellerController extends Controller
         return view('seller.event')->with('events',$seller->events);
 
     }
+
+    public function showBuyerProfile($id)
+    {
+        $buyer = Buyer::find($id);
+        $url = $id/profile;
+        return view('seller.cbuyer',compact($buyer));
+    }
 }

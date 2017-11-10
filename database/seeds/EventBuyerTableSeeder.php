@@ -73,6 +73,5 @@ class EventBuyerTableSeeder extends Seeder
             'created_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
             'updated_at' => $faker->date($format = 'Y-m-d', $max = 'now')
         ]);
-
     }
 }

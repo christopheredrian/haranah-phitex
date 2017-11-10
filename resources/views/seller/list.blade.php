@@ -45,13 +45,13 @@ table#selected-buyer-list tr.placeholder:before {
 										@foreach ($buyers as $buyer)
 											<tr>
 												<td> {{ $buyer->user->last_name.", ".$buyer->user->first_name }}</td>
-												<td> {{ $buyer->country }}
+												<td> {{ $buyer->country}}
                                                     <input type="hidden" name="values[]" class="buyer-id" value="{{ $buyer->id }}">
 
                                                 </td>
-
+                                                <!-- //pass $buyer->user_id-->
                                                 <td class="action-btn-group">
-                                                    <button type="button" class="btn btn-sm btn-primary">View Profile</button>
+                                                    <a type="button" class="btn btn-sm btn-primary" href="{{ url('/' . $buyer->user_id. '/profile') }}" target="_blank">View Profile</a>
                                                     <button type="button" class="add-btn btn btn-sm btn-success">Add to List</button>
                                                 </td>
 											</tr>
