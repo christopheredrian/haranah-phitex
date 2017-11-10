@@ -66,8 +66,6 @@ class SellerController extends Controller
     public function submitPreferences(Request $request, $id)
     {
 
-        // Jay do the logic here
-
 //        echo "Event id: $id <br>";
 //        echo 'The values ($request->values): <br>';
 //        print_r($request->values);

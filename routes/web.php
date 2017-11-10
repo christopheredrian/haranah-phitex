@@ -131,7 +131,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR SELLER
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
-        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
+//        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
+        Route::get('/home', 'Seller\\SellerController@showEvents');
+
 
         // NOT TESTED
         Route::resource('seller', 'Seller\\SellerController');

@@ -46,13 +46,13 @@ table#selected-buyer-list tr.placeholder:before {
 											<tr>
 												<td> {{ $buyer->user->last_name.", ".$buyer->user->first_name }}</td>
 												<td> {{ $buyer->country }}
-                                                    <input type="text" name="values[]" class="buyer-id" value="{{ $buyer->id }}">
+                                                    <input type="hidden" name="values[]" class="buyer-id" value="{{ $buyer->id }}">
 
                                                 </td>
 
                                                 <td class="action-btn-group">
-                                                    <button type="button" class="btn btn-md btn-primary">View Profile</button>
-                                                    <button type="button" class="add-btn btn btn-md btn-success">Add to List</button>
+                                                    <button type="button" class="btn btn-sm btn-primary">View Profile</button>
+                                                    <button type="button" class="add-btn btn btn-sm btn-success">Add to List</button>
                                                 </td>
 											</tr>
 										@endforeach
@@ -201,13 +201,13 @@ table#selected-buyer-list tr.placeholder:before {
 
             var currentElement = $(this).parent().parent();
             currentElement.find('button').remove();
-            var removeBtn = $('<button class="btn btn-danger">');
+            var removeBtn = $('<button class="btn btn-sm btn-danger">');
             removeBtn.text("Remove");
 
             // Append this element to above
             removeBtn.click(function(){
                 var tdToRemove = $(this).parent().parent();
-                var addBtn = $('<button class="add-btn btn btn-success">');
+                var addBtn = $('<button class="add-btn btn-sm btn btn-success">');
                 addBtn.text("Add to List");
                 addBtn.click(util);
                 tdToRemove.find('.action-btn-group').append(addBtn);
