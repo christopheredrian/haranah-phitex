@@ -64,6 +64,10 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'close.registration',
             'uses' => 'Admin\\EventsController@closeRegistration'
         ]);
+        Route::post('/events/{id}/finalizeSchedule', [
+            'as' => 'finalize.schedule',
+            'uses' => 'Admin\\EventsController@finalizeSchedule'
+        ]);
         // Admin - Event Parameters
         Route::resource('/event-params', 'Admin\\EventParamsController');
         Route::get('/event-params/create/{event_id}', [
@@ -92,6 +96,7 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'show.final.schedule',
             'uses' => 'Admin\\FinalSchedulesController@showWithEvent'
         ]);
+
 
         // Admin - Account
         Route::resource('/account', 'Admin\\AdministratorsController');
@@ -140,6 +145,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/events', [
             'as' => 'list.events',
             'uses' => 'Seller\\SellerController@showEvents'
+        ]);
+
+        Route::get('/{user_id}/profile', [
+            'as' => 'seller.cbuyer',
+            'uses' => 'Seller\\SellerController@showBuyerProfile'
         ]);
 
         Route::get('/events/{id}', [

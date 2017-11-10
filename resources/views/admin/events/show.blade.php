@@ -46,7 +46,7 @@
 
 
                         <br/>
-                        @if($event->event_status == "Registration Closed")
+                        @if($event->event_status == "New Event")
                             <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration" method="post">
                                 {{ csrf_field() }}
                                 {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
@@ -62,9 +62,11 @@
                                 <button type="submit" class="btn btn-primary">Close Registration</button>
                             </form>
                         @endif
+                        @if($event->event_status == "Registration Closed")
                         <a href="{{ route('show.final.schedule', ['event_id' => $event->id]) }}" title="Edit Event">
                             <button class="btn btn-primary">Edit Final Schedule</button>
                         </a>
+                        @endif
                         <br/>
                         <br/>
 
