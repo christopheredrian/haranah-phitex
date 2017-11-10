@@ -16,14 +16,17 @@ class BuyerTableSeeder extends Seeder
     {
         // Insert all BUYER users in buyers table
         $faker = Factory::create();
-        $all_buyers = User::all()
+        $all_buyers_in_users = User::all()
             ->where('role', '=', 'buyer');
-        foreach ($all_buyers as $buyer){
+        $counter = 1;
+        foreach ($all_buyers_in_users as $user){
             $new_buyer = new Buyer();
+            $new_buyer->id = $counter;
             $new_buyer->phone = "1234567890";
-            $new_buyer->user_id = $buyer->id;
+            $new_buyer->user_id = $user->id;
             $new_buyer->country = $faker->country;
             $new_buyer->save();
+            $counter = $counter + 1;
         }
 
     }
