@@ -30,14 +30,18 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Event Id</th><th>Buyer Id</th><th>Seller Id</th><th>Event Param</th><th>Actions</th>
+                                        <th>#</th><th>Event</th><th>Buyer</th><th>Seller</th><th>Schedule</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                 @foreach($finalschedules as $item)
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
-                                        <td>{{ $item->event_id }}</td><td>{{ $item->buyer_id }}</td><td>{{ $item->seller_id }}</td><td>{{ $item->event_param_id }}</td>
+                                        <td>{{ \App\Event::where('id','=',$item->event_id)->first()->event_name }}</td>
+                                        <td>{{ \App\User::where('id','=', \App\Buyer::where('id','=',$item->buyer_id)->first()->user_id)->first()->last_name.', '.\App\User::where('id','=', \App\Buyer::where('id','=',$item->buyer_id)->first()->user_id)->first()->first_name }}</td>
+                                        <td>{{ \App\User::where('id','=', \App\Seller::where('id','=',$item->seller_id)->first()->user_id)->first()->last_name.', '. \App\User::where('id','=', \App\Seller::where('id','=',$item->seller_id)->first()->user_id)->first()->first_name }}</td>
+                                        <td>{{ \App\EventParam::where('id','=',$item->event_param_id)->first()->start_time.'-'.\App\EventParam::where('id','=',$item->event_param_id)->first()->end_time }}</td>
                                         <td>
                                             {{--<a href="{{ url('/admin/final-schedules/' . $item->id) }}" title="View FinalSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>--}}
                                             <a href="{{ url('/admin/final-schedules/' . $item->id . '/edit') }}" title="Edit FinalSchedule"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
