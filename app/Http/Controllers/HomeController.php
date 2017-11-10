@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Buyer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,8 +34,9 @@ class HomeController extends Controller
     public function buyerIndex()
     {
     //  Insert app-buyer
-
-        return view('buyer.index', ['role' => 'Buyer']);
+        $events = Buyer::where('user_id', Auth::user()->id)->first()->events;
+        return view('buyer.index', ['role' => 'Buyer'])
+            ->with('events', $events);
     }
 
 
