@@ -60,7 +60,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
+                                    @foreach($events as $event)
+                                        <tr>
+                                            <td>{{ $event->event_name }}</td>
+                                            <td>{{ $event->event_status }}</td>
+                                            <td>{{ $event->event_place }}</td>
+                                            <td>{{ $event->event_date }}</td>
+
+                                        </tr>
+                                    @endforeach
+
+                                    {{--<tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
                                         <td class="mailbox-name"> Auction </td>
                                         <td class="mailbox-name"> Registration Open </td>
                                         <td class="mailbox-name"> Philippines </td>
@@ -89,7 +99,7 @@
                                         <td class="mailbox-name"> Registration Open </td>
                                         <td class="mailbox-name"> Philippines </td>
                                         <td class="mailbox-name"> 11/30/17 </td>
-                                    </tr>
+                                    </tr>--}}
                                     </tbody>
                                 </table>
                                 <!-- /.table -->

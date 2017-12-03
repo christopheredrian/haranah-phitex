@@ -44,7 +44,7 @@
         <nav class="navbar navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="{{ url('/seller/index') }}" class="navbar-brand"><b>Haranah</b> Phitex</a>
+                    <a href="{{ url('/seller/home') }}" class="navbar-brand"><b>Haranah</b> Phitex</a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
@@ -81,7 +81,7 @@
                                         </form>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="/seller/account" class="btn btn-default btn-lg btn-flat">Change Password</a>
+                                        <a href="/change-password" class="btn btn-default btn-lg btn-flat">Change Password</a>
                                     </div>
                                 </li>
                             </ul>
