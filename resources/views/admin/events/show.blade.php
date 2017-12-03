@@ -20,6 +20,8 @@
                             </button>
                         </a>
 
+
+
                         <form method="POST" action="{{ url('admin/events' . '/' . $event->id) }}" accept-charset="UTF-8"
                               style="display:inline">
                             {{ method_field('DELETE') }}
@@ -69,7 +71,26 @@
                         @endif
                         <br/>
                         <br/>
-
+                        <div class="x_panel">
+                            <div>
+                                <h2 class="x_title"> <i class="fa fa-envelope-o"></i> Mail</h2>
+                            </div>
+                            <div class="x_content">
+                                <div class="btn-group">
+                                    <a class="btn btn-primary btn-md" href="{{ url('/admin/event/' . $event->id . '/mail?to=sellers') }}" title="Edit Event">
+                                        <i class="fa fa-users"></i> Sellers
+                                    </a>
+                                    <a class="btn btn-primary btn-md" href="{{ url('/admin/event/' . $event->id . '/mail?to=buyers') }}" title="Edit Event">
+                                        <i class="fa fa-money"></i> Buyers
+                                    </a>
+                                    <a class="btn btn-primary btn-md" href="{{ url('/admin/event/' . $event->id . '/mail?to=all') }}" title="Edit Event">
+                                        <i class="fa fa-reply-all"></i> Buyers andSellers
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tbody>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Event;
 use App\Mail\GenericMail;
 use App\Mail\TestEmail;
 use Illuminate\Http\Request;
@@ -73,33 +74,52 @@ class MailController extends Controller
     public function mailParticipants(Request $request, $event_id)
     {
         $to = $request->get('to');
-        $addresses = [
-            'christopheredrian@gmail.com',
-            'test@haranah.com',
-            'maxwellrenard@gmail.com'
-        ];
-        Session::put('addresses', $addresses);
+//        $addresses = [
+//            'christopheredrian@gmail.com',
+//            'test@haranah.com',
+//            'maxwellrenard@gmail.com'
+//        ];
+        $event = Event::find($event_id);
         switch ($to) {
             case 'buyers':
+                $addresses = array();
+                foreach ($event->buyers as $buyer ){
+                    $addresses[] = $buyer->user->email;
+                }
+                Session::put('addresses', $addresses);
                 return view('emails.event')
                     ->with('title', 'Emailing all buyers for this event')
                     ->with('event_id', $event_id)
                     ->with('to', 'Buyers')
-                    ->with('addresses', $addresses);
+                    ->with('buyers', $event->buyers);
                 break;
             case 'sellers':
+                $addresses = array();
+                foreach ($event->sellers as $seller ){
+                    $addresses[] = $seller->user->email;
+                }
+                Session::put('addresses', $addresses);
                 return view('emails.event')
                     ->with('title', 'Emailing all sellers for this event')
                     ->with('event_id', $event_id)
                     ->with('to', 'Sellers')
-                    ->with('addresses', $addresses);
+                    ->with('sellers', $event->sellers);
                 break;
             case 'all':
+                $addresses = array();
+                foreach ($event->sellers as $seller ){
+                    $addresses[] = $seller->user->email;
+                }
+                foreach ($event->buyers as $buyer){
+                    $addresses[] = $buyer->user->email;
+                }
+                Session::put('addresses', $addresses);
                 return view('emails.event')
                     ->with('title', 'Emailing all buyers and sellers for this event')
                     ->with('event_id', $event_id)
                     ->with('to', 'Buyers and Sellers')
-                    ->with('addresses', $addresses);
+                    ->with('buyers', $event->buyers)
+                    ->with('sellers', $event->sellers);
                 break;
             default:
                 dd('invalid parameter');
@@ -116,43 +136,7 @@ class MailController extends Controller
         // TODO: Get data from event_id
         $addresses = Session::get('addresses');
         Session::forget("addresses");
-        $addresses = [
-            'christopheredrian@gmail.com',
-            'test@haranah.com',
-            'test2@haranah.com',
-            'test3@haranah.com',
-            'test4@haranah.com',
-            'test5@haranah.com',
-            'test6@haranah.com',
-            'test7@haranah.com',
-            'test8@haranah.com',
-            'test9@haranah.com',
-            'test10@haranah.com',
-            'test11@haranah.com',
-            'test12@haranah.com',
-            'test13@haranah.com',
-            '14@haranah.com',
-            '15@haranah.com',
-            '16@haranah.com',
-            '17@haranah.com',
-            '18@haranah.com',
-            '19@haranah.com',
-            '20@haranah.com',
-            '21@haranah.com',
-            '22@haranah.com',
-            '23@haranah.com',
-            '24@haranah.com',
-            '25@haranah.com',
-            '26@haranah.com',
-            '27@haranah.com',
-            '28@haranah.com',
-            '29@haranah.com',
-            '30@haranah.com',
-            '31@haranah.com',
-            '32@haranah.com',
-            '33@haranah.com',
-            'maxwellrenard@gmail.com'
-        ];
+
         $data = [
             'body' => $request->body, // this should be required
             'address' => $request->address,
@@ -162,6 +146,7 @@ class MailController extends Controller
         ];
         Mail::to($addresses ? $addresses : 'christopheredrian@gmail.com')
             ->queue(new GenericMail($data));
-        dd('Email Sent');
+        Session::flash('flash_message', 'Successfully sent email!');
+        return redirect('/admin/events/' . $event_id);
     }
 }

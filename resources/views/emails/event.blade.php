@@ -40,14 +40,34 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel"> {{ $to }}</h4>
+                            <h4 class="modal-title" id="myModalLabel"> Addressess </h4>
                         </div>
                         <div class="modal-body">
-                            <ul>
-                                @foreach($addresses as $address)
-                                    <li>{{ $address }}</li>
-                                @endforeach
-                            </ul>
+                            @if(isset($buyers))
+                                <h2>Buyers</h2>
+                                <ul>
+                                    @foreach($buyers as $buyer)
+                                        <li>{{ $buyer->user->email }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                            @if(isset($sellers))
+                                <h2>Sellers</h2>
+                                <ul>
+                                    @foreach($sellers as $seller)
+                                        <li>{{ $seller->user->email }}
+                                        </li>
+
+                                    @endforeach
+                                </ul>
+                            @endif
+                            {{--<ul>--}}
+
+                            {{--@foreach($addresses as $address)--}}
+                            {{--<li>{{ $address }}</li>--}}
+                            {{--@endforeach--}}
+                            {{--</ul>--}}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
