@@ -88,7 +88,6 @@ class SellerController extends Controller
     public function showBuyerProfile($id)
     {
         $buyer = Buyer::find($id);
-        $url = $id/profile;
         return view('seller.cbuyer',compact($buyer));
     }
 }
