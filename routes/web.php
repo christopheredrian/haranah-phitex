@@ -180,6 +180,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::post('/change-status/{user_id}', 'Admin\\UsersController@changeStatus');
+    Route::post('/importExcel', 'FileController@importExcel');
 });
 
 Auth::routes();
