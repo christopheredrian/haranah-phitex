@@ -30,6 +30,7 @@ class FinalSchedulesController extends Controller
         }
         return $buyer_names;
     }
+
     private function getSellerNames($event_id)
     {
         $seller_names = [];

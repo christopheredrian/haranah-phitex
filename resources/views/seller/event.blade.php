@@ -75,6 +75,10 @@
                             <!-- /.mail-box-messages -->
                         </div>
 
+
+
+
+
                         <div class="modal fade" id="modal-default">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -86,10 +90,6 @@
                                     </div>
                                     <div class="modal-body">
                                         <p>{{ $event->event_description }}</p>
-                                        @foreach($schedule as $sched)
-                                            <p> Event Starts at {{ date('g:i A', strtotime($sched->start_time))}} </p>
-                                            <p> Event Ends at {{ date('g:i A', strtotime($sched->end_time))}} </p>
-                                        @endforeach
                                     </div>
                                     <div class="modal-footer">
                                         <button onclick="window.location='{{ route('list.buyer', ['event_id' => $event->id])}}'" type="button" class="btn btn-danger"> Choose prefered Buyers</button>
@@ -126,6 +126,100 @@
                     <!-- /. box -->
                 </div>
                 <!-- /.col -->
+                <br/>
+                <br/>
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Finalized Schedules</h3>
+
+                            <div class="box-tools pull-right">
+                                <div class="has-feedback">
+                                    <input type="text" class="form-control input-sm" placeholder="Search">
+                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                </div>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <div class="mailbox-controls">
+                                <!-- Check all button -->
+                                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-sort-alpha-asc"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+
+                                <div class="pull-right">
+                                    1-50/200
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                    </div>
+                                    <!-- /.btn-group -->
+                                </div>
+                                <!-- /.pull-right -->
+                            </div>
+
+                            <div class="table-responsive mailbox-messages">
+                                <table class="table table-bordered table-hover table-striped text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>Buyer Name</th>
+                                        <th>Start</th>
+                                        <th>Stop</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @foreach($schedule as $sched)
+                                        <tr>
+                                            <td>
+                                            @foreach($info as $inf)
+                                                @if($inf->event_param_id === $sched->id)
+                                                    @foreach($buyer as $bname)
+                                                        @if($bname->id === $inf->buyer_id)
+                                                         {{$bname->last_name.', '.$bname->first_name}}
+                                                            @break
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                            </td>
+                                                <td> {{ date('g:i A', strtotime($sched->start_time))}} </td>
+                                                <td> {{ date('g:i A', strtotime($sched->end_time))}} </td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                                <!-- /.table -->
+                            </div>
+                            <!-- /.mail-box-messages -->
+                        </div>
+                        <div class="box-footer no-padding">
+                            <div class="mailbox-controls">
+                                <!-- Check all button -->
+                                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-sort-alpha-asc"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                                <div class="pull-right">
+                                    1-50/200
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                    </div>
+                                    <!-- /.btn-group -->
+                                </div>
+                                <!-- /.pull-right -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /. box -->
+                </div>
             </section>
         </div>
     </div>
