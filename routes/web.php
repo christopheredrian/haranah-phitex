@@ -106,7 +106,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/final-schedules/list/{event_id}', [
             'as' => 'show.final.list.schedule',
-            'uses' => 'Admin\\FinalSchedulesController@showWithEvent'
+            'uses' => 'Admin\\FinalSchedulesController@showList'
         ]);
 
         Route::get('/final-schedules/create/{event_id}', [
