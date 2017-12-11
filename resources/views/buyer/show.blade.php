@@ -18,7 +18,7 @@
                 <div class="cardheader">
                 </div>
                 <div class="avatar">
-                    <img alt="" src="/uploads/{{ Auth::user()->id }}/company_logo.jpg">
+                    <img alt="" src="/uploads/buyer-{{ $buyer->id }}.jpg">
                 </div>
                 <div class="info">
                     <div class="title">

@@ -197,10 +197,10 @@ class BuyerProfilesController extends Controller
         $user->update($requestData);
 
         if($request->file('company_logo')!=null){
-            $logo = 'company_logo.' . 'jpg';
+            $logo = 'buyer-'.$buyer->id. '.jpg';
 
             $request->file('company_logo')->move(
-                base_path() . '/public/uploads/'.$id.'/', $logo
+                base_path() . '/public/uploads/', $logo
             );
         }
 
