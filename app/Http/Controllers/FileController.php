@@ -17,7 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class FileController extends Controller
 {
     public function importBuyersOrSellers(Request $request){
-//        try{
+        try{
             $path = $request->file('file')->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
             $event_id = $request->event_id;
@@ -80,11 +80,11 @@ class FileController extends Controller
 
             return redirect('admin/events/'.$event_id);
 
-//        } catch(Exception $e) {
-//            Session::flash('flash_message','An error occurred. There might be invalid columns in the  import file or some emails are already taken.');
-//            Session::flash('alert-class','alert-danger');
-//
-//            return redirect('admin/events/'.$event_id);
-//        }
+        } catch(Exception $e) {
+            Session::flash('flash_message','An error occurred. There might be invalid columns in the  import file or some emails are already taken.');
+            Session::flash('alert-class','alert-danger');
+
+            return redirect('admin/events/'.$event_id);
+        }
     }
 }

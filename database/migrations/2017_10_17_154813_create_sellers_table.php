@@ -18,14 +18,14 @@ class CreateSellersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('country')->nullable();
             
-            $table->string('company_name');
-            $table->string('company_address');
-            $table->string('company_desc');
-            $table->string('event_rep1');
-            $table->string('event_rep2');
-            $table->string('designation');
-            $table->string('products');
-            $table->string('website');
+            $table->string('company_name')->nullable();
+            $table->string('company_address')->nullable();
+            $table->string('company_desc')->nullable();
+            $table->string('event_rep1')->nullable();
+            $table->string('event_rep2')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('products')->nullable();
+            $table->string('website')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
