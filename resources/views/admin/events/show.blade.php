@@ -66,7 +66,7 @@
                         @endif
                         @if($event->event_status == "Registration Closed")
                         <a href="{{ route('show.final.schedule', ['event_id' => $event->id]) }}" title="Edit Event">
-                            <button class="btn btn-primary">Edit Final Schedule</button>
+                            <button class="btn btn-primary">Finalize Schedule</button>
                         </a>
                         @endif
                         <br/>
