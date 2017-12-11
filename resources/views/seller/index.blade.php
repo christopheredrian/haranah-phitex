@@ -14,7 +14,7 @@
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
-                            <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+                            <img alt="" src="/uploads/seller-{{ $seller->id }}.jpg">
 
                             <h3 class="profile-username text-center">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</h3>
 
@@ -40,14 +40,6 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <strong><i class="fa fa-book margin-r-5"></i> Company Description</strong>
-
-                            <p class="text-muted">
-                                {{ $seller->company_desc }}
-                            </p>
-
-                            <hr>
-
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
 
                             <p class="text-muted">{{ $seller->company_address }}</p>
@@ -120,6 +112,14 @@
                                 <form method="POST" action="{{ url('seller/submit')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                                     {{ method_field('POST') }}
                                     {{ csrf_field() }}
+                                    <div class="form-group {{ $errors->has('company_logo') ? 'has-error' : ''}}">
+                                        <label for="company_logo" class="col-md-2 control-label">{{ 'Company Logo' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="file" name="company_logo" id="company_logo"
+                                                   value="{{ old('company_logo', isset($seller) ? $seller->company_logo : '' ) }}">
+                                            {!! $errors->first('company_logo', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
                                     <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
                                         <label for="company_name" class="col-md-2 control-label">{{ 'Company Name' }}</label>
                                         <div class="col-md-10">

@@ -25,6 +25,7 @@ use Session;
 class SellerController extends Controller
 {
     private $seller_validation = [
+        'company_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
         'country' => 'required',
@@ -34,7 +35,7 @@ class SellerController extends Controller
         'event_rep2' => 'required',
         'designation' => 'required',
         'website' => 'required',
-        'products' => 'required'
+        'products' => 'required',
     ];
     
     public function index(Request $request)
@@ -234,7 +235,14 @@ class SellerController extends Controller
 
         $user = User::findOrFail($seller->user->id);
         $user->update($requestData);
+        
+        if($request->file('company_logo')!=null){
+            $logo = 'seller-'.$seller->id. '.jpg';
 
+            $request->file('company_logo')->move(
+                base_path() . '/public/uploads/', $logo
+            );
+        }
 
         return redirect('seller/profile')->with('flash_message', 'Seller updated!');
     }
