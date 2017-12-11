@@ -31,7 +31,7 @@ class BuyerProfilesController extends Controller
      */
 
     private $buyer_validation = [
-        'company_logo' => 'image|mimes:jpg,png',
+        'company_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
         'country' => 'required',
@@ -45,34 +45,7 @@ class BuyerProfilesController extends Controller
 
     public function index(Request $request)
     {
-
-        $keyword = $request->get('search');
-        $perPage = 25;
-
-        if (!empty($keyword)) {
-            // Join buyers table to users table, filter, then paginate
-
-            $buyers = DB::table('final_schedules')
-                ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
-                ->join('users', 'users.id', '=', 'buyers.user_id')
-                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
-                ->select('*', 'buyers.id as buyer_id')
-                ->where('final_schedules.seller_id', 'LIKE', "%$keyword%")
-                ->orWhere('event_params.start_time', 'LIKE', "%$keyword%")
-                ->orWhere('event_params.end_time', 'LIKE', "%$keyword%")
-                ->paginate($perPage);
-        } else {
-            // Join buyers table to users table, then paginate
-
-            $buyers = DB::table('final_schedules')
-                ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
-                ->join('users', 'users.id', '=', 'buyers.user_id')
-                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
-                ->select('*')
-                ->paginate($perPage);
-        }
-
-        return view('buyer.index', compact('buyers'));
+      //
     }
 
     /**
@@ -95,48 +68,7 @@ class BuyerProfilesController extends Controller
      */
     public function store(Request $request)
     {
-
-        // check for User uniqueness (email)
-        $request->validate($this->buyer_validation);
-        $email = $request->email;
-        $user = new User();
-        $user->last_name = $request->last_name;
-        $user->first_name = $request->first_name;
-        $user->password = bcrypt("password");
-        $user->email = $request->email;
-        $user->created_at = Carbon::now();
-        $user->role = "buyer";
-        $user->activated = $request->activate === 'true' ? 1 : 0;
-        $user->save();
-        $user = User::where('email', $email)->first();
-
-        $buyer = new Buyer();
-        $buyer->phone = $request->phone;
-        $buyer->country = $request->country;
-        $buyer->user_id = $user->id;
-        $buyer->save();
-
-        // haha
-        if ($user->activated === 0) {
-            $user = User::find($user->id);
-            $credentials = ['email' => $user->email];
-            $response = Password::sendResetLink($credentials, function (Message $message) {
-                $message->subject($this->getEmailSubject());
-            });
-
-            switch ($response) {
-                case Password::RESET_LINK_SENT:
-                    Session::flash('flash_message', 'Password reset confirmation link sent to the user!');
-                    return redirect()->back()->with('status', trans($response));
-                case Password::INVALID_USER:
-                    Session::flash('flash_message', 'Password reset confirmation link not sent to the user!');
-                    return redirect()->back()->withErrors(['email' => trans($response)]);
-            }
-        }
-
-        Session::flash('flash_message', 'Buyer added!');
-
-        return redirect('buyer');
+       //
     }
 
     /**
@@ -238,6 +170,7 @@ class BuyerProfilesController extends Controller
         $buyer = Buyer::findOrFail($id)
             ->select('buyers.*', 'buyers.id as buyer_id')
             ->where("buyers.user_id", "=", "$id")->first();
+
         return view('buyer.edit', compact('buyer'));
     }
 
@@ -262,6 +195,13 @@ class BuyerProfilesController extends Controller
         $user = User::findOrFail($buyer->user->id);
         $user->update($requestData);
 
+        if($request->file('company_logo')!=null){
+            $logo = 'company_logo.' . 'jpg';
+
+            $request->file('company_logo')->move(
+                base_path() . '/public/uploads/'.$id.'/', $logo
+            );
+        }
 
         return redirect('buyer/profile')->with('flash_message', 'Buyer updated!');
     }
