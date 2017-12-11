@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Buyer;
 use Illuminate\Http\Request;
+use App\FinalSchedule;
+use App\EventParam;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -35,7 +37,6 @@ class HomeController extends Controller
     {
     //  Insert app-buyer
         $events = Buyer::where('user_id', Auth::user()->id)->first()->events;
-        // query final schedule
         return view('buyer.index', ['role' => 'Buyer'])
             ->with('events', $events);
     }

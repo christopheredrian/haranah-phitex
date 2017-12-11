@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 
 use App\Buyer;
 use App\User;
+use App\FinalSchedule;
+use App\EventParam;
+use App\Event;
+use App\EventBuyer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
@@ -137,7 +141,23 @@ class BuyerProfilesController extends Controller
     public function show($id)
     {
         $buyer = Buyer::findOrFail($id);
-        return view('buyer.show', compact('buyer'));
+
+        $buyerID = Buyer::where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+
+
+        $schedule = EventParam::whereIn('event_id', FinalSchedule::where('buyer_id','=', $buyerID)
+            ->pluck('event_param_id'))
+            ->get();
+
+        $eventOfBuyer = Event::whereIn('id', EventBuyer::where('buyer_id','=',$buyerID)
+            ->pluck('event_id'))
+            ->get();
+
+        return view('buyer.show', compact('buyer'))
+            ->with('schedule',$schedule)
+            ->with('buyerEvent',$eventOfBuyer);
     }
 
     /**
@@ -174,6 +194,11 @@ class BuyerProfilesController extends Controller
         $user->update($requestData);
 
         Session::flash('flash_message', 'Buyer updated!');
+
+
+
+
+
 
         return redirect('buyer/{user_id}/profile');
     }

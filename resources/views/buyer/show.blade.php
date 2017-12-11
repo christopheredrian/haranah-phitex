@@ -37,7 +37,6 @@
                                 <th>Name</th>
                                 <td>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -45,6 +44,39 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12">
+            <h4 class="page-head-line">Schedule</h4>
+        </div>
+        @foreach($buyerEvent as $event)
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th>Event Name</th>
+                            <td>{{ $event->event_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Location</th>
+                            <td> {{ $event->event_place}}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td> {{ $event->event_description }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p></p>
+                @foreach($schedule as $sched)
+                    <p> Event Starts at {{ date('g:i A', strtotime($sched->start_time))}} </p>
+                    <p> Event Ends at {{ date('g:i A', strtotime($sched->end_time))}} </p>
+                @endforeach
+            </div>
+        </div>
+        @endforeach
     </div>
 
 

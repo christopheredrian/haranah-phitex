@@ -84,6 +84,7 @@ class EventsController extends Controller
 
         //$eventsellers = User::whereIn('user_id', Seller::whereIn('id',EventSeller::where('event_id' , '=','$id')))->pluck('last_name');
         //SELECT * FROM `users`  WHERE id IN (SELECT user_id from buyers WHERE id IN (SELECT buyer_id FROM `event_buyers`))
+
         $eventsellers = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$id)
                     ->pluck('seller_id'))
                     ->pluck('user_id'))
