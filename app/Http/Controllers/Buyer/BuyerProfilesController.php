@@ -31,15 +31,13 @@ class BuyerProfilesController extends Controller
      */
 
     private $buyer_validation = [
-        'last_name' => 'required',
-        'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
         'country' => 'required',
         'company_name' => 'required',
         'company_address' => 'required',
         'event_rep1' => 'required',
-        'event_rep2' => 'require',
+        'event_rep2' => 'required',
         'designation' => 'required',
         'website' => 'required',
     ];
@@ -229,7 +227,7 @@ class BuyerProfilesController extends Controller
         $user->update($requestData);
 
 
-        return redirect('buyer/{user_id}/profile')->with('flash_message', 'Buyer updated!');
+        return redirect('buyer/'.$id.'/profile')->with('flash_message', 'Buyer updated!');
     }
 
     /**

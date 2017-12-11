@@ -114,6 +114,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR BUYER
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
+
         Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
 
         // TEMPORARY!!!
@@ -126,7 +127,7 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Buyer\\BuyerProfilesController@show'
         ]);
 
-        Route::get('/{buyer_id}/edit', [
+        Route::get('/{user_id}/edit', [
             'as' => 'buyers.edit',
             'uses' => 'Buyer\\BuyerProfilesController@edit'
         ]);
