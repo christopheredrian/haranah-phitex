@@ -19,7 +19,6 @@ class EventsController extends Controller
         'event_name' => 'required',
         'event_place' => 'required',
         'event_date' => 'required',
-        'event_status' => 'required',
         'event_description' => 'required',
     ];
     /**
@@ -65,7 +64,7 @@ class EventsController extends Controller
         $requestData = $request->all();
         
         $event = Event::create($requestData);
-        $event->status = 'New Event';
+        $event->event_status = 'New Event';
         $event->save();
 
         return redirect('admin/events')->with('flash_message', 'Event added!');
