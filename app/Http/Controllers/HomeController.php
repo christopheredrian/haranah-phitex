@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Buyer;
+use App\Seller;
+use App\User;
 use Illuminate\Http\Request;
 use App\FinalSchedule;
 use App\EventParam;
@@ -86,11 +88,24 @@ class HomeController extends Controller
      * query event_id in events then get data from event
      **/
 
-    public function sellerIndex()
+    public function sellerIndex(Request $request)
     {
         //  Insert app-buyer
         // query final schedule
-        return view('seller.index', ['role' => 'Seller']);
+        $id = Auth::user()->id;
+        $keyword = $request->get('search');
+        $perPage = 25;
+
+        if (!empty($keyword)) {
+            $sellers = Seller::paginate($perPage);
+        } else {
+            $sellers = Seller::paginate($perPage);
+        }
+
+        $seller = User::findOrFail($id);
+
+        return view('seller.index', compact('seller'))
+            ->with('sellers', $sellers);
     }
 
 }

@@ -2,51 +2,109 @@
 
 namespace App\Http\Controllers\Seller;
 
-use App\Event;
-use App\EventSeller;
-use Illuminate\Http\Requests;
-use App\FinalSchedule;
-use App\EventParam;
-use App\Buyer;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
 use App\Seller;
 use App\User;
-use App\EventBuyer;
+use App\FinalSchedule;
+use App\EventParam;
+use App\Event;
+use App\EventSeller;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Auth;
+use Mockery\Generator\StringManipulation\Pass\Pass;
+use Illuminate\Database\Eloquent\Builder;
 use Session;
 
 class SellerController extends Controller
 {
-    public function index($id, Request $request)
+    private $seller_validation = [
+        'company_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'email' => 'unique:users,email|email',
+        'phone' => 'nullable',
+        'country' => 'required',
+        'company_name' => 'required',
+        'company_address' => 'required',
+        'event_rep1' => 'required',
+        'event_rep2' => 'required',
+        'designation' => 'required',
+        'website' => 'required',
+    ];
+    
+    public function index(Request $request)
     {
-        $keyword = $request->get('search');
-        $perPage = 25;
-
-        if (!empty($keyword)) {
-            $sellers = Seller::paginate($perPage);
-        } else {
-            $sellers = Seller::paginate($perPage);
-        }
-
-        $seller = User::findOrFail($id);
-
-        return view('admin.seller.index', compact('seller'))
-            ->with('sellers', $sellers);
+        //
     }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('seller.create')
+            ->with('isCreate', true);
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
+    {
+       //
+    }
+
 
     /**
      * Shows all event for this particular logged in seller
      * @return
      */
 
-    public function show($id)
+    public function show(Request $request)
     {
-        $seller = Seller::findOrFail($id)->where("seller.user_id", "=", "$id")->first();
+        $id = Auth::user()->id;
+        $seller = Seller::where("sellers.user_id", "=", "$id")->first();
 
-        return view('seller.show', compact('seller'), ['role' => 'Seller'])->with('seller', $seller);
+        $sellerID = Seller::where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+            //gets all schedule
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.seller_id','=', $sellerID)
+            ->get();
+
+        // gets event information
+        $eventOfSeller = Event::whereIn('id', EventSeller::where('seller_id','=',$sellerID)
+            ->pluck('event_id'))
+            ->get();
+
+        $info = DB::table('final_schedules')
+            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
+            ->select('buyer_id','event_param_id')
+            ->where('sellers.id' ,'=',$sellerID)
+            ->get();
+
+        // gets Name (first and last) of buyer in the final schedule
+        $buyer = DB::table('users')
+            ->join('buyers', 'users.id','=','buyers.user_id')
+            ->get();
+
+        return view('seller.index', compact('seller'), ['role' => 'Seller'])
+            ->with('sellers', $seller)
+            ->with('schedule',$schedule)
+            ->with('sellerEvent',$eventOfSeller)
+            ->with('info',$info)
+            ->with('buyer',$buyer);
     }
 
 

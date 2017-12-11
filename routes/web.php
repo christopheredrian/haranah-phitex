@@ -157,15 +157,14 @@ Route::group(['middleware' => ['auth']], function () {
 //        Route::get('/home', 'Seller\\SellerController@showEvents');
 
         // NOT TESTED
-        Route::resource('seller', 'Seller\\SellerController');
+        Route::get('/profile', [
+            'as' => 'seller.index',
+            'uses' => 'Seller\\SellerController@show'
+        ]);
+        
         Route::get('/events', [
             'as' => 'list.events',
             'uses' => 'Seller\\SellerController@showEvents'
-        ]);
-
-        Route::get('/{user_id}/profile', [
-            'as' => 'seller.show',
-            'uses' => 'Seller\\SellerController@show'
         ]);
 
         Route::get('/{user_id}/profile', [

@@ -38,7 +38,7 @@ class LoginController extends Controller
         } else if(Auth::user()->hasRole("buyer")){
             return '/buyer/profile';
         } else {
-            return '/seller/home';
+            return '/seller/profile';
         }
     }
 
