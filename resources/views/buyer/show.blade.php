@@ -113,7 +113,7 @@
                     <strong>Schedule not yet Available</strong>
                 </div>
             @endif
-            
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Finalized Schedule
