@@ -5,7 +5,7 @@
         {!! $errors->first('event_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('seller_id') ? 'has-error' : ''}}">
-    <label for="seller_id" class="col-md-4 control-label">{{ 'Seller Id' }}</label>
+    <label for="seller_id" class="col-md-4 control-label">{{ 'Seller' }}</label>
     <div class="col-md-6">
         <select name="seller_id" id="seller_id" class="form-control">
             @foreach($seller_names as $seller_name)

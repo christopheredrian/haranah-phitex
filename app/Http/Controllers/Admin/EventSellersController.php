@@ -13,7 +13,7 @@ class EventSellersController extends Controller
     private function getSellerNames($event_id)
     {
         $seller_names = [];
-        $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id)->pluck('seller_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
         //whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id))
         foreach ($sellers as $seller) {
             $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');
