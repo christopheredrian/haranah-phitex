@@ -95,11 +95,38 @@
                         </tbody>
                     </table>
                 </div>
-                <p></p>
-                @foreach($schedule as $sched)
-                    <p> Event Starts at {{ date('g:i A', strtotime($sched->start_time))}} </p>
-                    <p> Event Ends at {{ date('g:i A', strtotime($sched->end_time))}} </p>
-                @endforeach
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th>Seller Name</th>
+                            <th>Start</th>
+                            <th>Stop</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach($schedule as $sched)
+                            <tr>
+                                <td>
+                                    @foreach($info as $inf)
+                                        @if($inf->event_param_id === $sched->id)
+                                            @foreach($seller as $bname)
+                                                @if($bname->id === $inf->seller_id)
+                                                    {{ $bname->last_name.', '.$bname->first_name}}
+                                                    @break
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td> {{ date('g:i A', strtotime($sched->start_time))}} </td>
+                                <td> {{ date('g:i A', strtotime($sched->end_time))}} </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         @endforeach

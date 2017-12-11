@@ -155,19 +155,35 @@ class BuyerProfilesController extends Controller
             ->pluck('id');
 
 
-
-        $schedule = EventParam::whereIn('event_id', FinalSchedule::where('buyer_id','=', $buyerID)
-            ->pluck('event_param_id'))
+        //gets all schedule
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.buyer_id','=', $buyerID)
             ->get();
 
+        // gets event information
         $eventOfBuyer = Event::whereIn('id', EventBuyer::where('buyer_id','=',$buyerID)
             ->pluck('event_id'))
             ->get();
 
+        $info = DB::table('final_schedules')
+            ->join('buyers' ,'final_schedules.buyer_id', '=' ,'buyers.id')
+            ->select('seller_id','event_param_id')
+            ->where('buyers.id' ,'=',$buyerID)
+            ->get();
+
+        // gets Name (first and last) of buyer in the final schedule
+        $seller = DB::table('users')
+            ->join('sellers', 'users.id','=','sellers.user_id')
+            ->get();
+
         return view('buyer.show', compact('buyer'))
             ->with('schedule',$schedule)
-            ->with('buyerEvent',$eventOfBuyer);
+            ->with('buyerEvent',$eventOfBuyer)
+            ->with('info',$info)
+            ->with('seller',$seller);
     }
+
 
     /**
      * Show the form for editing the specified resource.
