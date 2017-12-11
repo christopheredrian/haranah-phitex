@@ -30,16 +30,18 @@ class FileController extends Controller
                 for($i=0;$i<count($data);$i++)
                 {
                     // remove unnecessary column 0
-//                    dd($data);
                     unset($data[$i][0]);
 
                     $data[$i]['role'] = $user_type;
                     $data[$i]['activated'] = 0;
 
-                    $dataImported[] = $data[$i];
-                    $importedUsers[] = $data[$i]['email'];
+                    if(isset($data[$i]['email'])){
+                        $dataImported[] = $data[$i];
+                        $importedUsers[] = $data[$i]['email'];
+                    }
                 }
             }
+            dd($dataImported);
             User::insert($dataImported);
             $buyerCount = count($dataImported);
 
