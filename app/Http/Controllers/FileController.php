@@ -41,7 +41,7 @@ class FileController extends Controller
                     }
                 }
             }
-            dd($dataImported);
+
             User::insert($dataImported);
             $buyerCount = count($dataImported);
 
