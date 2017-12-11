@@ -12,7 +12,7 @@
                 <div class="panel-body">
 
                     {{--                        <a href="{{ url('/buyer/home') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>--}}
-                    <a href="{{ url('/buyer/'.$buyer->id.'/edit') }}" title="Edit buyer">
+                    <a href="{{ url('/buyer/'.Auth::user()->id.'/edit') }}" title="Edit buyer">
                         <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             Edit
                         </button>
@@ -37,6 +37,32 @@
                                 <th>Name</th>
                                 <td>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</td>
                             </tr>
+
+                            <tr>
+                                <th>Company Name</th>
+                                <td>{{ $buyer->company_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Address</th>
+                                <td>{{ $buyer->company_address }}</td>
+                            </tr>
+                            <tr>
+                                <th>Event Representative 1</th>
+                                <td>{{ $buyer->event_rep1 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Event Representative 2</th>
+                                <td>{{ $buyer->event_rep2 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Designation</th>
+                                <td>{{ $buyer->desgination }}</td>
+                            </tr>
+                            <tr>
+                                <th>Website</th>
+                                <td>{{ $buyer->website }}</td>
+                            </tr>
+
                             </tbody>
                         </table>
                     </div>
