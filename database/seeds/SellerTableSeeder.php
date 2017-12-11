@@ -25,6 +25,13 @@ class SellerTableSeeder extends Seeder
             $new_seller->phone = "1234567890";
             $new_seller->user_id = $seller->id;
             $new_seller->country = $faker->country;
+            $new_seller->company_name = $faker->company;
+            $new_seller->company_address = $faker->address;
+            $new_seller->event_rep1 = $faker->name;
+            $new_seller->event_rep2 = $faker->name;
+            $new_seller->designation = $faker->country;
+            $new_seller->products = $faker->name;
+            $new_seller->website = $faker->url;
             $new_seller->save();
             $counter = $counter + 1;
         }

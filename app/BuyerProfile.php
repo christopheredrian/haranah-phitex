@@ -29,8 +29,22 @@ class BuyerProfile extends Model
         'user_id',
         'company_name',
         'company_address',
+        'event_rep1',
+        'event_rep2',
+        'designation',
         'email',
+        'country',
         'website',
         'phone'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany('App\Event','event_buyers');
+    }
 }

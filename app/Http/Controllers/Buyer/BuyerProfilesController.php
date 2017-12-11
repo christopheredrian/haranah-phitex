@@ -31,15 +31,13 @@ class BuyerProfilesController extends Controller
      */
 
     private $buyer_validation = [
-        'last_name' => 'required',
-        'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
         'country' => 'required',
         'company_name' => 'required',
         'company_address' => 'required',
         'event_rep1' => 'required',
-        'event_rep2' => 'require',
+        'event_rep2' => 'required',
         'designation' => 'required',
         'website' => 'required',
     ];
@@ -155,8 +153,6 @@ class BuyerProfilesController extends Controller
 
         if (!empty($keyword)) {
             // Join buyers table to users table, filter, then paginate
-
-
             $buyers = DB::table('final_schedules')
                 ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
                 ->join('users', 'users.id', '=', 'buyers.user_id')
@@ -261,7 +257,7 @@ class BuyerProfilesController extends Controller
         $user->update($requestData);
 
 
-        return redirect('buyer/{user_id}/profile')->with('flash_message', 'Buyer updated!');
+        return redirect('buyer/'.$id.'/profile')->with('flash_message', 'Buyer updated!');
     }
 
     /**

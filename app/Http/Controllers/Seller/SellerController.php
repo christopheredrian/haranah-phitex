@@ -38,6 +38,15 @@ class SellerController extends Controller
      * Shows all event for this particular logged in seller
      * @return
      */
+
+    public function show($id)
+    {
+        $seller = Seller::findOrFail($id)->where("seller.user_id", "=", "$id")->first();
+
+        return view('seller.show', compact('seller'), ['role' => 'Seller'])->with('seller', $seller);
+    }
+
+
     public function showEvents()
     {
         // TODO: Another refactor later
@@ -129,9 +138,21 @@ class SellerController extends Controller
             ->pluck('event_param_id'))
             ->get();
 
+        $info = DB::table('final_schedules')
+            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
+            ->select('buyer_id','event_param_id')
+            ->where('sellers.id' ,'=',$sellerID)
+            ->get();
+
+        // gets Name (first and last) of buyer in the final schedule
+        $buyer = DB::table('users')
+            ->join('buyers', 'users.id','=','buyers.user_id')
+            ->get();
         return view('seller.event')
             ->with('events',$seller->events)
-            ->with('schedule',$schedule);
+            ->with('schedule',$schedule)
+            ->with('info',$info)
+            ->with('buyer',$buyer);
 
     }
 
