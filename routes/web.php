@@ -139,15 +139,19 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR SELLER
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
-//        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
-        Route::get('/home', 'Seller\\SellerController@showEvents');
-
+        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
+//        Route::get('/home', 'Seller\\SellerController@showEvents');
 
         // NOT TESTED
         Route::resource('seller', 'Seller\\SellerController');
         Route::get('/events', [
             'as' => 'list.events',
             'uses' => 'Seller\\SellerController@showEvents'
+        ]);
+
+        Route::get('/{user_id}/profile', [
+            'as' => 'seller.show',
+            'uses' => 'Seller\\SellerController@show'
         ]);
 
         Route::get('/{user_id}/profile', [
