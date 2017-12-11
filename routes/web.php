@@ -158,7 +158,7 @@ Route::group(['middleware' => ['auth']], function () {
         ]);
 
         Route::post('/events/{id}/submit', [
-            'as' => 'list.buyer',
+            'as' => 'preference.submit',
             'uses' => 'Seller\\SellerController@submitPreferences'
         ]);
 
