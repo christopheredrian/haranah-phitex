@@ -25,6 +25,7 @@ class Buyer extends Model
      *
      * @var array
      */
+
     protected $fillable = [
         'user_id',
         'company_name',
