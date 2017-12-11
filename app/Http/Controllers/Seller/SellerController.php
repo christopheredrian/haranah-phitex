@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Seller;
 use App\Event;
 use App\EventSeller;
 use Illuminate\Http\Requests;
+use App\FinalSchedule;
+use App\EventParam;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,8 +44,19 @@ class SellerController extends Controller
         // TODO: Another refactor later
         $seller = Seller::where('user_id', Auth::user()->id)
             ->first();
+
+        $sellerID = Seller::where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+
+        //table column where  id
+        $schedule = EventParam::whereIn('event_id', FinalSchedule::where('seller_id', '=', $sellerID)
+            ->pluck('event_param_id'))
+            ->get();
+
         return view('seller.event')
-            ->with('events',$seller->events);
+            ->with('events',$seller->events)
+            ->with('schedule',$schedule);
     }
 
     /**

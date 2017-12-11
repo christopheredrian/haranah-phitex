@@ -15,6 +15,7 @@
     <link href="/bp_assets/css/font-awesome.css" rel="stylesheet"/>
     <!-- CUSTOM STYLE  -->
     <link href="/bp_assets/css/style.css" rel="stylesheet"/>
+    <link href="/bp_assets/css/buyer-profile.css" rel="stylesheet"/>
     <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -90,12 +91,12 @@
 
                         ?>
 
-                        <li><a class="{{ is_active(['/home' ]) }}" href="/buyer/home">Dashboard</a></li>
+                        {{--<li><a class="{{ is_active(['/home' ]) }}" href="/buyer/home">Dashboard</a></li>--}}
 
                         <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/' . Auth::user()->id . '/profile') }}">Profile</a></li>
                         <li class="{{ is_active(['#' ]) }} dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                                Account
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu dropdown-settings">

@@ -25,7 +25,12 @@ class BuyerProfile extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id'];
-
-    
+    protected $fillable = [
+        'user_id',
+        'company_name',
+        'company_address',
+        'email',
+        'website',
+        'phone'
+    ];
 }

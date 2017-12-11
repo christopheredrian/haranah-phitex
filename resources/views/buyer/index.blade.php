@@ -12,7 +12,7 @@
             <!--    Hover Rows  -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Events
+                    Schedule
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -20,21 +20,21 @@
 
                             <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Event Name</th>
-                                <th>Venue</th>
+                                <th>Seller</th>
                                 <th>Date</th>
-                                <th>Status</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($events as $event)
+                            @foreach($buyers as $buyer)
                                 <tr>
-                                    <td>{{ $event->id }}</td>
-                                    <td>{{ $event->event_name }}</td>
-                                    <td>{{ $event->event_place }}</td>
-                                    <td>{{ $event->event_date }}</td>
-                                    <td>{{ $event->event_status }}</td>
+                                    <td>{{ $buyer->event_name }}</td>
+                                    <td>{{ $buyer->seller_id }}</td>
+                                    <td>{{ $buyer->event_date }}</td>
+                                    <td>{{ $buyer->s_time }}</td>
+                                    <td>{{ $buyer->e_time }}</td>
                                 </tr>
                             @endforeach
 

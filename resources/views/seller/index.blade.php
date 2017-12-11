@@ -56,7 +56,7 @@
                                         <th>Event Name</th>
                                         <th>Event Status</th>
                                         <th>Event Place</th>
-                                        <th>Event Date</th>
+                                        <th>Schedule</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -66,40 +66,9 @@
                                             <td>{{ $event->event_status }}</td>
                                             <td>{{ $event->event_place }}</td>
                                             <td>{{ $event->event_date }}</td>
-
+                                            <td>asdasdasd</td>
                                         </tr>
                                     @endforeach
-
-                                    {{--<tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
-                                        <td class="mailbox-name"> Auction </td>
-                                        <td class="mailbox-name"> Registration Open </td>
-                                        <td class="mailbox-name"> Philippines </td>
-                                        <td class="mailbox-name"> 11/30/17 </td>
-                                    </tr>
-                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
-                                        <td class="mailbox-name"> Auction </td>
-                                        <td class="mailbox-name"> Registration Open </td>
-                                        <td class="mailbox-name"> Philippines </td>
-                                        <td class="mailbox-name"> 11/30/17 </td>
-                                    </tr>
-                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
-                                        <td class="mailbox-name"> Auction </td>
-                                        <td class="mailbox-name"> Registration Open </td>
-                                        <td class="mailbox-name"> Philippines </td>
-                                        <td class="mailbox-name"> 11/30/17 </td>
-                                    </tr>
-                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
-                                        <td class="mailbox-name"> Auction </td>
-                                        <td class="mailbox-name"> Registration Open </td>
-                                        <td class="mailbox-name"> Philippines </td>
-                                        <td class="mailbox-name"> 11/30/17 </td>
-                                    </tr>
-                                    <tr class="clickable-row" data-toggle="modal" data-target="#modal-default">
-                                        <td class="mailbox-name"> Auction </td>
-                                        <td class="mailbox-name"> Registration Open </td>
-                                        <td class="mailbox-name"> Philippines </td>
-                                        <td class="mailbox-name"> 11/30/17 </td>
-                                    </tr>--}}
                                     </tbody>
                                 </table>
                                 <!-- /.table -->

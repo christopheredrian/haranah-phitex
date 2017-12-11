@@ -66,7 +66,6 @@
                                             <td>{{ $event->event_status }}</td>
                                             <td>{{ $event->event_place }}</td>
                                             <td>{{ $event->event_date }}</td>
-
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -87,6 +86,10 @@
                                     </div>
                                     <div class="modal-body">
                                         <p>{{ $event->event_description }}</p>
+                                        @foreach($schedule as $sched)
+                                            <p> Event Starts at {{ date('g:i A', strtotime($sched->start_time))}} </p>
+                                            <p> Event Ends at {{ date('g:i A', strtotime($sched->end_time))}} </p>
+                                        @endforeach
                                     </div>
                                     <div class="modal-footer">
                                         <button onclick="window.location='{{ route('list.buyer', ['event_id' => $event->id])}}'" type="button" class="btn btn-danger"> Choose prefered Buyers</button>

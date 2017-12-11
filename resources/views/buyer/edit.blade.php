@@ -7,7 +7,7 @@
 
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading">{{ $buyer->user->first_name }} {{ $buyer->user->last_name }}</div>
+            <div class="panel-heading">Profile</div>
             <div class="panel-body">
                 <a href="{{ url('/buyer/'.Auth::user()->id.'/profile') }}" title="Back">
                     <button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back
@@ -24,7 +24,7 @@
                     </ul>
                 @endif
 
-                <form method="POST" action="{{ url('/buyer/' . Auth::user()->id.'/update') }}" accept-charset="UTF-8"
+                <form method="POST" action="{{ url('/buyer/'. Auth::user()->id).'/submit'}}" accept-charset="UTF-8"
                       class="form-horizontal" enctype="multipart/form-data">
                     {{ method_field('PATCH') }}
                     {{ csrf_field() }}
