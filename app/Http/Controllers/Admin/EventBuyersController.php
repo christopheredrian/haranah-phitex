@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 
 class EventBuyersController extends Controller
 {
-    private function getBuyerNames()
+    private function getBuyerNames($event_id)
     {
         $buyer_names = [];
-        $buyers = \App\User::whereIn('id', \App\Buyer::where('id' ,'>' ,0)->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        $buyers = \App\User::whereIn('id', \App\Buyer::where('id' ,'>' ,0)->whereNotIn('id',\App\EventBuyer::where('event_id','=',$event_id)->pluck('buyer_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
         foreach ($buyers as $buyer) {
             $buyerid = \App\Buyer::where('user_id' ,'=' ,$buyer->id)->value('id');
             $buyer_names[$buyerid] = $buyer->last_name.", ".$buyer->first_name;
@@ -23,7 +23,7 @@ class EventBuyersController extends Controller
 
     public function createWithEvent($event_id)
     {
-        return view('admin.event-buyers.create')->with('event_id',$event_id)->with('buyer_names', $this->getBuyerNames());
+        return view('admin.event-buyers.create')->with('event_id',$event_id)->with('buyer_names', $this->getBuyerNames($event_id));
     }
     /**
      * Display a listing of the resource.
