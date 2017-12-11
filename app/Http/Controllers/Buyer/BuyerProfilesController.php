@@ -145,8 +145,10 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id, Request $request)
+    public function show(Request $request)
     {
+
+        $id = Auth::user()->id;
 
         $keyword = $request->get('search');
         $perPage = 25;
@@ -228,8 +230,10 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit()
     {
+        $id = Auth::user()->id;
+
         $buyer = Buyer::findOrFail($id)
             ->select('buyers.*', 'buyers.id as buyer_id')
             ->where("buyers.user_id", "=", "$id")->first();
@@ -244,8 +248,9 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
+        $id = Auth::user()->id;
 
         $request->validate($this->buyer_validation);
         $requestData = $request->all();
@@ -257,7 +262,7 @@ class BuyerProfilesController extends Controller
         $user->update($requestData);
 
 
-        return redirect('buyer/'.$id.'/profile')->with('flash_message', 'Buyer updated!');
+        return redirect('buyer/profile')->with('flash_message', 'Buyer updated!');
     }
 
     /**

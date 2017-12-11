@@ -129,17 +129,17 @@ Route::group(['middleware' => ['auth']], function () {
 //            return view('buyer.show');
 //        });
 
-        Route::get('/{user_id}/profile', [
+        Route::get('/profile', [
             'as' => 'buyers.show',
             'uses' => 'Buyer\\BuyerProfilesController@show'
         ]);
 
-        Route::get('/{user_id}/edit', [
+        Route::get('/edit', [
             'as' => 'buyers.edit',
             'uses' => 'Buyer\\BuyerProfilesController@edit'
         ]);
 
-        Route::post('/{user_id}/submit', [
+        Route::post('/submit', [
             'as' => 'buyers.update',
             'uses' => 'Buyer\\BuyerProfilesController@update'
         ]);

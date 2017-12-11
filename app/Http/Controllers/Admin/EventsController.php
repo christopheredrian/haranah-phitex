@@ -11,6 +11,8 @@ use App\EventSeller;
 use App\User;
 use App\EventBuyer;
 use App\Buyer;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 
 class EventsController extends Controller
@@ -162,6 +164,26 @@ class EventsController extends Controller
         $event = Event::FindorFail($id);
         $event->event_status="Registration Closed";
         $event->save();
+
+        $noSellerPreference = \App\Seller::whereIn('id',EventSeller::where('event_id','=',$id)->pluck('seller_id'))
+            ->whereNotIn('id',\App\SellerPreference::where('event_id', '=', $id)->pluck('seller_id'))->get();
+
+        $eventBuyers = \App\Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)->pluck('buyer_id'))->get();
+        $counter=1;
+        foreach ($noSellerPreference as $seller){
+            foreach ($eventBuyers as $buyer){
+
+                $newSellerPreference = \App\SellerPreference::create();
+                $newSellerPreference->event_id = $id;
+                $newSellerPreference->buyer_id = $buyer->id;
+                $newSellerPreference->seller_id = $seller->id;
+                $newSellerPreference->rank = $counter;
+                $newSellerPreference->save();
+                $counter=$counter+1;
+            }
+            $counter=1;
+        }
+
         $event_params = \App\EventParam::where('event_id','=',$id)->orderBy('start_time')->pluck('id');
         $seller_preference = \App\SellerPreference::where('event_id', '=', $id)->orderBy('created_at')->orderBy('rank')->get();
         $sellercount = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$id)

@@ -6,6 +6,12 @@
             <h4 class="page-head-line">{{ $buyer->company_name }}</h4>
         </div>
 
+        @if(Session::has('flash_message'))
+            <div class="col-md-12">
+                <p class="alert alert-success">{{ Session::get('flash_message') }}</p>
+            </div>
+        @endif
+
         <div class="col-lg-4 col-sm-6">
 
             <div class="card hovercard">
@@ -44,7 +50,7 @@
                     </div>
                 </div>
                 <div class="bottom">
-                    <a href="{{ url('/buyer/'.$buyer->user_id.'/edit') }}" title="Edit buyer">
+                    <a href="{{ url('/buyer/edit') }}" title="Edit buyer">
                         <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             Edit
                         </button>
