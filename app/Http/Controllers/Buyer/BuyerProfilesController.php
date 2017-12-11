@@ -177,6 +177,8 @@ class BuyerProfilesController extends Controller
                 ->select(
                     'users.last_name as lname',
                     'users.first_name as fname',
+                    'buyers.event_rep1 as rep1',
+                    'buyers.event_rep2 as rep2',
                     'events.event_name as event_name',
                     'events.event_date as event_date',
                     'events.event_place as venue',

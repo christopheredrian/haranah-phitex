@@ -76,22 +76,26 @@
                             <thead>
                             <tr>
                                 <th>Event Name</th>
+                                <th>Representatives</th>
                                 <th>Seller</th>
-                                <th>Date</th>
                                 <th>Venue</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
+                                <th>Date</th>
+                                <th>Time</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($buyers as $buyer)
                                 <tr>
                                     <td>{{ $buyer->event_name }}</td>
+                                    <td>
+                                        {{ $buyer->rep1 }}
+                                        <br/>
+                                        {{ $buyer->rep2 }}
+                                    </td>
                                     <td>{{ $buyer->fname }} {{ $buyer->lname }}</td>
-                                    <td>{{ $buyer->event_date }}</td>
                                     <td>{{ $buyer->venue }}</td>
-                                    <td>{{ $buyer->s_time }}</td>
-                                    <td>{{ $buyer->e_time }}</td>
+                                    <td>{{ $buyer->event_date }}</td>
+                                    <td>{{ date('G:i A', strtotime($buyer->s_time)) }} - {{ date('G:i A', strtotime($buyer->e_time)) }}</td>
                                 </tr>
                             @endforeach
 
