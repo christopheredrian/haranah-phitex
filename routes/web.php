@@ -82,12 +82,19 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'create.event.buyers',
             'uses' => 'Admin\\EventBuyersController@createWithEvent'
         ]);
-
+        Route::post('/event-buyers/{event_id}/{buyer_id}/delete', [
+            'as' => 'delete.event.buyer',
+            'uses' => 'Admin\\EventBuyersController@delete'
+        ]);
         //Admin - Event Sellers
         Route::resource('/event-sellers', 'Admin\\EventSellersController');
         Route::get('/event-sellers/create/{event_id}', [
             'as' => 'create.event.sellers',
             'uses' => 'Admin\\EventSellersController@createWithEvent'
+        ]);
+        Route::post('/event-sellers/{event_id}/{seller_id}/delete', [
+            'as' => 'delete.event.seller',
+            'uses' => 'Admin\\EventSellersController@delete'
         ]);
 
         //Admin - Final Schedule

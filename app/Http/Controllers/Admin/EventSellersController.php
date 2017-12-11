@@ -6,6 +6,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\EventSeller;
+use App\EventBuyer;
+use App\Event;
+use App\Seller;
+use App\User;
+use App\Buyer;
 use Illuminate\Http\Request;
 
 class EventSellersController extends Controller
@@ -132,5 +137,33 @@ class EventSellersController extends Controller
         EventSeller::destroy($id);
 
         return redirect('admin/event-sellers')->with('flash_message', 'EventSeller deleted!');
+    }
+
+    public function delete($event_id, $seller_id)
+    {
+        $id = EventSeller::where('event_id','=',$event_id)->where('seller_id','=',$seller_id)->first()->id;
+        EventSeller::destroy($id);
+
+        $event = Event::findOrFail($event_id);
+
+        //$eventsellers = User::whereIn('user_id', Seller::whereIn('id',EventSeller::where('event_id' , '=','$id')))->pluck('last_name');
+        //SELECT * FROM `users`  WHERE id IN (SELECT user_id from buyers WHERE id IN (SELECT buyer_id FROM `event_buyers`))
+
+        $eventsellers = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$event_id)
+            ->pluck('seller_id'))
+            ->pluck('user_id'))
+            ->get();
+
+        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$event_id)
+            ->pluck('buyer_id'))
+            ->pluck('user_id'))
+            ->get();
+
+        return view('admin.events.show', compact('event'))
+            ->with('eventbuyers',$eventbuyers)
+            ->with('eventsellers',$eventsellers)
+            ->with('buyers', $event->buyers)
+            ->with('sellers', $event->sellers);
+//        return redirect('admin/event-buyers')->with('flash_message', 'EventBuyer deleted!');
     }
 }
