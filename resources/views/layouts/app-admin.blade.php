@@ -30,6 +30,10 @@
         ul.alert.alert-danger{
             list-style: none;
         }
+
+        #fileExport{
+            display: none;
+        }
     </style>
     @yield('styles')
 
@@ -180,6 +184,20 @@
         $('.data-tables').DataTable();
     });
 </script>
+
+<script>
+    $( "#excelImportButton" ).click(function() {
+        $( "#createForm" ).hide(500);
+        $( "#fileExport" ).show(180);
+    });
+
+    $( "#createButton" ).click(function() {
+        $( "#createForm" ).show(180);
+        $( "#fileExport" ).hide(500);
+    });
+</script>
+
+
 
 @yield('scripts')
 

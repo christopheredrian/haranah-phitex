@@ -17,6 +17,7 @@
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
+
                         <form method="GET" action="{{ url('admin/buyers') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search...">
