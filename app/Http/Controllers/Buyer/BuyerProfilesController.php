@@ -31,6 +31,7 @@ class BuyerProfilesController extends Controller
      */
 
     private $buyer_validation = [
+        'company_logo' => 'image|mimes:jpg,png',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
         'country' => 'required',

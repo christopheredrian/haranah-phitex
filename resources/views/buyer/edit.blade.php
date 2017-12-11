@@ -9,7 +9,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Profile</div>
             <div class="panel-body">
-                <a href="{{ url('/buyer/'.Auth::user()->id.'/profile') }}" title="Back">
+                <a href="{{ url('/buyer/profile') }}" title="Back">
                     <button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                     </button>
                 </a>

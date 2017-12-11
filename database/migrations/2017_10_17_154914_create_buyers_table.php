@@ -18,6 +18,7 @@ class CreateBuyersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('country')->nullable();
 
+            $table->binary('company_logo')->nullable();
             $table->string('company_name');
             $table->string('company_address');
             $table->string('event_rep1');
