@@ -11,22 +11,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
                             <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
 
-                            <h3 class="profile-username text-center">Company Name</h3>
+                            <h3 class="profile-username text-center">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</h3>
 
-                            <p class="text-muted text-center">Lorem ipsum dolor sit amet.</p>
+                            <p class="text-muted text-center">{{ Auth::user()->rolel }}</p>
 
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
-                                    <b>Events</b> <a class="pull-right">1,322</a>
+                                    <b>Products</b> <a class="pull-right">543</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Services</b> <a class="pull-right">543</a>
+                                    <b>Representative 1</b> <a class="pull-right">Emma Stone</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Representative 2</b> <a class="pull-right">Stone Emma</a>
                                 </li>
                             </ul>
                         </div>
@@ -55,21 +57,25 @@
 
                             <hr>
 
-                            <strong><i class="fa fa-pencil margin-r-5"></i>Services</strong>
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> Email</strong>
 
-                            <p>
-                                <span class="label label-danger">Tours</span>
-                                {{--<span class="label label-success">Coding</span>
-                                <span class="label label-info">Javascript</span>
-                                <span class="label label-warning">PHP</span>
-                                <span class="label label-primary">Node.js</span>--}}
+                            <p class="text-muted">abcdefg@gmail.com</p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-pencil margin-r-5"></i>Products</strong>
+
+                            <p class="text-muted">
+                                <ul>
+                                    <li>Product 1</li>
+                                    <li>Product 2</li>
+                                    <li>Product 3</li>
+                                    <li>Product 4</li>
+                                </ul>
                             </p>
 
                             <hr>
 
-                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Experience</strong>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
                         </div>
                         <!-- /.box-body -->
                     </div>
