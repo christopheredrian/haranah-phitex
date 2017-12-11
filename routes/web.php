@@ -183,7 +183,10 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::post('/change-status/{user_id}', 'Admin\\UsersController@changeStatus');
-    Route::post('/importExcel', 'FileController@importExcel');
+
+    //
+    Route::post('/importBuyersOrSellers', 'FileController@importBuyersOrSellers');
+
 });
 
 Auth::routes();
