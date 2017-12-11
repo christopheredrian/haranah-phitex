@@ -31,7 +31,13 @@ class BuyerProfilesController extends Controller
         'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
-        'country' => 'required'
+        'country' => 'required',
+        'company_name' => 'required',
+        'company_address' => 'required',
+        'event_rep1' => 'required',
+        'event_rep2' => 'require',
+        'designation' => 'required',
+        'website' => 'required',
     ];
 
     public function index(Request $request)
@@ -136,7 +142,9 @@ class BuyerProfilesController extends Controller
      */
     public function show($id)
     {
-        $buyer = Buyer::findOrFail($id);
+        $buyer = Buyer::findOrFail($id)
+            ->select('buyers.*', 'buyers.id as buyer_id')
+            ->where("buyers.user_id", "=", "$id")->first();;
         return view('buyer.show', compact('buyer'));
     }
 
@@ -149,7 +157,9 @@ class BuyerProfilesController extends Controller
      */
     public function edit($id)
     {
-        $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
+        $buyer = Buyer::findOrFail($id)
+            ->select('buyers.*', 'buyers.id as buyer_id')
+            ->where("buyers.user_id", "=", "$id")->first();
         return view('buyer.edit', compact('buyer'));
     }
 
