@@ -136,7 +136,7 @@ class BuyerProfilesController extends Controller
      */
     public function show($id)
     {
-        $buyer = Buyer::findOrFail($id);
+        $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
         return view('buyer.show', compact('buyer'));
     }
 
@@ -173,9 +173,7 @@ class BuyerProfilesController extends Controller
         $user = User::findOrFail($buyer->user->id);
         $user->update($requestData);
 
-        Session::flash('flash_message', 'Buyer updated!');
-
-        return redirect('buyer/{user_id}/profile');
+        return redirect('buyer/{user_id}/profile')->with('flash_message', 'Buyer updated!');
     }
 
     /**
