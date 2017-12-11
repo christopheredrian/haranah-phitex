@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 
 use App\Buyer;
 use App\User;
+use App\FinalSchedule;
+use App\EventParam;
+use App\Event;
+use App\EventBuyer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
@@ -31,7 +35,13 @@ class BuyerProfilesController extends Controller
         'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
-        'country' => 'required'
+        'country' => 'required',
+        'company_name' => 'required',
+        'company_address' => 'required',
+        'event_rep1' => 'required',
+        'event_rep2' => 'require',
+        'designation' => 'required',
+        'website' => 'required',
     ];
 
     public function index(Request $request)
@@ -139,6 +149,7 @@ class BuyerProfilesController extends Controller
      */
     public function show($id, Request $request)
     {
+
         $keyword = $request->get('search');
         $perPage = 25;
 
@@ -163,7 +174,7 @@ class BuyerProfilesController extends Controller
                 ->join('users', 'users.id', '=', 'sellers.user_id')
                 ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
                 ->join('events', 'final_schedules.event_id', '=', 'events.id')
-                ->select('*',
+                ->select(
                     'users.last_name as lname',
                     'users.first_name as fname',
                     'events.event_name as event_name',
@@ -189,7 +200,9 @@ class BuyerProfilesController extends Controller
      */
     public function edit($id)
     {
-        $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
+        $buyer = Buyer::findOrFail($id)
+            ->select('buyers.*', 'buyers.id as buyer_id')
+            ->where("buyers.user_id", "=", "$id")->first();
         return view('buyer.edit', compact('buyer'));
     }
 
@@ -212,6 +225,7 @@ class BuyerProfilesController extends Controller
 
         $user = User::findOrFail($buyer->user->id);
         $user->update($requestData);
+
 
         return redirect('buyer/{user_id}/profile')->with('flash_message', 'Buyer updated!');
     }

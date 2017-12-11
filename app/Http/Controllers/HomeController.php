@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Buyer;
 use Illuminate\Http\Request;
+use App\FinalSchedule;
+use App\EventParam;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -74,11 +76,20 @@ class HomeController extends Controller
 
         return view('buyer.index', compact('buyers'), ['role' => 'Buyer'])->with('buyers', $buyers);
     }
-
+    /**
+        note: table contains
+     * event_id
+     * buyer_id
+     * seller_id
+     * event_param_id
+     *
+     * query event_id in events then get data from event
+     **/
 
     public function sellerIndex()
     {
         //  Insert app-buyer
+        // query final schedule
         return view('seller.index', ['role' => 'Seller']);
     }
 
