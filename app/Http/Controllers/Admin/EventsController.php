@@ -35,7 +35,7 @@ class EventsController extends Controller
             $events = Event::where('event_name', 'LIKE', "%$keyword%")->orWhere('event_place', 'LIKE', "%$keyword%")->orWhere('event_date', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
-            $events = Event::paginate($perPage);
+            $events = Event::orderByDesc('event_date')->paginate($perPage);
         }
 
         return view('admin.events.index', compact('events'));
@@ -168,6 +168,7 @@ class EventsController extends Controller
             ->pluck('seller_id'))
             ->pluck('user_id'))
             ->count();
+
         foreach($event_params as $event_param) {
 
             for ($i = 1; $i <= $sellercount; $i++) {
@@ -177,7 +178,9 @@ class EventsController extends Controller
                     if (\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('event_param_id','=',$event_param)->first() == null) {
 
                         if (\App\FinalSchedule::where('buyer_id', '=', $item->buyer_id)->where('event_param_id','=',$event_param)->first() == null) {
-                            if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->first() == null) {
+
+                            if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->where('event_id','=',$id)->first() == null) {
+
                                 $final_schedule = \App\FinalSchedule::create();
                                 $final_schedule->event_id = $id;
                                 $final_schedule->seller_id = $item->seller_id;

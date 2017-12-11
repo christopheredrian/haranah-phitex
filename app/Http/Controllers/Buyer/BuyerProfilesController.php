@@ -31,15 +31,13 @@ class BuyerProfilesController extends Controller
      */
 
     private $buyer_validation = [
-        'last_name' => 'required',
-        'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
         'country' => 'required',
         'company_name' => 'required',
         'company_address' => 'required',
         'event_rep1' => 'required',
-        'event_rep2' => 'require',
+        'event_rep2' => 'required',
         'designation' => 'required',
         'website' => 'required',
     ];
@@ -155,7 +153,6 @@ class BuyerProfilesController extends Controller
 
         if (!empty($keyword)) {
             // Join buyers table to users table, filter, then paginate
-
             $buyers = DB::table('final_schedules')
                 ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
                 ->join('users', 'users.id', '=', 'buyers.user_id')
@@ -190,8 +187,39 @@ class BuyerProfilesController extends Controller
 
         $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
 
-        return view('buyer.show', compact('buyer'), ['role' => 'Buyer'])->with('buyers', $buyers);
+        $buyerID = Buyer::where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+            //gets all schedule
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.buyer_id','=', $buyerID)
+            ->get();
+
+        // gets event information
+        $eventOfBuyer = Event::whereIn('id', EventBuyer::where('buyer_id','=',$buyerID)
+            ->pluck('event_id'))
+            ->get();
+
+        $info = DB::table('final_schedules')
+            ->join('buyers' ,'final_schedules.buyer_id', '=' ,'buyers.id')
+            ->select('seller_id','event_param_id')
+            ->where('buyers.id' ,'=',$buyerID)
+            ->get();
+
+        // gets Name (first and last) of buyer in the final schedule
+        $seller = DB::table('users')
+            ->join('sellers', 'users.id','=','sellers.user_id')
+            ->get();
+
+        return view('buyer.show', compact('buyer'), ['role' => 'Buyer'])
+            ->with('buyers', $buyers)
+            ->with('schedule',$schedule)
+            ->with('buyerEvent',$eventOfBuyer)
+            ->with('info',$info)
+            ->with('seller',$seller);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -229,7 +257,7 @@ class BuyerProfilesController extends Controller
         $user->update($requestData);
 
 
-        return redirect('buyer/{user_id}/profile')->with('flash_message', 'Buyer updated!');
+        return redirect('buyer/'.$id.'/profile')->with('flash_message', 'Buyer updated!');
     }
 
     /**
