@@ -89,7 +89,7 @@
                                         <p>{{ $event->event_description }}</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button href="/seller/events/{{ $event->id }}" type="button" class="btn btn-danger"> Choose prefered Buyers</button>
+                                        <button onclick="window.location='{{ route('list.buyer', ['event_id' => $event->id])}}'" type="button" class="btn btn-danger"> Choose prefered Buyers</button>
                                     </div>
                                     @endforeach
                                 </div>
