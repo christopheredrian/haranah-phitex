@@ -18,17 +18,14 @@
 
                             <h3 class="profile-username text-center">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</h3>
 
-                            <p class="text-muted text-center">{{ Auth::user()->rolel }}</p>
+                            <p class="text-muted text-center">{{ Auth::user()->role }}</p>
 
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
-                                    <b>Products</b> <a class="pull-right">543</a>
+                                    <b>Representative 1</b> <a class="pull-right">{{ $seller->event_rep1 }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Representative 1</b> <a class="pull-right">Emma Stone</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Representative 2</b> <a class="pull-right">Stone Emma</a>
+                                    <b>Representative 2</b> <a class="pull-right">{{ $seller->event_rep2 }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -43,35 +40,30 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <strong><i class="fa fa-book margin-r-5"></i> Companay Description</strong>
+                            <strong><i class="fa fa-book margin-r-5"></i> Company Description</strong>
 
                             <p class="text-muted">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
+                                {{ $seller->company_desc }}
                             </p>
 
                             <hr>
 
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
 
-                            <p class="text-muted">Malibu, California</p>
+                            <p class="text-muted">{{ $seller->company_address }}</p>
 
                             <hr>
 
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Email</strong>
 
-                            <p class="text-muted">abcdefg@gmail.com</p>
+                            <p class="text-muted">{{ $seller->company_email }}</p>
 
                             <hr>
 
                             <strong><i class="fa fa-pencil margin-r-5"></i>Products</strong>
 
                             <p class="text-muted">
-                                <ul>
-                                    <li>Product 1</li>
-                                    <li>Product 2</li>
-                                    <li>Product 3</li>
-                                    <li>Product 4</li>
-                                </ul>
+                                {{ $seller->products }}
                             </p>
 
                             <hr>

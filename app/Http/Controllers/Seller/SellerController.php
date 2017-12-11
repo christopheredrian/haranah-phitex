@@ -20,18 +20,21 @@ use Session;
 
 class SellerController extends Controller
 {
-    public function index(Request $request)
+    public function index($id, Request $request)
     {
         $keyword = $request->get('search');
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $seller = seller::paginate($perPage);
+            $sellers = Seller::paginate($perPage);
         } else {
-            $seller = seller::paginate($perPage);
+            $sellers = Seller::paginate($perPage);
         }
 
-        return view('seller.index', compact('seller'));
+        $seller = User::findOrFail($id);
+
+        return view('admin.seller.index', compact('seller'))
+            ->with('sellers', $sellers);
     }
 
     /**

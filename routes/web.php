@@ -182,14 +182,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/index', function () {
             return view('seller.index');
         });
-        Route::get('/seller/event', function () {
-            return view('seller.event');
-        });
         Route::get('/account', function () {
             return view('seller.account');
-        });
-        Route::get('/list', function () {
-            return view('seller.list');
         });
 
     });

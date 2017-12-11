@@ -20,6 +20,7 @@ class CreateSellersTable extends Migration
             
             $table->string('company_name');
             $table->string('company_address');
+            $table->string('company_desc');
             $table->string('event_rep1');
             $table->string('event_rep2');
             $table->string('designation');
