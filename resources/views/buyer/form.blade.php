@@ -1,3 +1,12 @@
+<div class="form-group {{ $errors->has('company_logo') ? 'has-error' : ''}}">
+    <label for="company_logo" class="col-md-4 col-xs-4 control-label">{{ 'Company Logo' }}</label>
+    <div class="col-md-6 col-xs-6">
+        <input class="form-control" type="file" name="company_logo" id="company_logo"
+               value="{{ old('company_logo', isset($buyer) ? $buyer->company_logo : '' ) }}">
+        {!! $errors->first('company_logo', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
 <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
     <label for="company_name" class="col-md-4 col-xs-4 control-label">{{ 'Company Name' }}</label>
     <div class="col-md-6 col-xs-6">

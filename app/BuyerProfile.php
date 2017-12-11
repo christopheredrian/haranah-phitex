@@ -27,6 +27,7 @@ class BuyerProfile extends Model
      */
     protected $fillable = [
         'user_id',
+        'company_logo',
         'company_name',
         'company_address',
         'event_rep1',
