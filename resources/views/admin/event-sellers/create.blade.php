@@ -10,12 +10,12 @@
                     <div class="panel-heading">Create New EventSeller</div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/event-sellers') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a  id="createButton" class="btn btn-info btn-xs" title="Import from Excel">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Create
-                        </a>
-                        <a  id="excelImportButton" class="btn btn-success btn-xs" title="Import from Excel">
-                            <i class="fa fa-file-excel-o" aria-hidden="true"></i> Import from Excel or CSV
-                        </a>
+                        {{--<a  id="createButton" class="btn btn-info btn-xs" title="Import from Excel">--}}
+                            {{--<i class="fa fa-plus" aria-hidden="true"></i> Create--}}
+                        {{--</a>--}}
+                        {{--<a  id="excelImportButton" class="btn btn-success btn-xs" title="Import from Excel">--}}
+                            {{--<i class="fa fa-file-excel-o" aria-hidden="true"></i> Import from Excel or CSV--}}
+                        {{--</a>--}}
                         <br />
                         <br />
 
