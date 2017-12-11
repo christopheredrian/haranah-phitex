@@ -10,6 +10,49 @@ use Illuminate\Http\Request;
 
 class FinalSchedulesController extends Controller
 {
+    private function getSchedules($event_id)
+    {
+        $schedule_list = [];
+        $schedules = \App\EventParam::where('event_id','=',$event_id)->get();
+        foreach ($schedules as $schedule) {
+            $schedule_id = $schedule->id;
+            $schedule_list[$schedule_id] = $schedule->start_time." - ".$schedule->end_time;
+        }
+        return $schedule_list;
+    }
+    private function getBuyerNames($event_id)
+    {
+        $buyer_names = [];
+        $buyers = \App\User::whereIn('id', \App\Buyer::where('id' ,'>' ,0)->whereIn('id',\App\EventBuyer::where('event_id','=',$event_id)->pluck('buyer_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        foreach ($buyers as $buyer) {
+            $buyerid = \App\Buyer::where('user_id' ,'=' ,$buyer->id)->value('id');
+            $buyer_names[$buyerid] = $buyer->last_name.", ".$buyer->first_name;
+        }
+        return $buyer_names;
+    }
+    private function getSellerNames($event_id)
+    {
+        $seller_names = [];
+        $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->whereIn('id',\App\EventSeller::where('event_id','=',$event_id)->pluck('seller_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        //whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id))
+        foreach ($sellers as $seller) {
+            $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');
+            $seller_names[$sellerid] = $seller->last_name.", ".$seller->first_name;
+        }
+        return $seller_names;
+    }
+
+    public function createWithEvent($event_id)
+    {
+        $finalschedule = FinalSchedule::create();
+        return view('admin.final-schedules.create')
+            ->with('events_id',$event_id)
+            ->with('seller_names', $this->getSellerNames($event_id))
+            ->with('buyer_names', $this->getBuyerNames($event_id))
+            ->with('schedule_list', $this->getSchedules($event_id))
+            ->with('finalschedule',$finalschedule);
+    }
+
     public function showWithEvent($event_id){
         //$keyword = $request->get('search');
 
@@ -24,9 +67,14 @@ class FinalSchedulesController extends Controller
 //        } else {
 //            $finalschedules = FinalSchedule::paginate($perPage);
 //        }
+        $event = \App\Event::where('id','=',$event_id)->first()->event_name;
         $finalschedules = FinalSchedule::where('event_id', '=', $event_id)->paginate($perPage);
 
-        return view('admin.final-schedules.index', compact('finalschedules'));
+        return view('admin.final-schedules.index', compact('finalschedules'))
+            ->with('event',$event)
+            ->with('seller_names', $this->getSellerNames($event_id))
+            ->with('buyer_names', $this->getBuyerNames($event_id))
+            ->with('schedule_list', $this->getSchedules($event_id));
     }
 
     /**
@@ -104,7 +152,10 @@ class FinalSchedulesController extends Controller
     {
         $finalschedule = FinalSchedule::findOrFail($id);
 
-        return view('admin.final-schedules.edit', compact('finalschedule'));
+        return view('admin.final-schedules.edit', compact('finalschedule'))
+            ->with('seller_names', $this->getSellerNames($finalschedule->event_id))
+            ->with('buyer_names', $this->getBuyerNames($finalschedule->event_id))
+            ->with('schedule_list', $this->getSchedules($finalschedule->event_id));
     }
 
     /**

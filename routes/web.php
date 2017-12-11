@@ -96,7 +96,10 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'show.final.schedule',
             'uses' => 'Admin\\FinalSchedulesController@showWithEvent'
         ]);
-
+        Route::get('/final-schedules/create/{event_id}', [
+            'as' => 'create.final.schedule',
+            'uses' => 'Admin\\FinalSchedulesController@createWithEvent'
+        ]);
 
         // Admin - Account
         Route::resource('/account', 'Admin\\AdministratorsController');
