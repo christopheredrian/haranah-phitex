@@ -18,7 +18,7 @@
                 <div class="cardheader">
                 </div>
                 <div class="avatar">
-                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                    <img alt="" src="/uploads/{{ Auth::user()->id }}/company_logo.jpg'">
                 </div>
                 <div class="info">
                     <div class="title">
