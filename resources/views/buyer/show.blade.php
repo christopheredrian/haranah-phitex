@@ -64,7 +64,43 @@
         {{--</form>--}}
 
         {{--View Schedule--}}
-        <div class="col-md-9"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Schedule
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+
+                            <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Seller</th>
+                                <th>Date</th>
+                                <th>Venue</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($buyers as $buyer)
+                                <tr>
+                                    <td>{{ $buyer->event_name }}</td>
+                                    <td>{{ $buyer->fname }} {{ $buyer->lname }}</td>
+                                    <td>{{ $buyer->event_date }}</td>
+                                    <td>{{ $buyer->venue }}</td>
+                                    <td>{{ $buyer->s_time }}</td>
+                                    <td>{{ $buyer->e_time }}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
