@@ -18,7 +18,7 @@
                 <div class="cardheader">
                 </div>
                 <div class="avatar">
-                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                    <img alt="" src="/uploads/buyer-{{ $buyer->id }}.jpg">
                 </div>
                 <div class="info">
                     <div class="title">
@@ -71,48 +71,6 @@
 
         {{--View Schedule--}}
         <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Events
-                </div>
-
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-
-                            <thead>
-                            <tr>
-                                <th>Event Name</th>
-                                <th>Representatives</th>
-                                <th>Seller</th>
-                                <th>Venue</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($buyers as $buyer)
-                                <tr>
-                                    <td>{{ $buyer->event_name }}</td>
-                                    <td>
-                                        {{ $buyer->rep1 }}
-                                        <br/>
-                                        {{ $buyer->rep2 }}
-                                    </td>
-                                    <td>{{ $buyer->fname }} {{ $buyer->lname }}</td>
-                                    <td>{{ $buyer->venue }}</td>
-                                    <td>{{ $buyer->event_date }}</td>
-                                    <td>{{ date('G:i A', strtotime($buyer->s_time)) }}
-                                        - {{ date('G:i A', strtotime($buyer->e_time)) }}</td>
-                                </tr>
-                            @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
 
             @if($schedule->isEmpty())
                 <div class="alert alert-info">

@@ -64,11 +64,17 @@
                                 <button type="submit" class="btn btn-primary">Close Registration</button>
                             </form>
                         @endif
+
                         @if($event->event_status == "Registration Closed")
                         <a href="{{ route('show.final.schedule', ['event_id' => $event->id]) }}" title="Edit Event">
                             <button class="btn btn-primary">Finalize Schedule</button>
                         </a>
+                        @else
+                            <a href="{{ route('show.final.list.schedule', ['event_id' => $event->id]) }}" title="See Event">
+                                <button class="btn btn-primary">See Finalized Schedules</button>
+                            </a>
                         @endif
+
                         @if($event->event_status == "Registration Closed")
                             <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration" method="post">
                                 {{ csrf_field() }}
