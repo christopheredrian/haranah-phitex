@@ -84,42 +84,42 @@ class BuyerProfilesController extends Controller
 
         $id = Auth::user()->id;
 
-        $keyword = $request->get('search');
-        $perPage = 25;
-
-        if (!empty($keyword)) {
-            // Join buyers table to users table, filter, then paginate
-            $buyers = DB::table('final_schedules')
-                ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
-                ->join('users', 'users.id', '=', 'buyers.user_id')
-                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
-                ->select('*', 'buyers.id as buyer_id')
-                ->where('final_schedules.seller_id', 'LIKE', "%$keyword%")
-                ->orWhere('event_params.start_time', 'LIKE', "%$keyword%")
-                ->orWhere('event_params.end_time', 'LIKE', "%$keyword%")
-                ->paginate($perPage);
-        } else {
-            // Join buyers table to users table, then paginate
-
-            $buyers = DB::table('final_schedules')
-                ->join('buyers', 'buyers.id', '=', 'final_schedules.buyer_id')
-                ->join('sellers', 'sellers.id', '=', 'final_schedules.seller_id')
-                ->join('users', 'users.id', '=', 'sellers.user_id')
-                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
-                ->join('events', 'final_schedules.event_id', '=', 'events.id')
-                ->select(
-                    'users.last_name as lname',
-                    'users.first_name as fname',
-                    'buyers.event_rep1 as rep1',
-                    'buyers.event_rep2 as rep2',
-                    'events.event_name as event_name',
-                    'events.event_date as event_date',
-                    'events.event_place as venue',
-                    'event_params.start_time as s_time',
-                    'event_params.end_time as e_time')
-                ->orderBy('events.event_date', 'asc', 'event_params.s_time', 'asc')
-                ->paginate($perPage);
-        }
+//        $keyword = $request->get('search');
+//        $perPage = 25;
+//
+//        if (!empty($keyword)) {
+//            // Join buyers table to users table, filter, then paginate
+//            $buyers = DB::table('final_schedules')
+//                ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
+//                ->join('users', 'users.id', '=', 'buyers.user_id')
+//                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
+//                ->select('*', 'buyers.id as buyer_id')
+//                ->where('final_schedules.seller_id', 'LIKE', "%$keyword%")
+//                ->orWhere('event_params.start_time', 'LIKE', "%$keyword%")
+//                ->orWhere('event_params.end_time', 'LIKE', "%$keyword%")
+//                ->paginate($perPage);
+//        } else {
+//            // Join buyers table to users table, then paginate
+//
+//            $buyers = DB::table('final_schedules')
+//                ->join('buyers', 'buyers.id', '=', 'final_schedules.buyer_id')
+//                ->join('sellers', 'sellers.id', '=', 'final_schedules.seller_id')
+//                ->join('users', 'users.id', '=', 'sellers.user_id')
+//                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
+//                ->join('events', 'final_schedules.event_id', '=', 'events.id')
+//                ->select(
+//                    'users.last_name as lname',
+//                    'users.first_name as fname',
+//                    'buyers.event_rep1 as rep1',
+//                    'buyers.event_rep2 as rep2',
+//                    'events.event_name as event_name',
+//                    'events.event_date as event_date',
+//                    'events.event_place as venue',
+//                    'event_params.start_time as s_time',
+//                    'event_params.end_time as e_time')
+//                ->orderBy('events.event_date', 'asc', 'event_params.s_time', 'asc')
+//                ->paginate($perPage);
+//        }
 
         $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
 
@@ -149,7 +149,7 @@ class BuyerProfilesController extends Controller
             ->get();
 
         return view('buyer.show', compact('buyer'), ['role' => 'Buyer'])
-            ->with('buyers', $buyers)
+            ->with('buyers', $buyer)
             ->with('schedule',$schedule)
             ->with('buyerEvent',$eventOfBuyer)
             ->with('info',$info)
