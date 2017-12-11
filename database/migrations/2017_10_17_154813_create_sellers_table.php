@@ -17,6 +17,16 @@ class CreateSellersTable extends Migration
             $table->string('phone')->nullable();
             $table->integer('user_id')->unsigned();
             $table->string('country')->nullable();
+            
+            $table->string('company_name');
+            $table->string('company_address');
+            $table->string('company_desc');
+            $table->string('event_rep1');
+            $table->string('event_rep2');
+            $table->string('designation');
+            $table->string('products');
+            $table->string('website');
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

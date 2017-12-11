@@ -11,6 +11,8 @@ use App\EventSeller;
 use App\User;
 use App\EventBuyer;
 use App\Buyer;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 
 class EventsController extends Controller
@@ -35,7 +37,7 @@ class EventsController extends Controller
             $events = Event::where('event_name', 'LIKE', "%$keyword%")->orWhere('event_place', 'LIKE', "%$keyword%")->orWhere('event_date', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
-            $events = Event::paginate($perPage);
+            $events = Event::orderByDesc('event_date')->paginate($perPage);
         }
 
         return view('admin.events.index', compact('events'));
@@ -162,12 +164,33 @@ class EventsController extends Controller
         $event = Event::FindorFail($id);
         $event->event_status="Registration Closed";
         $event->save();
+
+        $noSellerPreference = \App\Seller::whereIn('id',EventSeller::where('event_id','=',$id)->pluck('seller_id'))
+            ->whereNotIn('id',\App\SellerPreference::where('event_id', '=', $id)->pluck('seller_id'))->get();
+
+        $eventBuyers = \App\Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)->pluck('buyer_id'))->get();
+        $counter=1;
+        foreach ($noSellerPreference as $seller){
+            foreach ($eventBuyers as $buyer){
+
+                $newSellerPreference = \App\SellerPreference::create();
+                $newSellerPreference->event_id = $id;
+                $newSellerPreference->buyer_id = $buyer->id;
+                $newSellerPreference->seller_id = $seller->id;
+                $newSellerPreference->rank = $counter;
+                $newSellerPreference->save();
+                $counter=$counter+1;
+            }
+            $counter=1;
+        }
+
         $event_params = \App\EventParam::where('event_id','=',$id)->orderBy('start_time')->pluck('id');
         $seller_preference = \App\SellerPreference::where('event_id', '=', $id)->orderBy('created_at')->orderBy('rank')->get();
         $sellercount = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$id)
             ->pluck('seller_id'))
             ->pluck('user_id'))
             ->count();
+
         foreach($event_params as $event_param) {
 
             for ($i = 1; $i <= $sellercount; $i++) {
@@ -177,7 +200,9 @@ class EventsController extends Controller
                     if (\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('event_param_id','=',$event_param)->first() == null) {
 
                         if (\App\FinalSchedule::where('buyer_id', '=', $item->buyer_id)->where('event_param_id','=',$event_param)->first() == null) {
-                            if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->first() == null) {
+
+                            if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->where('event_id','=',$id)->first() == null) {
+
                                 $final_schedule = \App\FinalSchedule::create();
                                 $final_schedule->event_id = $id;
                                 $final_schedule->seller_id = $item->seller_id;

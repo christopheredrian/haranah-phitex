@@ -7,13 +7,12 @@ use App\EventSeller;
 use Illuminate\Http\Requests;
 use App\FinalSchedule;
 use App\EventParam;
-
+use App\Buyer;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Seller;
 use App\User;
-use App\Buyer;
 use App\EventBuyer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,24 +20,36 @@ use Session;
 
 class SellerController extends Controller
 {
-    public function index(Request $request)
+    public function index($id, Request $request)
     {
         $keyword = $request->get('search');
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $seller = seller::paginate($perPage);
+            $sellers = Seller::paginate($perPage);
         } else {
-            $seller = seller::paginate($perPage);
+            $sellers = Seller::paginate($perPage);
         }
 
-        return view('seller.index', compact('seller'));
+        $seller = User::findOrFail($id);
+
+        return view('admin.seller.index', compact('seller'))
+            ->with('sellers', $sellers);
     }
 
     /**
      * Shows all event for this particular logged in seller
      * @return
      */
+
+    public function show($id)
+    {
+        $seller = Seller::findOrFail($id)->where("seller.user_id", "=", "$id")->first();
+
+        return view('seller.show', compact('seller'), ['role' => 'Seller'])->with('seller', $seller);
+    }
+
+
     public function showEvents()
     {
         // TODO: Another refactor later
@@ -47,16 +58,31 @@ class SellerController extends Controller
 
         $sellerID = Seller::where('user_id', Auth::user()->id)
             ->pluck('id');
-
+        // note: to be refactored
 
         //table column where  id
-        $schedule = EventParam::whereIn('event_id', FinalSchedule::where('seller_id', '=', $sellerID)
-            ->pluck('event_param_id'))
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.seller_id','=', $sellerID)
+            ->get();
+
+        // gets the buyer_id and event_param_id
+        $info = DB::table('final_schedules')
+            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
+            ->select('buyer_id','event_param_id')
+            ->where('sellers.id' ,'=',$sellerID)
+            ->get();
+
+        // gets Name (first and last) of buyer in the final schedule
+        $buyer = DB::table('users')
+            ->join('buyers', 'users.id','=','buyers.user_id')
             ->get();
 
         return view('seller.event')
             ->with('events',$seller->events)
-            ->with('schedule',$schedule);
+            ->with('schedule',$schedule)
+            ->with('info',$info)
+            ->with('buyer',$buyer);
     }
 
     /**
@@ -84,6 +110,11 @@ class SellerController extends Controller
 //        echo 'The values ($request->values): <br>';
 //        print_r($request->values);
 //        echo  'Where $request->values contains an array of: (buyer_id-rank)';
+        $sellerID = Seller::where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+
+
         foreach($request->values as $item){
             $seller_preference = \App\SellerPreference::create();
             $seller_preference->event_id=$id;
@@ -93,9 +124,38 @@ class SellerController extends Controller
             $seller_preference->rank=$pieces[1];
             $seller_preference->save();
         }
+
+        //table column where  id
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.seller_id','=', $sellerID)
+            ->get();
+
         $seller = Seller::where('user_id', Auth::user()->id)
             ->first();
-        return view('seller.event')->with('events',$seller->events);
+
+        $sellerID = Seller::where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+        $schedule = EventParam::whereIn('event_id', FinalSchedule::where('seller_id', '=', $sellerID)
+            ->pluck('event_param_id'))
+            ->get();
+
+        $info = DB::table('final_schedules')
+            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
+            ->select('buyer_id','event_param_id')
+            ->where('sellers.id' ,'=',$sellerID)
+            ->get();
+
+        // gets Name (first and last) of buyer in the final schedule
+        $buyer = DB::table('users')
+            ->join('buyers', 'users.id','=','buyers.user_id')
+            ->get();
+        return view('seller.event')
+            ->with('events',$seller->events)
+            ->with('schedule',$schedule)
+            ->with('info',$info)
+            ->with('buyer',$buyer);
 
     }
 

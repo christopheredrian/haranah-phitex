@@ -11,6 +11,7 @@ use App\FinalSchedule;
 use App\EventParam;
 use App\Event;
 use App\EventBuyer;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
@@ -31,49 +32,21 @@ class BuyerProfilesController extends Controller
      */
 
     private $buyer_validation = [
-        'last_name' => 'required',
-        'first_name' => 'required',
+        'company_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
         'country' => 'required',
         'company_name' => 'required',
         'company_address' => 'required',
         'event_rep1' => 'required',
-        'event_rep2' => 'require',
+        'event_rep2' => 'required',
         'designation' => 'required',
         'website' => 'required',
     ];
 
     public function index(Request $request)
     {
-
-        $keyword = $request->get('search');
-        $perPage = 25;
-
-        if (!empty($keyword)) {
-            // Join buyers table to users table, filter, then paginate
-
-            $buyers = DB::table('final_schedules')
-                ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
-                ->join('users', 'users.id', '=', 'buyers.user_id')
-                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
-                ->select('*', 'buyers.id as buyer_id')
-                ->where('final_schedules.seller_id', 'LIKE', "%$keyword%")
-                ->orWhere('event_params.start_time', 'LIKE', "%$keyword%")
-                ->orWhere('event_params.end_time', 'LIKE', "%$keyword%")
-                ->paginate($perPage);
-        } else {
-            // Join buyers table to users table, then paginate
-
-            $buyers = DB::table('final_schedules')
-                ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
-                ->join('users', 'users.id', '=', 'buyers.user_id')
-                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
-                ->select('*')
-                ->paginate($perPage);
-        }
-
-        return view('buyer.index', compact('buyers'));
+      //
     }
 
     /**
@@ -96,48 +69,7 @@ class BuyerProfilesController extends Controller
      */
     public function store(Request $request)
     {
-
-        // check for User uniqueness (email)
-        $request->validate($this->buyer_validation);
-        $email = $request->email;
-        $user = new User();
-        $user->last_name = $request->last_name;
-        $user->first_name = $request->first_name;
-        $user->password = bcrypt("password");
-        $user->email = $request->email;
-        $user->created_at = Carbon::now();
-        $user->role = "buyer";
-        $user->activated = $request->activate === 'true' ? 1 : 0;
-        $user->save();
-        $user = User::where('email', $email)->first();
-
-        $buyer = new Buyer();
-        $buyer->phone = $request->phone;
-        $buyer->country = $request->country;
-        $buyer->user_id = $user->id;
-        $buyer->save();
-
-        // haha
-        if ($user->activated === 0) {
-            $user = User::find($user->id);
-            $credentials = ['email' => $user->email];
-            $response = Password::sendResetLink($credentials, function (Message $message) {
-                $message->subject($this->getEmailSubject());
-            });
-
-            switch ($response) {
-                case Password::RESET_LINK_SENT:
-                    Session::flash('flash_message', 'Password reset confirmation link sent to the user!');
-                    return redirect()->back()->with('status', trans($response));
-                case Password::INVALID_USER:
-                    Session::flash('flash_message', 'Password reset confirmation link not sent to the user!');
-                    return redirect()->back()->withErrors(['email' => trans($response)]);
-            }
-        }
-
-        Session::flash('flash_message', 'Buyer added!');
-
-        return redirect('buyer');
+       //
     }
 
     /**
@@ -147,51 +79,83 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id, Request $request)
+    public function show(Request $request)
     {
 
-        $keyword = $request->get('search');
-        $perPage = 25;
+        $id = Auth::user()->id;
 
-        if (!empty($keyword)) {
-            // Join buyers table to users table, filter, then paginate
-
-            $buyers = DB::table('final_schedules')
-                ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
-                ->join('users', 'users.id', '=', 'buyers.user_id')
-                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
-                ->select('*', 'buyers.id as buyer_id')
-                ->where('final_schedules.seller_id', 'LIKE', "%$keyword%")
-                ->orWhere('event_params.start_time', 'LIKE', "%$keyword%")
-                ->orWhere('event_params.end_time', 'LIKE', "%$keyword%")
-                ->paginate($perPage);
-        } else {
-            // Join buyers table to users table, then paginate
-
-            $buyers = DB::table('final_schedules')
-                ->join('buyers', 'buyers.id', '=', 'final_schedules.buyer_id')
-                ->join('sellers', 'sellers.id', '=', 'final_schedules.seller_id')
-                ->join('users', 'users.id', '=', 'sellers.user_id')
-                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
-                ->join('events', 'final_schedules.event_id', '=', 'events.id')
-                ->select(
-                    'users.last_name as lname',
-                    'users.first_name as fname',
-                    'buyers.event_rep1 as rep1',
-                    'buyers.event_rep2 as rep2',
-                    'events.event_name as event_name',
-                    'events.event_date as event_date',
-                    'events.event_place as venue',
-                    'event_params.start_time as s_time',
-                    'event_params.end_time as e_time')
-                ->orderBy('events.event_date', 'asc', 'event_params.s_time', 'asc')
-                ->paginate($perPage);
-        }
+//        $keyword = $request->get('search');
+//        $perPage = 25;
+//
+//        if (!empty($keyword)) {
+//            // Join buyers table to users table, filter, then paginate
+//            $buyers = DB::table('final_schedules')
+//                ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
+//                ->join('users', 'users.id', '=', 'buyers.user_id')
+//                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
+//                ->select('*', 'buyers.id as buyer_id')
+//                ->where('final_schedules.seller_id', 'LIKE', "%$keyword%")
+//                ->orWhere('event_params.start_time', 'LIKE', "%$keyword%")
+//                ->orWhere('event_params.end_time', 'LIKE', "%$keyword%")
+//                ->paginate($perPage);
+//        } else {
+//            // Join buyers table to users table, then paginate
+//
+//            $buyers = DB::table('final_schedules')
+//                ->join('buyers', 'buyers.id', '=', 'final_schedules.buyer_id')
+//                ->join('sellers', 'sellers.id', '=', 'final_schedules.seller_id')
+//                ->join('users', 'users.id', '=', 'sellers.user_id')
+//                ->join('event_params', 'event_params.id', '=', 'final_schedules.event_param_id')
+//                ->join('events', 'final_schedules.event_id', '=', 'events.id')
+//                ->select(
+//                    'users.last_name as lname',
+//                    'users.first_name as fname',
+//                    'buyers.event_rep1 as rep1',
+//                    'buyers.event_rep2 as rep2',
+//                    'events.event_name as event_name',
+//                    'events.event_date as event_date',
+//                    'events.event_place as venue',
+//                    'event_params.start_time as s_time',
+//                    'event_params.end_time as e_time')
+//                ->orderBy('events.event_date', 'asc', 'event_params.s_time', 'asc')
+//                ->paginate($perPage);
+//        }
 
         $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
 
-        return view('buyer.show', compact('buyer'), ['role' => 'Buyer'])->with('buyers', $buyers);
+        $buyerID = Buyer::where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+            //gets all schedule
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.buyer_id','=', $buyerID)
+            ->get();
+
+        // gets event information
+        $eventOfBuyer = Event::whereIn('id', EventBuyer::where('buyer_id','=',$buyerID)
+            ->pluck('event_id'))
+            ->get();
+
+        $info = DB::table('final_schedules')
+            ->join('buyers' ,'final_schedules.buyer_id', '=' ,'buyers.id')
+            ->select('seller_id','event_param_id')
+            ->where('buyers.id' ,'=',$buyerID)
+            ->get();
+
+        // gets Name (first and last) of buyer in the final schedule
+        $seller = DB::table('users')
+            ->join('sellers', 'users.id','=','sellers.user_id')
+            ->get();
+
+        return view('buyer.show', compact('buyer'), ['role' => 'Buyer'])
+            ->with('buyers', $buyer)
+            ->with('schedule',$schedule)
+            ->with('buyerEvent',$eventOfBuyer)
+            ->with('info',$info)
+            ->with('seller',$seller);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -200,11 +164,14 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit()
     {
+        $id = Auth::user()->id;
+
         $buyer = Buyer::findOrFail($id)
             ->select('buyers.*', 'buyers.id as buyer_id')
             ->where("buyers.user_id", "=", "$id")->first();
+
         return view('buyer.edit', compact('buyer'));
     }
 
@@ -216,8 +183,9 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
+        $id = Auth::user()->id;
 
         $request->validate($this->buyer_validation);
         $requestData = $request->all();
@@ -228,8 +196,15 @@ class BuyerProfilesController extends Controller
         $user = User::findOrFail($buyer->user->id);
         $user->update($requestData);
 
+        if($request->file('company_logo')!=null){
+            $logo = 'buyer-'.$buyer->id. '.jpg';
 
-        return redirect('buyer/{user_id}/profile')->with('flash_message', 'Buyer updated!');
+            $request->file('company_logo')->move(
+                base_path() . '/public/uploads/', $logo
+            );
+        }
+
+        return redirect('buyer/profile')->with('flash_message', 'Buyer updated!');
     }
 
     /**

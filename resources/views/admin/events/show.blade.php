@@ -64,11 +64,17 @@
                                 <button type="submit" class="btn btn-primary">Close Registration</button>
                             </form>
                         @endif
+
                         @if($event->event_status == "Registration Closed")
                         <a href="{{ route('show.final.schedule', ['event_id' => $event->id]) }}" title="Edit Event">
                             <button class="btn btn-primary">Finalize Schedule</button>
                         </a>
+                        @else
+                            <a href="{{ route('show.final.list.schedule', ['event_id' => $event->id]) }}" title="See Event">
+                                <button class="btn btn-primary">See Finalized Schedules</button>
+                            </a>
                         @endif
+
                         @if($event->event_status == "Registration Closed")
                             <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration" method="post">
                                 {{ csrf_field() }}
@@ -154,6 +160,7 @@
                                     <th>Email</th>
                                     <th>Contact</th>
                                     <th>Country</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -163,6 +170,7 @@
                                     <th>Email</th>
                                     <th>Contact</th>
                                     <th>Country</th>
+                                    <th>Action</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -173,6 +181,11 @@
                                         <td>{{ $s->user->email }}</td>
                                         <td>{{ $s->phone }}</td>
                                         <td>{{ $s->country }}</td>
+                                        <td><form method="POST" action="{{ url('/admin/event-sellers/'.$event->id.'/'.$s->id.'/delete' ) }}" accept-charset="UTF-8" style="display:inline">
+
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete EventBuyer" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                            </form></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -195,6 +208,7 @@
                                     <th>Email</th>
                                     <th>Contact</th>
                                     <th>Country</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -204,6 +218,7 @@
                                     <th>Email</th>
                                     <th>Contact</th>
                                     <th>Country</th>
+                                    <th>Action</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -214,6 +229,11 @@
                                         <td>{{ $b->user->email }}</td>
                                         <td>{{ $b->phone }}</td>
                                         <td>{{ $b->country }}</td>
+                                        <td><form method="POST" action="{{ url('/admin/event-buyers/'.$event->id.'/'.$b->id.'/delete' ) }}" accept-charset="UTF-8" style="display:inline">
+
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete EventBuyer" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                            </form></td>
                                     </tr>
                                 @endforeach
 

@@ -30,6 +30,7 @@ class FinalSchedulesController extends Controller
         }
         return $buyer_names;
     }
+
     private function getSellerNames($event_id)
     {
         $seller_names = [];
@@ -76,6 +77,20 @@ class FinalSchedulesController extends Controller
             ->with('buyer_names', $this->getBuyerNames($event_id))
             ->with('schedule_list', $this->getSchedules($event_id));
     }
+
+    public function showList($event_id){
+
+        $perPage = 25;
+        $event = \App\Event::where('id','=',$event_id)->first()->event_name;
+        $finalschedules = FinalSchedule::where('event_id', '=', $event_id)->paginate($perPage);
+
+        return view('admin.final-schedules.list', compact('finalschedules'))
+            ->with('event',$event)
+            ->with('seller_names', $this->getSellerNames($event_id))
+            ->with('buyer_names', $this->getBuyerNames($event_id))
+            ->with('schedule_list', $this->getSchedules($event_id));
+    }
+
 
     /**
      * Display a listing of the resource.

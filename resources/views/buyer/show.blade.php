@@ -6,13 +6,19 @@
             <h4 class="page-head-line">{{ $buyer->company_name }}</h4>
         </div>
 
+        @if(Session::has('flash_message'))
+            <div class="col-md-12">
+                <p class="alert alert-success">{{ Session::get('flash_message') }}</p>
+            </div>
+        @endif
+
         <div class="col-lg-4 col-sm-6">
 
             <div class="card hovercard">
                 <div class="cardheader">
                 </div>
                 <div class="avatar">
-                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                    <img alt="" src="/uploads/buyer-{{ $buyer->id }}.jpg">
                 </div>
                 <div class="info">
                     <div class="title">
@@ -44,7 +50,7 @@
                     </div>
                 </div>
                 <div class="bottom">
-                    <a href="{{ url('/buyer/'.$buyer->user_id.'/edit') }}" title="Edit buyer">
+                    <a href="{{ url('/buyer/edit') }}" title="Edit buyer">
                         <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             Edit
                         </button>
@@ -65,47 +71,52 @@
 
         {{--View Schedule--}}
         <div class="col-md-8">
+
+            @if($schedule->isEmpty())
+                <div class="alert alert-info">
+                    <strong>Schedule not yet Available</strong>
+                </div>
+            @endif
+
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Schedule
+                    Finalized Schedule
                 </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-
-                            <thead>
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th>Seller Name</th>
+                            <th>Start</th>
+                            <th>Stop</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($schedule as $sched)
                             <tr>
-                                <th>Event Name</th>
-                                <th>Representatives</th>
-                                <th>Seller</th>
-                                <th>Venue</th>
-                                <th>Date</th>
-                                <th>Time</th>
+                                <td>
+                                    @foreach($info as $inf)
+                                        @if($inf->event_param_id === $sched->id)
+                                            @foreach($seller as $bname)
+                                                @if($bname->id === $inf->seller_id)
+                                                    {{ $bname->last_name.', '.$bname->first_name}}
+                                                    @break
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td> {{ date('g:i A', strtotime($sched->start_time))}} </td>
+                                <td> {{ date('g:i A', strtotime($sched->end_time))}} </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($buyers as $buyer)
-                                <tr>
-                                    <td>{{ $buyer->event_name }}</td>
-                                    <td>
-                                        {{ $buyer->rep1 }}
-                                        <br/>
-                                        {{ $buyer->rep2 }}
-                                    </td>
-                                    <td>{{ $buyer->fname }} {{ $buyer->lname }}</td>
-                                    <td>{{ $buyer->venue }}</td>
-                                    <td>{{ $buyer->event_date }}</td>
-                                    <td>{{ date('G:i A', strtotime($buyer->s_time)) }} - {{ date('G:i A', strtotime($buyer->e_time)) }}</td>
-                                </tr>
-                            @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
 
 
 @endsection

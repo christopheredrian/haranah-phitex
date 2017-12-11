@@ -82,12 +82,19 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'create.event.buyers',
             'uses' => 'Admin\\EventBuyersController@createWithEvent'
         ]);
-
+        Route::post('/event-buyers/{event_id}/{buyer_id}/delete', [
+            'as' => 'delete.event.buyer',
+            'uses' => 'Admin\\EventBuyersController@delete'
+        ]);
         //Admin - Event Sellers
         Route::resource('/event-sellers', 'Admin\\EventSellersController');
         Route::get('/event-sellers/create/{event_id}', [
             'as' => 'create.event.sellers',
             'uses' => 'Admin\\EventSellersController@createWithEvent'
+        ]);
+        Route::post('/event-sellers/{event_id}/{seller_id}/delete', [
+            'as' => 'delete.event.seller',
+            'uses' => 'Admin\\EventSellersController@delete'
         ]);
 
         //Admin - Final Schedule
@@ -96,6 +103,12 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'show.final.schedule',
             'uses' => 'Admin\\FinalSchedulesController@showWithEvent'
         ]);
+
+        Route::get('/final-schedules/list/{event_id}', [
+            'as' => 'show.final.list.schedule',
+            'uses' => 'Admin\\FinalSchedulesController@showList'
+        ]);
+
         Route::get('/final-schedules/create/{event_id}', [
             'as' => 'create.final.schedule',
             'uses' => 'Admin\\FinalSchedulesController@createWithEvent'
@@ -114,6 +127,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR BUYER
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
+
         Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
 
         // TEMPORARY!!!
@@ -121,17 +135,17 @@ Route::group(['middleware' => ['auth']], function () {
 //            return view('buyer.show');
 //        });
 
-        Route::get('/{user_id}/profile', [
+        Route::get('/profile', [
             'as' => 'buyers.show',
             'uses' => 'Buyer\\BuyerProfilesController@show'
         ]);
 
-        Route::get('/{buyer_id}/edit', [
+        Route::get('/edit', [
             'as' => 'buyers.edit',
             'uses' => 'Buyer\\BuyerProfilesController@edit'
         ]);
 
-        Route::post('/{user_id}/submit', [
+        Route::post('/submit', [
             'as' => 'buyers.update',
             'uses' => 'Buyer\\BuyerProfilesController@update'
         ]);
@@ -139,15 +153,19 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR SELLER
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
-//        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
-        Route::get('/home', 'Seller\\SellerController@showEvents');
-
+        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
+//        Route::get('/home', 'Seller\\SellerController@showEvents');
 
         // NOT TESTED
         Route::resource('seller', 'Seller\\SellerController');
         Route::get('/events', [
             'as' => 'list.events',
             'uses' => 'Seller\\SellerController@showEvents'
+        ]);
+
+        Route::get('/{user_id}/profile', [
+            'as' => 'seller.show',
+            'uses' => 'Seller\\SellerController@show'
         ]);
 
         Route::get('/{user_id}/profile', [
@@ -170,14 +188,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/index', function () {
             return view('seller.index');
         });
-        Route::get('/seller/event', function () {
-            return view('seller.event');
-        });
         Route::get('/account', function () {
             return view('seller.account');
-        });
-        Route::get('/list', function () {
-            return view('seller.list');
         });
 
     });

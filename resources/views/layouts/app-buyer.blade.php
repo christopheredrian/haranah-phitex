@@ -43,7 +43,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/buyer/home">
+            <a class="navbar-brand" href="/buyer/profile">
 
                 <h3 style="color: white;">HARANAH PHITEX</h3>
                 {{--<img src="/bp_assets/img/logo.png"/>--}}
@@ -93,7 +93,7 @@
 
                         {{--<li><a class="{{ is_active(['/home' ]) }}" href="/buyer/home">Dashboard</a></li>--}}
 
-                        <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/' . Auth::user()->id . '/profile') }}">Profile</a></li>
+                        <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/profile') }}">Profile</a></li>
                         <li class="{{ is_active(['#' ]) }} dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 Account
