@@ -25,7 +25,6 @@ use Session;
 class SellerController extends Controller
 {
     private $seller_validation = [
-        'company_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
         'country' => 'required',
@@ -35,6 +34,7 @@ class SellerController extends Controller
         'event_rep2' => 'required',
         'designation' => 'required',
         'website' => 'required',
+        'products' => 'required'
     ];
     
     public function index(Request $request)
@@ -221,5 +221,21 @@ class SellerController extends Controller
     {
         $buyer = Buyer::find($id);
         return view('seller.cbuyer',compact($buyer));
+    }
+    public function update(Request $request)
+    {
+        $id = Auth::user()->id;
+
+        $request->validate($this->seller_validation);
+        $requestData = $request->all();
+
+        $seller = Seller::where("sellers.user_id", "=", "$id")->first();
+        $seller->update($requestData);
+
+        $user = User::findOrFail($seller->user->id);
+        $user->update($requestData);
+
+
+        return redirect('seller/profile')->with('flash_message', 'Seller updated!');
     }
 }

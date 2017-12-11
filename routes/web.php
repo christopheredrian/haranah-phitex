@@ -162,6 +162,11 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Seller\\SellerController@show'
         ]);
         
+        Route::post('/submit', [
+            'as' => 'seller.update',
+            'uses' => 'Seller\\SellerController@update'
+        ]);
+        
         Route::get('/events', [
             'as' => 'list.events',
             'uses' => 'Seller\\SellerController@showEvents'

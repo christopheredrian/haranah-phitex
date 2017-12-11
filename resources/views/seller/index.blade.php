@@ -56,7 +56,7 @@
 
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Email</strong>
 
-                            <p class="text-muted">{{ $seller->company_email }}</p>
+                            <p class="text-muted">{{ $seller->user->email }}</p>
 
                             <hr>
 
@@ -117,40 +117,105 @@
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="edit">
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="inputName" class="col-sm-2 control-label">Company Name</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                <form method="POST" action="{{ url('seller/submit')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                                    {{ method_field('POST') }}
+                                    {{ csrf_field() }}
+                                    <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
+                                        <label for="company_name" class="col-md-2 control-label">{{ 'Company Name' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="company_name" id="company_name"
+                                                   value="{{ old('company_name', isset($seller) ? $seller->company_name : '' ) }}">
+                                            {!! $errors->first('company_name', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputEmail" class="col-sm-2 control-label">Company Email</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
+                                        <label for="company_name" class="col-md-2 control-label">{{ 'Company Address' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="company_address" id="company_address"
+                                                   value="{{ old('company_address', isset($seller) ? $seller->company_address : '' ) }}">
+                                            {!! $errors->first('company_address', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputName" class="col-sm-2 control-label">Company Description</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputName" placeholder="Company Description">
+                                    <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
+                                        <label for="company_name" class="col-md-2 control-label">{{ 'Country' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="country" id="country"
+                                                   value="{{ old('company_name', isset($seller) ? $seller->country : '' ) }}">
+                                            {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                                    <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                                        <label for="email" class="col-md-2 control-label">{{ 'Email' }}</label>
 
-                                        <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                                        @if(isset($isCreate))
+                                            <div class="col-md-10 ">
+
+                                                <input class="form-control" type="email" name="email" id="email"
+                                                       value="{{ old('email', isset($seller) ? $seller->user->email : '') }}">
+                                                {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                        @else
+                                            <div class="col-md-10">
+                                                <div class="input-group">
+                                                    <input style="cursor: pointer" disabled="disabled" class="form-control" type="email" name="email"
+                                                           id="email"
+                                                           value="{{ old('email', isset($seller) ? $seller->user->email : '') }}">
+
+                                                </div>
+                                                {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                    <div class="form-group {{ $errors->has('website') ? 'has-error' : ''}}">
+                                        <label for="website" class="col-md-2 control-label">{{ 'Website' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="website" id="website"
+                                                   value="{{ old('website', isset($seller) ? $seller->website : '') }}">
+                                            {!! $errors->first('website', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputSkills" class="col-sm-2 control-label">Services</label>
 
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputSkills" placeholder="Services">
+                                    <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
+                                        <label for="phone" class="col-md-2 control-label">{{ 'Phone' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="phone" id="phone"
+                                                   value="{{ old('phone', isset($seller) ? $seller->phone : '') }}">
+                                            {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group {{ $errors->has('event_rep1') ? 'has-error' : ''}}">
+                                        <label for="event_rep1" class="col-md-2 control-label">{{ 'Event Representative 1' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="event_rep1" id="event_rep1"
+                                                   value="{{ old('event_rep1', isset($seller) ? $seller->event_rep1 : '') }}">
+                                            {!! $errors->first('event_rep1', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group {{ $errors->has('event_rep2') ? 'has-error' : ''}}">
+                                        <label for="event_rep2" class="col-md-2 control-label">{{ 'Event Representative 2' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="event_rep2" id="event_rep2"
+                                                   value="{{ old('event_rep2', isset($seller) ? $seller->event_rep2 : '') }}">
+                                            {!! $errors->first('event_rep2', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('designation') ? 'has-error' : ''}}">
+                                        <label for="designation" class="col-md-2 control-label">{{ 'Designation' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="designation" id="designation"
+                                                   value="{{ old('designation', isset($seller) ? $seller->designation : '') }}">
+                                            {!! $errors->first('designation', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('products') ? 'has-error' : ''}}">
+                                        <label for="products" class="col-md-2 control-label">{{ 'Products' }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="products" id="products"
+                                                   value="{{ old('products', isset($seller) ? $seller->products : '') }}">
+                                            {!! $errors->first('products', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group">
