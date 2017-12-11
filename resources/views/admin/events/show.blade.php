@@ -69,6 +69,14 @@
                             <button class="btn btn-primary">Finalize Schedule</button>
                         </a>
                         @endif
+                        @if($event->event_status == "Registration Closed")
+                            <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration" method="post">
+                                {{ csrf_field() }}
+                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
+                                {{--Submit List</button>--}}
+                                <button type="submit" class="btn btn-primary">Re-Open Registration</button>
+                            </form>
+                        @endif
                         <br/>
                         <br/>
                         <div class="x_panel">

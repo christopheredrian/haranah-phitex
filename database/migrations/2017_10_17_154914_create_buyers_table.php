@@ -24,7 +24,7 @@ class CreateBuyersTable extends Migration
             $table->string('event_rep2');
             $table->string('designation');
             $table->string('website');
-            
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

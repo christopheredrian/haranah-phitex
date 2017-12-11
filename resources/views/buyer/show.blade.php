@@ -3,133 +3,148 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <h4 class="page-head-line">PROFILE</h4>
+            <h4 class="page-head-line">{{ $buyer->company_name }}</h4>
         </div>
 
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
-                <div class="panel-body">
+        <div class="col-lg-4 col-sm-6">
 
-                    {{--                        <a href="{{ url('/buyer/home') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>--}}
-                    <a href="{{ url('/buyer/'.Auth::user()->id.'/edit') }}" title="Edit buyer">
+            <div class="card hovercard">
+                <div class="cardheader">
+                </div>
+                <div class="avatar">
+                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a target="_blank" href="{{ $buyer->website }}">{{ $buyer->company_name }}</a>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{{ $buyer->company_address }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ $buyer->user->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Website</th>
+                                    <td>{{ $buyer->website }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone Number</th>
+                                    <td>{{ $buyer->phone }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <a href="{{ url('/buyer/'.$buyer->user_id.'/edit') }}" title="Edit buyer">
                         <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             Edit
                         </button>
                     </a>
+                </div>
+            </div>
 
-                    {{--<form method="POST" action="{{ url('buyer' . '/' . Auth::user()->id) }}" accept-charset="UTF-8" style="display:inline">--}}
-                    {{--{{ method_field('DELETE') }}--}}
-                    {{--{{ csrf_field() }}--}}
-                    {{--<button type="submit" class="btn btn-danger btn-xs" title="Delete buyer" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>--}}
-                    {{--</form>--}}
-                    <br/>
-                    <br/>
+        </div>
 
+        {{--                        <a href="{{ url('/buyer/home') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>--}}
+
+
+        {{--<form method="POST" action="{{ url('buyer' . '/' . Auth::user()->id) }}" accept-charset="UTF-8" style="display:inline">--}}
+        {{--{{ method_field('DELETE') }}--}}
+        {{--{{ csrf_field() }}--}}
+        {{--<button type="submit" class="btn btn-danger btn-xs" title="Delete buyer" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>--}}
+        {{--</form>--}}
+
+        {{--View Schedule--}}
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Events
+                </div>
+                <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                            <tr>
-                                <th>ID</th>
-                                <td>{{ Auth::user()->id }}</td>
-                            </tr>
-                            <tr>
-                                <th>Name</th>
-                                <td>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</td>
-                            </tr>
+                        <table class="table table-hover">
 
+                            <thead>
                             <tr>
-                                <th>Company Name</th>
-                                <td>{{ $buyer->company_name }}</td>
+                                <th>Event Name</th>
+                                <th>Representatives</th>
+                                <th>Seller</th>
+                                <th>Venue</th>
+                                <th>Date</th>
+                                <th>Time</th>
                             </tr>
-                            <tr>
-                                <th>Company Address</th>
-                                <td>{{ $buyer->company_address }}</td>
-                            </tr>
-                            <tr>
-                                <th>Event Representative 1</th>
-                                <td>{{ $buyer->event_rep1 }}</td>
-                            </tr>
-                            <tr>
-                                <th>Event Representative 2</th>
-                                <td>{{ $buyer->event_rep2 }}</td>
-                            </tr>
-                            <tr>
-                                <th>Designation</th>
-                                <td>{{ $buyer->desgination }}</td>
-                            </tr>
-                            <tr>
-                                <th>Website</th>
-                                <td>{{ $buyer->website }}</td>
-                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($buyers as $buyer)
+                                <tr>
+                                    <td>{{ $buyer->event_name }}</td>
+                                    <td>
+                                        {{ $buyer->rep1 }}
+                                        <br/>
+                                        {{ $buyer->rep2 }}
+                                    </td>
+                                    <td>{{ $buyer->fname }} {{ $buyer->lname }}</td>
+                                    <td>{{ $buyer->venue }}</td>
+                                    <td>{{ $buyer->event_date }}</td>
+                                    <td>{{ date('G:i A', strtotime($buyer->s_time)) }} - {{ date('G:i A', strtotime($buyer->e_time)) }}</td>
+                                </tr>
+                            @endforeach
 
                             </tbody>
                         </table>
                     </div>
-
                 </div>
+
             </div>
         </div>
-
-        <div class="col-md-12">
-            <h4 class="page-head-line">Schedule</h4>
-        </div>
-        @foreach($buyerEvent as $event)
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="table-responsive">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th>Event Name</th>
-                            <td>{{ $event->event_name}}</td>
-                        </tr>
-                        <tr>
-                            <th>Location</th>
-                            <td> {{ $event->event_place}}</td>
-                        </tr>
-                        <tr>
-                            <th>Description</th>
-                            <td> {{ $event->event_description }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="panel-heading">
+                    Finalized Schedule
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-borderless">
-                        <thead>
-                        <tr>
-                            <th>Seller Name</th>
-                            <th>Start</th>
-                            <th>Stop</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead>
+                    <tr>
+                        <th>Seller Name</th>
+                        <th>Start</th>
+                        <th>Stop</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                        @foreach($schedule as $sched)
-                            <tr>
-                                <td>
-                                    @foreach($info as $inf)
-                                        @if($inf->event_param_id === $sched->id)
-                                            @foreach($seller as $bname)
-                                                @if($bname->id === $inf->seller_id)
-                                                    {{ $bname->last_name.', '.$bname->first_name}}
-                                                    @break
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td> {{ date('g:i A', strtotime($sched->start_time))}} </td>
-                                <td> {{ date('g:i A', strtotime($sched->end_time))}} </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                    @foreach($schedule as $sched)
+                        <tr>
+                            <td>
+                                @foreach($info as $inf)
+                                    @if($inf->event_param_id === $sched->id)
+                                        @foreach($seller as $bname)
+                                            @if($bname->id === $inf->seller_id)
+                                                {{ $bname->last_name.', '.$bname->first_name}}
+                                                @break
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td> {{ date('g:i A', strtotime($sched->start_time))}} </td>
+                            <td> {{ date('g:i A', strtotime($sched->end_time))}} </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-        @endforeach
+        </div>
     </div>
 
 

@@ -131,7 +131,7 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Buyer\\BuyerProfilesController@edit'
         ]);
 
-        Route::post('/{user_id}/update', [
+        Route::post('/{user_id}/submit', [
             'as' => 'buyers.update',
             'uses' => 'Buyer\\BuyerProfilesController@update'
         ]);

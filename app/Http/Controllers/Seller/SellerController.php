@@ -98,6 +98,11 @@ class SellerController extends Controller
 //        echo 'The values ($request->values): <br>';
 //        print_r($request->values);
 //        echo  'Where $request->values contains an array of: (buyer_id-rank)';
+        $sellerID = Seller::where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+
+
         foreach($request->values as $item){
             $seller_preference = \App\SellerPreference::create();
             $seller_preference->event_id=$id;
@@ -107,6 +112,12 @@ class SellerController extends Controller
             $seller_preference->rank=$pieces[1];
             $seller_preference->save();
         }
+
+        //table column where  id
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.seller_id','=', $sellerID)
+            ->get();
 
         $seller = Seller::where('user_id', Auth::user()->id)
             ->first();

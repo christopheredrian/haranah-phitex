@@ -10,13 +10,10 @@
         <input class="form-control" name="end_time" type="time" id="end_time" value="{{ $eventparam->end_time or ''}}" >
         {!! $errors->first('end_time', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('event_id') ? 'has-error' : ''}}">
-    <label for="event_id" class="col-md-4 control-label">{{ 'Event Id' }}</label>
-    <div class="col-md-6">
-        <input class="form-control" name="event_id" type="number" id="event_id" value="{{ $event_id or ''}}" >
-        {!! $errors->first('event_id', '<p class="help-block">:message</p>') !!}
-    </div>
 </div>
+<input type="hidden" class="form-control" name="event_id" type="number" id="event_id" value="{{ $event_id or ''}}" >
+{!! $errors->first('event_id', '<p class="help-block">:message</p>') !!}
+
 
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">

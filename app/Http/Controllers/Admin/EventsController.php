@@ -19,7 +19,6 @@ class EventsController extends Controller
         'event_name' => 'required',
         'event_place' => 'required',
         'event_date' => 'required',
-        'event_status' => 'required',
         'event_description' => 'required',
     ];
     /**
@@ -65,7 +64,7 @@ class EventsController extends Controller
         $requestData = $request->all();
         
         $event = Event::create($requestData);
-        $event->status = 'New Event';
+        $event->event_status = 'New Event';
         $event->save();
 
         return redirect('admin/events')->with('flash_message', 'Event added!');
@@ -169,6 +168,7 @@ class EventsController extends Controller
             ->pluck('seller_id'))
             ->pluck('user_id'))
             ->count();
+
         foreach($event_params as $event_param) {
 
             for ($i = 1; $i <= $sellercount; $i++) {
@@ -178,7 +178,9 @@ class EventsController extends Controller
                     if (\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('event_param_id','=',$event_param)->first() == null) {
 
                         if (\App\FinalSchedule::where('buyer_id', '=', $item->buyer_id)->where('event_param_id','=',$event_param)->first() == null) {
-                            if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->first() == null) {
+
+                            if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->where('event_id','=',$id)->first() == null) {
+
                                 $final_schedule = \App\FinalSchedule::create();
                                 $final_schedule->event_id = $id;
                                 $final_schedule->seller_id = $item->seller_id;
