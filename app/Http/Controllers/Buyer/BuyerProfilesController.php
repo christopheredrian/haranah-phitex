@@ -11,6 +11,7 @@ use App\FinalSchedule;
 use App\EventParam;
 use App\Event;
 use App\EventBuyer;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
