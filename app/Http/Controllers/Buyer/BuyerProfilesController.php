@@ -153,8 +153,6 @@ class BuyerProfilesController extends Controller
 
         if (!empty($keyword)) {
             // Join buyers table to users table, filter, then paginate
-
-
             $buyers = DB::table('final_schedules')
                 ->join('buyers', 'buyers.buyer_id', '=', 'final_schedules.buyer_id')
                 ->join('users', 'users.id', '=', 'buyers.user_id')

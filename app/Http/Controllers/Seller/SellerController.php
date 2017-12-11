@@ -38,6 +38,15 @@ class SellerController extends Controller
      * Shows all event for this particular logged in seller
      * @return
      */
+
+    public function show($id)
+    {
+        $seller = Seller::findOrFail($id)->where("seller.user_id", "=", "$id")->first();
+
+        return view('seller.show', compact('seller'), ['role' => 'Seller'])->with('seller', $seller);
+    }
+
+
     public function showEvents()
     {
         // TODO: Another refactor later
