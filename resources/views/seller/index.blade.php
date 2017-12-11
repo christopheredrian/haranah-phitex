@@ -67,6 +67,8 @@
                                             <td>{{ $event->event_place }}</td>
                                             <td>{{ $event->event_date }}</td>
 
+                                            <td><button> Show Schedule</button></td>
+
                                         </tr>
                                     @endforeach
 

@@ -35,14 +35,24 @@ class HomeController extends Controller
     {
     //  Insert app-buyer
         $events = Buyer::where('user_id', Auth::user()->id)->first()->events;
+        // query final schedule
         return view('buyer.index', ['role' => 'Buyer'])
             ->with('events', $events);
     }
-
+    /**
+        note: table contains
+     * event_id
+     * buyer_id
+     * seller_id
+     * event_param_id
+     *
+     * query event_id in events then get data from event
+     **/
 
     public function sellerIndex()
     {
         //  Insert app-buyer
+        // query final schedule
         return view('seller.index', ['role' => 'Seller']);
     }
 
