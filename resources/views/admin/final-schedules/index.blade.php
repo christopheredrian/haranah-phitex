@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Finalschedules</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/final-schedules/create') }}" class="btn btn-success btn-sm" title="Add New FinalSchedule">
+                        <a href="{{ route('create.final.schedule', ['event_id' => $finalschedules->first()->event_id]) }}" class="btn btn-success btn-sm" title="Add New FinalSchedule">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
@@ -38,10 +38,10 @@
                                 @foreach($finalschedules as $item)
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
-                                        <td>{{ \App\Event::where('id','=',$item->event_id)->first()->event_name }}</td>
-                                        <td>{{ \App\User::where('id','=', \App\Buyer::where('id','=',$item->buyer_id)->first()->user_id)->first()->last_name.', '.\App\User::where('id','=', \App\Buyer::where('id','=',$item->buyer_id)->first()->user_id)->first()->first_name }}</td>
-                                        <td>{{ \App\User::where('id','=', \App\Seller::where('id','=',$item->seller_id)->first()->user_id)->first()->last_name.', '. \App\User::where('id','=', \App\Seller::where('id','=',$item->seller_id)->first()->user_id)->first()->first_name }}</td>
-                                        <td>{{ \App\EventParam::where('id','=',$item->event_param_id)->first()->start_time.'-'.\App\EventParam::where('id','=',$item->event_param_id)->first()->end_time }}</td>
+                                        <td>{{ $event }}</td>
+                                        <td>{{ $buyer_names[$item->buyer_id] }}</td>
+                                        <td>{{ $seller_names[$item->seller_id] }}</td>
+                                        <td>{{ $schedule_list[$item->event_param_id] }}</td>
                                         <td>
                                             {{--<a href="{{ url('/admin/final-schedules/' . $item->id) }}" title="View FinalSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>--}}
                                             <a href="{{ url('/admin/final-schedules/' . $item->id . '/edit') }}" title="Edit FinalSchedule"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
