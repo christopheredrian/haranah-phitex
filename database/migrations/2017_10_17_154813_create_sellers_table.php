@@ -19,9 +19,9 @@ class CreateSellersTable extends Migration
             $table->integer('event_id')->unsigned();
             $table->string('country')->nullable();
             
+            $table->binary('company_logo')->nullable();
             $table->string('company_name')->nullable();
             $table->string('company_address')->nullable();
-            $table->string('company_desc')->nullable();
             $table->string('event_rep1')->nullable();
             $table->string('event_rep2')->nullable();
             $table->string('designation')->nullable();

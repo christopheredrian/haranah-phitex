@@ -24,6 +24,12 @@ use Session;
 
 class SellerController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    
     private $seller_validation = [
         'company_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'email' => 'unique:users,email|email',
