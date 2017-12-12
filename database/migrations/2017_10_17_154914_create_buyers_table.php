@@ -16,7 +16,7 @@ class CreateBuyersTable extends Migration
             $table->increments('id');
             $table->string('phone')->nullable();
             $table->integer('user_id')->unsigned();
-            $table->integer('event_id')->unsigned();
+            $table->integer('event_id')->nullable();
             $table->string('country')->nullable();
 
             $table->binary('company_logo')->nullable();

@@ -149,30 +149,37 @@ class EventBuyersController extends Controller
 
     public function delete($event_id, $buyer_id)
     {
-        $id = EventBuyer::where('event_id','=',$event_id)->where('buyer_id','=',$buyer_id)->first()->id;
-        EventBuyer::destroy($id);
+        $buyer = Buyer::find($buyer_id);
+        $buyer->event_id = null;
+        $buyer->save();
 
         $event = Event::findOrFail($event_id);
+
 
         //$eventsellers = User::whereIn('user_id', Seller::whereIn('id',EventSeller::where('event_id' , '=','$id')))->pluck('last_name');
         //SELECT * FROM `users`  WHERE id IN (SELECT user_id from buyers WHERE id IN (SELECT buyer_id FROM `event_buyers`))
 
-        $eventsellers = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$event_id)
-            ->pluck('seller_id'))
-            ->pluck('user_id'))
-            ->get();
+        // TODO: Refactor for 1:M
+//        $eventsellers = User::whereIn('id',
+//            Seller::whereIn('id',EventSeller::where('event_id','=',$id)
+//                    ->pluck('seller_id'))
+//                    ->pluck('user_id'))
+//                    ->get();
+        $eventsellers  = $event->sellers;
 
-        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$event_id)
-            ->pluck('buyer_id'))
-            ->pluck('user_id'))
-            ->get();
+        // TODO: Refactor for 1:M
+//        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)
+//            ->pluck('buyer_id'))
+//            ->pluck('user_id'))
+//            ->get();
+        $eventbuyers = $event->buyers;
 
         return view('admin.events.show', compact('event'))
             ->with('eventbuyers',$eventbuyers)
             ->with('eventsellers',$eventsellers)
             ->with('buyers', $event->buyers)
             ->with('sellers', $event->sellers)
-            ->with('flash_message', 'EventBuyer deleted!');
+            ->with('event_id', $event_id);
 //        return redirect('admin/event-buyers')->with('flash_message', 'EventBuyer deleted!');
     }
 }
