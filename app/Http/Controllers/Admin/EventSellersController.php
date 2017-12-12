@@ -15,20 +15,27 @@ use Illuminate\Http\Request;
 
 class EventSellersController extends Controller
 {
-    private function getSellerNames($event_id)
+    private function getSellers($event_id)
     {
-        $seller_names = [];
-        $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id)->pluck('seller_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
-        //whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id))
-        foreach ($sellers as $seller) {
-            $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');
-            $seller_names[$sellerid] = $seller->last_name.", ".$seller->first_name;
-        }
-        return $seller_names;
+//        $seller_names = [];
+//        $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id)->pluck('seller_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
+//        //whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id))
+//        foreach ($sellers as $seller) {
+//            $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');
+//            $seller_names[$sellerid] = $seller->last_name.", ".$seller->first_name;
+//        }
+        $sellers = Seller::whereNotIn('id',
+            Event::find($event_id)
+                ->sellers->pluck('id')
+                ->toArray())
+            ->get();
+        return $sellers;
     }
     public function createWithEvent($event_id)
     {
-        return view('admin.event-sellers.create')->with('event_id',$event_id)->with('seller_names', $this->getSellerNames($event_id));
+        return view('admin.event-sellers.create')
+            ->with('event_id',$event_id)
+            ->with('sellers', $this->getSellers($event_id));
     }
     /**
      * Display a listing of the resource.
@@ -72,9 +79,10 @@ class EventSellersController extends Controller
     {
         
         $requestData = $request->all();
-        
-        EventSeller::create($requestData);
-
+        $seller = Seller::find($request->seller_id);
+        $seller->event_id = $request->event_id;
+        $seller->save();
+//        EventSeller::create($requestData);
         return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventSeller added!');
     }
 

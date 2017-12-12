@@ -1,11 +1,10 @@
 @extends('layouts.app-admin')
 
 @section('content')
-    <div class="container">
         <div class="row">
 
 
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Finalschedules</div>
                     <div class="panel-body">
@@ -19,13 +18,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
                                 @foreach($finalschedules as $item)
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
                                         <td>{{ $event }}</td>
-                                        <td>{{ $buyer_names[$item->buyer_id] }}</td>
-                                        <td>{{ $seller_names[$item->seller_id] }}</td>
+                                        <td>{{ \App\Buyer::find($item->buyer_id)->company_name }}</td>
+                                        <td>{{ \App\Buyer::find($item->seller_id)->company_name }}</td>
                                         <td>{{ $schedule_list[$item->event_param_id] }}</td>
                                         <td>
                                             {{--<a href="{{ url('/admin/final-schedules/' . $item->id) }}" title="View FinalSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>--}}
@@ -47,5 +45,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection
