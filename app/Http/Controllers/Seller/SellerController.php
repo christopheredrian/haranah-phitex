@@ -157,7 +157,7 @@ class SellerController extends Controller
      * @param $id
      * @return
      */
-    public function sellerPreference($id)
+    public function sellerPreference()
     {
         //$buyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',1)
             //->pluck('buyer_id'))
@@ -165,18 +165,22 @@ class SellerController extends Controller
             //->get();
         //$buyers = DB::table('buyers')->join('users', 'buyers.user_id', '=', 'users.id')->select('users.*', 'buyers.country')->get();
         // return view('seller.list');
-        $event = Event::find($id);
+        $id = Auth::user()->id;
+        $seller = Seller::where('user_id', Auth::user()->id)
+            ->first();
+        $event = Event::find($seller->event_id);
         return view('seller.list')
             ->with('buyers', $event->buyers)
             ->with('event', $event);
     }
-    public function submitPreferences(Request $request, $id)
+    public function submitPreferences(Request $request)
     {
 
 //        echo "Event id: $id <br>";
 //        echo 'The values ($request->values): <br>';
 //        print_r($request->values);
 //        echo  'Where $request->values contains an array of: (buyer_id-rank)';
+        $id = Auth::user()->id;
         $sellerID = Seller::where('user_id', Auth::user()->id)
             ->pluck('id');
 
@@ -218,7 +222,7 @@ class SellerController extends Controller
         $buyer = DB::table('users')
             ->join('buyers', 'users.id','=','buyers.user_id')
             ->get();
-        return view('seller.event')
+        return redirect('seller/profile')
             ->with('events',$seller->events)
             ->with('schedule',$schedule)
             ->with('info',$info)

@@ -34,6 +34,7 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-lg-12">
+                                <a href="profile"><button class="btn btn-primary ">Back</button></a>
                                 <table id="buyer-list" class="display table table-responsive table-striped">
                                     <thead>
                                     <tr>
@@ -54,7 +55,7 @@
                                             <!-- //pass $buyer->user_id-->
                                             <td class="action-btn-group">
                                                 <a type="button" class="btn btn-sm btn-primary"
-                                                   href="{{ url('/' . $buyer->user_id. '/profile') }}" target="_blank">View
+                                                   href="{{ url($buyer->user_id. '/profile') }}" target="_blank">View
                                                     Profile</a>
                                                 <button type="button" class="add-btn btn btn-sm btn-success">Add to
                                                     List
@@ -90,7 +91,7 @@
 
                                         </tbody>
                                     </table>
-                                    <form id="submit-form" action="/seller/events/{{ $event->id }}/submit"
+                                    <form id="submit-form" action="/seller/submitPick"
                                           method="post">
                                         {{ csrf_field() }}
                                         {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}

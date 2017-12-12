@@ -61,7 +61,7 @@
                             <hr>
 
                             <p>
-                                <input type="button" class="btn btn-block btn-primary" onclick="location.href='/events/{id}';" value="Select Buyers" />
+                                <input type="button" class="btn btn-block btn-primary" onclick="location.href='pick';" value="Select Buyers" />
                             </p>
 
                         </div>

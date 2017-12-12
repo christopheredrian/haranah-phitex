@@ -177,12 +177,12 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Seller\\SellerController@showBuyerProfile'
         ]);
 
-        Route::get('/events/{id}', [
+        Route::get('/pick', [
             'as' => 'list.buyer',
             'uses' => 'Seller\\SellerController@sellerPreference'
         ]);
 
-        Route::post('/events/{id}/submit', [
+        Route::post('/submitPick', [
             'as' => 'preference.submit',
             'uses' => 'Seller\\SellerController@submitPreferences'
         ]);
