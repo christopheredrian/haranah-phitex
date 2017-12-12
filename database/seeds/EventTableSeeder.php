@@ -50,7 +50,7 @@ class EventTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now()
             ],*/
         $faker = Faker\Factory::create();
-        $limit = 150;
+        $limit = 3;
         for ($i = 0; $i < $limit; $i++) {
             DB::table('events')->insert([ //,
                 'event_name' => $faker->randomElement(['Tour Package', 'Auction', 'Discountable Packages']),
