@@ -28,7 +28,7 @@ class FinalSchedulesController extends Controller
         $buyers = Event::find($event_id)->buyers;
         foreach ($buyers as $buyer) {
             $buyerid = \App\Buyer::where('user_id' ,'=' ,$buyer->id)->value('id');
-            $buyer_names[$buyerid] = $buyer->company_name;
+            $buyer_names[$buyerid] = $buyer->last_name.", ".$buyer->first_name;
         }
         return $buyer_names;
     }
@@ -41,7 +41,7 @@ class FinalSchedulesController extends Controller
         //whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id))
         foreach ($sellers as $seller) {
             $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');
-            $seller_names[$sellerid] = $seller->company_name;
+            $seller_names[$sellerid] = $seller->last_name.", ".$seller->first_name;
         }
         return $seller_names;
     }
@@ -82,7 +82,6 @@ class FinalSchedulesController extends Controller
     }
 
     public function showList($event_id){
-
         $perPage = 25;
         $event = \App\Event::where('id','=',$event_id)->first()->event_name;
         $finalschedules = FinalSchedule::where('event_id', '=', $event_id)->paginate($perPage);

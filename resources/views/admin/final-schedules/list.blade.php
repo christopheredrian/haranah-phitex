@@ -23,7 +23,7 @@
                                         <td>{{ $loop->iteration or $item->id }}</td>
                                         <td>{{ $event }}</td>
                                         <td>{{ \App\Buyer::find($item->buyer_id)->company_name }}</td>
-                                        <td>{{ \App\Buyer::find($item->seller_id)->company_name }}</td>
+                                        <td>{{ \App\Seller::find($item->seller_id)->company_name }}</td>
                                         <td>{{ $schedule_list[$item->event_param_id] }}</td>
                                         <td>
                                             {{--<a href="{{ url('/admin/final-schedules/' . $item->id) }}" title="View FinalSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>--}}
