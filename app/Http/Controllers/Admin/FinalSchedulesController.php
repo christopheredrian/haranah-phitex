@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Event;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -23,7 +24,8 @@ class FinalSchedulesController extends Controller
     private function getBuyerNames($event_id)
     {
         $buyer_names = [];
-        $buyers = \App\User::whereIn('id', \App\Buyer::where('id' ,'>' ,0)->whereIn('id',\App\EventBuyer::where('event_id','=',$event_id)->pluck('buyer_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
+//        $buyers = \App\User::whereIn('id', \App\Buyer::where('id' ,'>' ,0)->whereIn('id',\App\EventBuyer::where('event_id','=',$event_id)->pluck('buyer_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        $buyers = Event::find($event_id)->buyers;
         foreach ($buyers as $buyer) {
             $buyerid = \App\Buyer::where('user_id' ,'=' ,$buyer->id)->value('id');
             $buyer_names[$buyerid] = $buyer->last_name.", ".$buyer->first_name;
@@ -34,7 +36,8 @@ class FinalSchedulesController extends Controller
     private function getSellerNames($event_id)
     {
         $seller_names = [];
-        $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->whereIn('id',\App\EventSeller::where('event_id','=',$event_id)->pluck('seller_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
+//        $sellers = \App\User::whereIn('id', \App\Seller::where('id' ,'>' ,0)->whereIn('id',\App\EventSeller::where('event_id','=',$event_id)->pluck('seller_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        $sellers = Event::find($event_id)->sellers;
         //whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id))
         foreach ($sellers as $seller) {
             $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');

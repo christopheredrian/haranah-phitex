@@ -27,13 +27,22 @@ class Event extends Model
      */
     protected $fillable = ['event_name','event_place','event_date','event_status', 'event_description'];
 
+    /**
+     * Returns all buyers in this event
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToManyR
+     */
     public function buyers()
     {
-        return $this->belongsToMany('App\Buyer','event_buyers');
+        return $this->hasMany(Buyer::class);
     }
+
+    /**
+     * Returns all sellers in this event
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function sellers()
     {
-        return $this->belongsToMany('App\Seller','event_sellers');
+        return $this->hasMany(Seller::class );
     }
     public function event_params()
     {

@@ -16,6 +16,7 @@ class CreateBuyersTable extends Migration
             $table->increments('id');
             $table->string('phone')->nullable();
             $table->integer('user_id')->unsigned();
+            $table->integer('event_id')->unsigned();
             $table->string('country')->nullable();
 
             $table->binary('company_logo')->nullable();
@@ -26,6 +27,7 @@ class CreateBuyersTable extends Migration
             $table->string('designation')->nullable();
             $table->string('website')->nullable();
 
+            $table->foreign('event_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

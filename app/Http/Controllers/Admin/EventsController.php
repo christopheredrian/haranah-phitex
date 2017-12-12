@@ -8,12 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Event;
 use App\Seller;
 use App\EventSeller;
+use App\SellerPreference;
 use App\User;
 use App\EventBuyer;
 use App\Buyer;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventsController extends Controller
 {
@@ -34,7 +36,9 @@ class EventsController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $events = Event::where('event_name', 'LIKE', "%$keyword%")->orWhere('event_place', 'LIKE', "%$keyword%")->orWhere('event_date', 'LIKE', "%$keyword%")
+            $events = Event::where('event_name', 'LIKE', "%$keyword%")
+                ->orWhere('event_place', 'LIKE', "%$keyword%")
+                ->orWhere('event_date', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
             $events = Event::orderByDesc('event_date')->paginate($perPage);
@@ -86,21 +90,27 @@ class EventsController extends Controller
         //$eventsellers = User::whereIn('user_id', Seller::whereIn('id',EventSeller::where('event_id' , '=','$id')))->pluck('last_name');
         //SELECT * FROM `users`  WHERE id IN (SELECT user_id from buyers WHERE id IN (SELECT buyer_id FROM `event_buyers`))
 
-        $eventsellers = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$id)
-                    ->pluck('seller_id'))
-                    ->pluck('user_id'))
-                    ->get();
+        // TODO: Refactor for 1:M
+//        $eventsellers = User::whereIn('id',
+//            Seller::whereIn('id',EventSeller::where('event_id','=',$id)
+//                    ->pluck('seller_id'))
+//                    ->pluck('user_id'))
+//                    ->get();
+        $eventsellers  = $event->sellers;
 
-        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)
-            ->pluck('buyer_id'))
-            ->pluck('user_id'))
-            ->get();
+        // TODO: Refactor for 1:M
+//        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)
+//            ->pluck('buyer_id'))
+//            ->pluck('user_id'))
+//            ->get();
+        $eventbuyers = $event->buyers;
 
         return view('admin.events.show', compact('event'))
             ->with('eventbuyers',$eventbuyers)
             ->with('eventsellers',$eventsellers)
             ->with('buyers', $event->buyers)
-            ->with('sellers', $event->sellers);
+            ->with('sellers', $event->sellers)
+            ->with('event_id', $id);
     }
 
     /**
@@ -148,10 +158,14 @@ class EventsController extends Controller
     public function destroy($id)
     {
         Event::destroy($id);
-
         return redirect('admin/events')->with('flash_message', 'Event deleted!');
     }
 
+    /**
+     * Opens event registration
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function openRegistration($id)
     {
         $event = Event::FindorFail($id);
@@ -161,60 +175,77 @@ class EventsController extends Controller
     }
     public function closeRegistration($id)
     {
-        $event = Event::FindorFail($id);
-        $event->event_status="Registration Closed";
-        $event->save();
+//       DB::transaction(function() use ($id){
+           $event = Event::FindorFail($id);
+           $event->event_status="Registration Closed";
+           $event->save();
 
-        $noSellerPreference = \App\Seller::whereIn('id',EventSeller::where('event_id','=',$id)->pluck('seller_id'))
-            ->whereNotIn('id',\App\SellerPreference::where('event_id', '=', $id)->pluck('seller_id'))->get();
+           // TODO: Refactor for 1:M
+//        $noSellerPreference = \App\Seller::whereIn('id',
+//            EventSeller::where('event_id','=',$id)->pluck('seller_id'))
+//            ->whereNotIn('id',\App\SellerPreference::where('event_id', '=', $id)->pluck('seller_id'))->get();
+           $noSellerPreference = SellerPreference::getSellersWithoutPreferences($id);
+           // TODO: Refactor for 1:M
+//        $eventBuyers = \App\Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)->pluck('buyer_id'))->get();
+           $eventBuyers = $event->buyers;
+           $counter=1;
+           foreach ($noSellerPreference as $seller){
+               foreach ($eventBuyers as $buyer){
 
-        $eventBuyers = \App\Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)->pluck('buyer_id'))->get();
-        $counter=1;
-        foreach ($noSellerPreference as $seller){
-            foreach ($eventBuyers as $buyer){
+                   $newSellerPreference = \App\SellerPreference::create();
+                   $newSellerPreference->event_id = $id;
+                   $newSellerPreference->buyer_id = $buyer->id;
+                   $newSellerPreference->seller_id = $seller->id;
+                   $newSellerPreference->rank = $counter;
+                   $newSellerPreference->save();
+                   $counter=$counter+1;
+               }
+               $counter=1;
+           }
 
-                $newSellerPreference = \App\SellerPreference::create();
-                $newSellerPreference->event_id = $id;
-                $newSellerPreference->buyer_id = $buyer->id;
-                $newSellerPreference->seller_id = $seller->id;
-                $newSellerPreference->rank = $counter;
-                $newSellerPreference->save();
-                $counter=$counter+1;
-            }
-            $counter=1;
-        }
+           $event_params = \App\EventParam::where('event_id','=',$id)->orderBy('start_time')->pluck('id');
+           $seller_preference = \App\SellerPreference::where('event_id', '=', $id)
+               ->orderBy('created_at')
+               ->orderBy('rank')
+               ->get();
 
-        $event_params = \App\EventParam::where('event_id','=',$id)->orderBy('start_time')->pluck('id');
-        $seller_preference = \App\SellerPreference::where('event_id', '=', $id)->orderBy('created_at')->orderBy('rank')->get();
-        $sellercount = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$id)
-            ->pluck('seller_id'))
-            ->pluck('user_id'))
-            ->count();
+           // TODO: Refactor for 1:M
+//        $sellercount = User::whereIn('id', Seller::whereIn('id',EventSeller::where('event_id','=',$id)
+//            ->pluck('seller_id'))
+//            ->pluck('user_id'))
+//            ->count();
+        $sellercount = $event->sellers->count();
 
-        foreach($event_params as $event_param) {
+        // For each of the schedules
+           foreach($event_params as $event_param) {
 
-            for ($i = 1; $i <= $sellercount; $i++) {
+               for ($i = 1; $i <= $sellercount; $i++) {
 
-                foreach ($seller_preference as $item) {
+                   // For each of the seller preferences
+                   foreach ($seller_preference as $item) {
 
-                    if (\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('event_param_id','=',$event_param)->first() == null) {
+                       // Current seller_id  is not in final sched
+                       if (\App\FinalSchedule::where('seller_id', '=', $item->seller_id)
+                               ->where('event_param_id','=',$event_param)->first() == null) {
+                           // Current buyer_id is not in final sched
+                           if (\App\FinalSchedule::where('buyer_id', '=', $item->buyer_id)->where('event_param_id','=',$event_param)->first() == null) {
 
-                        if (\App\FinalSchedule::where('buyer_id', '=', $item->buyer_id)->where('event_param_id','=',$event_param)->first() == null) {
-
-                            if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->where('event_id','=',$id)->first() == null) {
-
-                                $final_schedule = \App\FinalSchedule::create();
-                                $final_schedule->event_id = $id;
-                                $final_schedule->seller_id = $item->seller_id;
-                                $final_schedule->event_param_id = $event_param;
-                                $final_schedule->buyer_id=$item->buyer_id;
-                                $final_schedule->save();
-                            }
-                        }
-                    }
-                }
-            }
-        }
+                               // Current buyer_id  and seller_id is not in final sched
+                               if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->where('event_id','=',$id)->first() == null) {
+                                   // Create the schedule
+                                   $final_schedule = \App\FinalSchedule::create();
+                                   $final_schedule->event_id = $id;
+                                   $final_schedule->seller_id = $item->seller_id;
+                                   $final_schedule->event_param_id = $event_param;
+                                   $final_schedule->buyer_id=$item->buyer_id;
+                                   $final_schedule->save();
+                               }
+                           }
+                       }
+                   }
+               }
+           }
+//       } );
 
         return redirect('admin/events/'.$id)->with('flash_message', 'Event updated!');
     }

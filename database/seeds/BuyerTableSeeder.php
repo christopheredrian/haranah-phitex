@@ -24,6 +24,7 @@ class BuyerTableSeeder extends Seeder
             $new_buyer->id = $counter;
             $new_buyer->phone = "1234567890";
             $new_buyer->user_id = $user->id;
+            $new_buyer->event_id = 1;
             $new_buyer->country = $faker->country;
             $new_buyer->company_name = $faker->company;
             $new_buyer->company_address = $faker->address;
