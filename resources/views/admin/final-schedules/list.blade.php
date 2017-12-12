@@ -41,6 +41,12 @@
                             </table>
                             <div class="pagination-wrapper"> {!! $finalschedules->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
+                        <form id="submit-form" action="/admin/events/{{ $finalschedules->first()->event_id }}/finalizeSchedule" method="post">
+                            {{ csrf_field() }}
+                            {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
+                            {{--Submit List</button>--}}
+                            <button type="submit" class="btn btn-primary pull-right">Finalize Schedule</button>
+                        </form>
                     </div>
                 </div>
             </div>
