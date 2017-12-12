@@ -25,7 +25,6 @@ class SellerTableSeeder extends Seeder
             $new_seller->user_id = $seller->id;
             $new_seller->company_name = $faker->company;
             $new_seller->company_address = $faker->address;
-            $new_seller->company_desc = $faker->name;
             $new_seller->event_rep1 = $faker->name;
             $new_seller->event_rep2 = $faker->name;
             $new_seller->designation = $faker->country;

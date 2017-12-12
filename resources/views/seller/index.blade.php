@@ -14,7 +14,7 @@
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
-                            <img alt="" src="/uploads/seller-{{ $seller->id }}.jpg">
+                            <img class="profile-user-img img-responsive img-circle" src="/uploads/seller-{{ $seller->id }}.jpg" alt="User profile picture">
 
                             <h3 class="profile-username text-center">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</h3>
 
