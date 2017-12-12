@@ -85,9 +85,11 @@ class SellerController extends Controller
             ->get();
 
         // gets event information
-        $eventOfSeller = Event::whereIn('id', EventSeller::where('seller_id','=',$sellerID)
-            ->pluck('event_id'))
-            ->get();
+//        $eventOfSeller = Event::whereIn('id', EventSeller::where('seller_id','=',$sellerID)
+//            ->pluck('event_id'))
+//            ->get();
+
+        $eventOfSeller = $seller->event;
 
         $info = DB::table('final_schedules')
             ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
