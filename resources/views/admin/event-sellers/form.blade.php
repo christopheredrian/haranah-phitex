@@ -5,8 +5,9 @@
     <label for="seller_id" class="col-md-4 control-label">{{ 'Seller' }}</label>
     <div class="col-md-6">
         <select name="seller_id" id="seller_id" class="form-control">
-            @foreach($seller_names as $seller_name)
-                <option value="{{array_search ($seller_name, $seller_names)}}">{{$seller_name}}</option>
+            @foreach($sellers as $seller)
+                {{--<option value="{{array_search ($seller_name, $seller_names)}}">{{$seller_name}}</option>--}}
+                <option value="{{ $seller->id }}">{{ $seller->company_name }}</option>
             @endforeach
         </select>
         {{--<input class="form-control" name="seller_id" type="number" id="seller_id" value="{{ $eventseller->seller_id or ''}}" >--}}

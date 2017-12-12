@@ -66,10 +66,19 @@
                         @endif
 
                         @if($event->event_status == "Registration Closed")
-                        <a href="{{ route('show.final.schedule', ['event_id' => $event->id]) }}" title="Edit Event">
-                            <button class="btn btn-primary">Finalize Schedule</button>
-                        </a>
+                        {{--<a href="{{ route('show.final.schedule', ['event_id' => $event->id]) }}" title="Edit Event">--}}
+                            {{--<button class="btn btn-primary">Finalize Schedule</button>--}}
+                        {{--</a>--}}
+
+
+                                <a href="{{ url('/admin/final-schedules/list/' . $event_id) }}" title="Edit Event">
+                                    <button class="btn btn-primary">Finalize Schedule
+                                    </button>
+
+                                </a>
+
                         @else
+                            
                             <a href="{{ route('show.final.list.schedule', ['event_id' => $event->id]) }}" title="See Event">
                                 <button class="btn btn-primary">See Finalized Schedules</button>
                             </a>
@@ -155,6 +164,7 @@
                             <table id="sellers-table" class="table table-compresed table-borderless data-table">
                                 <thead>
                                 <tr>
+                                    <th>Comapany</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Email</th>
@@ -165,6 +175,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
+                                    <th>Company</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Email</th>
@@ -176,6 +187,7 @@
                                 <tbody>
                                 @foreach($sellers as $s)
                                     <tr>
+                                        <td>{{ $s->company_name }}</td>
                                         <td>{{ $s->user->first_name }}</td>
                                         <td>{{ $s->user->last_name }}</td>
                                         <td>{{ $s->user->email }}</td>
@@ -203,6 +215,7 @@
                             <table id="buyers-table" class="table table-compresed table-borderless data-table">
                                 <thead>
                                 <tr>
+                                    <th>Company</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Email</th>
@@ -213,6 +226,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
+                                    <th>Company</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Email</th>
@@ -224,6 +238,7 @@
                                 <tbody>
                                 @foreach($buyers as $b)
                                     <tr>
+                                        <td>{{ $b->company_name }}</td>
                                         <td>{{ $b->user->first_name }}</td>
                                         <td>{{ $b->user->last_name }}</td>
                                         <td>{{ $b->user->email }}</td>

@@ -44,9 +44,9 @@ class Buyer extends Model
 		return $this->belongsTo('App\User');
 	}
 
-    public function events()
+    public function event()
     {
-        return $this->belongsToMany('App\Event','event_buyers');
+        return $this->belongsTo(Event::class);
     }
 
 }

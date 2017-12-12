@@ -15,20 +15,26 @@ use Illuminate\Http\Request;
 
 class EventBuyersController extends Controller
 {
-    private function getBuyerNames($event_id)
+    private function getBuyers($event_id)
     {
-        $buyer_names = [];
-        $buyers = \App\User::whereIn('id', \App\Buyer::where('id' ,'>' ,0)->whereNotIn('id',\App\EventBuyer::where('event_id','=',$event_id)->pluck('buyer_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
-        foreach ($buyers as $buyer) {
-            $buyerid = \App\Buyer::where('user_id' ,'=' ,$buyer->id)->value('id');
-            $buyer_names[$buyerid] = $buyer->last_name.", ".$buyer->first_name;
-        }
-        return $buyer_names;
+//        $buyers = \App\User::whereIn('id', \App\Buyer::where('id' ,'>' ,0)->whereNotIn('id',\App\EventBuyer::where('event_id','=',$event_id)->pluck('buyer_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
+        $buyers = Buyer::whereNotIn('id',
+            Event::find($event_id)
+            ->buyers->pluck('id')
+            ->toArray())
+            ->get();
+//        foreach ($buyers as $buyer) {
+//            $buyerid = \App\Buyer::where('user_id' ,'=' ,$buyer->id)->value('id');
+//            $buyer_names[$buyerid] = $buyer->last_name.", ".$buyer->first_name;
+//        }
+        return $buyers;
     }
 
     public function createWithEvent($event_id)
     {
-        return view('admin.event-buyers.create')->with('event_id',$event_id)->with('buyer_names', $this->getBuyerNames($event_id));
+        return view('admin.event-buyers.create')
+            ->with('event_id',$event_id)
+            ->with('buyers', $this->getBuyers($event_id));
     }
     /**
      * Display a listing of the resource.
@@ -72,10 +78,11 @@ class EventBuyersController extends Controller
     {
         
         $requestData = $request->all();
-        
-        EventBuyer::create($requestData);
-
-        return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventBuyer added!');
+        $buyer = Buyer::find($request->buyer_id);
+        $buyer->event_id = $request->event_id;
+        $buyer->save();
+        return redirect('admin/events/'.$request->event_id)
+            ->with('flash_message', 'EventBuyer added!');
     }
 
     /**
