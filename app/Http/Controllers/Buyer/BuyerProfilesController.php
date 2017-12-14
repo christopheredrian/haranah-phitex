@@ -133,9 +133,9 @@ class BuyerProfilesController extends Controller
             ->get();
 
         // gets event information
-        $eventOfBuyer = Event::whereIn('id', EventBuyer::where('buyer_id','=',$buyerID)
-            ->pluck('event_id'))
-            ->get();
+
+        
+        $eventOfBuyer= $buyer->event;
 
         $info = DB::table('final_schedules')
             ->join('buyers' ,'final_schedules.buyer_id', '=' ,'buyers.id')
