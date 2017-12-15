@@ -69,11 +69,13 @@
                     </div>
                     <!-- /.box -->
                 </div>
+
                 <div class="col-md-9">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#schedule" data-toggle="tab">Schedule</a></li>
                             <li><a href="#edit" data-toggle="tab">Edit Profile</a></li>
+                            <li><a href="#final-schedule" data-toggle="tab"> Final Schedule</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="active tab-pane" id="schedule">
@@ -228,6 +230,47 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                            <!-- /.tab-pane -->
+
+
+                            <div class="tab-pane" id="final-schedule">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Finalized Schedule
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless">
+                                            <thead>
+                                            <tr>
+                                                <th>Buyer Name</th>
+                                                <th>Start</th>
+                                                <th>Stop</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($schedule as $sched)
+                                                <tr>
+                                                    <td>
+                                                        @foreach($info as $inf)
+                                                            @if($inf->event_param_id === $sched->id)
+                                                                @foreach($buyer as $bname)
+                                                                    @if($bname->id === $inf->buyer_id)
+                                                                        {{ $bname->last_name.', '.$bname->first_name}}
+                                                                        @break
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
+                                                    <td> {{ date('g:i A', strtotime($sched->start_time))}} </td>
+                                                    <td> {{ date('g:i A', strtotime($sched->end_time))}} </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.tab-pane -->
                         </div>
