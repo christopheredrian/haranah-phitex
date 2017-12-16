@@ -1,4 +1,7 @@
 @extends('layouts.app-buyer')
+@section('additional-css')
+
+@endsection
 
 @section('content')
     <div class="row">
@@ -83,7 +86,7 @@
                     Finalized Schedule
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-borderless">
+                    <table class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>Seller Name</th>
@@ -116,7 +119,4 @@
             </div>
         </div>
     </div>
-
-
-
 @endsection

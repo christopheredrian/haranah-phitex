@@ -240,7 +240,7 @@
                                         Finalized Schedule
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table table-borderless">
+                                        <table class="table table-borderless table-hover">
                                             <thead>
                                             <tr>
                                                 <th>Buyer Name</th>
