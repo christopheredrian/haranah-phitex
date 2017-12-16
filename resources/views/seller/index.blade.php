@@ -19,7 +19,14 @@
                   <p>You have not yet chosen your preferred buyers for your event.</p>
                 </div>
                 @endif
-                
+                @if(session('flash_message'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h4><i class="icon fa fa-check"></i>Success!</h4>
+
+                  <p>{{session('flash_message')}}</p>
+                </div>
+                @endif
                 <div class="col-md-4">
                     
                     <!-- Profile Image -->
@@ -111,53 +118,53 @@
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="edit">
-                                <form method="POST" action="{{ url('seller/submit')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                                <form method="POST" action="{{ url('/seller/submit')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                                     {{ method_field('POST') }}
                                     {{ csrf_field() }}
                                     <div class="form-group {{ $errors->has('company_logo') ? 'has-error' : ''}}">
-                                        <label for="company_logo" class="col-md-2 control-label">{{ 'Company Logo' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="company_logo" class="col-md-4 control-label">{{ 'Company Logo' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="file" name="company_logo" id="company_logo"
                                                    value="{{ old('company_logo', isset($seller) ? $seller->company_logo : '' ) }}">
                                             {!! $errors->first('company_logo', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
-                                        <label for="company_name" class="col-md-2 control-label">{{ 'Company Name' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="company_name" class="col-md-4 control-label">{{ 'Company Name' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="company_name" id="company_name"
                                                    value="{{ old('company_name', isset($seller) ? $seller->company_name : '' ) }}">
                                             {!! $errors->first('company_name', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
-                                        <label for="company_name" class="col-md-2 control-label">{{ 'Company Address' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="company_name" class="col-md-4 control-label">{{ 'Company Address' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="company_address" id="company_address"
                                                    value="{{ old('company_address', isset($seller) ? $seller->company_address : '' ) }}">
                                             {!! $errors->first('company_address', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
-                                        <label for="company_name" class="col-md-2 control-label">{{ 'Country' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="company_name" class="col-md-4 control-label">{{ 'Country' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="country" id="country"
                                                    value="{{ old('company_name', isset($seller) ? $seller->country : '' ) }}">
                                             {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
-                                        <label for="email" class="col-md-2 control-label">{{ 'Email' }}</label>
+                                        <label for="email" class="col-md-4 control-label">{{ 'Email' }}</label>
 
                                         @if(isset($isCreate))
-                                            <div class="col-md-10 ">
+                                            <div class="col-md-8 ">
 
                                                 <input class="form-control" type="email" name="email" id="email"
                                                        value="{{ old('email', isset($seller) ? $seller->user->email : '') }}">
                                                 {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         @else
-                                            <div class="col-md-10">
+                                            <div class="col-md-8">
                                                 <div class="input-group">
                                                     <input style="cursor: pointer" disabled="disabled" class="form-control" type="email" name="email"
                                                            id="email"
@@ -170,8 +177,8 @@
 
                                     </div>
                                     <div class="form-group {{ $errors->has('website') ? 'has-error' : ''}}">
-                                        <label for="website" class="col-md-2 control-label">{{ 'Website' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="website" class="col-md-4 control-label">{{ 'Website' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="website" id="website"
                                                    value="{{ old('website', isset($seller) ? $seller->website : '') }}">
                                             {!! $errors->first('website', '<p class="help-block">:message</p>') !!}
@@ -179,8 +186,8 @@
                                     </div>
 
                                     <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
-                                        <label for="phone" class="col-md-2 control-label">{{ 'Phone' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="phone" class="col-md-4 control-label">{{ 'Phone' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="phone" id="phone"
                                                    value="{{ old('phone', isset($seller) ? $seller->phone : '') }}">
                                             {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
@@ -188,8 +195,8 @@
                                     </div>
 
                                     <div class="form-group {{ $errors->has('event_rep1') ? 'has-error' : ''}}">
-                                        <label for="event_rep1" class="col-md-2 control-label">{{ 'Event Representative 1' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="event_rep1" class="col-md-4 control-label">{{ 'Event Representative 1' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="event_rep1" id="event_rep1"
                                                    value="{{ old('event_rep1', isset($seller) ? $seller->event_rep1 : '') }}">
                                             {!! $errors->first('event_rep1', '<p class="help-block">:message</p>') !!}
@@ -197,31 +204,31 @@
                                     </div>
 
                                     <div class="form-group {{ $errors->has('event_rep2') ? 'has-error' : ''}}">
-                                        <label for="event_rep2" class="col-md-2 control-label">{{ 'Event Representative 2' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="event_rep2" class="col-md-4 control-label">{{ 'Event Representative 2' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="event_rep2" id="event_rep2"
                                                    value="{{ old('event_rep2', isset($seller) ? $seller->event_rep2 : '') }}">
                                             {!! $errors->first('event_rep2', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group {{ $errors->has('designation') ? 'has-error' : ''}}">
-                                        <label for="designation" class="col-md-2 control-label">{{ 'Designation' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="designation" class="col-md-4 control-label">{{ 'Designation' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="designation" id="designation"
                                                    value="{{ old('designation', isset($seller) ? $seller->designation : '') }}">
                                             {!! $errors->first('designation', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group {{ $errors->has('products') ? 'has-error' : ''}}">
-                                        <label for="products" class="col-md-2 control-label">{{ 'Products' }}</label>
-                                        <div class="col-md-10">
+                                        <label for="products" class="col-md-4 control-label">{{ 'Products' }}</label>
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="products" id="products"
                                                    value="{{ old('products', isset($seller) ? $seller->products : '') }}">
                                             {!! $errors->first('products', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="col-sm-offset-6 col-sm-6">
                                             <button type="submit" class="btn btn-danger">Edit</button>
                                         </div>
                                     </div>

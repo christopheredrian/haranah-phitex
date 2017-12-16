@@ -98,9 +98,9 @@ class SellerController extends Controller
         $eventOfSeller = $seller->event;
 
         $info = DB::table('final_schedules')
-            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
+            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.user_id')
             ->select('buyer_id','event_param_id')
-            ->where('sellers.id' ,'=',$sellerID)
+            ->where('sellers.user_id' ,'=',$sellerID)
             ->get();
 
         // gets Name (first and last) of buyer in the final schedule
@@ -237,7 +237,7 @@ class SellerController extends Controller
             ->with('info',$info)
             ->with('buyer',$buyer);
         }else{
-            return redirect('seller/pick')->with('status', 'No Buyers selected!');;
+            return redirect('seller/pick')->with('status', 'No Buyers selected!');
         }
 
     }
@@ -269,6 +269,6 @@ class SellerController extends Controller
             );
         }
 
-        return redirect('seller/profile')->with('flash_message', 'Seller updated!');
+        return redirect('seller/home')->with('flash_message', 'Profile updated!');
     }
 }
