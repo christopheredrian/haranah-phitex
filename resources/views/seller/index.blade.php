@@ -19,6 +19,7 @@
                   <p>You have not yet chosen your preferred buyers for your event.</p>
                 </div>
                 @endif
+                
                 <div class="col-md-4">
                     
                     <!-- Profile Image -->

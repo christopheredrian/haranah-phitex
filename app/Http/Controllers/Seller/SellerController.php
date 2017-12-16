@@ -237,7 +237,7 @@ class SellerController extends Controller
             ->with('info',$info)
             ->with('buyer',$buyer);
         }else{
-            return redirect('seller/home');
+            return redirect('seller/pick')->with('status', 'No Buyers selected!');;
         }
 
     }
