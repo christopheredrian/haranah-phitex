@@ -19,7 +19,7 @@
                   <p>You have not yet chosen your preferred buyers for your event.</p>
                 </div>
                 @endif
-                <div class="col-md-3">
+                <div class="col-md-4">
                     
                     <!-- Profile Image -->
                     <div class="box box-primary">
@@ -77,7 +77,7 @@
                     <!-- /.box -->
                 </div>
 
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#event" data-toggle="tab">Event</a></li>

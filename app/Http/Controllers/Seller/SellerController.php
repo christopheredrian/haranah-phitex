@@ -244,11 +244,7 @@ class SellerController extends Controller
 
     public function showBuyerProfile($user_id)
     {
-        $buyer = DB::table('users')
-            ->join('buyers', 'users.id','=','buyers.user_id')
-            ->select('*')
-            ->where('user_id','=',$user_id)
-            ->get();
+        $buyer = \App\Buyer::find($user_id);
         return view('seller.cbuyer')
             ->with('buyer',$buyer);
     }
