@@ -28,7 +28,7 @@
     <!-- List of All Buyers-->
     <div class="content">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header">List</div>
                     <div class="box-body">
@@ -69,7 +69,8 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header">List of selected buyers</div>
                     <div class="box-body">
@@ -104,6 +105,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">

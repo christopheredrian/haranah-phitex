@@ -66,9 +66,6 @@
 
                             <hr>
 
-                            <p>
-                                <input type="button" class="btn btn-block btn-primary" onclick="location.href='pick';" value="Select Buyers" />
-                            </p>
 
                         </div>
                         <!-- /.box-body -->
@@ -79,43 +76,29 @@
                 <div class="col-md-9">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#schedule" data-toggle="tab">Schedule</a></li>
+                            <li class="active"><a href="#event" data-toggle="tab">Event</a></li>
                             <li><a href="#edit" data-toggle="tab">Edit Profile</a></li>
                             <li><a href="#final-schedule" data-toggle="tab"> Final Schedule</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="active tab-pane" id="schedule">
+                            <div class="active tab-pane" id="event">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
                                         <div class="box box-solid">
                                             <div class="box-header with-border">
-                                                <h4 class="box-title">Please drag to the calendar:</h4>
+                                                <h4 class="box-title">{{$sellerEvent->event_name}}</h4>
                                             </div>
                                             <div class="box-body">
-                                                <!-- the events -->
-                                                <div id="external-events">
-                                                    <div class="external-event bg-green">Available</div>
-                                                    <div class="external-event bg-red">Unavailable</div>
-                                                    <div class="checkbox">
-                                                        <label for="drop-remove">
-                                                            <input type="checkbox" id="drop-remove">
-                                                            remove after drop
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                                <p>{{$sellerEvent->event_description}}</p>
+                                            </div>
+                                            <div class="box-footer">
+                                                @if(($sellerEvent->event_status) == "Registration Closed")
+                                                <input type="button" class="btn pull-right btn-primary disabled" value="Registration Closed!" />
+                                                @else
+                                                <input type="button" class="btn pull-right btn-primary" onclick="location.href='pick';" value="Select Buyers" />
+                                                @endif
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-md-9">
-                                        <div class="box box-primary">
-                                            <div class="box-body no-padding">
-                                                <!-- THE CALENDAR -->
-                                                <div id="calendar"></div>
-                                            </div>
-                                            <!-- /.box-body -->
-                                        </div>
-                                        <!-- /. box -->
                                     </div>
                                 </div>
                             </div>
