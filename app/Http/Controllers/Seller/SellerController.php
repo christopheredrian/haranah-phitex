@@ -111,9 +111,9 @@ class SellerController extends Controller
             ->count();
         
         if ($count > 0){
-            $hasPreference = true;
+            $has_preference = true;
         }else{
-            $hasPreference = false;
+            $has_preference = false;
         }
         return view('seller.index', compact('seller'), ['role' => 'Seller'])
             ->with('sellers', $seller)
@@ -121,7 +121,7 @@ class SellerController extends Controller
             ->with('sellerEvent',$eventOfSeller)
             ->with('info',$info)
             ->with('buyer',$buyer)
-            ->with('preference',$hasPreference);
+            ->with('preference',$has_preference);
     }
 
 

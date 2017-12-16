@@ -10,12 +10,15 @@
     <section class="content">
         <div class="container">
             <div class="row">
-               
+                @if($preference)
+                
+                @else
                 <div class="callout callout-warning">
                   <h4>Reminder</h4>
 
                   <p>You have not yet chosen your preferred buyers for your event.</p>
                 </div>
+                @endif
                 <div class="col-md-3">
                     
                     <!-- Profile Image -->
@@ -95,6 +98,8 @@
                                             <div class="box-footer">
                                                 @if(($sellerEvent->event_status) == "Registration Closed")
                                                 <input type="button" class="btn pull-right btn-primary disabled" value="Registration Closed!" />
+                                                @elseif($preference)
+                                                <input type="button" class="btn pull-right btn-primary disabled" value="You have selected buyers!" />
                                                 @else
                                                 <input type="button" class="btn pull-right btn-primary" onclick="location.href='pick';" value="Select Buyers" />
                                                 @endif
