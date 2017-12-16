@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-
+use Illuminate\Support\Facades\Schema;
 class CreateSellersTable extends Migration
 {
     /**
@@ -16,9 +16,9 @@ class CreateSellersTable extends Migration
             $table->increments('id');
             $table->string('phone')->nullable();
             $table->integer('user_id')->unsigned();
-            $table->integer('event_id')->nullable();
+            $table->integer('event_id')->unsigned()->nullable();
             $table->string('country')->nullable();
-            
+
             $table->binary('company_logo')->nullable();
             $table->string('company_name')->nullable();
             $table->string('company_address')->nullable();
