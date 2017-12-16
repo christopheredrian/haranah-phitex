@@ -10,7 +10,13 @@
     <section class="content">
         <div class="container">
             <div class="row">
+                <div class="callout callout-warning">
+                  <h4>Reminder</h4>
+
+                  <p>You have not yet chosen your preferred buyers for your event.</p>
+                </div>
                 <div class="col-md-3">
+                    
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">

@@ -107,13 +107,21 @@ class SellerController extends Controller
         $buyer = DB::table('users')
             ->join('buyers', 'users.id','=','buyers.user_id')
             ->get();
-
+        $count = \App\SellerPreference::where('seller_preferences.seller_id', '=' ,$id)
+            ->count();
+        
+        if ($count > 0){
+            $hasPreference = true;
+        }else{
+            $hasPreference = false;
+        }
         return view('seller.index', compact('seller'), ['role' => 'Seller'])
             ->with('sellers', $seller)
             ->with('schedule',$schedule)
             ->with('sellerEvent',$eventOfSeller)
             ->with('info',$info)
-            ->with('buyer',$buyer);
+            ->with('buyer',$buyer)
+            ->with('preference',$hasPreference);
     }
 
 
@@ -222,7 +230,7 @@ class SellerController extends Controller
         $buyer = DB::table('users')
             ->join('buyers', 'users.id','=','buyers.user_id')
             ->get();
-        return redirect('seller/profile')
+        return redirect('seller/home')
             ->with('events',$seller->events)
             ->with('schedule',$schedule)
             ->with('info',$info)
