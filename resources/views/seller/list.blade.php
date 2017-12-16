@@ -25,6 +25,9 @@
 
 <!-- main content -->
 @section('content')
+<section class="content-header">
+      <a href="home"><button class="btn btn-lg btn-primary "><span class="fa fa-caret-left"></span> Back to Home</button></a>
+    </section>
     <!-- List of All Buyers-->
     <div class="content">
         <div class="row">
@@ -34,7 +37,7 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="home"><button class="btn btn-primary ">Back</button></a>
+                                
                                 <table id="buyer-list" class="display table table-responsive table-striped">
                                     <thead>
                                     <tr>
@@ -49,7 +52,7 @@
                                             <td> {{ $buyer->user->last_name.", ".$buyer->user->first_name }}</td>
                                             <td> {{ $buyer->country}}
                                                 <input type="hidden" name="values[]" class="buyer-id"
-                                                       value="{{ $buyer->id }}">
+                                                       value="{{ $buyer->user_id }}">
 
                                             </td>
                                             <!-- //pass $buyer->user_id-->
