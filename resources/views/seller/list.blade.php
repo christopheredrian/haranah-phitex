@@ -34,7 +34,7 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="profile"><button class="btn btn-primary ">Back</button></a>
+                                <a href="home"><button class="btn btn-primary ">Back</button></a>
                                 <table id="buyer-list" class="display table table-responsive table-striped">
                                     <thead>
                                     <tr>

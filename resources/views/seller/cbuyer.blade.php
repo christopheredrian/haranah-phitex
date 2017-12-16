@@ -15,7 +15,7 @@
                             <tbody>
                             <tr>
                                 <th>ID</th>
-                                <td>{{ $buyer->id }}</td>
+                                <td>{{ $buyer->user_id }}</td>
                             </tr>
                             <tr>
                                 <th>Name</th>

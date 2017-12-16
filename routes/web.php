@@ -153,14 +153,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR SELLER
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
-        Route::get('/home', 'HomeController@sellerIndex')->name('sellerHome');
-//        Route::get('/home', 'Seller\\SellerController@showEvents');
-
-        // NOT TESTED
-        Route::get('/profile', [
+        Route::get('/home', [
             'as' => 'seller.index',
             'uses' => 'Seller\\SellerController@show'
-        ]);
+        ])->name('sellerHome');;
         
         Route::post('/submit', [
             'as' => 'seller.update',
