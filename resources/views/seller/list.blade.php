@@ -25,16 +25,19 @@
 
 <!-- main content -->
 @section('content')
+<section class="content-header">
+      <a href="home"><button class="btn btn-lg btn-primary "><span class="fa fa-caret-left"></span> Back to Home</button></a>
+    </section>
     <!-- List of All Buyers-->
     <div class="content">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header">List</div>
                     <div class="box-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="home"><button class="btn btn-primary ">Back</button></a>
+                                
                                 <table id="buyer-list" class="display table table-responsive table-striped">
                                     <thead>
                                     <tr>
@@ -49,14 +52,12 @@
                                             <td> {{ $buyer->user->last_name.", ".$buyer->user->first_name }}</td>
                                             <td> {{ $buyer->country}}
                                                 <input type="hidden" name="values[]" class="buyer-id"
-                                                       value="{{ $buyer->id }}">
+                                                       value="{{ $buyer->user_id }}">
 
                                             </td>
                                             <!-- //pass $buyer->user_id-->
                                             <td class="action-btn-group">
-                                                <a type="button" class="btn btn-sm btn-primary"
-                                                   href="{{ url($buyer->user_id. '/profile') }}" target="_blank">View
-                                                    Profile</a>
+                                                <input type="button" class="btn btn-sm btn-primary" onclick="location.href='{{ $buyer->user_id }}/profile';" value="View Profile" />
                                                 <button type="button" class="add-btn btn btn-sm btn-success">Add to
                                                     List
                                                 </button>
@@ -69,7 +70,8 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header">List of selected buyers</div>
                     <div class="box-body">
@@ -104,6 +106,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">

@@ -107,13 +107,21 @@ class SellerController extends Controller
         $buyer = DB::table('users')
             ->join('buyers', 'users.id','=','buyers.user_id')
             ->get();
-
+        $count = \App\SellerPreference::where('seller_preferences.seller_id', '=' ,$sellerID)
+            ->count();
+        
+        if ($count > 0){
+            $has_preference = true;
+        }else{
+            $has_preference = false;
+        }
         return view('seller.index', compact('seller'), ['role' => 'Seller'])
             ->with('sellers', $seller)
             ->with('schedule',$schedule)
             ->with('sellerEvent',$eventOfSeller)
             ->with('info',$info)
-            ->with('buyer',$buyer);
+            ->with('buyer',$buyer)
+            ->with('preference',$has_preference);
     }
 
 
@@ -183,8 +191,8 @@ class SellerController extends Controller
         $id = Auth::user()->id;
         $sellerID = Seller::where('user_id', Auth::user()->id)
             ->pluck('id');
-
-
+        
+        if(!empty($request->values)){
 
         foreach($request->values as $item){
             $seller_preference = \App\SellerPreference::create();
@@ -222,18 +230,26 @@ class SellerController extends Controller
         $buyer = DB::table('users')
             ->join('buyers', 'users.id','=','buyers.user_id')
             ->get();
-        return redirect('seller/profile')
+        return redirect('seller/home')
             ->with('events',$seller->events)
             ->with('schedule',$schedule)
             ->with('info',$info)
             ->with('buyer',$buyer);
+        }else{
+            return redirect('seller/home');
+        }
 
     }
 
-    public function showBuyerProfile($id)
+    public function showBuyerProfile($user_id)
     {
-        $buyer = Buyer::find($id);
-        return view('seller.cbuyer',compact($buyer));
+        $buyer = DB::table('users')
+            ->join('buyers', 'users.id','=','buyers.user_id')
+            ->select('*')
+            ->where('user_id','=',$user_id)
+            ->get();
+        return view('seller.cbuyer')
+            ->with('buyer',$buyer);
     }
     public function update(Request $request)
     {
