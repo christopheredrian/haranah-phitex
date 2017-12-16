@@ -153,7 +153,8 @@ class BuyerProfilesController extends Controller
             ->with('schedule',$schedule)
             ->with('buyerEvent',$eventOfBuyer)
             ->with('info',$info)
-            ->with('seller',$seller);
+            ->with('seller',$seller)
+            ->with('event_id', $buyer->event_id);
     }
 
 

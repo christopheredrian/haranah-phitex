@@ -41,4 +41,12 @@ class User extends Authenticatable
         }
     }
 
+    public function buyer(){
+        return $this->belongsTo('App\Buyer');
+    }
+
+    public function seller(){
+        return $this->belongsTo('App\Seller');
+    }
+
 }

@@ -13,29 +13,43 @@
         <div class="text-center">
             <h1>Haranah-Phitex</h1>
             <hr>
-            <h2>Schedule of Events</strong></h2>
-            <h4>September 11, 2018</h4>
+            <h2>Schedule of Events</h2>
+            <h4>{{date("F j, Y", strtotime($event->event_date))}}</h4>
         </div>
 <br>
         <div class="container">
             <div class="row">
-                <div class="col-xs-4"></div>
-              <div class="col-xs-4 text-left">
-                <ul class="no-bullet"> 
-                    <li>Auction</li>
-                    <ul class="no-bullet">
-                        <li>0730 - 0830</li>
-                         <ul class="no-bullet">
-                            <li> Buyer 1</li>
-                            <li> Buyer 12</li>
-                             <li> Buyer 1</li>
-                            <li> Buyer 12</li>
-                         </ul>
-                    </ul>
-                    <br>
+                <div class="col-xs-2"></div>
+              <div class="col-xs-8 text-left">
+                <ul class="no-bullet">
+                    <li>{{$event->event_name}}</li>
+                    @foreach($event_params as $event_param)
+                        <ul class="no-bullet">
+                            <li>{{date("H:i A", strtotime($event_param->start_time)) . ' - ' . date("H:i A", strtotime  ($event_param->end_time))}}</li>
+                            <ul class="no-bullet">
+                                @foreach($final_schedules as $final_schedule)
+                                    @if($final_schedule->event_id == $event_param->event_id)
+                                        <li> {{$final_schedule->buyer()->first()->company_name}}</li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </ul>
+                        <br>
+                    @endforeach
+                    {{--<li>Auction</li>--}}
+                    {{--<ul class="no-bullet">--}}
+                        {{--<li>0730 - 0830</li>--}}
+                         {{--<ul class="no-bullet">--}}
+                            {{--<li> Buyer 1</li>--}}
+                            {{--<li> Buyer 12</li>--}}
+                             {{--<li> Buyer 1</li>--}}
+                            {{--<li> Buyer 12</li>--}}
+                         {{--</ul>--}}
+                    {{--</ul>--}}
+                    {{--<br>--}}
                   </ul>
                 </div>
-                <div class="col-xs-4"></div>
+                <div class="col-xs-2"></div>
             </div>
         </div>
 

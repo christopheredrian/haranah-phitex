@@ -244,6 +244,19 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         Finalized Schedule
+
+                                        @if($schedule->isEmpty())
+                                        @else
+                                            <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
+                                        @endif
+
+                                            <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                                Download PDF Schedule
+                                            </button>
+                                        @if($schedule->isEmpty())
+                                                @else
+                                            </a>
+                                                @endif
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-borderless">

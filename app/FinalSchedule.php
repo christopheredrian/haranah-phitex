@@ -27,5 +27,19 @@ class FinalSchedule extends Model
      */
     protected $fillable = ['event_id', 'buyer_id', 'seller_id', 'event_param_id'];
 
-    
+    public function event() {
+        return $this->belongsTo('App\Event');
+    }
+
+    public function buyer() {
+        return $this->belongsTo('App\Buyer');
+    }
+
+    public function seller() {
+        return $this->belongsTo('App\Seller');
+    }
+
+    public function eventParam() {
+        return $this->belongsTo('App\EventParam');
+    }
 }

@@ -15,6 +15,7 @@ use App\Buyer;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EventsController extends Controller
@@ -85,6 +86,11 @@ class EventsController extends Controller
      */
     public function show($id)
     {
+        $sellerID = Seller::where('user_id', '=', Auth::user()->id)->first();
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.seller_id','=', $sellerID)
+            ->get();
         $event = Event::findOrFail($id);
 
         //$eventsellers = User::whereIn('user_id', Seller::whereIn('id',EventSeller::where('event_id' , '=','$id')))->pluck('last_name');
@@ -110,7 +116,8 @@ class EventsController extends Controller
             ->with('eventsellers',$eventsellers)
             ->with('buyers', $event->buyers)
             ->with('sellers', $event->sellers)
-            ->with('event_id', $id);
+            ->with('event_id', $id)
+            ->with('schedule', $schedule);
     }
 
     /**

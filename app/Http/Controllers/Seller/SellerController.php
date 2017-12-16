@@ -121,7 +121,8 @@ class SellerController extends Controller
             ->with('sellerEvent',$eventOfSeller)
             ->with('info',$info)
             ->with('buyer',$buyer)
-            ->with('preference',$hasPreference);
+            ->with('preference',$hasPreference)
+            ->with('event_id', $seller->event_id);
     }
 
 
