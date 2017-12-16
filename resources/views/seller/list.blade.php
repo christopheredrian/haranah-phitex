@@ -57,9 +57,7 @@
                                             </td>
                                             <!-- //pass $buyer->user_id-->
                                             <td class="action-btn-group">
-                                                <a type="button" class="btn btn-sm btn-primary"
-                                                   href="{{ url($buyer->user_id. '/profile') }}" target="_blank">View
-                                                    Profile</a>
+                                                <input type="button" class="btn btn-sm btn-primary" onclick="location.href='{{ $buyer->user_id }}/profile';" value="View Profile" />
                                                 <button type="button" class="add-btn btn btn-sm btn-success">Add to
                                                     List
                                                 </button>

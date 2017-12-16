@@ -97,9 +97,9 @@
                                             </div>
                                             <div class="box-footer">
                                                 @if(($sellerEvent->event_status) == "Registration Closed")
-                                                <input type="button" class="btn pull-right btn-primary disabled" value="Registration Closed!" />
+                                                <span class="btn pull-right btn-danger disabled">Registration Closed!</span>
                                                 @elseif($preference)
-                                                <input type="button" class="btn pull-right btn-primary disabled" value="You have selected buyers!" />
+                                                <span class="btn pull-right btn-success disabled">You have selected buyers!</span>
                                                 @else
                                                 <input type="button" class="btn pull-right btn-primary" onclick="location.href='pick';" value="Select Buyers" />
                                                 @endif
