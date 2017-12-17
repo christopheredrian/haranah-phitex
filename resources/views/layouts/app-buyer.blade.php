@@ -8,7 +8,6 @@
     <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
-    <title>Free Responsive Admin Theme - ZONTAL</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="/bp_assets/css/bootstrap.css" rel="stylesheet"/>
     <!-- FONT AWESOME ICONS  -->
@@ -23,6 +22,13 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     @yield('additional-css')
+    <title>
+        @if(Request::is('*/change-password'))
+            Account
+        @else
+            @yield('title')
+        @endif
+    </title>
 </head>
 <body>
 <header>
@@ -94,7 +100,8 @@
 
                         {{--<li><a class="{{ is_active(['/home' ]) }}" href="/buyer/home">Dashboard</a></li>--}}
 
-                        <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/profile') }}">Profile</a></li>
+                        <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/profile') }}">Profile</a>
+                        </li>
                         <li class="{{ is_active(['#' ]) }} dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 Account
@@ -102,22 +109,22 @@
                             </a>
                             <ul class="dropdown-menu dropdown-settings">
 
-                        <li><a href="/change-password" style="color: black!important">Edit Password</a></li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
+                                <li><a href="/change-password" style="color: black!important">Edit Password</a></li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();" style="color: black!important">
-                                Logout
-                            </a>
+                                        Logout
+                                    </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                  style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
-                    </ul>
-                    </li>
                     </ul>
                 </div>
             </div>

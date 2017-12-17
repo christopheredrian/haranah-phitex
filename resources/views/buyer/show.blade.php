@@ -2,6 +2,9 @@
 @section('additional-css')
 
 @endsection
+@section('title')
+    Profile
+@endsection
 
 @section('content')
     <div class="row">
@@ -88,11 +91,12 @@
                     @if($schedule->isEmpty())
                     @else
                         <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
-                    @endif
-                        <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                            Download PDF Schedule
-                        </button>
-                    @if($schedule->isEmpty())
+                            @endif
+                            <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i
+                                        class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                Download PDF Schedule
+                            </button>
+                            @if($schedule->isEmpty())
                             @else
                         </a>
                     @endif

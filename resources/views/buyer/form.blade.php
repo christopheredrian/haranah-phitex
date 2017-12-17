@@ -28,8 +28,15 @@
 <div class="form-group {{ $errors->has('country') ? 'has-error' : ''}}">
     <label for="country" class="col-md-4 col-xs-4 control-label">{{ 'Country' }}</label>
     <div class="col-md-6 col-xs-6">
-        <input class="form-control" type="text" name="country" id="country"
-               value="{{ old('country', isset($buyer) ? $buyer->country : '') }}">
+        <select class="form-control" type="text" name="country" id="country">
+            <option value="" selected="selected" style="display:none;">{{ old('country', isset($buyer) ? $buyer->country : '') }}</option>
+            @foreach($countries as $key => $value)
+                <option value="{{$value}}" title="{{$value}}">
+                    {{$value}}
+                </option>
+            @endforeach
+
+        </select>
         {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -72,7 +79,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
-    <label for="phone" class="col-md-4 col-xs-4 control-label">{{ 'Phone' }}</label>
+    <label for="phone" class="col-md-4 col-xs-4 control-label">{{ 'Phone Number' }}</label>
     <div class="col-md-6 col-xs-6">
         <input class="form-control" type="text" name="phone" id="phone"
                value="{{ old('phone', isset($buyer) ? $buyer->phone : '') }}">
