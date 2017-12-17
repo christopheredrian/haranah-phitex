@@ -11,7 +11,7 @@
                         <br/>
                         <br/>
                         <div class="table-responsive">
-                            <table class="table table-borderless">
+                            <table class="table table-borderless table-hover">
                                 <thead>
                                 <tr>
                                     <th>#</th><th>Event</th><th>Buyer</th><th>Seller</th><th>Schedule</th><th>Actions</th>
@@ -20,11 +20,21 @@
                                 <tbody>
                                 @foreach($finalschedules as $item)
                                     <tr>
+                                        {{-- id --}}
                                         <td>{{ $loop->iteration or $item->id }}</td>
+
+                                        {{--event--}}
                                         <td>{{ $event }}</td>
+
+                                        {{--buyer company name--}}
                                         <td>{{ \App\Buyer::find($item->buyer_id)->company_name }}</td>
+
+                                        {{--seller company name--}}
                                         <td>{{ \App\Seller::find($item->seller_id)->company_name }}</td>
+
+                                        {{--scheduled time--}}
                                         <td>{{ $schedule_list[$item->event_param_id] }}</td>
+
                                         <td>
                                             {{--<a href="{{ url('/admin/final-schedules/' . $item->id) }}" title="View FinalSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>--}}
                                             <a href="{{ url('/admin/final-schedules/' . $item->id . '/edit') }}" title="Edit FinalSchedule"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

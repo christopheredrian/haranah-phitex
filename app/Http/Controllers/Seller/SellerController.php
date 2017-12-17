@@ -10,7 +10,6 @@ use App\User;
 use App\FinalSchedule;
 use App\EventParam;
 use App\Event;
-use App\EventSeller;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -107,6 +106,7 @@ class SellerController extends Controller
         $buyer = DB::table('users')
             ->join('buyers', 'users.id','=','buyers.user_id')
             ->get();
+
         $count = \App\SellerPreference::where('seller_preferences.seller_id', '=' ,$sellerID)
             ->count();
         
@@ -115,6 +115,7 @@ class SellerController extends Controller
         }else{
             $has_preference = false;
         }
+
         return view('seller.index', compact('seller'), ['role' => 'Seller'])
             ->with('sellers', $seller)
             ->with('schedule',$schedule)
