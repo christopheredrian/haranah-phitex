@@ -23,11 +23,8 @@
     <![endif]-->
     @yield('additional-css')
     <title>
-        @if(Request::is('*/change-password'))
-            Account
-        @else
-            @yield('title')
-        @endif
+        @yield('title')
+
     </title>
 </head>
 <body>
