@@ -42,7 +42,7 @@ class EventsController extends Controller
                 ->orWhere('event_date', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
-            $events = Event::orderByDesc('event_date')->paginate($perPage);
+            $events = Event::orderByDesc('created_at')->paginate($perPage);
         }
 
         return view('admin.events.index', compact('events'));
@@ -89,7 +89,7 @@ class EventsController extends Controller
         $sellerID = Seller::where('user_id', '=', Auth::user()->id)->first();
         $schedule = DB::table('final_schedules')
             ->join('event_params','final_schedules.event_param_id','=','event_params.id')
-            ->where('final_schedules.seller_id','=', $sellerID)
+            ->where('final_schedules.event_id','=', $id)
             ->get();
         $event = Event::findOrFail($id);
 
