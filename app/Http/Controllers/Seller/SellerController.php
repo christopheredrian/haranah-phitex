@@ -97,9 +97,9 @@ class SellerController extends Controller
         $eventOfSeller = $seller->event;
 
         $info = DB::table('final_schedules')
-            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
+            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.user_id')
             ->select('buyer_id','event_param_id')
-            ->where('sellers.id' ,'=',$sellerID)
+            ->where('sellers.user_id' ,'=',$sellerID)
             ->get();
 
         // gets Name (first and last) of buyer in the final schedule
@@ -122,7 +122,8 @@ class SellerController extends Controller
             ->with('sellerEvent',$eventOfSeller)
             ->with('info',$info)
             ->with('buyer',$buyer)
-            ->with('preference',$has_preference);
+            ->with('preference',$has_preference)
+            ->with('event_id', $seller->event_id);
     }
 
 
@@ -237,18 +238,14 @@ class SellerController extends Controller
             ->with('info',$info)
             ->with('buyer',$buyer);
         }else{
-            return redirect('seller/home');
+            return redirect('seller/pick')->with('status', 'No Buyers selected!');
         }
 
     }
 
     public function showBuyerProfile($user_id)
     {
-        $buyer = DB::table('users')
-            ->join('buyers', 'users.id','=','buyers.user_id')
-            ->select('*')
-            ->where('user_id','=',$user_id)
-            ->get();
+        $buyer = \App\Buyer::find($user_id);
         return view('seller.cbuyer')
             ->with('buyer',$buyer);
     }
@@ -273,6 +270,6 @@ class SellerController extends Controller
             );
         }
 
-        return redirect('seller/profile')->with('flash_message', 'Seller updated!');
+        return redirect('seller/home')->with('flash_message', 'Profile updated!');
     }
 }

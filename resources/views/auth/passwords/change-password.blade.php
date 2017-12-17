@@ -1,35 +1,41 @@
-@extends('layouts.app-'.$role)
+@extends('layouts.app-'.$role) 
 
 @section('content')
-    <div class="container">
-        <div class="row">
+<div class="container">
+    <div class="row">
 
-            <div class="col-md-6">
-                <div class="panel x_panel">
-                    <div class="panel-heading">Change Password</div>
-                    <div class="panel-body">
+        <div class="col-md-6">
+            <div class="panel x_panel">
+                <div class="panel-heading">Change Password</div>
+                <div class="panel-body">
 
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+                    @if (Session::has('alert-class') && Session::has('flash_message'))
+                    <div class="alert {!! session('alert-class') !!} alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-warning"></i>Alert!</h4>
 
-
-
-
-                        <form method="POST" action="{{ url('/change-password') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-
-                            @include ('auth.passwords.change-password-form')
-
-                        </form>
-
+                        <p>{!! session('flash_message') !!}</p>
                     </div>
+                    @elseif (Session::has('flash_message'))
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-check"></i>Success!</h4>
+
+                        <p>{!! session('flash_message') !!}</p>
+                    </div>
+                    @endif
+
+
+
+                    <form method="POST" action="{{ url('/change-password') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        {{ csrf_field() }} 
+                        @include ('auth.passwords.change-password-form')
+
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

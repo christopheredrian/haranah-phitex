@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Buyer;
+use App\Event;
+use App\EventParam;
+use App\FinalSchedule;
+use App\Seller;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -21,6 +25,7 @@ class ReportsController extends Controller
      */
     public function downloadSchedule($event_id, $file_type = 'xls')
     {
+        $event = Event::find($event_id);
         Excel::create('EventName-Schedule', function ($excel) use ($event_id) {
 
             // Set the title
@@ -43,11 +48,10 @@ class ReportsController extends Controller
         })->download('xls');;
     }
 
-    public function downloadPdf()
+    public function downloadPdf($event_id)
     {
         //$event_id, $user_id
         $view = 'reports.events.admin';
-        // dd(Auth::user()->hasRole('superadmin'));
 
         if (Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('admin')) {
             $view = 'reports.events.admin';
@@ -58,8 +62,34 @@ class ReportsController extends Controller
         } else{
             abort(404);
         }
+
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView($view, ['buyer' => Buyer::all()->first()]);
-        return $pdf->download('invoice.pdf');
+        $event_name = Event::find($event_id)->event_name;
+
+        // filter data that is being passed to view
+        if (Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('admin')) {
+            $pdf->loadView($view, [
+                'event' => Event::find($event_id),
+                'event_params' => EventParam::where('event_id', '=' , $event_id)->get(),
+                'final_schedules' => FinalSchedule::where('event_id', '=' , $event_id)->get(),
+            ]);
+        } elseif (Auth::user()->hasRole('buyer')) {
+            $auth_buyer = Buyer::where('user_id', '=', Auth::user()->id)->first();
+            $pdf->loadView($view, [
+                'event' => Event::find($event_id),
+                'final_schedules' => FinalSchedule::where('buyer_id', '=' , $auth_buyer->id)
+                    ->where('event_id', '=', $event_id)->get(),
+                ]);
+        } elseif (Auth::user()->hasRole('seller')) {
+            $auth_buyer = Seller::where('user_id', '=', Auth::user()->id)->first();
+            $pdf->loadView($view, [
+                'event' => Event::find($event_id),
+                'event_params' => EventParam::where('event_id', '=' , $event_id)->get(),
+                'final_schedules' => FinalSchedule::where('seller_id', '=' , $auth_buyer->id)
+                    ->where('event_id', '=', $event_id)->get(),
+            ]);
+        }
+
+        return $pdf->download($event_name . ' Schedule.pdf');
     }
 }

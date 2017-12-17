@@ -13,19 +13,26 @@
         <div class="text-center">
             <h1>Haranah-Phitex</h1>
             <hr>
-            <h2>Scheduled</h2>
+            <h2>Schedule for <strong>{{$event->event_name}}</strong></h2>
         </div>
     <br>
         <div class="container">
             <div class="row">
                 <div class="col-xs-4"></div>
-              <div class="col-xs-4 text-left">
+              <div class="col-xs-7 text-left">
                 <ul class="no-bullet">
-                    <li>Auction</li>
-                     <ul class="no-bullet">
-                        <li> 7:30 - 11:30 --- Seller 24</li>
-                     </ul>
-                    <br>
+                    <li>{{$event->name}}</li>
+                            <ul class="no-bullet">
+                                @foreach($final_schedules as $final_schedule)
+                                <li> {{date("H:i A", strtotime($final_schedule->eventParam()->first()->start_time)) . ' - ' . date("H:i A", strtotime  ($final_schedule->eventParam()->first()->end_time))}} --- {{$final_schedule->seller()->first()->company_name}}</li>
+                                @endforeach
+                            </ul>
+                        <br>
+                    {{--<li>Auction</li>--}}
+                     {{--<ul class="no-bullet">--}}
+                        {{--<li> 7:30 - 11:30 --- Seller 24</li>--}}
+                     {{--</ul>--}}
+                    {{--<br>--}}
                 </ul>
                 </div>
                 <div class="col-xs-4"></div>
