@@ -73,7 +73,7 @@
                                 {{ csrf_field() }}
                                 {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
                                 {{--Submit List</button>--}}
-                                <button type="submit" class="btn btn-primary">Close Registration</button>
+                                <button type="submit" class="btn btn-primary" {{$event->event_params->isEmpty() ? 'disabled' : ''}}>Close Registration</button>
                             </form>
                         @endif
 
