@@ -173,6 +173,10 @@ class EventBuyersController extends Controller
 //            ->pluck('user_id'))
 //            ->get();
         $eventbuyers = $event->buyers;
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.event_id','=', $event_id)
+            ->get();
 
         return view('admin.events.show', compact('event'))
             ->with('eventbuyers',$eventbuyers)

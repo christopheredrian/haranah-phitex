@@ -12,6 +12,7 @@ use App\Seller;
 use App\User;
 use App\Buyer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventSellersController extends Controller
 {
@@ -173,13 +174,18 @@ class EventSellersController extends Controller
 //            ->pluck('user_id'))
 //            ->get();
         $eventbuyers = $event->buyers;
+        $schedule = DB::table('final_schedules')
+            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
+            ->where('final_schedules.event_id','=', $event_id)
+            ->get();
 
         return view('admin.events.show', compact('event'))
             ->with('eventbuyers',$eventbuyers)
             ->with('eventsellers',$eventsellers)
             ->with('buyers', $event->buyers)
             ->with('sellers', $event->sellers)
-            ->with('event_id', $event_id);
+            ->with('event_id', $event_id)
+            ->with('schedule', $schedule);
 //        return redirect('admin/event-buyers')->with('flash_message', 'EventBuyer deleted!');
     }
 }
