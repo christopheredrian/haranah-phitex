@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Create New EventBuyer</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/event-buyers') }}" title="Back"><button class="btn btn-warning btn-xs">
+                        <a href="{{ url('/admin/events/'.$event_id) }}" title="Back"><button class="btn btn-warning btn-xs">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <a  id="createButton" class="btn btn-info btn-xs" title="Import from Excel">
                             <i class="fa fa-plus" aria-hidden="true"></i> Create

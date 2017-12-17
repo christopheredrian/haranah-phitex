@@ -12,6 +12,7 @@ use App\Seller;
 use App\User;
 use App\Buyer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventSellersController extends Controller
 {
@@ -153,33 +154,9 @@ class EventSellersController extends Controller
         $seller->event_id = null;
         $seller->save();
 
-        $event = Event::findOrFail($event_id);
 
 
-        //$eventsellers = User::whereIn('user_id', Seller::whereIn('id',EventSeller::where('event_id' , '=','$id')))->pluck('last_name');
-        //SELECT * FROM `users`  WHERE id IN (SELECT user_id from buyers WHERE id IN (SELECT buyer_id FROM `event_buyers`))
-
-        // TODO: Refactor for 1:M
-//        $eventsellers = User::whereIn('id',
-//            Seller::whereIn('id',EventSeller::where('event_id','=',$id)
-//                    ->pluck('seller_id'))
-//                    ->pluck('user_id'))
-//                    ->get();
-        $eventsellers  = $event->sellers;
-
-        // TODO: Refactor for 1:M
-//        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)
-//            ->pluck('buyer_id'))
-//            ->pluck('user_id'))
-//            ->get();
-        $eventbuyers = $event->buyers;
-
-        return view('admin.events.show', compact('event'))
-            ->with('eventbuyers',$eventbuyers)
-            ->with('eventsellers',$eventsellers)
-            ->with('buyers', $event->buyers)
-            ->with('sellers', $event->sellers)
-            ->with('event_id', $event_id);
+        return redirect('admin/events/'.$event_id)->with('flash_message', 'EventSeller deleted!');
 //        return redirect('admin/event-buyers')->with('flash_message', 'EventBuyer deleted!');
     }
 }

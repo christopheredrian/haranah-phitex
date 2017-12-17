@@ -10,7 +10,6 @@ use App\User;
 use App\FinalSchedule;
 use App\EventParam;
 use App\Event;
-use App\EventSeller;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -79,6 +78,7 @@ class SellerController extends Controller
     public function show(Request $request)
     {
         $id = Auth::user()->id;
+
         $seller = Seller::where("sellers.user_id", "=", "$id")->first();
 
         $sellerID = Seller::where('user_id', Auth::user()->id)
@@ -98,15 +98,16 @@ class SellerController extends Controller
         $eventOfSeller = $seller->event;
 
         $info = DB::table('final_schedules')
-            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.user_id')
+            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
             ->select('buyer_id','event_param_id')
-            ->where('sellers.user_id' ,'=',$sellerID)
+            ->where('sellers.id' ,'=',$sellerID)
             ->get();
 
         // gets Name (first and last) of buyer in the final schedule
         $buyer = DB::table('users')
             ->join('buyers', 'users.id','=','buyers.user_id')
             ->get();
+
         $count = \App\SellerPreference::where('seller_preferences.seller_id', '=' ,$sellerID)
             ->count();
         
@@ -115,6 +116,8 @@ class SellerController extends Controller
         }else{
             $has_preference = false;
         }
+
+
         return view('seller.index', compact('seller'), ['role' => 'Seller'])
             ->with('sellers', $seller)
             ->with('schedule',$schedule)

@@ -101,19 +101,18 @@
                         </a>
                     @endif
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>Seller Name</th>
-                            <th>Start</th>
-                            <th>Stop</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($schedule as $sched)
-                            <tr>
-                                <td>
+
+                @foreach($schedule as $sched)
+                    <div class="pane-width text-center">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3>
+                                    {{--company logo--}}
+                                </h3>
+                            </div>
+                            <ul class="list-group text-center">
+                                {{--personell attending--}}
+                                <li class="list-group-item">
                                     @foreach($info as $inf)
                                         @if($inf->event_param_id === $sched->id)
                                             @foreach($seller as $bname)
@@ -124,14 +123,25 @@
                                             @endforeach
                                         @endif
                                     @endforeach
-                                </td>
-                                <td> {{ date('g:i A', strtotime($sched->start_time))}} </td>
-                                <td> {{ date('g:i A', strtotime($sched->end_time))}} </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                </li>
+                                <li class="list-group-item">
+                                    {{-- Time Stamps --}}
+
+                                    {{ date('g:i A', strtotime($sched->start_time))}}
+                                    -
+                                    {{ date('g:i A', strtotime($sched->end_time))}}
+
+                                </li>
+
+                                <li class="list-group-item">
+
+                                    {{--company name--}}
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

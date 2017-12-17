@@ -10,7 +10,6 @@ use App\User;
 use App\FinalSchedule;
 use App\EventParam;
 use App\Event;
-use App\EventBuyer;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -110,6 +109,7 @@ class BuyerProfilesController extends Controller
         $seller = DB::table('users')
             ->join('sellers', 'users.id','=','sellers.user_id')
             ->get();
+
 
         return view('buyer.show', compact('buyer'), ['role' => 'Buyer'])
             ->with('buyers', $buyer)
