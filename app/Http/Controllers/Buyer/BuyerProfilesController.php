@@ -79,7 +79,7 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show(Request $request)
+    public function show()
     {
 
         $id = Auth::user()->id;
@@ -97,7 +97,7 @@ class BuyerProfilesController extends Controller
 
         // gets event information
 
-        
+
         $eventOfBuyer= $buyer->event;
 
         $info = DB::table('final_schedules')
@@ -402,15 +402,21 @@ class BuyerProfilesController extends Controller
         $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
         $buyer->update($requestData);
 
-        $user = User::findOrFail($buyer->user->id);
-        $user->update($requestData);
+//        $user = User::findOrFail($buyer->user->id);
+//        $user->update($requestData);
 
         if($request->file('company_logo')!=null){
             $logo = 'buyer-'.$buyer->id. '.jpg';
 
+            $path = base_path() . '/public/uploads/'.$logo;
+            $buyer->company_logo = $path;
+
             $request->file('company_logo')->move(
                 base_path() . '/public/uploads/', $logo
             );
+
+            $buyer->save();
+
         }
 
         return redirect('buyer/profile')->with('flash_message', 'Buyer updated!');
