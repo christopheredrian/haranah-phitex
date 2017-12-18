@@ -165,7 +165,7 @@
                             </a></h2>
                         <ul>
                             @foreach($event->event_params as $s)
-                                <li>{{ $s->start_time }} - {{ $s->end_time }}</li>
+                                <li>{{ date('g:i A', strtotime($s->start_time)) }} - {{ date('g:i A', strtotime($s->end_time)) }}</li>
                             @endforeach
                         </ul>
                         <div class="table-responsive">
