@@ -251,6 +251,7 @@ class SellerController extends Controller
         return view('seller.cbuyer')
             ->with('buyer',$buyer);
     }
+
     public function update(Request $request)
     {
         $id = Auth::user()->id;

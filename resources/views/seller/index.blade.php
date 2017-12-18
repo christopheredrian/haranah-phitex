@@ -241,6 +241,8 @@
                                 <div class=" panel panel-default">
                                     <div class="panel-heading">
                                         Finalized Schedule
+                                        
+                                        <p> {{ $sellerEvent->event_description  }}</p>
 
                                         @if($schedule->isEmpty())
                                         @else
@@ -316,9 +318,11 @@
                                                     </div>
                                                 </div>
                                     @endforeach
+
                                 </div>
                             </div>
                             <!-- /.tab-pane -->
+
                         </div>
                         <!-- /.tab-content -->
                     </div>
