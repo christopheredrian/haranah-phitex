@@ -117,7 +117,6 @@ class SellerController extends Controller
             $has_preference = false;
         }
 
-
         return view('seller.index', compact('seller'), ['role' => 'Seller'])
             ->with('sellers', $seller)
             ->with('schedule',$schedule)

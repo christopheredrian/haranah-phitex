@@ -241,7 +241,7 @@
                                 <div class=" panel panel-default">
                                     <div class="panel-heading">
                                         Finalized Schedule
-                                        
+                                        <p> {{ $sellerEvent->description }}</p>
                                         <p> {{ $sellerEvent->event_description  }}</p>
 
                                         @if($schedule->isEmpty())
@@ -258,6 +258,9 @@
                                                 @endif
                                     </div>
                                                 <!-- item -->
+                                    @if($schedule->isEmpty())
+                                        <p> No Schedule has been set</p>
+                                    @else
                                     @foreach($schedule as $sched)
                                                 <div class="pane-width text-center">
                                                     <div class="panel panel-info">
@@ -318,6 +321,7 @@
                                                     </div>
                                                 </div>
                                     @endforeach
+                                        @endif
 
                                 </div>
                             </div>
