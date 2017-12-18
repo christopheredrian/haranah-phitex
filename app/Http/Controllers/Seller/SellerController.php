@@ -78,6 +78,7 @@ class SellerController extends Controller
     public function show(Request $request)
     {
         $id = Auth::user()->id;
+
         $seller = Seller::where("sellers.user_id", "=", "$id")->first();
 
         $sellerID = Seller::where('user_id', Auth::user()->id)
@@ -97,9 +98,9 @@ class SellerController extends Controller
         $eventOfSeller = $seller->event;
 
         $info = DB::table('final_schedules')
-            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.user_id')
+            ->join('sellers' ,'final_schedules.seller_id', '=' ,'sellers.id')
             ->select('buyer_id','event_param_id')
-            ->where('sellers.user_id' ,'=',$sellerID)
+            ->where('sellers.id' ,'=',$sellerID)
             ->get();
 
         // gets Name (first and last) of buyer in the final schedule
@@ -249,6 +250,7 @@ class SellerController extends Controller
         return view('seller.cbuyer')
             ->with('buyer',$buyer);
     }
+
     public function update(Request $request)
     {
         $id = Auth::user()->id;

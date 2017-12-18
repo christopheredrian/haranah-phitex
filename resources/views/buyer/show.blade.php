@@ -2,6 +2,9 @@
 @section('additional-css')
 
 @endsection
+@section('title')
+    Profile
+@endsection
 
 @section('content')
     <div class="row">
@@ -88,11 +91,12 @@
                     @if($schedule->isEmpty())
                     @else
                         <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
-                    @endif
-                        <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                            Download PDF Schedule
-                        </button>
-                    @if($schedule->isEmpty())
+                            @endif
+                            <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i
+                                        class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                Download PDF Schedule
+                            </button>
+                            @if($schedule->isEmpty())
                             @else
                         </a>
                     @endif
@@ -100,40 +104,60 @@
 
                 @foreach($schedule as $sched)
                     <div class="pane-width text-center">
-                        <div class="panel panel-danger">
+                        <div class="panel panel-info">
                             <div class="panel-heading">
                                 <h3>
-                                    {{--company logo--}}
-                                </h3>
-                            </div>
-                            <ul class="list-group text-center">
-                                {{--personell attending--}}
-                                <li class="list-group-item">
                                     @foreach($info as $inf)
                                         @if($inf->event_param_id === $sched->id)
                                             @foreach($seller as $bname)
                                                 @if($bname->id === $inf->seller_id)
-                                                    {{ $bname->last_name.', '.$bname->first_name}}
+                                                    <img class="profile-user-img img-responsive img-circle" src="/uploads/buyer-{{ $bname->id }}.jpg" alt="User profile picture">
                                                     @break
                                                 @endif
                                             @endforeach
                                         @endif
                                     @endforeach
-                                </li>
-                                <li class="list-group-item">
-                                    {{-- Time Stamps --}}
+                                </h3>
+                            </div>
+                            <ul class="list-group text-center">
+                                @foreach($info as $inf)
+                                    @if($inf->event_param_id === $sched->id)
+                                        @foreach($seller as $bname)
+                                            @if($bname->id === $inf->seller_id)
 
-                                    {{ date('g:i A', strtotime($sched->start_time))}}
-                                    -
-                                    {{ date('g:i A', strtotime($sched->end_time))}}
 
-                                </li>
+                                                <li class="list-group-item">
+                                                    <p>Company Name: {{ $bname->company_name }}</p>
 
-                                <li class="list-group-item">
 
-                                    {{--company name--}}
+                                                </li>
 
-                                </li>
+                                                <li class="list-group-item">
+                                                    <p>Owner:
+                                                        {{ $bname->last_name.', '.$bname->first_name }}
+                                                    </p>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    {{-- Time Stamps --}}
+
+                                                    {{ date('g:i A', strtotime($sched->start_time))}}
+                                                    -
+                                                    {{ date('g:i A', strtotime($sched->end_time))}}
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    {{-- representatives  --}}
+                                                    <p> Repesentative #1: {{ $bname->event_rep1 }}</p>
+                                                    <p> Repesentative #2: {{ $bname->event_rep2 }}</p>
+
+                                                </li>
+                                                @break
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
