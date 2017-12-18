@@ -17,7 +17,6 @@
     <button id="delete" class="pull-right" type="button">Delete</button>
     <button id="addMore" class="pull-right" type="button">Add more</button>
 </div>
-<input type="hidden" class="form-control" name="schedArray" id="count" value="" >
 <input type="hidden" class="form-control" name="event_id" type="number" id="event_id" value="{{ $event_id or ''}}" >
 {!! $errors->first('event_id', '<p class="help-block">:message</p>') !!}
 
