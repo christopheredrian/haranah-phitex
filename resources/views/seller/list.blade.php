@@ -233,11 +233,13 @@
                     addBtn.click(util);
                     tdToRemove.find('.action-btn-group').append(addBtn);
                     tdToRemove.find('.btn-danger').remove();
+                    tdToRemove.find('.fa-sort').remove();
+                    tdToRemove.find('.sortBuyers').remove();
                     tdToRemove.appendTo('#buyer-list')
                     updateHiddenInputs();
                 });
 
-                currentElement.prepend('<td><i class="fa fa-sort"></i></td>');
+                currentElement.prepend('<td class = "sortBuyers"><i class="fa fa-sort"></i></td>');
                 currentElement.find('.action-btn-group').append(removeBtn);
                 currentElement.append('<td class="rank">');
                 $('#preference_table').append(currentElement);
