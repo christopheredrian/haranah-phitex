@@ -111,7 +111,9 @@
                                         @if($inf->event_param_id === $sched->id)
                                             @foreach($seller as $bname)
                                                 @if($bname->id === $inf->seller_id)
-                                                    <img class="profile-user-img img-responsive img-circle" src="/uploads/buyer-{{ $bname->id }}.jpg" alt="User profile picture">
+                                                    <img class="profile-user-img img-responsive img-circle"
+                                                         src="/uploads/buyer-{{ $bname->id }}.jpg"
+                                                         alt="User profile picture">
                                                     @break
                                                 @endif
                                             @endforeach
@@ -125,10 +127,8 @@
                                         @foreach($seller as $bname)
                                             @if($bname->id === $inf->seller_id)
 
-
                                                 <li class="list-group-item">
                                                     <p>Company Name: {{ $bname->company_name }}</p>
-
 
                                                 </li>
 
@@ -162,6 +162,36 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Event Details
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th>Event Name</th>
+                                    <td>{{ $buyerEvent->event_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Venue</th>
+                                    <td>{{ $buyerEvent->event_place }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{ $buyerEvent->event_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ $buyerEvent->event_description }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

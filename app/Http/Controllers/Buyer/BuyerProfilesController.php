@@ -96,7 +96,6 @@ class BuyerProfilesController extends Controller
 
         // gets event information
 
-
         $eventOfBuyer= $buyer->event;
 
         $info = DB::table('final_schedules')
@@ -109,7 +108,6 @@ class BuyerProfilesController extends Controller
         $seller = DB::table('users')
             ->join('sellers', 'users.id','=','sellers.user_id')
             ->get();
-
 
         return view('buyer.show', compact('buyer'), ['role' => 'Buyer'])
             ->with('buyers', $buyer)
