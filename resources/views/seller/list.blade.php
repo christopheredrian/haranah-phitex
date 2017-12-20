@@ -40,14 +40,14 @@
                 </div>
                 @endif
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="box box-info">
                     <div class="box-header">List</div>
                     <div class="box-body">
                         <div class="row">
                             <div class="col-lg-12">
                                 
-                                <table id="buyer-list" class="display table table-responsive table-striped">
+                                <table id="buyer-list" class="display table table-responsive table-striped data-sortable">
                                     <thead>
                                     <tr>
                                         <th>Buyer Name</th>
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="box box-info">
                     <div class="box-header">List of selected buyers</div>
                     <div class="box-body">
@@ -206,7 +206,20 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function () {
-
+            
+            $('#buyer-list').DataTable({
+                paging: false,
+                "scrollY":        "200px",
+                "scrollCollapse": true
+            });
+            $('#selected-buyer-table').DataTable({
+                info: false,
+                paging: false,
+                "scrollY":        "200px",
+                "scrollCollapse": true,
+            });
+            $('.dataTables_empty').remove();
+        
             function updateHiddenInputs() {
                 // add input type hidden
                 $('#submit-form input.buyer-id').remove();
@@ -233,11 +246,13 @@
                     addBtn.click(util);
                     tdToRemove.find('.action-btn-group').append(addBtn);
                     tdToRemove.find('.btn-danger').remove();
+                    tdToRemove.find('.fa-sort').remove();
+                    tdToRemove.find('.sortBuyers').remove();
+                    tdToRemove.find('.rank').remove();
                     tdToRemove.appendTo('#buyer-list')
                     updateHiddenInputs();
                 });
-
-                currentElement.prepend('<td><i class="fa fa-sort"></i></td>');
+                currentElement.prepend('<td class = "sortBuyers"><i class="fa fa-sort"></i></td>');
                 currentElement.find('.action-btn-group').append(removeBtn);
                 currentElement.append('<td class="rank">');
                 $('#preference_table').append(currentElement);

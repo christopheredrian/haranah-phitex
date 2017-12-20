@@ -117,7 +117,6 @@ class SellerController extends Controller
             $has_preference = false;
         }
 
-
         return view('seller.index', compact('seller'), ['role' => 'Seller'])
             ->with('sellers', $seller)
             ->with('schedule',$schedule)
@@ -251,6 +250,7 @@ class SellerController extends Controller
         return view('seller.cbuyer')
             ->with('buyer',$buyer);
     }
+
     public function update(Request $request)
     {
         $id = Auth::user()->id;

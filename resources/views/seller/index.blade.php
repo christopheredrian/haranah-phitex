@@ -241,6 +241,8 @@
                                 <div class=" panel panel-default">
                                     <div class="panel-heading">
                                         Finalized Schedule
+                                        <p> {{ $sellerEvent->description }}</p>
+                                        <p> {{ $sellerEvent->event_description  }}</p>
 
                                         @if($schedule->isEmpty())
                                         @else
@@ -256,49 +258,75 @@
                                                 @endif
                                     </div>
                                                 <!-- item -->
+                                    @if($schedule->isEmpty())
+                                        <p> No Schedule has been set</p>
+                                    @else
                                     @foreach($schedule as $sched)
                                                 <div class="pane-width text-center">
                                                     <div class="panel panel-info">
                                                         <div class="panel-heading">
                                                             <h3>
-                                                                {{--company logo--}}
-                                                            </h3>
-                                                        </div>
-                                                        <ul class="list-group text-center">
-                                                            {{--personell attending--}}
-                                                            <li class="list-group-item">
                                                                 @foreach($info as $inf)
                                                                     @if($inf->event_param_id === $sched->id)
                                                                         @foreach($buyer as $bname)
                                                                             @if($bname->id === $inf->buyer_id)
-                                                                                {{ $bname->last_name.', '.$bname->first_name}}
+                                                                                <img class="profile-user-img img-responsive img-circle" src="/uploads/buyer-{{ $bname->id }}.jpg" alt="User profile picture">
                                                                                 @break
                                                                             @endif
                                                                         @endforeach
                                                                     @endif
                                                                 @endforeach
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                {{-- Time Stamps --}}
+                                                            </h3>
+                                                        </div>
+                                                        <ul class="list-group text-center">
+                                                            @foreach($info as $inf)
+                                                                @if($inf->event_param_id === $sched->id)
+                                                                    @foreach($buyer as $bname)
+                                                                        @if($bname->id === $inf->buyer_id)
 
-                                                                {{ date('g:i A', strtotime($sched->start_time))}}
-                                                                -
-                                                                {{ date('g:i A', strtotime($sched->end_time))}}
 
-                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <p>Company Name: {{ $bname->company_name }}</p>
 
-                                                            <li class="list-group-item">
 
-                                                                {{--company name--}}
+                                                                            </li>
 
-                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <p>Owner:
+                                                                                  {{ $bname->last_name.', '.$bname->first_name }}
+                                                                                </p>
+                                                                            </li>
+
+                                                                            <li class="list-group-item">
+                                                                                {{-- Time Stamps --}}
+
+                                                                                {{ date('g:i A', strtotime($sched->start_time))}}
+                                                                                -
+                                                                                {{ date('g:i A', strtotime($sched->end_time))}}
+
+                                                                            </li>
+
+                                                                            <li class="list-group-item">
+                                                                                {{-- representatives  --}}
+                                                                                <p> Repesentative #1: {{ $bname->event_rep1 }}</p>
+                                                                                <p> Repesentative #2: {{ $bname->event_rep2 }}</p>
+
+                                                                            </li>
+                                                                            @break
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
                                     @endforeach
+                                        @endif
+
                                 </div>
                             </div>
                             <!-- /.tab-pane -->
+
                         </div>
                         <!-- /.tab-content -->
                     </div>

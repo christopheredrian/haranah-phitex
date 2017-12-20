@@ -83,6 +83,11 @@ class EventSellersController extends Controller
         $seller = Seller::find($request->seller_id);
         $seller->event_id = $request->event_id;
         $seller->save();
+        for ($i = 1; array_key_exists('seller_id'.$i, $requestData); $i++) {
+            $seller = Seller::find($requestData['seller_id'.$i]);
+            $seller->event_id = $request->event_id;
+            $seller->save();
+        }
 //        EventSeller::create($requestData);
         return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventSeller added!');
     }

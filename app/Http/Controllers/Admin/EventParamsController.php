@@ -55,10 +55,20 @@ class EventParamsController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $requestData = $request->all();
-        
         EventParam::create($requestData);
+
+        for ($i = 1; array_key_exists('start_time'.$i, $requestData); $i++) {
+                $schedule = EventParam::create();
+                $schedule->start_time = $requestData['start_time'.$i];
+                $schedule->end_time = $requestData['end_time'.$i];
+                $schedule->event_id = $requestData['event_id'];
+                $schedule->save();
+
+            }
+
+
 
         return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventBuyer added!');
     }
