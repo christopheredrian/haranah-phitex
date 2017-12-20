@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="row">
+    <div class="row" xmlns:http="http://www.w3.org/1999/xhtml">
         <div class="col-md-12">
             <h4 class="page-head-line">{{ $buyer->company_name }}</h4>
         </div>
@@ -21,7 +21,7 @@
         <div class="col-lg-4 col-sm-6">
 
             <div class="card hovercard">
-                <div class="cardheader">
+                <div class="cardheader" style='background: url("/uploads/buyer-bg-{{$buyer->id}}.jpg")'>
                 </div>
                 <div class="avatar">
                     <img alt="" src="/uploads/buyer-{{ $buyer->id }}.jpg">
@@ -173,7 +173,7 @@
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <th>Event Name</th>
+                                    <th>Event</th>
                                     <td>{{ $buyerEvent->event_name }}</td>
                                 </tr>
                                 <tr>

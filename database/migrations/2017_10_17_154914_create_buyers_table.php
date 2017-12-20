@@ -19,6 +19,7 @@ class CreateBuyersTable extends Migration
             $table->integer('event_id')->unsigned()->nullable();
             $table->string('country')->nullable();
 
+            $table->string('company_bg')->nullable();
             $table->string('company_logo')->nullable();
             $table->string('company_name')->nullable();
             $table->string('company_address')->nullable();

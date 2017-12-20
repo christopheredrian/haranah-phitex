@@ -31,6 +31,7 @@ class BuyerProfilesController extends Controller
      */
 
     private $buyer_validation = [
+        'company_bg' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'company_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable|numeric',
@@ -411,6 +412,20 @@ class BuyerProfilesController extends Controller
 
             $request->file('company_logo')->move(
                 base_path() . '/public/uploads/', $logo
+            );
+
+            $buyer->save();
+
+        }
+
+        if($request->file('company_bg')!=null){
+            $bg = 'buyer-bg-'.$buyer->id. '.jpg';
+
+            $path = base_path() . '/public/uploads/'.$bg;
+            $buyer->company_bg = $path;
+
+            $request->file('company_bg')->move(
+                base_path() . '/public/uploads/', $bg
             );
 
             $buyer->save();
