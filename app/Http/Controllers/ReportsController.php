@@ -93,3 +93,15 @@ class ReportsController extends Controller
         return $pdf->download($event_name . ' Schedule.pdf');
     }
 }
+
+//    {{--@foreach($event_params as $event_param)--}}
+//    {{--<li>{{date("H:i A", strtotime($event_param->start_time)) . ' - ' . date("H:i A", strtotime  ($event_param->end_time))}} </li>--}}
+//    {{--<ul class="no-bullet">--}}
+//    {{--@foreach($final_schedules as $final_schedule)--}}
+//    {{--@if($event_param->id == $final_schedule->event_param_id)--}}
+//    {{--<li>{{$final_schedule->buyer()->first()->company_name}} and {{$final_schedule->seller()->first()->company_name}}</li>--}}
+//    {{--@endif--}}
+//    {{--@endforeach--}}
+//    {{--</ul>--}}
+//    {{--<br>--}}
+//    {{--@endforeach--}}

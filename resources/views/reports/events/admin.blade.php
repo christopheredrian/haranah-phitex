@@ -21,17 +21,56 @@
                 <div class="col-xs-1"></div>
               <div class="col-xs-10 text-left">
                 <ul class="no-bullet">
-                    @foreach($event_params as $event_param)
-                        <li>{{date("H:i A", strtotime($event_param->start_time)) . ' - ' . date("H:i A", strtotime  ($event_param->end_time))}} </li>
-                        <ul class="no-bullet">
-                            @foreach($final_schedules as $final_schedule)
-                                @if($event_param->id == $final_schedule->event_param_id)
-                                    <li>{{$final_schedule->buyer()->first()->company_name}} and {{$final_schedule->seller()->first()->company_name}}</li>
-                                @endif
-                            @endforeach
-                        </ul>
-                        <br>
-                    @endforeach
+
+                    {{--<table>--}}
+                        {{--<thead>--}}
+                        {{--<tr>--}}
+                            {{--<th>Start Time</th>--}}
+                            {{--<th>End Time</th>--}}
+                            {{--<th>Buyer</th>--}}
+                            {{--<th>Seller</th>--}}
+                        {{--</tr>--}}
+                        {{--</thead>--}}
+                        {{--<tbody>--}}
+                        {{--@foreach($event_params as $event_param)--}}
+                            {{--<tr>--}}
+                                {{--<td>{{date("H:i A", strtotime($event_param->start_time))}}</td>--}}
+                                {{--<td>{{date("H:i A", strtotime($event_param->end_time))}}</td>--}}
+                                {{--<td colspan="2">--}}
+                                    {{--@foreach($final_schedules as $final_schedule)--}}
+                                    {{--<tr>--}}
+                                    {{--<td>{{$final_schedule->buyer()->first()->company_name}}</td>--}}
+                                    {{--<td>{{$final_schedule->seller()->first()->company_name}}</td>--}}
+                                    {{--</tr>--}}
+                                    {{--@endforeach--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
+                            {{--@endforeach--}}
+                        {{--</tbody>--}}
+                    </table>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($event_params as $event_param)
+                            <tr>
+                                <td>{{date("H:i A", strtotime($event_param->start_time))}}</td>
+                                <td>{{date("H:i A", strtotime($event_param->end_time))}}</td>
+                                <td colspan="2">
+                                    @foreach($final_schedules as $final_schedule)
+                                    {{$final_schedule->buyer()->first()->company_name}}
+                                    {{$final_schedule->seller()->first()->company_name}}
+                                        <br>
+                                    @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
 
                     {{--<li>0730 - 0830</li>--}}
                      {{--<ul class="no-bullet">--}}

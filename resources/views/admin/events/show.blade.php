@@ -19,7 +19,7 @@
                                                                       aria-hidden="true"></i> Edit
                             </button>
                         </a>
-
+{{--                        {{dd($schedule)}}--}}
                         @if($schedule->isEmpty())
                         @else
                             <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
