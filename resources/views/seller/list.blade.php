@@ -235,6 +235,7 @@
                     tdToRemove.find('.btn-danger').remove();
                     tdToRemove.find('.fa-sort').remove();
                     tdToRemove.find('.sortBuyers').remove();
+                    tdToRemove.find('.rank').remove();
                     tdToRemove.appendTo('#buyer-list')
                     updateHiddenInputs();
                 });
