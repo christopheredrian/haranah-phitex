@@ -73,7 +73,7 @@
                                 {{ csrf_field() }}
                                 {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
                                 {{--Submit List</button>--}}
-                                <button type="submit" class="btn btn-primary">Close Registration</button>
+                                <button type="submit" class="btn btn-primary" {{$event->event_params->isEmpty() ? 'disabled' : ''}}>Close Registration</button>
                             </form>
                         @endif
 
@@ -165,7 +165,7 @@
                             </a></h2>
                         <ul>
                             @foreach($event->event_params as $s)
-                                <li>{{ $s->start_time }} - {{ $s->end_time }}</li>
+                                <li>{{ date('g:i A', strtotime($s->start_time)) }} - {{ date('g:i A', strtotime($s->end_time)) }}</li>
                             @endforeach
                         </ul>
                         <div class="table-responsive">
