@@ -24,7 +24,6 @@
     @yield('additional-css')
     <title>
         @yield('title')
-
     </title>
 </head>
 <body>
@@ -50,7 +49,6 @@
             <a class="navbar-brand" href="/buyer/profile">
 
                 <h3 style="color: white;">HARANAH PHITEX</h3>
-                {{--<img src="/bp_assets/img/logo.png"/>--}}
             </a>
 
         </div>
@@ -140,7 +138,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                &copy; 2015 YourCompany | By : <a href="http://www.designbootstrap.com/"
+                &copy; 2017 HARANAH PHITEX | By : <a href="http://www.designbootstrap.com/"
                                                   target="_blank">DesignBootstrap</a>
             </div>
 
