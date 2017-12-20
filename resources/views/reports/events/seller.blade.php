@@ -19,8 +19,8 @@
 <br>
         <div class="container">
             <div class="row">
-                <div class="col-xs-2"></div>
-              <div class="col-xs-8 text-left">
+                {{--<div class="col-xs-2"></div>--}}
+              <div class="col-xs-12 text-left">
                 <ul class="no-bullet">
                     <li>{{$event->event_name}}</li>
                     @foreach($event_params as $event_param)
@@ -36,6 +36,26 @@
                         </ul>
                         <br>
                     @endforeach
+
+                  {{--table format--}}
+                    {{--@foreach($event_params as $event_param)--}}
+                        {{--<table border="1">--}}
+                            {{--<thead>--}}
+                                {{--<th>{{date("H:i A", strtotime($event_param->start_time)) . ' - ' . date("H:i A", strtotime  ($event_param->end_time))}}</th>--}}
+                            {{--</thead>--}}
+                            {{--<tbody>--}}
+                            {{--<tr></tr>--}}
+                                {{--@foreach($final_schedules as $final_schedule)--}}
+                                    {{--@if($final_schedule->event_id == $event_param->event_id)--}}
+                                        {{--<tr>--}}
+                                            {{--<td>{{$final_schedule->buyer()->first()->company_name}}</td>--}}
+                                        {{--</tr>--}}
+                                    {{--@endif--}}
+                                {{--@endforeach--}}
+                            {{--</tbody>--}}
+                        {{--</table>--}}
+                      {{--<br>--}}
+                    {{--@endforeach--}}
                     {{--<li>Auction</li>--}}
                     {{--<ul class="no-bullet">--}}
                         {{--<li>0730 - 0830</li>--}}
@@ -49,7 +69,7 @@
                     {{--<br>--}}
                   </ul>
                 </div>
-                <div class="col-xs-2"></div>
+                {{--<div class="col-xs-2"></div>--}}
             </div>
         </div>
 

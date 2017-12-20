@@ -81,27 +81,16 @@ class ReportsController extends Controller
                     ->where('event_id', '=', $event_id)->get(),
                 ]);
         } elseif (Auth::user()->hasRole('seller')) {
-            $auth_buyer = Seller::where('user_id', '=', Auth::user()->id)->first();
+            $auth_seller = Seller::where('user_id', '=', Auth::user()->id)->first();
             $pdf->loadView($view, [
                 'event' => Event::find($event_id),
                 'event_params' => EventParam::where('event_id', '=' , $event_id)->get(),
-                'final_schedules' => FinalSchedule::where('seller_id', '=' , $auth_buyer->id)
+                'final_schedules' => FinalSchedule::where('seller_id', '=' , $auth_seller->id)
                     ->where('event_id', '=', $event_id)->get(),
             ]);
         }
 
+//        dd(FinalSchedule::where('event_id', '=' , $event_id)->get()->where('event_param_id', 1)->count());
         return $pdf->download($event_name . ' Schedule.pdf');
     }
 }
-
-//    {{--@foreach($event_params as $event_param)--}}
-//    {{--<li>{{date("H:i A", strtotime($event_param->start_time)) . ' - ' . date("H:i A", strtotime  ($event_param->end_time))}} </li>--}}
-//    {{--<ul class="no-bullet">--}}
-//    {{--@foreach($final_schedules as $final_schedule)--}}
-//    {{--@if($event_param->id == $final_schedule->event_param_id)--}}
-//    {{--<li>{{$final_schedule->buyer()->first()->company_name}} and {{$final_schedule->seller()->first()->company_name}}</li>--}}
-//    {{--@endif--}}
-//    {{--@endforeach--}}
-//    {{--</ul>--}}
-//    {{--<br>--}}
-//    {{--@endforeach--}}
