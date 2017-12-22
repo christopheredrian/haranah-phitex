@@ -266,17 +266,18 @@
                                             <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
                                         @endif
 
-                                            <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                                Download PDF Schedule
-                                            </button>
+                                        <button class="btn btn-success btn-small {{$schedule->isEmpty() ? 'disabled' : ''}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                             Download PDF Schedule
+                                        </button>
+
                                         @if($schedule->isEmpty())
-                                                @else
-                                            </a>
-                                                @endif
+                                        @else
+                                        </a>
+                                        @endif
                                     </div>
                                                 <!-- item -->
                                     @if($schedule->isEmpty())
-                                        <p> No Schedule has been set</p>
+                                        <p style="text-align: center"> No Schedule has been set</p>
                                     @else
                                     @foreach($schedule as $sched)
                                                 <div class="pane-width text-center">
