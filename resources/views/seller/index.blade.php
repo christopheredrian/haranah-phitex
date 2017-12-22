@@ -124,8 +124,7 @@
                                     <div class="form-group {{ $errors->has('company_logo') ? 'has-error' : ''}}">
                                         <label for="company_logo" class="col-md-4 control-label">{{ 'Company Logo' }}</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="file" name="company_logo" id="company_logo"
-                                                   value="{{ old('company_logo', isset($seller) ? $seller->company_logo : '' ) }}">
+                                            <input class="form-control" type="file" name="company_logo" id="company_logo">
                                             {!! $errors->first('company_logo', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
@@ -148,8 +147,15 @@
                                     <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
                                         <label for="company_name" class="col-md-4 control-label">{{ 'Country' }}</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="text" name="country" id="country"
-                                                   value="{{ old('company_name', isset($seller) ? $seller->country : '' ) }}">
+                                            <select class="form-control" type="text" name="country" id="country">
+                                                <option value="{{old('country', isset($seller) ? $seller->country : '')}}" selected="selected" style="display:none;">{{ old('country', isset($seller) ? $seller->country : '') }}</option>
+                                                @foreach($countries as $key => $value)
+                                                    <option value="{{$value}}" title="{{$value}}">
+                                                        {{$value}}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
                                             {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
@@ -214,8 +220,18 @@
                                     <div class="form-group {{ $errors->has('designation') ? 'has-error' : ''}}">
                                         <label for="designation" class="col-md-4 control-label">{{ 'Designation' }}</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="text" name="designation" id="designation"
+                                            {{--<input class="form-control" type="text" name="designation" id="designation"
                                                    value="{{ old('designation', isset($seller) ? $seller->designation : '') }}">
+                                            {!! $errors->first('designation', '<p class="help-block">:message</p>') !!}--}}
+                                            <select class="form-control" type="text" name="designation" id="designation">
+                                                <option value="{{old('designation', isset($seller) ? $seller->designation : '')}}" selected="selected" style="display:none;">{{ old('designation', isset($seller) ? $seller->designation : '') }}</option>
+                                                @foreach($countries as $key => $value)
+                                                    <option value="{{$value}}" title="{{$value}}">
+                                                        {{$value}}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
                                             {!! $errors->first('designation', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
