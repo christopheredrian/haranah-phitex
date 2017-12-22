@@ -9,15 +9,14 @@
 @section('content')
     <div class="container">
         <div class="row">
-
             <div>
                 <div class="panel x_panel">
-                    <div class="panel-heading">Sellers</div>
-                    <div class="panel-body">
-                        <a href="{{ url('admin/sellers/create') }}" class="btn btn-success btn-sm" title="Add New Seller">
+                    <h1 class="x_title">Sellers
+                        <a href="{{ url('admin/sellers/create') }}" class="btn btn-success btn-small pull-right" title="Add New Seller">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-
+                    </h1>
+                    <div class="panel-body">
                         <form method="GET" action="{{ url('admin/sellers') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search...">
@@ -62,7 +61,7 @@
                                             </form>
                                             <form method="POST" action="{{ url('/change-status/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-info btn-xs" title={{ $item->activated > 0 ? 'Deactivate Buyer' : 'Activate Buyer' }} onclick="return confirm({{ $item->activated > 0 ? 'Deactivate user?' : 'Activate User?' }})"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ $item->activated > 0 ? 'Deactivate' : 'Activate' }}</button>
+                                                <button type="submit" class="btn btn-info btn-xs" title="{{ $item->activated > 0 ? 'Deactivate Buyer' : 'Activate Buyer' }} onclick="return confirm({{ $item->activated > 0 ? 'Deactivate user?' : 'Activate User?' }})"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ $item->activated > 0 ? 'Deactivate' : 'Activate' }}</button>
                                             </form>
                                         </td>
                                     </tr>

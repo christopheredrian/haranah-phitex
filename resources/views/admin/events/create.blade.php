@@ -3,10 +3,10 @@
 @section('content')
     <div class="container">
         <div class="row">
-
-            <div class="col-md-9">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <div class="x_panel">
-                    <div class="panel-heading">Create New Event</div>
+                    <h2 class="x_title">Create New Event</h2>
                     <div class="panel-body">
                         <a href="{{ url('/admin/events') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
@@ -30,6 +30,7 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 @endsection

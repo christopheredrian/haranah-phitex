@@ -9,15 +9,16 @@
 @section('content')
     <div class="container">
         <div class="row">
-
             <div>
                 <div class="panel x_panel">
-                    <div class="panel-heading">Administrators</div>
-                    <div class="panel-body">
-                        <a href="{{ url('admin/administrators/create') }}" class="btn btn-success btn-sm" title="Add New Administrator">
+                    <h1 class="x_title">Administrators
+
+                        <a href="{{ url('admin/administrators/create') }}" class="btn btn-success btn-small pull-right" title="Add New Administrator">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
+                    </h1>
 
+                    <div class="panel-body">
                         <form method="GET" action="{{ url('/administrators') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search...">

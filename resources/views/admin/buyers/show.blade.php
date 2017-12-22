@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel x-panel">
-                    <div class="panel-heading">Buyer {{ $buyer->id }}</div>
+                    <div class="x_title">Buyer {{ $buyer->id }}</div>
                     <div class="panel-body">
 
                         <a href="{{ url('/admin/buyers') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>

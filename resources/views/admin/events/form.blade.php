@@ -24,7 +24,7 @@
 
 
 
-        <input type="hidden" class="form-control" name="event_status" type="text" id="event_status" value="{{ $event->event_status or 'New Event'}}" >
+<input type="hidden" class="form-control" name="event_status" type="text" id="event_status" value="{{ $event->event_status or 'New Event'}}" >
 
 
 

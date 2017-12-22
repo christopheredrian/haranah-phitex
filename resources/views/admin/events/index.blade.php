@@ -5,12 +5,12 @@
 
             <div class="col-md-12">
                 <div class="x_panel">
-                    <div class="panel-heading">Events</div>
-                    <div class="panel-body">
-                        <a href="{{ url('/admin/events/create') }}" class="btn btn-success btn-sm" title="Add New Event">
+                    <h1 class="x_title">Events
+                        <a href="{{ url('/admin/events/create') }}" class="btn btn-success btn-small pull-right" title="Add New Event">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-
+                    </h1>
+                    <div class="panel-body">
                         <form method="GET" action="{{ url('/admin/events') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">

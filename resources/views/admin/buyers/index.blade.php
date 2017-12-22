@@ -11,12 +11,12 @@
         <div class="row">
             <div>
                 <div class="panel x_panel">
-                    <div class="panel-heading">Buyers</div>
-                    <div class="panel-body">
-                        <a href="{{ url('admin/buyers/create') }}" class="btn btn-success btn-sm" title="Add New Buyer">
+                    <h1 class="x_title">Buyers
+
+                        <a href="{{ url('admin/buyers/create') }}" class="btn btn-success btn-sm pull-right" title="Add New Buyer">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-
+                    </h1>
 
                         <form method="GET" action="{{ url('admin/buyers') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
                             <div class="input-group">
@@ -32,6 +32,7 @@
                         <br/>
                         <br/>
                         <div>
+                        <div class="x_content">
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>

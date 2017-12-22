@@ -79,8 +79,10 @@
     <div class="form-group">
         <label for="activate" class="col-md-4 col-xs-4 control-label">{{ 'Activation' }}</label>
         <div class="col-md-6 col-xs-6">
-            Send Activation via Email<input type="radio" checked="checked" name="activate" value="false">
-            Activate Immediately: <input type="radio" name="activate" value="true">
+            <input type="radio" checked="checked" name="activate" value="false"> Send Activation via Email
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <input type="radio" name="activate" value="true"> Activate Immediately
         </div>
     </div>
 @endif

@@ -3,10 +3,10 @@
 @section('content')
     <div class="container">
         <div class="row">
-
-            <div class="col-md-9">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <div class="x_panel">
-                    <div class="panel-heading">Create New Buyer</div>
+                    <h2 class="x_title">Create New Buyer</h2>
                     <div class="panel-body">
                         <a href="{{ url('admin/buyers') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
 
@@ -27,12 +27,10 @@
                             @include ('admin.buyers.form')
 
                         </form>
-
-
-
                     </div>
                 </div>
             </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 @endsection

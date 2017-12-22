@@ -104,7 +104,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-settings">
 
-                                <li><a href="/change-password" style="color: black!important">Edit Password</a></li>
+                                <li><a href="/change-password" style="color: black!important">Change Password</a></li>
                                 <li class="divider"></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
