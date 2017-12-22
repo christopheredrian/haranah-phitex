@@ -32,8 +32,9 @@
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
-                            <img class="profile-user-img img-responsive img-circle" src="/uploads/seller-{{ $seller->id }}.jpg" alt="User profile picture">
-
+                            <div class="profile-user-image">
+                                <img class="profile-user-img" src="/uploads/seller-{{ $seller->id }}.jpg" alt="User profile picture">
+                            </div>
                             <h3 class="profile-username text-center">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</h3>
 
                             <p class="text-muted text-center">{{ Auth::user()->role }}</p>
