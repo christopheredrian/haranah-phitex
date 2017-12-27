@@ -18,11 +18,8 @@ use Session;
 class SellersController extends Controller
 {
     private $seller_validation = [
-        'last_name' => 'required',
-        'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
-        'country' => 'required'
     ];
 
     /**
@@ -36,22 +33,23 @@ class SellersController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $sellers = DB::table('sellers')
-                ->join('users', 'users.id', '=', 'sellers.user_id')
-                ->select('users.*')
-                ->where('user_id', 'LIKE', "%$keyword%")
-                ->orWhere('last_name', 'LIKE', "%$keyword%")
-                ->orWhere('first_name', 'LIKE', "%$keyword%")
-                ->orWhere('email', 'LIKE', "%$keyword%")
-                ->paginate($perPage);
+//            $sellers = DB::table('sellers')
+//                ->join('users', 'users.id', '=', 'sellers.user_id')
+//                ->select('users.*')
+//                ->where('user_id', 'LIKE', "%$keyword%")
+//                ->orWhere('last_name', 'LIKE', "%$keyword%")
+//                ->orWhere('first_name', 'LIKE', "%$keyword%")
+//                ->orWhere('email', 'LIKE', "%$keyword%")
+//                ->paginate($perPage);
+            $sellers = Seller::paginate($perPage);
+
         } else {
-            $sellers = DB::table('sellers')
-                ->join('users', 'users.id', '=', 'sellers.user_id')
-                ->select('users.*', 'sellers.id as seller_id')
-                ->paginate($perPage);
+            $sellers = Seller::paginate($perPage);
         }
 
-        return view('admin.sellers.index', compact('sellers'));
+        return view('admin.sellers.index', [
+            'sellers' => $sellers
+        ]);
     }
 
     /**
@@ -141,7 +139,10 @@ class SellersController extends Controller
     {
         $seller = Seller::findOrFail($id);
 
-        return view('admin.sellers.edit', compact('seller'));
+        return view('admin.sellers.edit', [
+            'seller' => $seller,
+            'isCreate' => false
+        ]);
     }
 
     /**
@@ -176,9 +177,11 @@ class SellersController extends Controller
      */
     public function destroy($id)
     {
-        Seller::destroy($id);
-
-        Session::flash('flash_message', 'Seller deleted!');
+       DB::transaction(function() use ($id){
+           User::destroy(Seller::findOrFail($id)->user_id);
+           Seller::destroy($id);
+           Session::flash('flash_message', 'Seller deleted!');
+       });
 
         return redirect('admin/sellers');
     }

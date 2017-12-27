@@ -1,26 +1,10 @@
-<div class="form-group {{ $errors->has('last_name') ? 'has-error' : ''}}">
-    <label for="last_name" class="col-md-4 col-xs-4 control-label">{{ 'Last Name' }}</label>
-    <div class="col-md-6 col-xs-6">
-        <input class="form-control" type="text" name="last_name" id="last_name"
-               value="{{ old('last_name', isset($seller) ? $seller->user->last_name : '' ) }}">
-        {!! $errors->first('last_name', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
 
-<div class="form-group {{ $errors->has('first_name') ? 'has-error' : ''}}">
-    <label for="first_name" class="col-md-4 col-xs-4 control-label">{{ 'First Name' }}</label>
-    <div class="col-md-6 col-xs-6">
-        <input class="form-control" type="text" name="first_name" id="first_name"
-               value="{{ old('first_name', isset($seller) ? $seller->user->first_name : '') }}">
-        {!! $errors->first('first_name', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
 
 <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
     <label for="email" class="col-md-4  col-xs-4 control-label">{{ 'Email' }}</label>
 
 
-    @if(isset($isCreate))
+    @if($isCreate)
         <div class="col-md-6 col-xs-6">
             <div class="input-group">
                 <input class="form-control" type="email" name="email" id="email"
@@ -66,14 +50,6 @@
     </div>
 </div>
 
-<div class="form-group {{ $errors->has('country') ? 'has-error' : ''}}">
-    <label for="country" class="col-md-4 col-xs-4 control-label">{{ 'Country' }}</label>
-    <div class="col-md-6 col-xs-6">
-        <input class="form-control" type="text" name="country" id="country"
-               value="{{ old('country', isset($buyer) ? $buyer->country : '') }}">
-        {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
 
 @if($isCreate)
     <div class="form-group">

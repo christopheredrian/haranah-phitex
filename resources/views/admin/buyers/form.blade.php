@@ -3,7 +3,7 @@
 <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
     <label for="email" class="col-md-4 col-xs-4 control-label">{{ 'Email' }}</label>
 
-    @if(isset($isCreate))
+    @if($isCreate)
         <div class="col-md-6 col-xs-6 ">
 
             <input class="form-control" type="email" name="email" id="email"

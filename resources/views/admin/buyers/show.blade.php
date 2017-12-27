@@ -57,11 +57,11 @@
                                     <td>{{ $buyer->phone}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Event Representative 1</th>
+                                    <th>Event Representatives</th>
                                     <td>{{ $buyer->event_rep1}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Event Representative 2</th>
+                                    <th></th>
                                     <td>{{ $buyer->event_rep2}}</td>
                                 </tr>
                                 <tr>

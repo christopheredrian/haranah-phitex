@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/reports/{event_id}', 'ReportsController@downloadSchedule');
     Route::get('/reports/{event_id}/pdf', 'ReportsController@downloadPdf');
 
-
+    Route::post('/change-status/{user_id}', 'Admin\\UsersController@changeStatus');
 
     // MIDDLEWARE FOR ADMIN
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
@@ -123,6 +123,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
         // Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@testmail');
         //Route::get('/mail/run', 'Admin\\MailController@run');
+
     });
 
     // MIDDLEWARE FOR BUYER
@@ -194,7 +195,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     });
 
-    Route::post('/change-status/{user_id}', 'Admin\\UsersController@changeStatus');
+
 
     //
     Route::post('/importBuyersOrSellers', 'FileController@importBuyersOrSellers');

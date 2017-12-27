@@ -6,7 +6,7 @@
 
             <div class="col-md-12">
                 <div class="panel x_panel">
-                    <h2 class="x_title">Edit {{ $seller->user->last_name }}, {{ $seller->user->first_name }}</h2>
+                    <h2 class="x_title">Edit {{ $seller->company_name }}</h2>
                     <div class="panel-body">
                         <a href="{{ url('admin/sellers') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
