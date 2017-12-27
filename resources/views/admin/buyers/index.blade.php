@@ -68,7 +68,7 @@
                                             {{--</button>--}}
                                             {{--</a>--}}
                                             <form method="POST"
-                                                  action="{{ url('admin/users' . '/' . $buyer->id . '/reset_password') }}"
+                                                  action="{{ url('admin/users' . '/' . $buyer->user->id . '/reset_password') }}"
                                                   accept-charset="UTF-8" style="display:inline">
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-warning btn-xs"

@@ -51,6 +51,7 @@ class BuyersController extends Controller
                 ->orWhere('event_rep1', 'LIKE', "%$keyword%")
                 ->orWhere('event_rep2', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
+                ->select('buyers.*')
                 ->paginate($perPage);
 
         } else {
