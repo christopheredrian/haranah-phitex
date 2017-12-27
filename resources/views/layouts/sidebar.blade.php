@@ -32,8 +32,9 @@
             {{--</li>--}}
 
             <li><a href="/admin/home"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li><a href="/admin/events"><i class="fa fa-table"></i>Events</a></li>
             <li {{ is_active(['/administrators', '/buyers', '/sellers' ]) }}><a><i class="fa fa-user">
-                    </i> Users <span class="fa fa-chevron-down"></span></a>
+                    </i> User Management <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     @if(\Illuminate\Support\Facades\Auth::user()->role === 'superadmin')
                         <li class="{{ url_contains('/administrators') ? 'current-page' : '' }}"><a href="/admin/administrators"> <i class="fa fa-user"></i> Administrators</a></li>
@@ -42,7 +43,6 @@
                     <li class="{{ url_contains('/sellers') ? 'current-page' : '' }}"><a href="/admin/sellers"><i class="fa fa-users" aria-hidden="true"></i>Sellers</a></li>
                 </ul>
             </li>
-            <li><a href="/admin/events"><i class="fa fa-table"></i>Events</a></li>
             <li><a href="/admin/account"><i class="fa fa-gear"></i>Account</a></li>
         </ul>
     </div>

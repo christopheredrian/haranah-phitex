@@ -87,7 +87,6 @@
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
                                 <li><a href="javascript:;"> Profile</a></li>
 
-                                <li><a href="javascript:;">Help</a></li>
                                 <li><a href="/change-password">Change Password</a></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
