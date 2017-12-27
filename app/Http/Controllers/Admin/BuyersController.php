@@ -18,11 +18,8 @@ use Session;
 class BuyersController extends Controller
 {
     private $buyer_validation = [
-        'last_name' => 'required',
-        'first_name' => 'required',
         'email' => 'unique:users,email|email',
         'phone' => 'nullable',
-        'country' => 'required'
     ];
 
     /**
@@ -39,21 +36,31 @@ class BuyersController extends Controller
         if (!empty($keyword)) {
             // Join buyers table to users table, filter, then paginate
 
-            $buyers = DB::table('buyers')
-                ->join('users', 'buyers.user_id', '=', 'users.id')
-                ->select('users.*', 'buyers.id as buyer_id')
-                ->where('user_id', 'LIKE', "%$keyword%")
-                ->orWhere('last_name', 'LIKE', "%$keyword%")
-                ->orWhere('first_name', 'LIKE', "%$keyword%")
+//            $buyers = DB::table('buyers')
+//                ->join('users', 'buyers.user_id', '=', 'users.id')
+//                ->select('users.*', 'buyers.id as buyer_id')
+//                ->where('user_id', 'LIKE', "%$keyword%")
+//                ->orWhere('last_name', 'LIKE', "%$keyword%")
+//                ->orWhere('first_name', 'LIKE', "%$keyword%")
+//                ->orWhere('email', 'LIKE', "%$keyword%")
+//                ->paginate($perPage);
+
+            $buyers = Buyer::join('users', 'buyers.user_id', '=', 'users.id')
+                ->where('company_name', 'LIKE', "%$keyword%")
+                ->orWhere('phone', 'LIKE', "%$keyword%")
+                ->orWhere('event_rep1', 'LIKE', "%$keyword%")
+                ->orWhere('event_rep2', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
+
         } else {
             // Join buyers table to users table, then paginate
 
-            $buyers = DB::table('buyers')
-                ->join('users', 'buyers.user_id', '=', 'users.id')
-                ->select('users.*', 'buyers.id as buyer_id')
-                ->paginate($perPage);
+//            $buyers = DB::table('buyers')
+//                ->join('users', 'buyers.user_id', '=', 'users.id')
+//                ->select('users.*, buyers.*', 'buyers.id as buyer_id')
+//                ->paginate($perPage);
+            $buyers = Buyer::paginate($perPage);
         }
 
         return view('admin.buyers.index', compact('buyers'));
@@ -100,7 +107,7 @@ class BuyersController extends Controller
         $buyer->save();
 
         // haha
-        if ($user->activated === 0){
+        if ($user->activated === 0) {
             $user = User::find($user->id);
             $credentials = ['email' => $user->email];
             $response = Password::sendResetLink($credentials, function (Message $message) {
@@ -125,7 +132,7 @@ class BuyersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -139,20 +146,23 @@ class BuyersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
     public function edit($id)
     {
         $buyer = Buyer::findOrFail($id);
-        return view('admin.buyers.edit', compact('buyer'));
+        return view('admin.buyers.edit', [
+            'buyer' => $buyer,
+            'isCreate' => false
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -175,15 +185,17 @@ class BuyersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
-        Buyer::destroy($id);
-
-        Session::flash('flash_message', 'Buyer deleted!');
+        DB::transaction(function () use ($id) {
+            User::destroy(Buyer::find($id)->user);
+            Buyer::destroy($id);
+            Session::flash('flash_message', 'Buyer deleted!');
+        });
 
         return redirect('admin/buyers');
     }

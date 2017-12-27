@@ -33,8 +33,10 @@
 
             <li><a href="/admin/home"><i class="fa fa-home"></i>Dashboard</a></li>
             <li><a href="/admin/events"><i class="fa fa-table"></i>Events</a></li>
-            <li {{ is_active(['/administrators', '/buyers', '/sellers' ]) }}><a><i class="fa fa-user">
-                    </i> User Management <span class="fa fa-chevron-down"></span></a>
+            <li {{ is_active(['/administrators', '/buyers', '/sellers' ]) }}>
+                <a>
+                    <i class="fa fa-user"></i> User Management <span class="fa fa-chevron-down"></span>
+                </a>
                 <ul class="nav child_menu">
                     @if(\Illuminate\Support\Facades\Auth::user()->role === 'superadmin')
                         <li class="{{ url_contains('/administrators') ? 'current-page' : '' }}"><a href="/admin/administrators"> <i class="fa fa-user"></i> Administrators</a></li>
