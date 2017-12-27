@@ -41,7 +41,14 @@ class SellersController extends Controller
 //                ->orWhere('first_name', 'LIKE', "%$keyword%")
 //                ->orWhere('email', 'LIKE', "%$keyword%")
 //                ->paginate($perPage);
-            $sellers = Seller::paginate($perPage);
+            $sellers = Seller::join('users', 'sellers.user_id', '=', 'users.id')
+                ->where('company_name', 'LIKE', "%$keyword%")
+                ->orWhere('phone', 'LIKE', "%$keyword%")
+                ->orWhere('event_rep1', 'LIKE', "%$keyword%")
+                ->orWhere('event_rep2', 'LIKE', "%$keyword%")
+                ->orWhere('email', 'LIKE', "%$keyword%")
+                ->select('sellers.*')
+                ->paginate($perPage);
 
         } else {
             $sellers = Seller::paginate($perPage);
