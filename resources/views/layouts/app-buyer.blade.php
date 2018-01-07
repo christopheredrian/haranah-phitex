@@ -98,7 +98,7 @@
                         <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/profile') }}">Profile</a>
                         </li>
                         <li class="{{ is_active(['#' ]) }} dropdown">
-                            <a href="#" id="account" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 Account
                                 <b class="caret"></b>
                             </a>
