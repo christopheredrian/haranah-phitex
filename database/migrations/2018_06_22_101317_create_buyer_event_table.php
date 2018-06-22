@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventBuyerTable extends Migration
+class CreateBuyerEventTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEventBuyerTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_buyer', function (Blueprint $table) {
+        Schema::create('buyer_event', function (Blueprint $table) {
             $table->integer('event_id')->unsigned();
             $table->integer('buyer_id')->unsigned();
 
@@ -30,7 +30,7 @@ class CreateEventBuyerTable extends Migration
      */
     public function down()
     {
-        Schema::table('event_buyer', function (Blueprint $table) {
+        Schema::table('buyer_event', function (Blueprint $table) {
             //
         });
     }

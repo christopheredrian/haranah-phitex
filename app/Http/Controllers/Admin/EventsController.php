@@ -102,6 +102,7 @@ class EventsController extends Controller
 //                    ->pluck('seller_id'))
 //                    ->pluck('user_id'))
 //                    ->get();
+//        dd($event->buyers);
         $eventsellers  = $event->sellers;
 
         // TODO: Refactor for 1:M
