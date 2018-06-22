@@ -44,9 +44,13 @@ class Seller extends Model
 		return $this->belongsTo('App\User');
 	}
 
-    public function event()
+//    public function event()
+//    {
+//        return $this->belongsTo(Event::class);
+//    }
+
+    public function events()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsToMany(Event::class);
     }
-	
 }

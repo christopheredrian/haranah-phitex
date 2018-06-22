@@ -49,4 +49,9 @@ class Buyer extends Model
         return $this->belongsTo(Event::class);
     }
 
+    public function events()
+    {
+        return $this->belongsToMany(Event::class);
+    }
+
 }

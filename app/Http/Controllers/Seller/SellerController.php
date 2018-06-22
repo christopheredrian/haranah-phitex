@@ -433,8 +433,14 @@ class SellerController extends Controller
             ->with('event', $event);
     }
 
+    /**
+     * Submit user preferences
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function submitPreferences(Request $request)
     {
+        // Get values from request
         if (!empty($request->values)) {
             foreach ($request->values as $item) {
                 $seller_preference = \App\SellerPreference::create();
