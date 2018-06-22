@@ -22,8 +22,12 @@ Route::get('/register', function () {
     return view('admin.auth.register');
 });
 
+// Dev utilities
 Route::get('/logout', function(){
     Auth::logout();
+});
+Route::get('/role', function(){
+    dd(Auth::user()->role);
 });
 
 Route::group(['middleware' => ['auth']], function () {

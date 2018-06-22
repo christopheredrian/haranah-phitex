@@ -88,7 +88,7 @@ class SellersController extends Controller
         $user->password = bcrypt("password");
         $user->email = $request->email;
         $user->created_at = Carbon::now();
-        $user->role = "buyer";
+        $user->role = "seller";
         $user->activated = $request->activate === 'true' ? 1 : 0;
         $user->save();
 
