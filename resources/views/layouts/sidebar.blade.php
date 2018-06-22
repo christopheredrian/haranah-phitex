@@ -45,7 +45,7 @@
                     <li class="{{ url_contains('/sellers') ? 'current-page' : '' }}"><a href="/admin/sellers"><i class="fa fa-users" aria-hidden="true"></i>Sellers</a></li>
                 </ul>
             </li>
-            <li><a href="/admin/account"><i class="fa fa-gear"></i>Account</a></li>
+            {{--<li><a href="/admin/account"><i class="fa fa-gear"></i>Account</a></li>--}}
         </ul>
     </div>
 

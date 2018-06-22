@@ -27,12 +27,21 @@
     <link rel="stylesheet" href="/bower_components/DataTables/datatables.min.css">
 
     <style>
-        ul.alert.alert-danger{
+        ul.alert.alert-danger {
             list-style: none;
         }
 
-        #fileExport{
+        #fileExport {
             display: none;
+        }
+
+        .h-logo {
+            height: 75px;
+            width: 75px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 15px;
+            margin-bottom: 15px;
         }
     </style>
     @yield('styles')
@@ -45,27 +54,21 @@
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title"><i class="fa fa-plane"></i> <span>Haranah-Phitex</span></a>
-                </div>
 
-                <div class="clearfix"></div>
-
-                <!-- menu profile quick info -->
                 <div class="profile clearfix">
-                    {{--<div class="profile_pic">--}}
-                        {{--<img src="images/img.jpg" alt="..." class="img-circle profile_img">--}}
-                    {{--</div>--}}
-                    <div class=" text-center">
+                    <div class="profile_pic">
+                        <img src="/img/logo.jpg" alt="Haranah Logo" class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
                         <span>Welcome,</span>
                         <h2>{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
 
-                <br />
+                <br/>
 
-               @include('layouts.sidebar')
+                @include('layouts.sidebar')
             </div>
         </div>
 
@@ -79,13 +82,14 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <img src="images/img.jpg" alt="">
                                 {{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;"> Profile</a></li>
+                                {{--<li><a href="javascript:;"> Profile</a></li>--}}
 
                                 <li><a href="/change-password">Change Password</a></li>
                                 <li>
@@ -95,7 +99,8 @@
                                         Logout
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                                 </li>
@@ -111,9 +116,9 @@
         <!-- page content -->
         <div class="right_col" role="main">
             @if(Session::has('flash_message'))
-            <div class="alert {{Session::get('alert-class', 'alert-success')}}" style="margin-top: 8vh;">
-                {{ Session::get('flash_message') }}
-            </div>
+                <div class="alert {{Session::get('alert-class', 'alert-success')}}" style="margin-top: 8vh;">
+                    {{ Session::get('flash_message') }}
+                </div>
             @endif
             @yield('content')
         </div>
@@ -172,8 +177,8 @@
 <script src="/build/js/custom.min.js"></script>
 <script>
     /* Helper function for disabled inputs and buttons */
-    $(document).ready(function(){
-        $('button.undisable').click(function(){
+    $(document).ready(function () {
+        $('button.undisable').click(function () {
             $('input[disabled]').removeAttr('disabled');
         });
 
@@ -185,17 +190,16 @@
 </script>
 
 <script>
-    $( "#excelImportButton" ).click(function() {
-        $( "#createForm" ).hide(500);
-        $( "#fileExport" ).show(180);
+    $("#excelImportButton").click(function () {
+        $("#createForm").hide(500);
+        $("#fileExport").show(180);
     });
 
-    $( "#createButton" ).click(function() {
-        $( "#createForm" ).show(180);
-        $( "#fileExport" ).hide(500);
+    $("#createButton").click(function () {
+        $("#createForm").show(180);
+        $("#fileExport").hide(500);
     });
 </script>
-
 
 
 @yield('scripts')

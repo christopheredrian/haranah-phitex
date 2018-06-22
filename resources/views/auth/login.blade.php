@@ -15,6 +15,11 @@
             opacity: 0.9;
             /*border: 10%;*/
         }
+
+        .text-red {
+             text-shadow: none;
+            color: red;
+        }
     </style>
     {{--Image used is not owned by the developers, credit owns to the rightful owner of the photo--}}
     <div class="container featured-image" style="background-image:url('/img/terraces.jpg');">
@@ -35,9 +40,9 @@
                                     <input placeholder="Email" id="email" type="email" class="form-control" name="email"
                                            value="{{ old('email') }}" required autofocus>
                                     @if ($errors->has('email'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                        <span class="text-red">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -45,9 +50,9 @@
                                            name="password" required>
 
                                     @if ($errors->has('password'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                        <span class="text-red">
+                                          <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
 
