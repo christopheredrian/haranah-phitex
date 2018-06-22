@@ -44,9 +44,13 @@ class BuyerProfilesController extends Controller
         'website' => 'required',
     ];
 
-    public function index(Request $request)
+    /**
+     * Listing of events
+     * @param Request $request
+     */
+    public function events(Request $request)
     {
-      //
+        return view('buyer.events', ['events' => Auth::user()->buyer->events]);
     }
 
     /**
@@ -69,7 +73,7 @@ class BuyerProfilesController extends Controller
      */
     public function store(Request $request)
     {
-       //
+        //
     }
 
     /**
@@ -79,43 +83,45 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show()
+    public function show($id)
     {
-        $id = Auth::user()->id;
-
+        if (!in_array($id, Auth::user()->buyer->events->pluck('id')->toArray())) {
+            abort(404);
+        }
         $buyer = Auth::user()->buyer;
 
         $buyerID = Buyer::where('user_id', Auth::user()->id)
             ->pluck('id');
 
-            //gets all schedule
+        //gets all schedule
         $schedule = DB::table('final_schedules')
-            ->join('event_params','final_schedules.event_param_id','=','event_params.id')
-            ->where('final_schedules.buyer_id','=', $buyerID)
+            ->join('event_params', 'final_schedules.event_param_id', '=', 'event_params.id')
+            ->where('final_schedules.buyer_id', '=', $buyerID)
             ->get();
 
         // gets event information
 
-        $eventOfBuyer= $buyer->event;
+        $eventOfBuyer = Event::find($id);
+
 
         $info = DB::table('final_schedules')
-            ->join('buyers' ,'final_schedules.buyer_id', '=' ,'buyers.id')
-            ->select('seller_id','event_param_id')
-            ->where('buyers.id' ,'=',$buyerID)
+            ->join('buyers', 'final_schedules.buyer_id', '=', 'buyers.id')
+            ->select('seller_id', 'event_param_id')
+            ->where('buyers.id', '=', $buyerID)
             ->get();
 
         // gets Name (first and last) of buyer in the final schedule
         $seller = DB::table('users')
-            ->join('sellers', 'users.id','=','sellers.user_id')
+            ->join('sellers', 'users.id', '=', 'sellers.user_id')
             ->get();
 
         return view('buyer.show', compact('buyer'), ['role' => 'Buyer'])
             ->with('buyers', $buyer)
-            ->with('schedule',$schedule)
-            ->with('buyerEvent',$eventOfBuyer)
-            ->with('info',$info)
-            ->with('seller',$seller)
-            ->with('event_id', $buyer->event_id);
+            ->with('schedule', $schedule)
+            ->with('buyerEvent', $eventOfBuyer)
+            ->with('info', $info)
+            ->with('seller', $seller)
+            ->with('event_id', $eventOfBuyer);
     }
 
 
@@ -376,7 +382,7 @@ class BuyerProfilesController extends Controller
             "ZM" => "Zambia",
             "ZW" => "Zimbabwe");
 
-        return view('buyer.edit', compact('buyer'))->with('countries',$countries);
+        return view('buyer.edit', compact('buyer'))->with('countries', $countries);
     }
 
     /**
@@ -400,10 +406,10 @@ class BuyerProfilesController extends Controller
 //        $user = User::findOrFail($buyer->user->id);
 //        $user->update($requestData);
 
-        if($request->file('company_logo')!=null){
-            $logo = 'buyer-'.$buyer->id. '.jpg';
+        if ($request->file('company_logo') != null) {
+            $logo = 'buyer-' . $buyer->id . '.jpg';
 
-            $path = base_path() . '/public/uploads/'.$logo;
+            $path = base_path() . '/public/uploads/' . $logo;
             $buyer->company_logo = $path;
 
             $request->file('company_logo')->move(
@@ -414,10 +420,10 @@ class BuyerProfilesController extends Controller
 
         }
 
-        if($request->file('company_bg')!=null){
-            $bg = 'buyer-bg-'.$buyer->id. '.jpg';
+        if ($request->file('company_bg') != null) {
+            $bg = 'buyer-bg-' . $buyer->id . '.jpg';
 
-            $path = base_path() . '/public/uploads/'.$bg;
+            $path = base_path() . '/public/uploads/' . $bg;
             $buyer->company_bg = $path;
 
             $request->file('company_bg')->move(
