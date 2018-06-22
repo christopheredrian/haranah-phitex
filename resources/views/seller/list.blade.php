@@ -61,7 +61,7 @@
                                             <td> {{ $buyer->user->last_name.", ".$buyer->user->first_name }}</td>
                                             <td> {{ $buyer->country}}
                                                 <input type="hidden" name="values[]" class="buyer-id"
-                                                       value="{{ $buyer->user_id }}">
+                                                       value="{{ $buyer->id }}">
 
                                             </td>
                                             <!-- //pass $buyer->user_id-->
