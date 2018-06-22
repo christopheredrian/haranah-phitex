@@ -110,7 +110,7 @@
                                                 @elseif($preference)
                                                 <span class="btn pull-right btn-success disabled">You have selected buyers!</span>
                                                 @else
-                                                <input type="button" class="btn pull-right btn-primary" onclick="location.href='pick';" value="Select Buyers" />
+                                                <input type="button" class="btn pull-right btn-primary" onclick="location.href='/seller/pick/{{$sellerEvent->id}}';" value="Select Buyers" />
                                                 @endif
                                             </div>
                                         </div>

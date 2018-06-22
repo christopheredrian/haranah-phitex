@@ -161,7 +161,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // MIDDLEWARE FOR SELLER
     Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function () {
-        Route::get('/home', [
+        Route::get('/home/{id}', [
             'as' => 'seller.index',
             'uses' => 'Seller\\SellerController@show'
         ])->name('sellerHome');;
@@ -181,7 +181,7 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Seller\\SellerController@showBuyerProfile'
         ]);
 
-        Route::get('/pick', [
+        Route::get('/pick/{id}', [
             'as' => 'list.buyer',
             'uses' => 'Seller\\SellerController@sellerPreference'
         ]);
@@ -191,8 +191,6 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Seller\\SellerController@submitPreferences'
         ]);
 
-
-        //Seller
         Route::get('/index', function () {
             return view('seller.index');
         });
@@ -200,13 +198,13 @@ Route::group(['middleware' => ['auth']], function () {
             return view('seller.account');
         });
 
+        Route::get('/events', 'Seller\\SellerController@events');
     });
 
 
 
     //
     Route::post('/importBuyersOrSellers', 'FileController@importBuyersOrSellers');
-
 });
 
 Auth::routes();
