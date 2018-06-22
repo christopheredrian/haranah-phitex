@@ -81,10 +81,9 @@ class BuyerProfilesController extends Controller
      */
     public function show()
     {
-
         $id = Auth::user()->id;
 
-        $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
+        $buyer = Auth::user()->buyer;
 
         $buyerID = Buyer::where('user_id', Auth::user()->id)
             ->pluck('id');

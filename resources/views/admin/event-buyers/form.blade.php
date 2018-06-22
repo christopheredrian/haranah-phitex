@@ -7,7 +7,7 @@
         <select name="buyer_id" id="buyer_id" class="form-control">
             @foreach($buyers as $buyer)
                 {{--<option value="{{array_search ($buyer_name, $buyer_names)}}">{{$buyer_name}}</option>--}}
-                <option value="{{ $buyer->id }}">{{$buyer->company_name}}</option>
+                <option value="{{ $buyer->id }}">({{$buyer->user->email}}) {{$buyer->company_name}}</option>
             @endforeach
 
 

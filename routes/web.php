@@ -22,6 +22,9 @@ Route::get('/register', function () {
     return view('admin.auth.register');
 });
 
+Route::get('/logout', function(){
+    Auth::logout();
+});
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/change-password', 'Admin\\UsersController@passwordForm');

@@ -41,12 +41,24 @@ class User extends Authenticatable
         }
     }
 
-    public function buyer(){
-        return $this->belongsTo('App\Buyer');
+    public function getRole(){
+        return $this->role;
     }
 
+    /**
+     * Gets the buyer instance for this user
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function buyer(){
+        return $this->hasOne(Buyer::class);
+    }
+
+    /**
+     * Gets the seller instance for this user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function seller(){
-        return $this->belongsTo('App\Seller');
+        return $this->hasOne(Seller::class);
     }
 
 }
