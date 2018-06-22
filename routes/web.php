@@ -29,6 +29,9 @@ Route::get('/logout', function(){
 Route::get('/role', function(){
     dd(Auth::user()->role);
 });
+Route::get('/test', function(){
+
+});
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/change-password', 'Admin\\UsersController@passwordForm');
@@ -142,8 +145,8 @@ Route::group(['middleware' => ['auth']], function () {
 //        Route::get('/profile', function(){
 //            return view('buyer.show');
 //        });
-
-        Route::get('/profile', [
+        Route::get('/events', 'Buyer\\BuyerProfilesController@events');
+        Route::get('/profile/{id}', [
             'as' => 'buyers.show',
             'uses' => 'Buyer\\BuyerProfilesController@show'
         ]);

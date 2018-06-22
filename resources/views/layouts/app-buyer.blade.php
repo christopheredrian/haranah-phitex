@@ -94,7 +94,7 @@
                         ?>
 
                         {{--<li><a class="{{ is_active(['/home' ]) }}" href="/buyer/home">Dashboard</a></li>--}}
-
+                        <li><a href="{{ url('/buyer/events') }}">Events</a>
                         <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/profile') }}">Profile</a>
                         </li>
                         <li class="{{ is_active(['#' ]) }} dropdown">
