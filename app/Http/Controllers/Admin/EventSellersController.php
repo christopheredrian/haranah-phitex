@@ -78,11 +78,16 @@ class EventSellersController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
         $seller = Seller::find($request->seller_id);
         $seller->event_id = $request->event_id;
         $seller->save();
+
+        $event_seller = new EventSeller();
+        $event_seller->event_id = $seller->event_id;
+        $event_seller->seller_id = $seller->id;
+        $event_seller->save();
+
         for ($i = 1; array_key_exists('seller_id'.$i, $requestData); $i++) {
             $seller = Seller::find($requestData['seller_id'.$i]);
             $seller->event_id = $request->event_id;

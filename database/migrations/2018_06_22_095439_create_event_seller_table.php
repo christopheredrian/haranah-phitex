@@ -14,6 +14,7 @@ class CreateEventSellerTable extends Migration
     public function up()
     {
         Schema::create('event_seller', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('event_id')->unsigned();
             $table->integer('seller_id')->unsigned();
 

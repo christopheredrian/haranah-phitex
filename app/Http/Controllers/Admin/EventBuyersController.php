@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\BuyerEvent;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -76,11 +77,16 @@ class EventBuyersController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
         $buyer = Buyer::find($request->buyer_id);
         $buyer->event_id = $request->event_id;
         $buyer->save();
+
+        $event_buyer = new BuyerEvent();
+        $event_buyer->event_id = $buyer->event_id;
+        $event_buyer->buyer_id = $buyer->id;
+        $event_buyer->save();
+
         for ($i = 1; array_key_exists('buyer_id'.$i, $requestData); $i++) {
             $buyer = Buyer::find($requestData['buyer_id'.$i]);
             $buyer->event_id = $request->event_id;

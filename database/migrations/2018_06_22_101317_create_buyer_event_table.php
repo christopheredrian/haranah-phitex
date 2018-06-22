@@ -13,7 +13,8 @@ class CreateBuyerEventTable extends Migration
      */
     public function up()
     {
-        Schema::create('buyer_event', function (Blueprint $table) {
+        Schema::create('buyer_event', function (Blueprint $table){
+            $table->increments('id');
             $table->integer('event_id')->unsigned();
             $table->integer('buyer_id')->unsigned();
 

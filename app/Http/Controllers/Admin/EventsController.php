@@ -104,6 +104,7 @@ class EventsController extends Controller
 //                    ->get();
 //        dd($event->buyers);
         $eventsellers  = $event->sellers;
+//        dd($eventsellers);
 
         // TODO: Refactor for 1:M
 //        $eventbuyers = User::whereIn('id', Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)
