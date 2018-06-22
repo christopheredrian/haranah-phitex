@@ -129,10 +129,7 @@ class BuyerProfilesController extends Controller
     public function edit()
     {
         $id = Auth::user()->id;
-
-        $buyer = Buyer::findOrFail($id)
-            ->select('buyers.*', 'buyers.id as buyer_id')
-            ->where("buyers.user_id", "=", "$id")->first();
+        $buyer = Auth::user()->buyer;
 
         $countries = array("AF" => "Afghanistan",
             "AX" => "Åland Islands",
