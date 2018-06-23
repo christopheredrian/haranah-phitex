@@ -32,17 +32,16 @@
     </div>
 </div>
 
+<?php $countryList = config('country'); ?>
+
 <div class="form-group {{ $errors->has('country') ? 'has-error' : ''}}">
     <label for="country" class="col-md-4 col-xs-4 control-label">{{ 'Country' }}</label>
     <div class="col-md-6 col-xs-6">
         <select class="form-control" type="text" name="country" id="country">
             <option value="{{old('country', isset($buyer) ? $buyer->country : '')}}" selected="selected" style="display:none;">{{ old('country', isset($buyer) ? $buyer->country : '') }}</option>
-            @foreach($countries as $key => $value)
-                <option value="{{$value}}" title="{{$value}}">
-                    {{$value}}
-                </option>
+            @foreach ($countryList as $countryId=>$name)
+                <option value="{{ $countryId }}">{{ $name }}</option>
             @endforeach
-
         </select>
         {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
     </div>

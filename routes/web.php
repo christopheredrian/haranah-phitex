@@ -139,12 +139,13 @@ Route::group(['middleware' => ['auth']], function () {
     // MIDDLEWARE FOR BUYER
     Route::group(['prefix' => 'buyer', 'middleware' => 'buyer'], function () {
 
-//        Route::get('/home', 'HomeController@buyerIndex')->name('buyerHome');
+        Route::get('/profile', 'HomeController@buyerIndex')->name('buyerHome');
 
         // TEMPORARY!!!
 //        Route::get('/profile', function(){
 //            return view('buyer.show');
 //        });
+
         Route::get('/events', 'Buyer\\BuyerProfilesController@events');
         Route::get('/profile/{id}', [
             'as' => 'buyers.show',
