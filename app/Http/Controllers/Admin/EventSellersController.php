@@ -32,12 +32,14 @@ class EventSellersController extends Controller
             ->get();
         return $sellers;
     }
+
     public function createWithEvent($event_id)
     {
         return view('admin.event-sellers.create')
-            ->with('event_id',$event_id)
+            ->with('event_id', $event_id)
             ->with('sellers', $this->getSellers($event_id));
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -66,7 +68,7 @@ class EventSellersController extends Controller
      */
     public function create()
     {
-        return view('admin.event-sellers.create')->with('fs_names',$this->getSellerNames());
+        return view('admin.event-sellers.create')->with('fs_names', $this->getSellerNames());
     }
 
     /**
@@ -88,19 +90,31 @@ class EventSellersController extends Controller
         $event_seller->seller_id = $seller->id;
         $event_seller->save();
 
-        for ($i = 1; array_key_exists('seller_id'.$i, $requestData); $i++) {
-            $seller = Seller::find($requestData['seller_id'.$i]);
-            $seller->event_id = $request->event_id;
-            $seller->save();
+        for ($i = 1; array_key_exists('seller_id' . $i, $requestData); $i++) {
+            $seller = Seller::find($requestData['seller_id' . $i]);
+//            EventSeller::firstOrCreate(
+//                ['event_id' => $request->event_id],
+//                ['seller_id' => $seller->id]
+//            );
+            if (!EventSeller::where('event_id', $request->event_id)->where('seller_id', $seller->id)->exists()) {
+                $event_seller = new EventSeller();
+                $event_seller->event_id = $request->event_id;
+                $event_seller->seller_id = $seller->id;
+                $event_seller->save();
+            }
+
+
+//            $seller->event_id = $request->event_id;
+//            $seller->save();
         }
 //        EventSeller::create($requestData);
-        return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventSeller added!');
+        return redirect('admin/events/' . $request->event_id)->with('flash_message', 'EventSeller added!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -114,7 +128,7 @@ class EventSellersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -129,15 +143,15 @@ class EventSellersController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
     {
-        
+
         $requestData = $request->all();
-        
+
         $eventseller = EventSeller::findOrFail($id);
         $eventseller->update($requestData);
 
@@ -147,7 +161,7 @@ class EventSellersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -160,13 +174,14 @@ class EventSellersController extends Controller
 
     public function delete($event_id, $seller_id)
     {
-        $seller = Seller::find($seller_id);
-        $seller->event_id = null;
-        $seller->save();
+//        $seller = Seller::find($seller_id);
+//        $seller->event_id = null;
+//        $seller->save();
+        EventSeller::where('event_id', $event_id)
+            ->where('seller_id', $seller_id)
+            ->delete();
 
-
-
-        return redirect('admin/events/'.$event_id)->with('flash_message', 'EventSeller deleted!');
+        return redirect('admin/events/' . $event_id)->with('flash_message', 'EventSeller deleted!');
 //        return redirect('admin/event-buyers')->with('flash_message', 'EventBuyer deleted!');
     }
 }

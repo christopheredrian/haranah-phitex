@@ -178,9 +178,9 @@
                         <table id="sellers-table" class="table table-compresed table-borderless data-table">
                             <thead>
                             <tr>
-                                <th>Comapany</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th>Position</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Country</th>
@@ -189,9 +189,9 @@
                             </thead>
                             <tfoot>
                             <tr>
+                                <th>Name</th>
                                 <th>Company</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>Position</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Country</th>
@@ -201,9 +201,9 @@
                             <tbody>
                             @foreach($sellers as $s)
                                 <tr>
+                                    <td>{{ $s->user->name }}</td>
                                     <td>{{ $s->company_name }}</td>
-                                    <td>{{ $s->user->first_name }}</td>
-                                    <td>{{ $s->user->last_name }}</td>
+                                    <td>{{ $s->position }}</td>
                                     <td>{{ $s->user->email }}</td>
                                     <td>{{ $s->phone }}</td>
                                     <td>{{ $s->country }}</td>
@@ -231,9 +231,9 @@
                         <table id="buyers-table" class="table table-compresed table-borderless data-table">
                             <thead>
                             <tr>
+                                <th>Name</th>
                                 <th>Company</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>Position</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Country</th>
@@ -242,9 +242,9 @@
                             </thead>
                             <tfoot>
                             <tr>
+                                <th>Name</th>
                                 <th>Company</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>Position</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Country</th>
@@ -254,9 +254,9 @@
                             <tbody>
                             @foreach($buyers as $b)
                                 <tr>
+                                    <td>{{ $b->user->name }}</td>
                                     <td>{{ $b->company_name }}</td>
-                                    <td>{{ $b->user->first_name }}</td>
-                                    <td>{{ $b->user->last_name }}</td>
+                                    <td>{{ $b->position }}</td>
                                     <td>{{ $b->user->email }}</td>
                                     <td>{{ $b->phone }}</td>
                                     <td>{{ $b->country }}</td>

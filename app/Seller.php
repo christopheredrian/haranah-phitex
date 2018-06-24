@@ -36,7 +36,8 @@ class Seller extends Model
         'country',
         'website',
         'phone',
-        'products'
+        'products',
+        'position',
     ];
 
     public function user()

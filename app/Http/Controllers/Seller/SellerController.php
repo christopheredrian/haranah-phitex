@@ -467,14 +467,14 @@ class SellerController extends Controller
         if (!empty($request->values)) {
             foreach ($request->values as $item) {
                 $seller_preference = \App\SellerPreference::create();
-                $seller_preference->event_id = Auth::user()->seller->event->id;
+                $seller_preference->event_id = $request->event_id;
                 $seller_preference->seller_id = Auth::user()->seller->id;
                 $pieces = explode("-", $item);
                 $seller_preference->buyer_id = $pieces[0];
                 $seller_preference->rank = $pieces[1];
                 $seller_preference->save();
             }
-            return redirect('seller/home');
+            return redirect('seller/home/' . $request->event_id);
         } else {
             return redirect('seller/pick')->with('status', 'No Buyers selected!');
         }

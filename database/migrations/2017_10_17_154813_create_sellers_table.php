@@ -27,6 +27,7 @@ class CreateSellersTable extends Migration
             $table->string('designation')->nullable();
             $table->string('products')->nullable();
             $table->string('website')->nullable();
+            $table->string('position')->nullable();
 
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

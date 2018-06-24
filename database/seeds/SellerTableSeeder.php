@@ -22,7 +22,7 @@ class SellerTableSeeder extends Seeder
         foreach ($all_sellers as $seller){
             $new_seller = new Seller();
             $new_seller->id = $counter;
-            $new_seller->event_id = 1;
+//            $new_seller->event_id = 1;
             $new_seller->user_id = $seller->id;
             $new_seller->company_name = $faker->company;
             $new_seller->company_address = $faker->address;

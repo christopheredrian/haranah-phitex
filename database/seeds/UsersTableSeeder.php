@@ -18,8 +18,7 @@ class UsersTableSeeder extends Seeder
         $users = array(
             [
                 'id' => 1,
-                'first_name' => 'Super',
-                'last_name' => 'Admin',
+                'name' => 'Super Admin',
                 'email' => 'superadmin@haranah.com',
                 'password' => bcrypt('superadmin'),
                 'role' => ('superadmin'),
@@ -28,8 +27,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'first_name' => 'Chris',
-                'last_name' => 'Espiritu',
+                'name' => 'Chris',
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('admin'),
                 'role' => ('admin'),
@@ -38,8 +36,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'first_name' => 'Sean',
-                'last_name' => 'Genove',
+                'name' => 'Sean Genove',
                 'email' => 'admins@gmail.com',
                 'password' => bcrypt('password'),
                 'role' => ('admin'),
@@ -135,8 +132,7 @@ class UsersTableSeeder extends Seeder
         for ($i = 1; $i <= 30; $i++) {
             DB::table('users')->insert([
                 'id' => ($i+3),
-                'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName,
+                'name' => $faker->name,
                 'email' => "buyer".($i)."@gmail.com",
                 'password' => bcrypt('password'),
                 'role' => "buyer",
@@ -149,8 +145,7 @@ class UsersTableSeeder extends Seeder
         for ($i = 1; $i <= 20; $i++) {
             DB::table('users')->insert([
                 'id' => ($i+33),
-                'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName,
+                'name' => $faker->name,
                 'email' => "seller".($i)."@gmail.com",
                 'password' => bcrypt('password'),
                 'role' => "seller",
