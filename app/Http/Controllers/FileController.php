@@ -58,7 +58,6 @@ class FileController extends Controller
                             }
                         }
                     } catch(Exception $e) {
-                        dd($e);
                         Session::flash('flash_message','The following columns are required in the Excel file: Name, Position, Company, Email.');
                         Session::flash('alert-class','alert-danger');
 
@@ -88,14 +87,12 @@ class FileController extends Controller
                     foreach ($imported_users as $imported_buyer) {
                         $imported_buyer_id = User::where('email', $imported_buyer['email'])->first()->buyer->id;
 
-                        BuyerEvent::firstOrCreate(
-                            ['event_id' => $event_id],
-                            ['buyer_id' => $imported_buyer_id]
-                        );
-//                        $event_buyer = new BuyerEvent();
-//                        $event_buyer->event_id = $event_id;
-//                        $event_buyer->buyer_id = $imported_buyer_id;
-//                        $event_buyer->save();
+                        if (!BuyerEvent::where('event_id', $event_id)->where('buyer_id', $imported_buyer_id)->exists()) {
+                            $event_buyer = new BuyerEvent();
+                            $event_buyer->event_id = $event_id;
+                            $event_buyer->buyer_id = $imported_buyer_id;
+                            $event_buyer->save();
+                        }
                     }
                 }
 
@@ -118,14 +115,12 @@ class FileController extends Controller
                     foreach ($imported_users as $imported_seller) {
                         $imported_seller_id = User::where('email', $imported_seller['email'])->first()->seller->id;
 
-                        EventSeller::firstOrCreate(
-                            ['event_id' => $event_id],
-                            ['buyer_id' => $imported_seller_id]
-                        );
-//                        $event_seller = new EventSeller();
-//                        $event_seller->event_id = $event_id;
-//                        $event_seller->seller_id = $imported_seller_id;
-//                        $event_seller->save();
+                        if (!EventSeller::where('event_id', $event_id)->where('seller_id', $imported_seller_id)->exists()) {
+                            $event_seller = new EventSeller();
+                            $event_seller->event_id = $event_id;
+                            $event_seller->seller_id =  $imported_seller_id;
+                            $event_seller->save();
+                        }
                     }
                 }
                 Session::flash('flash_message', 'Import Complete! ' . $user_count . ($user_count > 1 ? ' sellers ' : ' seller') . ' added ' . 'to ' . $event_name. '!');
@@ -134,7 +129,6 @@ class FileController extends Controller
             return redirect('admin/events/' . $event_id);
 
         } catch(Exception $e) {
-            dd($e);
             Session::flash('flash_message','An error occurred. There might be invalid columns in the  import file or some emails are already taken.');
             Session::flash('alert-class','alert-danger');
 
