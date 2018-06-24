@@ -27,6 +27,7 @@ class CreateBuyersTable extends Migration
             $table->string('event_rep2')->nullable();
             $table->string('designation')->nullable();
             $table->string('website')->nullable();
+            $table->string('position')->nullable();
 
             $table->foreign('event_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

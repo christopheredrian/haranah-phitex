@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Buyer;
+use App\BuyerEvent;
 use App\Event;
 use App\EventBuyer;
 use App\EventSeller;
@@ -19,68 +20,112 @@ class FileController extends Controller
     public function importBuyersOrSellers(Request $request){
         try{
             $path = $request->file('file')->getRealPath();
-            $data = Excel::load($path, function($reader) {})->get();
+            $data = Excel::load($path, function($reader) {})->get()->toArray();
+            $data = array_filter($data, function($value){
+                return isset($value['name']);
+            });
             $event_id = $request->event_id;
             $event_name = Event::find($event_id)->first()->event_name;
             $user_type = $request->user_type;
+            $imported_users[] = array();
+            $new_imported_users[] = array();
+
+            unset($imported_users[0]);
+            unset($new_imported_users[0]);
 
             // Import to USERS table
-            if(!empty($data) && $data->count()){
-                $data = $data->toArray();
+            if(!empty($data) && count($data)){
                 for($i=0;$i<count($data);$i++)
                 {
                     // remove unnecessary column 0
                     unset($data[$i][0]);
 
-                    $data[$i]['role'] = $user_type;
-                    $data[$i]['activated'] = 0;
+                    try {
+                        if(isset($data[$i]['name']) && isset($data[$i]['email']) && isset($data[$i]['position']) && isset($data[$i]['company'])){
+                            array_push($imported_users, $data[$i]);
 
-                    if(isset($data[$i]['email'])){
-                        $dataImported[] = $data[$i];
-                        $importedUsers[] = $data[$i]['email'];
+                            // check if account exists using email
+                            if(User::where('email', $data[$i]['email'])->count() == false){
+                                $new_user = new User();
+                                $new_user->name = $data[$i]['name'];
+                                $new_user->email = $data[$i]['email'];
+                                $new_user->password = bcrypt('password');
+                                $new_user->role = $user_type;
+                                $new_user->activated = 1;
+                                $new_user->save();
+
+                                array_push($new_imported_users, $data[$i]);
+                            }
+                        }
+                    } catch(Exception $e) {
+                        dd($e);
+                        Session::flash('flash_message','The following columns are required in the Excel file: Name, Position, Company, Email.');
+                        Session::flash('alert-class','alert-danger');
+
+                        return redirect('admin/events/'.$event_id);
                     }
+
                 }
             }
 
-            User::insert($dataImported);
-            $buyerCount = count($dataImported);
+            $user_count = count($imported_users);
 
             // Import to BUYERS or SELLERS table
             if($user_type == 'buyer'){
-                foreach ($importedUsers as $importedBuyer){
-                    $buyer_user_id = User::where('email', '=', $importedBuyer)->first()->id;
-                    $buyer = new Buyer();
-                    $buyer->user_id = $buyer_user_id;
-                    $buyer->save();
-
-                    $event_buyer = new EventBuyer();
-                    $event_buyer->event_id = $event_id;
-                    $event_buyer->buyer_id = $buyer->id;
-                    $event_buyer->save();
+                if(count($new_imported_users) > 0){
+                    foreach ($new_imported_users as $new_imported_buyer){
+                        $buyer_user_id = User::where('email', '=', $new_imported_buyer['email'])->first()->id;
+                        $buyer = new Buyer();
+                        $buyer->company_name = $new_imported_buyer['company'];
+                        $buyer->position = $new_imported_buyer['position'];
+                        $buyer->user_id = $buyer_user_id;
+                        $buyer->save();
+                    }
                 }
 
-                Session::flash('flash_message',
-                    'Import Complete! ' . $buyerCount . ($buyerCount > 1 ? ' buyers ' : ' buyer') . ' added ' . 'to ' . $event_name. '!');
+                if(count($imported_users) > 0){
+                    foreach ($imported_users as $imported_buyer) {
+                        $imported_buyer_id = User::where('email', $imported_buyer['email'])->first()->buyer->id;
+
+                        $event_buyer = new BuyerEvent();
+                        $event_buyer->event_id = $event_id;
+                        $event_buyer->buyer_id = $imported_buyer_id;
+                        $event_buyer->save();
+                    }
+                }
+
+                Session::flash('flash_message', 'Import Complete! ' . $user_count . ($user_count > 1 ? ' buyers ' : ' buyer') . ' added ' . 'to ' . $event_name. '!');
             } elseif ($user_type == 'seller'){
-                foreach ($importedUsers as $importedSeller){
-                    $seller_user_id = User::where('email', '=', $importedSeller)->first()->id;
-                    $seller = new Seller();
-                    $seller->user_id = $seller_user_id;
-                    $seller->save();
+                if(count($new_imported_users) > 0){
+                    foreach ($new_imported_users as $new_imported_seller){
+                        $seller_user_id = User::where('email', '=', $new_imported_seller['email'])->first()->id;
 
-                    $event_buyer = new EventSeller();
-                    $event_buyer->event_id = $event_id;
-                    $event_buyer->seller_id = $seller->id;
-                    $event_buyer->save();
+                        $seller = new Seller();
+                        $seller->company_name = $new_imported_seller['company'];
+                        $seller->position = $new_imported_seller['position'];
+                        $seller->user_id = $seller_user_id;
+                        $seller->save();
+
+                    }
                 }
 
-                Session::flash('flash_message',
-                    'Import Complete! ' . $buyerCount . ($buyerCount > 1 ? ' sellers ' : ' seller') . ' added ' . 'to ' . $event_name. '!');
+                if(count($imported_users) > 0){
+                    foreach ($imported_users as $imported_seller) {
+                        $imported_seller_id = User::where('email', $imported_seller['email'])->first()->seller->id;
+
+                        $event_seller = new EventSeller();
+                        $event_seller->event_id = $event_id;
+                        $event_seller->seller_id = $imported_seller_id;
+                        $event_seller->save();
+                    }
+                }
+                Session::flash('flash_message', 'Import Complete! ' . $user_count . ($user_count > 1 ? ' sellers ' : ' seller') . ' added ' . 'to ' . $event_name. '!');
             }
 
-            return redirect('admin/events/'.$event_id);
+            return redirect('admin/events/' . $event_id);
 
         } catch(Exception $e) {
+            dd($e);
             Session::flash('flash_message','An error occurred. There might be invalid columns in the  import file or some emails are already taken.');
             Session::flash('alert-class','alert-danger');
 

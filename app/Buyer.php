@@ -36,7 +36,8 @@ class Buyer extends Model
         'email',
         'country',
         'website',
-        'phone'
+        'phone',
+        'position',
     ];
 
     public function user()
