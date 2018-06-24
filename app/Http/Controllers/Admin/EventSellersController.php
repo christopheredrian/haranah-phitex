@@ -92,14 +92,17 @@ class EventSellersController extends Controller
 
         for ($i = 1; array_key_exists('seller_id' . $i, $requestData); $i++) {
             $seller = Seller::find($requestData['seller_id' . $i]);
-            EventSeller::firstOrCreate(
-                ['event_id' => $request->event_id],
-                ['seller_id' => $seller->id]
-            );
-//            $event_seller = new EventSeller();
-//            $event_seller->event_id = $request->event_id;
-//            $event_seller->seller_id = $seller->id;
-//            $event_seller->save();
+//            EventSeller::firstOrCreate(
+//                ['event_id' => $request->event_id],
+//                ['seller_id' => $seller->id]
+//            );
+            if (!EventSeller::where('event_id', $request->event_id)->where('seller_id', $seller->id)->exists()) {
+                $event_seller = new EventSeller();
+                $event_seller->event_id = $request->event_id;
+                $event_seller->seller_id = $seller->id;
+                $event_seller->save();
+            }
+
 
 //            $seller->event_id = $request->event_id;
 //            $seller->save();
@@ -171,10 +174,12 @@ class EventSellersController extends Controller
 
     public function delete($event_id, $seller_id)
     {
-        $seller = Seller::find($seller_id);
-        $seller->event_id = null;
-        $seller->save();
-
+//        $seller = Seller::find($seller_id);
+//        $seller->event_id = null;
+//        $seller->save();
+        EventSeller::where('event_id', $event_id)
+            ->where('seller_id', $seller_id)
+            ->delete();
 
         return redirect('admin/events/' . $event_id)->with('flash_message', 'EventSeller deleted!');
 //        return redirect('admin/event-buyers')->with('flash_message', 'EventBuyer deleted!');
