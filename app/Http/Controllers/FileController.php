@@ -75,6 +75,7 @@ class FileController extends Controller
                 if(count($new_imported_users) > 0){
                     foreach ($new_imported_users as $new_imported_buyer){
                         $buyer_user_id = User::where('email', '=', $new_imported_buyer['email'])->first()->id;
+
                         $buyer = new Buyer();
                         $buyer->company_name = $new_imported_buyer['company'];
                         $buyer->position = $new_imported_buyer['position'];
@@ -87,10 +88,14 @@ class FileController extends Controller
                     foreach ($imported_users as $imported_buyer) {
                         $imported_buyer_id = User::where('email', $imported_buyer['email'])->first()->buyer->id;
 
-                        $event_buyer = new BuyerEvent();
-                        $event_buyer->event_id = $event_id;
-                        $event_buyer->buyer_id = $imported_buyer_id;
-                        $event_buyer->save();
+                        BuyerEvent::firstOrCreate(
+                            ['event_id' => $event_id],
+                            ['buyer_id' => $imported_buyer_id]
+                        );
+//                        $event_buyer = new BuyerEvent();
+//                        $event_buyer->event_id = $event_id;
+//                        $event_buyer->buyer_id = $imported_buyer_id;
+//                        $event_buyer->save();
                     }
                 }
 
@@ -113,10 +118,14 @@ class FileController extends Controller
                     foreach ($imported_users as $imported_seller) {
                         $imported_seller_id = User::where('email', $imported_seller['email'])->first()->seller->id;
 
-                        $event_seller = new EventSeller();
-                        $event_seller->event_id = $event_id;
-                        $event_seller->seller_id = $imported_seller_id;
-                        $event_seller->save();
+                        EventSeller::firstOrCreate(
+                            ['event_id' => $event_id],
+                            ['buyer_id' => $imported_seller_id]
+                        );
+//                        $event_seller = new EventSeller();
+//                        $event_seller->event_id = $event_id;
+//                        $event_seller->seller_id = $imported_seller_id;
+//                        $event_seller->save();
                     }
                 }
                 Session::flash('flash_message', 'Import Complete! ' . $user_count . ($user_count > 1 ? ' sellers ' : ' seller') . ' added ' . 'to ' . $event_name. '!');
