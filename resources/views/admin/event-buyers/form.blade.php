@@ -24,7 +24,7 @@
 </div>
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
-        <input class="btn btn-primary" type="submit" value="{{ $submitButtonText or 'Create' }}">
+        <input class="btn btn-primary" type="submit" value="{{ $submitButtonText or 'Add' }}">
     </div>
 </div>
 
@@ -38,7 +38,7 @@
                 '        <select name="buyer_id'+count+'" id="buyer_id'+count+'" class="form-control">\n' +
                 '            @foreach($buyers as $buyer)\n' +
                 '                {{--<option value="{{array_search ($buyer_name, $buyer_names)}}">{{$buyer_name}}</option>--}}\n' +
-                '                <option value="{{ $buyer->id }}">{{$buyer->company_name}}</option>\n' +
+                '                <option value="{{ $buyer->id }}">({{ $buyer->user->email }}) {{$buyer->company_name}}</option>\n' +
                 '            @endforeach\n' +
                 '\n' +
                 '\n' +

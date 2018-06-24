@@ -89,8 +89,17 @@ class EventBuyersController extends Controller
 
         for ($i = 1; array_key_exists('buyer_id'.$i, $requestData); $i++) {
             $buyer = Buyer::find($requestData['buyer_id'.$i]);
-            $buyer->event_id = $request->event_id;
-            $buyer->save();
+            EventSeller::firstOrCreate(
+                ['event_id' => $request->event_id],
+                ['buyer_id' => $buyer->id]
+            );
+//            $buyer_event = new BuyerEvent();
+//            $buyer_event->event_id = $request->event_id;
+//            $buyer_event->buyer_id = $buyer->id;
+//            $buyer_event->save();
+
+//            $buyer->event_id = $request->event_id;
+//            $buyer->save();
         }
         return redirect('admin/events/'.$request->event_id)
             ->with('flash_message', 'EventBuyer added!');
