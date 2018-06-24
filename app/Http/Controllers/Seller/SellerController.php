@@ -463,6 +463,7 @@ class SellerController extends Controller
      */
     public function submitPreferences(Request $request)
     {
+        dd($request->values);
         // Get values from request
         if (!empty($request->values)) {
             foreach ($request->values as $item) {
