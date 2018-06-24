@@ -171,10 +171,12 @@ class EventSellersController extends Controller
 
     public function delete($event_id, $seller_id)
     {
-        $seller = Seller::find($seller_id);
-        $seller->event_id = null;
-        $seller->save();
-
+//        $seller = Seller::find($seller_id);
+//        $seller->event_id = null;
+//        $seller->save();
+        EventSeller::where('event_id', $event_id)
+            ->where('seller_id', $seller_id)
+            ->delete();
 
         return redirect('admin/events/' . $event_id)->with('flash_message', 'EventSeller deleted!');
 //        return redirect('admin/event-buyers')->with('flash_message', 'EventBuyer deleted!');
