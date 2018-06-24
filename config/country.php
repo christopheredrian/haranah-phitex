@@ -7,7 +7,7 @@
  * I normally place it inside config folder
  */
 return [
-    "" => "Select Country",
+    "" => "",
     "ax" => "Aland Islands",
     "al" => "Albania",
     "dz" => "Algeria",
