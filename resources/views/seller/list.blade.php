@@ -48,7 +48,7 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                
+
                                 <table id="buyer-list" class="display table table-responsive table-striped data-sortable">
                                     <thead>
                                     <tr>
@@ -135,7 +135,9 @@
                                     </table>
                                     <form id="submit-form" action="/seller/submitPick"
                                           method="post">
+                                        <input type="hidden" name="event_id" value="{{ $event->id }}">
                                         {{ csrf_field() }}
+
                                         {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
                                         {{--Submit List</button>--}}
                                         <button type="submit" class="btn btn-primary pull-right">Submit</button>
@@ -162,7 +164,7 @@
         $(document).ready(function () {
             // Global vars
             var selectedCounter = 0;
-            
+
 //            $('#buyer-list').DataTable({
 //                paging: false,
 //                "scrollY":        "200px",
@@ -175,7 +177,7 @@
 //                "scrollCollapse": true,
 //            });
             $('.dataTables_empty').remove();
-        
+
             function updateHiddenInputs() {
                 // add input type hidden
                 $('#submit-form input.buyer-id').remove();
