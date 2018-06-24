@@ -92,14 +92,17 @@ class EventSellersController extends Controller
 
         for ($i = 1; array_key_exists('seller_id' . $i, $requestData); $i++) {
             $seller = Seller::find($requestData['seller_id' . $i]);
-            EventSeller::firstOrCreate(
-                ['event_id' => $request->event_id],
-                ['seller_id' => $seller->id]
-            );
-//            $event_seller = new EventSeller();
-//            $event_seller->event_id = $request->event_id;
-//            $event_seller->seller_id = $seller->id;
-//            $event_seller->save();
+//            EventSeller::firstOrCreate(
+//                ['event_id' => $request->event_id],
+//                ['seller_id' => $seller->id]
+//            );
+            if (!EventSeller::where('event_id', $request->event_id)->where('seller_id', $seller->id)->exists()) {
+                $event_seller = new EventSeller();
+                $event_seller->event_id = $request->event_id;
+                $event_seller->seller_id = $seller->id;
+                $event_seller->save();
+            }
+
 
 //            $seller->event_id = $request->event_id;
 //            $seller->save();
