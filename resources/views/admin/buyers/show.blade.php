@@ -45,13 +45,18 @@
                                     <td>{{ $buyer->company_name}}</td>
                                 </tr>
                                 <tr>
+                                    <th>Company Address</th>
+                                    <td>{{ $buyer->company_address}}</td>
+                                </tr>
+                                <tr>
                                     <th>Country</th>
                                     <td>{{ $buyer->country}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Address</th>
-                                    <td>{{ $buyer->company_address}}</td>
+                                    <th>Website</th>
+                                    <td>{{ $buyer->website}}</td>
                                 </tr>
+
                                 <tr>
                                     <th>Contact Number</th>
                                     <td>{{ $buyer->phone}}</td>
@@ -68,11 +73,6 @@
                                     <th>Designation</th>
                                     <td>{{ $buyer->designation}}</td>
                                 </tr>
-                                <tr>
-                                    <th>Website</th>
-                                    <td>{{ $buyer->website}}</td>
-                                </tr>
-
 
 
                                 {{-- company_name,  company_address, country  phone, , event, event_rep1,
