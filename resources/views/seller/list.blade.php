@@ -20,13 +20,15 @@
         table#selected-buyer-list tr.placeholder:before {
             position: absolute;
         }
+
+
     </style>
 @endsection
 
 <!-- main content -->
 @section('content')
 <section class="content-header">
-      <a href="home"><button class="btn btn-lg btn-primary "><span class="fa fa-caret-left"></span> Back to Home</button></a>
+      <a href="home"><button class="btn btn-sm btn-primary "><span class="fa fa-caret-left"></span> Back to Home</button></a>
     </section>
 
     <!-- List of All Buyers-->
@@ -66,10 +68,39 @@
                                             </td>
                                             <!-- //pass $buyer->user_id-->
                                             <td class="action-btn-group">
-                                                <input type="button" class="btn btn-sm btn-primary" onclick="location.href='{{ $buyer->user_id }}/profile';" value="View Profile" />
-                                                <button type="button" class="add-btn btn btn-sm btn-success">Add to
+                                                {{--<input type="button" class="btn btn-sm btn-primary" onclick="location.href='{{ $buyer->user_id }}/profile';" value="View Profile" />--}}
+                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal{{$buyer->id}}">View Profile</button>
+                                                <button type="button" class="add-btn btn btn-sm btn-success"> Add to
                                                     List
                                                 </button>
+                                                <div class="modal fade" id="modal{{$buyer->id}}" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                <h4 class="modal-title">REMINDER</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                phone{{ $buyer->phone }} <br>
+                                                                country{{ $buyer->country }} <br>
+                                                                company photo{{ $buyer->company_bg }} <br>
+                                                                company logo{{ $buyer->company_logo }} <br>
+                                                                comapny name{{ $buyer->company_name }} <br>
+                                                                address{{ $buyer->company_address }} <br>
+
+                                                                Event Representative 1{{ $buyer->event_rep1 }} <br>
+                                                                Event Representative 2{{ $buyer->event_rep2 }} <br>
+                                                                Designation{{ $buyer->designation }} <br>
+                                                                Website{{ $buyer->website   }} <br>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Accept</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -117,24 +148,8 @@
             </div>
         </div>
         </div>
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">REMINDER</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Lorem Ipsum...</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Accept</button>
-                    </div>
-                </div>
 
-            </div>
-        </div>
-    </div>s
+    </div>
 
 @endsection
 
@@ -142,82 +157,23 @@
 
     <script type="text/javascript" charset="utf8" src="/bower_components/DataTables/datatables.js"></script>
     <script type="text/javascript" src="/bower_components/jquery-sortable/jquery-sortable.js"></script>
-    {{--<script type="text/javascript">--}}
-    {{--var array = new Array();--}}
-    {{--function printList(a,b,c) {--}}
-    {{--var old_tbody=document.getElementById("preference_table");--}}
-    {{--old_tbody.innerHTML='';--}}
-
-    {{--array.push({last_name:a,first_name:b,id:c});--}}
-    {{--printTable(array);--}}
-
-    {{--}--}}
-
-    {{--function printTable(array) {--}}
-    {{--var table = document.getElementById("preference_table");--}}
-
-    {{--for (var i = 0, len = array.length; i < len; i++) {--}}
-    {{--var row = table.insertRow(0);--}}
-    {{--var cell1 = row.insertCell(0);--}}
-    {{--var cell2 = row.insertCell(1);--}}
-    {{--var cell3 = row.insertCell(2);--}}
-    {{--cell1.innerHTML=array[i].last_name+" "+array[i].first_name;--}}
-    {{--cell3.innerHTML='<button type="button" class="btn btn-md btn-danger" onclick="removeFromList('+i+');">Remove from list</button>';--}}
-    {{--}--}}
-    {{--}--}}
-    {{--function removeFromList(i){--}}
-    {{--array.splice(i, 1);--}}
-    {{--//        var new_tbody = document.createElement('tbody');--}}
-    {{--//        new_tbody.id="preference_table";--}}
-    {{--var old_tbody=document.getElementById("preference_table");--}}
-    {{--//        old_tbody.parentNode.replaceChild(new_tbody, old_tbody);--}}
-    {{--old_tbody.innerHTML='';--}}
-    {{--printTable(array);--}}
-
-
-
-
-    {{--}--}}
-
-    {{--$(document).ready(function() {--}}
-    {{--$('#buyer-list').DataTable({--}}
-    {{--searching: true,--}}
-    {{--stateSave: true,--}}
-    {{--autoWidth : true,--}}
-    {{--pagingType: "simple",--}}
-    {{--});--}}
-    {{--$('#selected-buyer-list').DataTable({--}}
-    {{--searching: false,--}}
-    {{--stateSave: true,--}}
-    {{--autoWidth : true,--}}
-    {{--lengthChange: false,--}}
-    {{--searching  : false,--}}
-    {{--ordering   : false,--}}
-    {{--pagingType: "simple"--}}
-    {{--});--}}
-    {{--$('#selected-buyer-list').sortable({--}}
-    {{--containerSelector: 'table',--}}
-    {{--itemPath: '> tbody',--}}
-    {{--itemSelector: 'tr',--}}
-    {{--placeholder: '<tr class="placeholder"/>'--}}
-    {{--});--}}
-    {{--})--}}
-    {{--</script>--}}
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function () {
+            // Global vars
+            var selectedCounter = 0;
             
-            $('#buyer-list').DataTable({
-                paging: false,
-                "scrollY":        "200px",
-                "scrollCollapse": true
-            });
-            $('#selected-buyer-table').DataTable({
-                info: false,
-                paging: false,
-                "scrollY":        "200px",
-                "scrollCollapse": true,
-            });
+//            $('#buyer-list').DataTable({
+//                paging: false,
+//                "scrollY":        "200px",
+//                "scrollCollapse": true
+//            });
+//            $('#selected-buyer-table').DataTable({
+//                info: false,
+//                paging: false,
+//                "scrollY":        "200px",
+//                "scrollCollapse": true,
+//            });
             $('.dataTables_empty').remove();
         
             function updateHiddenInputs() {
@@ -229,10 +185,13 @@
                     $input.val($input.val() + '-' + (index + 1));
                     $('#submit-form').append($input);
                 });
+                $('#preference_table tr').each(function(index, value){
+                    $(this).find('td').last().text(index + 1);
+                });
             }
 
             var util = function () {
-
+                selectedCounter++;
                 var currentElement = $(this).parent().parent();
                 currentElement.find('button').remove();
                 var removeBtn = $('<button class="btn btn-sm btn-danger">');
@@ -240,6 +199,7 @@
 
                 // Append this element to above
                 removeBtn.click(function () {
+                    selectedCounter--;
                     var tdToRemove = $(this).parent().parent();
                     var addBtn = $('<button class="add-btn btn-sm btn btn-success">');
                     addBtn.text("Add to List");
@@ -269,6 +229,7 @@
                     $(this).children().each(function (index) {
                         $(this).find('td').last().html(index + 1)
                     });
+                    updateHiddenInputs();
                 }
             });
 
