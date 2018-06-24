@@ -33,7 +33,7 @@ class SellerPreference extends Model
     public static function getSellersWithoutPreferences($event_id){
 //        return Seller::whereNotIn('id',SellerPreference::where('event_id', '=', $event_id)
 //            ->pluck('seller_id'))->get();
-        return Seller::where('event_id', '=', $event_id)->whereNotIn('id', SellerPreference::where('event_id', '=', $event_id)
+        return EventSeller::where('event_id', '=', $event_id)->whereNotIn('id', SellerPreference::where('event_id', '=', $event_id)
             ->pluck('seller_id'))->get();
     }
 }

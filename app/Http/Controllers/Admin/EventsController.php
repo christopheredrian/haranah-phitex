@@ -185,6 +185,7 @@ class EventsController extends Controller
     public function closeRegistration($id)
     {
 //       DB::transaction(function() use ($id){
+
            $event = Event::FindorFail($id);
            $event->event_status="Registration Closed";
            $event->save();
@@ -194,6 +195,7 @@ class EventsController extends Controller
 //            EventSeller::where('event_id','=',$id)->pluck('seller_id'))
 //            ->whereNotIn('id',\App\SellerPreference::where('event_id', '=', $id)->pluck('seller_id'))->get();
            $noSellerPreference = SellerPreference::getSellersWithoutPreferences($id);
+
            // TODO: Refactor for 1:M
 //        $eventBuyers = \App\Buyer::whereIn('id',EventBuyer::where('event_id','=',$id)->pluck('buyer_id'))->get();
            $eventBuyers = $event->buyers;
