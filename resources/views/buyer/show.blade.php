@@ -64,11 +64,11 @@
                     </div>
                 </div>
                 {{--<div class="bottom">--}}
-                    {{--<a href="{{ url('/buyer/edit') }}" title="Edit buyer">--}}
-                        {{--<button class="btn btn-primary btn-md"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>--}}
-                            {{--Edit--}}
-                        {{--</button>--}}
-                    {{--</a>--}}
+                {{--<a href="{{ url('/buyer/edit') }}" title="Edit buyer">--}}
+                {{--<button class="btn btn-primary btn-md"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>--}}
+                {{--Edit--}}
+                {{--</button>--}}
+                {{--</a>--}}
                 {{--</div>--}}
             </div>
 
@@ -99,18 +99,15 @@
                     <br/>
 
                     <div class="active tab-pane" id="event">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Event Details
+
+                        <div class="box box-solid">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">{{$buyerEvent->event_name}}</h4>
                             </div>
-                            <div class="panel-body">
+                            <div class="box-body">
                                 <div class="table-responsive">
                                     <table class="table table-borderless">
                                         <tbody>
-                                        <tr>
-                                            <th>Event</th>
-                                            <td>{{ $buyerEvent->event_name }}</td>
-                                        </tr>
                                         <tr>
                                             <th>Venue</th>
                                             <td>{{ $buyerEvent->event_place }}</td>
@@ -127,36 +124,42 @@
                                     </table>
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
+
                     <div class="tab-pane" id="edit">
                         @include('buyer.edit')
                     </div>
+
                     <div class="tab-pane" id="final-schedule">
+
                         @if($schedule->isEmpty())
                             <div class="alert alert-info">
                                 <strong>Schedule not yet Available</strong>
                             </div>
                         @endif
 
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    Finalized Schedule
-                                    <br>
-                                    @if($schedule->isEmpty())
-                                    @else
-                                        <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
-                                            @endif
-                                            <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i
-                                                        class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                                Download PDF Schedule
-                                            </button>
-                                            @if($schedule->isEmpty())
-                                            @else
-                                        </a>
-                                    @endif
-                                </div>
+                        <div class="box box-solid">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">Finalized Schedule</h4>
+                                @if($schedule->isEmpty())
+                                @else
+                                    <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
+                                        @endif
+                                        <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}">
+                                            <i
+                                                    class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                            Download PDF Schedule
+                                        </button>
+                                        @if($schedule->isEmpty())
+                                        @else
+                                    </a>
+                                @endif
+                            </div>
 
+                            <div class="box-body">
                                 @foreach($schedule as $sched)
                                     <div class="pane-width text-center">
                                         <div class="panel panel-info">
@@ -166,10 +169,11 @@
                                                         @if($inf->event_param_id === $sched->id)
                                                             @foreach($seller as $bname)
                                                                 @if($bname->id === $inf->seller_id)
-                                                                    <img style="max-width: 290px" profile-user-img img-responsive
-                                                                         img-circle"
-                                                                    src="/uploads/buyer-{{ $bname->id }}.jpg"
-                                                                    alt="User profile picture">
+                                                                    <img style="max-width: 290px" profile-user-img
+                                                                         img-responsive
+                                                                         img-circle
+                                                                         src="/uploads/buyer-{{ $bname->id }}.jpg"
+                                                                         alt="User profile picture">
                                                                     @break
                                                                 @endif
                                                             @endforeach
@@ -214,14 +218,10 @@
                                     </div>
                                 @endforeach
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </div>
     </div>
 @endsection
