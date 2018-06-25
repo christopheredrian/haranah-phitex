@@ -1,18 +1,9 @@
-<div class="form-group {{ $errors->has('last_name') ? 'has-error' : ''}}">
-    <label for="last_name" class="col-md-4 col-xs-4 control-label">{{ 'Last Name' }}</label>
+<div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+    <label for="name" class="col-md-4 col-xs-4 control-label">{{ 'Name' }}</label>
     <div class="col-md-6 col-xs-6">
-        <input class="form-control" type="text" name="last_name" id="last_name"
-               value="{{ old('last_name', isset($administrator) ? $administrator->last_name : '' ) }}">
-        {!! $errors->first('last_name', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
-
-<div class="form-group {{ $errors->has('first_name') ? 'has-error' : ''}}">
-    <label for="first_name" class="col-md-4 col-xs-4 control-label">{{ 'First Name' }}</label>
-    <div class="col-md-6 col-xs-6">
-        <input class="form-control" type="text" name="first_name" id="first_name"
-               value="{{ old('first_name', isset($administrator) ? $administrator->first_name : '') }}">
-        {!! $errors->first('first_name', '<p class="help-block">:message</p>') !!}
+        <input class="form-control" type="text" name="name" id="name"
+               value="{{ old('name', isset($administrator) ? $administrator->name : '' ) }}">
+        {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 

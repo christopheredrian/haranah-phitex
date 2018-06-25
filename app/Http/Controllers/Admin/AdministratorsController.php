@@ -14,8 +14,7 @@ use Session;
 class AdministratorsController extends Controller
 {
     private $admin_validation = [
-        'last_name' => 'required',
-        'first_name' => 'required',
+        'name' => 'required',
         'email' => 'unique:users,email|email',
     ];
 
@@ -74,8 +73,7 @@ class AdministratorsController extends Controller
         $request->validate($this->admin_validation);
         $email = $request->email;
         $user = new User();
-        $user->last_name = $request->last_name;
-        $user->first_name = $request->first_name;
+        $user->name = $request->name;
 
         // insert password generator here
         $user->password = bcrypt("password");
