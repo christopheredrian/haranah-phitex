@@ -18,6 +18,8 @@ class CreateFinalSchedulesTable extends Migration
             $table->integer('buyer_id')->unsigned()->nullable();
             $table->integer('seller_id')->unsigned()->nullable();
             $table->integer('event_param_id')->unsigned()->nullable();
+            $table->integer('table')->unsigned()->nullable();
+
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('buyer_id')->references('id')->on('buyers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade')->onUpdate('cascade');

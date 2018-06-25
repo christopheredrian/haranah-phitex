@@ -90,6 +90,7 @@
                     <br>
                     @if($schedule->isEmpty())
                     @else
+                        {{--{{dd($event_id)}}--}}
                         <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
                             @endif
                             <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i
@@ -134,7 +135,7 @@
 
                                                 <li class="list-group-item">
                                                     <p>Owner:
-                                                        {{ $bname->last_name.', '.$bname->first_name }}
+                                                        {{ $bname->name }}
                                                     </p>
                                                 </li>
 

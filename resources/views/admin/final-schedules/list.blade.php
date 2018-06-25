@@ -14,10 +14,11 @@
                             <table class="table table-borderless table-hover">
                                 <thead>
                                 <tr>
-                                    <th>#</th><th>Event</th><th>Buyer</th><th>Seller</th><th>Schedule</th><th>Actions</th>
+                                    <th>#</th><th>Event</th><th>Buyer</th><th>Seller</th><th>Schedule</th><th>Table</th><th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+{{--                                {{dd($finalschedules)}}--}}
                                 @foreach($finalschedules as $item)
                                     <tr>
                                         {{-- id --}}
@@ -27,13 +28,17 @@
                                         <td>{{ $event }}</td>
 
                                         {{--buyer company name--}}
-                                        <td>{{ \App\Buyer::find($item->buyer_id)->company_name }}</td>
+                                        <td>
+                                            {{ \App\Buyer::find($item->buyer_id)->company_name }}
+                                        </td>
 
                                         {{--seller company name--}}
                                         <td>{{ \App\Seller::find($item->seller_id)->company_name }}</td>
 
                                         {{--scheduled time--}}
                                         <td>{{ $schedule_list[$item->event_param_id] }}</td>
+
+                                        <td>{{$item->table}}</td>
 
                                         <td>
                                             {{--<a href="{{ url('/admin/final-schedules/' . $item->id) }}" title="View FinalSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>--}}
@@ -49,6 +54,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+
                             <div class="pagination-wrapper"> {!! $finalschedules->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
                         <form id="submit-form" action="/admin/events/{{ $finalschedules->first()->event_id }}/finalizeSchedule" method="post">

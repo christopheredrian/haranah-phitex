@@ -25,7 +25,7 @@ class FinalSchedule extends Model
      *
      * @var array
      */
-    protected $fillable = ['event_id', 'buyer_id', 'seller_id', 'event_param_id'];
+    protected $fillable = ['event_id', 'buyer_id', 'seller_id', 'event_param_id', 'table'];
 
     public function event() {
         return $this->belongsTo('App\Event');

@@ -122,7 +122,7 @@ class BuyerProfilesController extends Controller
             ->with('buyerEvent', $eventOfBuyer)
             ->with('info', $info)
             ->with('seller', $seller)
-            ->with('event_id', $eventOfBuyer);
+            ->with('event_id', $eventOfBuyer->id);
     }
 
 
