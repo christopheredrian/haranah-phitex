@@ -34,9 +34,9 @@ class ResetPasswordController extends Controller
         if(Auth::user()->hasRole("admin") or Auth::user()->hasRole("superadmin")){
             return '/admin/home';
         } else if(Auth::user()->hasRole("buyer")){
-            return '/buyer/home';
+            return '/buyer/events';
         } else {
-            return '/seller/home';
+            return '/seller/events';
         }
     }
 
