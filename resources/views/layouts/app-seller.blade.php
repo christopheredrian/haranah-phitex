@@ -13,8 +13,8 @@
 
     <style>
 
-        .navbar-nav>.user-menu>.dropdown-menu {
-            width:auto !important;
+        .navbar-nav > .user-menu > .dropdown-menu {
+            width: auto !important;
             -webkit-border-radius: 0 !important;
             -moz-border-radius: 0 !important;
             border-radius: 0 !important;
@@ -28,20 +28,24 @@
         }
 
         .box.box-primary,
-        .nav-tabs-custom>.nav-tabs>li.active,
+        .nav-tabs-custom > .nav-tabs > li.active,
         .box.box-info {
             border-top-color: #605ca8 !important;
         }
+
         .box {
             border-radius: 0 !important;
         }
+
         .btn-primary {
             background-color: #605ca8 !important;
         }
+
         .btn {
             border: 0 !important;
             border-radius: 0 !important;
         }
+
         .box-body {
             padding: 15px !important;
         }
@@ -75,7 +79,6 @@
     <link rel="stylesheet" href="/bower_components/DataTables/datatables.min.css">
 
 
-
     @yield('styles')
 </head>
 
@@ -88,7 +91,8 @@
             <div class="container">
                 <div class="navbar-header">
                     <a href="{{ url('/seller/events') }}" class="navbar-brand"><b>Haranah</b> Phitex</a>
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
                 </div>
@@ -99,31 +103,34 @@
                         <li class="drop down user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
-                                {{--<img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">--}}
-                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">{{ Auth::user()->seller->company_name}}</span>
+                            {{--<img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">--}}
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                <span class="hidden-xs">Account <i class="fa fa-cogs"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 {{--<li class="user-header">--}}
-                                    {{--<img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">--}}
-                                    {{--<p>--}}
-                                        {{--{{ Auth::user()->seller->company_name  }} - {{Auth::user()->role }}--}}
-                                    {{--</p>--}}
+                                {{--<img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">--}}
+                                {{--<p>--}}
+                                {{--{{ Auth::user()->seller->company_name  }} - {{Auth::user()->role }}--}}
+                                {{--</p>--}}
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
 
                                     <div class="">
-                                        <a href="/change-password" class="btn btn-default btn-sm btn-flat">Change Password</a>
+                                        <a href="/change-password" class="btn btn-default btn-sm btn-flat"> <i
+                                                    class="fa fa-shield"></i>  Change
+                                            Password</a>
                                     </div>
                                     <div a href="#" class="">
                                         <a class="btn btn-default btn-sm btn-flat" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <i class="fa fa-power-off"></i>  Log Out
                                         </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                              style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </div>
@@ -179,7 +186,8 @@
 
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.haranahtours.com.ph/" target="_blank">Haranah Tours</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.haranahtours.com.ph/" target="_blank">Haranah
+                Tours</a>.</strong> All rights reserved.
     </footer>
 </div>
 

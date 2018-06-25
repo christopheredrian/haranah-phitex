@@ -20,6 +20,7 @@
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
             border-top: 3px solid #C36464 !important;
         }
+
         .box-header.with-border {
             border-bottom: 1px solid #f4f4f4;
         }
@@ -30,6 +31,7 @@
             padding: 10px;
             position: relative;
         }
+
         .box-body {
             border-top-left-radius: 0;
             border-top-right-radius: 0;
@@ -37,9 +39,11 @@
             border-bottom-left-radius: 3px;
             padding: 15px;
         }
+
         .btn-primary {
             background-color: #C36464 !important;
         }
+
         .btn {
             border: 0 !important;
             border-radius: 0 !important;
@@ -134,7 +138,7 @@
 
                         {{--<li><a class="{{ is_active(['/home' ]) }}" href="/buyer/home">Dashboard</a></li>--}}
                         <li><a href="{{ url('/buyer/events') }}">Events</a>
-                    <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/profile/'.$buyer->id) }}">Profile</a>
+                        <li><a class="{{ is_active(['/profile' ]) }}" href="{{ url('/buyer/profile/'.\Illuminate\Support\Facades\Auth::user()->buyer->id) }}">Profile</a>
                         </li>
                         <li class="{{ is_active(['#' ]) }} dropdown">
                             <a href="#" id="accountDropDown" class="dropdown-toggle" data-toggle="dropdown">
@@ -177,7 +181,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.haranahtours.com.ph/" target="_blank">Haranah Tours</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.haranahtours.com.ph/" target="_blank">Haranah
+                        Tours</a>.</strong> All rights reserved.
 
             </div>
 
