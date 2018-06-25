@@ -1,7 +1,7 @@
 <div class="form-group {{ $errors->has('event_name') ? 'has-error' : ''}}">
     <label for="event_name" class="col-md-4 control-label">{{ 'Name' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="event_name" type="text" id="event_name" value="{{ $event->event_name or ''}}" >
+        <input class="form-control" name="event_name" type="text" id="event_name" value="{{ $event->event_name or '' }}" >
         {!! $errors->first('event_name', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -31,7 +31,8 @@
 <div class="form-group {{ $errors->has('event_description') ? 'has-error' : ''}}">
     <label for="event_date" class="col-md-4 control-label">{{ 'Description' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="event_description" type="text" id="event_description" value="{{ $event->event_description or ''}}" >
+        <textarea rows="5" class="form-control" name="event_description" id="event_description">{{ $event->event_description or ''}}</textarea>
+        {{--<input class="form-control" name="event_description" type="text" id="event_description" value="{{ $event->event_description or ''}}" >--}}
         {!! $errors->first('event_description', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

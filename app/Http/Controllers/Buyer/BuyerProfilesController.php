@@ -50,7 +50,8 @@ class BuyerProfilesController extends Controller
      */
     public function events(Request $request)
     {
-        return view('buyer.events', ['events' => Auth::user()->buyer->events]);
+        $buyer = Auth::user()->buyer;
+        return view('buyer.events', ['events' => Auth::user()->buyer->events, 'buyer' => $buyer]);
     }
 
     /**
@@ -190,7 +191,7 @@ class BuyerProfilesController extends Controller
 
         }
 
-        return redirect('buyer/profile')->with('flash_message', 'Buyer updated!');
+        return redirect('buyer/profile/'.$buyer->id)->with('flash_message', 'Buyer updated!');
     }
 
     /**

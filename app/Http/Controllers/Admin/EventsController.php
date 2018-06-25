@@ -40,6 +40,7 @@ class EventsController extends Controller
             $events = Event::where('event_name', 'LIKE', "%$keyword%")
                 ->orWhere('event_place', 'LIKE', "%$keyword%")
                 ->orWhere('event_date', 'LIKE', "%$keyword%")
+                ->orWhere('event_status', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
             $events = Event::orderByDesc('created_at')->paginate($perPage);
@@ -203,10 +204,10 @@ class EventsController extends Controller
            foreach ($noSellerPreference as $seller){
                foreach ($eventBuyers as $buyer){
 
-                   $newSellerPreference = \App\SellerPreference::create();
+                   $newSellerPreference = new \App\SellerPreference();
                    $newSellerPreference->event_id = $id;
                    $newSellerPreference->buyer_id = $buyer->id;
-                   $newSellerPreference->seller_id = $seller->id;
+                   $newSellerPreference->seller_id = $seller->seller_id;
                    $newSellerPreference->rank = $counter;
                    $newSellerPreference->save();
                    $counter=$counter+1;
@@ -244,7 +245,7 @@ class EventsController extends Controller
                                // Current buyer_id  and seller_id is not in final sched
                                if(\App\FinalSchedule::where('seller_id', '=', $item->seller_id)->where('buyer_id', '=', $item->buyer_id)->where('event_id','=',$id)->first() == null) {
                                    // Create the schedule
-                                   $final_schedule = \App\FinalSchedule::create();
+                                   $final_schedule = new \App\FinalSchedule();
                                    $final_schedule->event_id = $id;
                                    $final_schedule->seller_id = $item->seller_id;
                                    $final_schedule->event_param_id = $event_param;

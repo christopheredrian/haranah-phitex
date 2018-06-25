@@ -56,7 +56,8 @@
                 </div>
                 @endif
                 <div class="col-md-4">
-                    
+
+
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
@@ -147,6 +148,7 @@
                                 <form method="POST" action="{{ url('/seller/submit')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                                     {{ method_field('POST') }}
                                     {{ csrf_field() }}
+
                                     <div class="form-group {{ $errors->has('company_logo') ? 'has-error' : ''}}">
                                         <label for="company_logo" class="col-md-4 control-label">{{ 'Company Logo' }}</label>
                                         <div class="col-md-8">
@@ -316,7 +318,7 @@
                                                                     @if($inf->event_param_id === $sched->id)
                                                                         @foreach($buyer as $bname)
                                                                             @if($bname->id === $inf->buyer_id)
-                                                                                <img class="profile-user-img img-responsive img-circle" src="/uploads/buyer-{{ $bname->id }}.jpg" alt="User profile picture">
+                                                                                <img style="max-width: 120px; max-height: 120px" class="profile-user-img img-responsive img-circle" src="/uploads/buyer-{{ $bname->id }}.jpg" alt="User profile picture">
                                                                                 @break
                                                                             @endif
                                                                         @endforeach
@@ -337,11 +339,11 @@
 
                                                                             </li>
 
-                                                                            <li class="list-group-item">
-                                                                                <p>Owner:
-                                                                                    {{ $bname->name }}
-                                                                                </p>
-                                                                            </li>
+                                                                            {{--<li class="list-group-item">--}}
+                                                                                {{--<p>Owner:--}}
+                                                                               {{----}}
+                                                                                {{--</p>--}}
+                                                                            {{--</li>--}}
 
                                                                             <li class="list-group-item">
                                                                                 {{-- Time Stamps --}}
