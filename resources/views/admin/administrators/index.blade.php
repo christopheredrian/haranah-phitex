@@ -36,8 +36,7 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
+                                        <th>Name</th>
                                         <th>Email</th>
                                         <th>Actions</th>
                                     </tr>
@@ -45,8 +44,7 @@
                                 <tbody>
                                 @foreach($administrators as $item)
                                     <tr>
-                                        <td>{{ $item->last_name }}</td>
-                                        <td>{{ $item->first_name }}</td>
+                                        <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>
                                             <a href="{{ url('admin/administrators/' . $item->id) }}" title="View Administrator"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

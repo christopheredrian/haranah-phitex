@@ -1,4 +1,15 @@
 @extends('layouts.app-admin')
+
+@section('styles')
+    <style>
+        .label{
+            display: block;
+            padding: 7px;
+            max-width: 115px;
+        }
+    </style>
+
+@endsection
 @section('content')
     <div class="container">
         <div class="row">
@@ -42,7 +53,7 @@
                                         <td>{{ $item->event_name }}</td>
                                         <td>{{ $item->event_date }} </td>
                                         <td>{{ $item->event_place }}</td>
-                                        <td>{{ $item->event_status }}</td>
+                                        <td><span class="{{ $item->getLabelClass() }}">{{ $item->event_status }}</span></td>
                                         <td>
                                             <a href="{{ url('/admin/events/' . $item->id) }}" title="View Event"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/events/' . $item->id . '/edit') }}" title="Edit Event"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

@@ -14,10 +14,10 @@ class Event extends Model
     protected $table = 'events';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -25,7 +25,7 @@ class Event extends Model
      *
      * @var array
      */
-    protected $fillable = ['event_name','event_place','event_date','event_status', 'event_description'];
+    protected $fillable = ['event_name', 'event_place', 'event_date', 'event_status', 'event_description'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -41,10 +41,34 @@ class Event extends Model
      */
     public function sellers()
     {
-        return $this->belongsToMany(Seller::class );
+        return $this->belongsToMany(Seller::class);
     }
+
     public function event_params()
     {
         return $this->hasMany('App\EventParam');
     }
+
+    /**
+     * Returns the bootstrap label class
+     * @return string
+     */
+    public function getLabelClass()
+    {
+        $status = $this->event_status;
+        switch ($status) {
+            case 'Registration Closed':
+                return 'label label-warning';
+            case 'New Event':
+                return 'label label-primary';
+            case 'Registration Open':
+                return 'label label-success';
+            case 'Schedule Finalized':
+                return 'label label-danger';
+            default:
+                return 'label label-default';
+        }
+        // new - primary, closed - warning, opened - success, finalized - red
+    }
+
 }

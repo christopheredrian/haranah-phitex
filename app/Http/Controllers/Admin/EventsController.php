@@ -40,6 +40,7 @@ class EventsController extends Controller
             $events = Event::where('event_name', 'LIKE', "%$keyword%")
                 ->orWhere('event_place', 'LIKE', "%$keyword%")
                 ->orWhere('event_date', 'LIKE', "%$keyword%")
+                ->orWhere('event_status', 'LIKE', "%$keyword%")
                 ->paginate($perPage);
         } else {
             $events = Event::orderByDesc('created_at')->paginate($perPage);
