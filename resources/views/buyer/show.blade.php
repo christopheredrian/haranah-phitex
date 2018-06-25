@@ -24,7 +24,7 @@
                 <div class="cardheader" style='background: url("/uploads/buyer-bg-{{$buyer->id}}.jpg")'>
                 </div>
                 <div class="avatar">
-                    <img alt="" src="/uploads/buyer-{{ $buyer->id }}.jpg">
+                    <img onerror=this.src="/img/default-logo.png" alt="" src="/uploads/buyer-{{ $buyer->id }}.jpg">
                 </div>
                 <div class="info">
                     <div class="title">
@@ -169,7 +169,7 @@
                                                         @if($inf->event_param_id === $sched->id)
                                                             @foreach($seller as $bname)
                                                                 @if($bname->id === $inf->seller_id)
-                                                                    <img style="margin: 0 auto;width: 120px; height: 120px; "
+                                                                    <img onerror=this.src="/img/default-logo.png" style="margin: 0 auto;width: 120px; height: 120px; "
                                                                          class="profile-user-img img-responsive img-circle"
                                                                          src="/uploads/seller-{{ $bname->id }}.jpg"
                                                                          alt="User profile picture">

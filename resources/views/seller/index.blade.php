@@ -62,7 +62,7 @@
                     <div class="box box-primary">
                         <div class="box-body box-profile">
                             <div class="profile-user-image">
-                                <img class="profile-user-img" src="/uploads/seller-{{ $seller->id }}.jpg" alt="User profile picture">
+                                <img onerror=this.src="/img/default-logo.png" class="profile-user-img" src="/uploads/seller-{{ $seller->id }}.jpg" alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">{{ Auth::user()->seller->company_name }}</h3>
 
@@ -318,7 +318,7 @@
                                                                     @if($inf->event_param_id === $sched->id)
                                                                         @foreach($buyer as $bname)
                                                                             @if($bname->id === $inf->buyer_id)
-                                                                                <img style="max-width: 120px; max-height: 120px" class="profile-user-img img-responsive img-circle" src="/uploads/buyer-{{ $bname->id }}.jpg" alt="User profile picture">
+                                                                                <img style="max-width: 120px; max-height: 120px" onerror=this.src="/img/default-logo.png" class="profile-user-img img-responsive img-circle" src="/uploads/buyer-{{ $bname->id }}.jpg" alt="User profile picture">
                                                                                 @break
                                                                             @endif
                                                                         @endforeach

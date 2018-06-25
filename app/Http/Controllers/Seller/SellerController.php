@@ -390,7 +390,7 @@ class SellerController extends Controller
                 ->with('info', $info)
                 ->with('buyer', $buyer)
                 ->with('preference', $has_preference)
-                ->with('event_id', $seller->event_id)
+                ->with('event_id', $eventOfSeller->id)
                 ->with('countries', $countries);
         } else {
             abort(404);
