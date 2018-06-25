@@ -29,9 +29,11 @@ class FileController extends Controller
             $user_type = $request->user_type;
             $imported_users[] = array();
             $new_imported_users[] = array();
+            $imported_users_emails[] = array();
 
             unset($imported_users[0]);
             unset($new_imported_users[0]);
+            unset($imported_users_emails[0]);
 
             // Import to USERS table
             if(!empty($data) && count($data)){
@@ -43,6 +45,7 @@ class FileController extends Controller
                     try {
                         if(isset($data[$i]['name']) && isset($data[$i]['email']) && isset($data[$i]['position']) && isset($data[$i]['company'])){
                             array_push($imported_users, $data[$i]);
+                            array_push($imported_users_emails, $data[$i]['email']);
 
                             // check if account exists using email
                             if(User::where('email', $data[$i]['email'])->count() == false){
@@ -124,6 +127,21 @@ class FileController extends Controller
                     }
                 }
                 Session::flash('flash_message', 'Import Complete! ' . $user_count . ($user_count > 1 ? ' sellers ' : ' seller') . ' added ' . 'to ' . $event_name. '!');
+            }
+
+            //send emails
+            if($request->sendToBuyersOrSellers){
+                $url = env('APP_URL');
+                $is_complete = \App\Http\Controllers\Admin\MailController::sendToMultiple(
+                    $imported_users_emails,
+                        "Thank you for registering in Haranah Phitex's $event_name event. <a href='$url/password/reset'> Here</a> is the link to reset your password ($url/password/reset).",
+                        'Reset Password - Haranah Phitex',
+                        'Haranah Phitex',
+                        'jasmine.tan@haranahtours.com.ph');
+
+                if ($is_complete){
+                    return redirect('admin/events/' . $event_id);
+                }
             }
 
             return redirect('admin/events/' . $event_id);
