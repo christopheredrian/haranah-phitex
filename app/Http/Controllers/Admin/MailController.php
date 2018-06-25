@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use Session;
 
 class MailController extends Controller
 {
@@ -83,7 +84,7 @@ class MailController extends Controller
         switch ($to) {
             case 'buyers':
                 $addresses = array();
-                foreach ($event->buyers as $buyer ){
+                foreach ($event->buyers as $buyer) {
                     $addresses[] = $buyer->user->email;
                 }
                 Session::put('addresses', $addresses);
@@ -95,7 +96,7 @@ class MailController extends Controller
                 break;
             case 'sellers':
                 $addresses = array();
-                foreach ($event->sellers as $seller ){
+                foreach ($event->sellers as $seller) {
                     $addresses[] = $seller->user->email;
                 }
                 Session::put('addresses', $addresses);
@@ -107,10 +108,10 @@ class MailController extends Controller
                 break;
             case 'all':
                 $addresses = array();
-                foreach ($event->sellers as $seller ){
+                foreach ($event->sellers as $seller) {
                     $addresses[] = $seller->user->email;
                 }
-                foreach ($event->buyers as $buyer){
+                foreach ($event->buyers as $buyer) {
                     $addresses[] = $buyer->user->email;
                 }
                 Session::put('addresses', $addresses);
@@ -149,4 +150,32 @@ class MailController extends Controller
         Session::flash('flash_message', 'Successfully sent email!');
         return redirect('/admin/events/' . $event_id);
     }
+
+    /**
+     * Send mail to multiple email addressess
+     * @param $addressess - array of email addressess
+     * @param $body
+     * @param $address
+     * @param $subject
+     * @param $name
+     * @param $from
+     * @param $redirect_url
+     * @param $success_message
+     */
+    public static function sendToMultiple($addresses, $body, $subject, $name, $from_address)
+    {
+        Redirect::to('/login');
+        $data = [
+            'body' => $body, // this should be required
+            'address' => $from_address,
+            'subject' => $subject,
+            'name' => $name,
+            'from' => $from_address
+        ];
+        Mail::to($addresses ? $addresses : 'christopheredrian@gmail.com')
+            ->queue(new GenericMail($data));
+        return true;
+
+    }
+
 }

@@ -31,7 +31,18 @@ Route::get('/role', function(){
 });
 Route::get('/test', function(){
 
+    $addressess = ['test1@gmail.com', 'test2@gmail.com', 'test3@gmail.com', 'wo@gmail.com'];
+
+    $is_complete = \App\Http\Controllers\Admin\MailController::sendToMultiple($addressess, 'The body...','Subject: URGENT',
+        'The Name: John Doe', 'fromemailaddress@email.com','/test2','Success');
+    if ($is_complete){
+        return redirect('/test2');
+    }
 });
+Route::get('/test2', function(){
+    dd('here@test2');
+});
+// End dev utilities
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/change-password', 'Admin\\UsersController@passwordForm');
