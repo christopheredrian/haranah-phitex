@@ -138,8 +138,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                &copy; 2017 HARANAH PHITEX | By : <a href="http://www.designbootstrap.com/"
-                                                  target="_blank">DesignBootstrap</a>
+                <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.haranahtours.com.ph/" target="_blank">Haranah Tours</a>.</strong> All rights reserved.
+
             </div>
 
         </div>

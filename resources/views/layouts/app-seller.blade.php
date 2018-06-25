@@ -131,10 +131,10 @@
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            Anything you want
+
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.haranahtours.com.ph/" target="_blank">Haranah Tours</a>.</strong> All rights reserved.
     </footer>
 </div>
 

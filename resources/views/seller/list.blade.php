@@ -20,8 +20,70 @@
         table#selected-buyer-list tr.placeholder:before {
             position: absolute;
         }
+        .list-profile-modal .modal-dialog {
+            max-width: 400px;
+            margin: auto;
+        }
+        .list-profile-modal .modal-header {
+            height: auto;
+            background-position: center;
+            -webkit-background-size: cover;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+            padding-top: 60px;
+        }
+        .list-profile-modal .modal-header:before {
+            background-color: rgba(0,0,0,0.3);
+            position: absolute;
+            width: 100%;
+            height: 300px;
+            top: 0;
+            left: 0;
+        }
 
+        .list-profile-modal .modal-body {
+            padding-top: 30px;
+        }
+        .comapny-logo, .company-name {
+            position: relative;
+            z-index: 9;
+        }
+        .comapny-logo {
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin: auto;
+        }
+        .comapny-logo img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            object-position: center;
+        }
+        .company-name h3 {
+            font-weight: 700;
+            color: #fff;
+            margin: 15px 0 0 0;
+        }
+        .list-information {
+            margin-bottom: 30px;
+        }
+        .list-information strong {
+            margin-bottom: 5px;
+            display: block;
+        }
 
+        .close-modal-btn{
+            position: absolute;
+            z-index: 9;
+            right: 0;
+            top:0;
+            color: #fff;
+            background-color: transparent;
+            font-size: 18px;
+        }
     </style>
 @endsection
 
@@ -52,7 +114,7 @@
                                 <table id="buyer-list" class="display table table-responsive table-striped data-sortable">
                                     <thead>
                                     <tr>
-                                        <th>Buyer Name</th>
+                                        <th>Company</th>
                                         <th>Country</th>
                                         <th>Action</th>
                                     </tr>
@@ -60,7 +122,7 @@
                                     <tbody>
                                     @foreach ($buyers as $buyer)
                                         <tr>
-                                            <td> {{ $buyer->user->last_name.", ".$buyer->user->first_name }}</td>
+                                            <td> {{ $buyer->company_name }}</td>
                                             <td> {{ $buyer->country}}
                                                 <input type="hidden" name="values[]" class="buyer-id"
                                                        value="{{ $buyer->id }}">
@@ -69,34 +131,55 @@
                                             <!-- //pass $buyer->user_id-->
                                             <td class="action-btn-group">
                                                 {{--<input type="button" class="btn btn-sm btn-primary" onclick="location.href='{{ $buyer->user_id }}/profile';" value="View Profile" />--}}
-                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal{{$buyer->id}}">View Profile</button>
-                                                <button type="button" class="add-btn btn btn-sm btn-success"> Add to
-                                                    List
+                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal{{$buyer->id}}"> <i class="fa fa-eye"></i></button>
+                                                <button type="button" class="add-btn btn btn-sm btn-success"> <i class="fa fa-plus"></i>
                                                 </button>
-                                                <div class="modal fade" id="modal{{$buyer->id}}" role="dialog">
-                                                    <div class="modal-dialog">
+                                                <div class="list-profile-modal modal fade" id="modal{{$buyer->id}}" role="dialog">
+                                                    <div class="modal-dialog modal-md">
                                                         <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                <h4 class="modal-title">REMINDER</h4>
+                                                            <div class="modal-header" style="background-image: url('/img/default-bg.png')">
+
+                                                                <button class="close-modal-btn btn" data-dismiss="modal"> <i class="fa fa-times"></i> </button>
+
+                                                                <div class="comapny-logo">
+                                                                    <img class="img-responsive" src="/img/mystery-man.png" alt="">
+                                                                </div>
+
+                                                                <div class="company-name">
+                                                                    <h3 class="text-center">{{ $buyer->company_name }}</h3>
+                                                                </div>
+
                                                             </div>
                                                             <div class="modal-body">
-                                                                phone{{ $buyer->phone }} <br>
-                                                                country{{ $buyer->country }} <br>
-                                                                company photo{{ $buyer->company_bg }} <br>
-                                                                company logo{{ $buyer->company_logo }} <br>
-                                                                comapny name{{ $buyer->company_name }} <br>
-                                                                address{{ $buyer->company_address }} <br>
 
-                                                                Event Representative 1{{ $buyer->event_rep1 }} <br>
-                                                                Event Representative 2{{ $buyer->event_rep2 }} <br>
-                                                                Designation{{ $buyer->designation }} <br>
-                                                                Website{{ $buyer->website   }} <br>
+                                                                <div class="row">
+                                                                   <div class="col-sm-12 list-information">
+                                                                       <strong class="text-uppercase">Contact</strong>
+                                                                       <ul class="list-unstyled">
+                                                                           <li><span>Phone: </span><a href="tel: {{ $buyer->phone }}">{{ $buyer->phone }}</a></li>
+                                                                           <li><span>Email: </span><a href="mailto: {{ $buyer->user->email }}">{{ $buyer->user->email }}</a></li>
+                                                                           <li><span>Website: </span><a href="{{$buyer->website}}" target="_blank">{{$buyer->website}}</a></li>
+                                                                       </ul>
+                                                                   </div>
+                                                                    <div class="col-sm-12 list-information">
+                                                                        <strong class="text-uppercase">Description</strong>
+                                                                        <ul class="list-unstyled">
+                                                                            <li><span>Address: </span>{{ $buyer->company_address }}</li>
+                                                                            <li><span>Country: </span>{{ $buyer->country }}</li>
+                                                                            <li><span>Designation: </span>{{ $buyer->designation }}</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="col-sm-12 list-information">
+                                                                        <strong class="text-uppercase">Event Representatives</strong>
+                                                                        <ul class="list-unstyled">
+                                                                            <li><span>Rep 1: </span>{{ $buyer->event_rep1 }}</li>
+                                                                            <li><span>Rep 2: </span>{{ $buyer->event_rep2 }}</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
 
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Accept</button>
-                                                            </div>
+
                                                         </div>
 
                                                     </div>
@@ -122,7 +205,7 @@
                                         <thead>
                                         <tr>
                                             <th>Sort</th>
-                                            <th>Buyer Name</th>
+                                            <th>Company</th>
                                             <th>Country</th>
                                             <th>Action</th>
                                             <th>Rank</th>
@@ -197,7 +280,7 @@
                 var currentElement = $(this).parent().parent();
                 currentElement.find('button').remove();
                 var removeBtn = $('<button class="btn btn-sm btn-danger">');
-                removeBtn.text("Remove");
+                removeBtn.html("<i class=\"fa fa-times\"></i> ");
 
                 // Append this element to above
                 removeBtn.click(function () {
