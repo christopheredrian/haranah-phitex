@@ -4,7 +4,35 @@
     <!-- fullCalendar -->
     <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.min.css">
     <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
+
+    <style>
+
+        .callout {
+            margin: 0 15px 30px 15px;
+        }
+
+        h2.box-title {
+            font-size: 24px !important;
+            font-weight: 700;
+            color: #605ca8;
+        }
+        .about-company .box-title {
+            font-weight:700;
+            margin: 10px 0;
+        }
+        .about-company p {
+            margin-bottom: 0;
+        }
+        .about-company hr {
+            margin-top: 7px;
+            margin-bottom: 7px;
+        }
+
+
+    </style>
 @endsection
+
+
 
 @section('content')
     <section class="content">
@@ -35,16 +63,15 @@
                             <div class="profile-user-image">
                                 <img class="profile-user-img" src="/uploads/seller-{{ $seller->id }}.jpg" alt="User profile picture">
                             </div>
-                            <h3 class="profile-username text-center">{{ Auth::user()->last_name }}, {{ Auth::user()->first_name  }}</h3>
+                            <h3 class="profile-username text-center">{{ Auth::user()->seller->company_name }}</h3>
 
-                            <p class="text-muted text-center">{{ Auth::user()->role }}</p>
 
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
-                                    <b>Representative 1</b> <a class="pull-right">{{ $seller->event_rep1 }}</a>
+                                    <b>Representative 1</b> <span class="pull-right">{{ $seller->event_rep1 }}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Representative 2</b> <a class="pull-right">{{ $seller->event_rep2 }}</a>
+                                    <b>Representative 2</b> <span class="pull-right">{{ $seller->event_rep2 }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -53,9 +80,9 @@
                     <!-- /.box -->
 
                     <!-- About Me Box -->
-                    <div class="box box-primary">
+                    <div class="box box-primary about-company">
                         <div class="box-header with-border">
-                            <h3 class="box-title">About Company</h3>
+                            <h4 class="box-title">About Company</h4>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -95,27 +122,25 @@
                         </ul>
                         <div class="tab-content">
                             <div class="active tab-pane" id="event">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="box box-solid">
-                                            <div class="box-header with-border">
-                                                <h4 class="box-title">{{$sellerEvent->event_name}}</h4>
-                                            </div>
-                                            <div class="box-body">
-                                                <p>{{$sellerEvent->event_description}}</p>
-                                            </div>
-                                            <div class="box-footer">
-                                                @if(($sellerEvent->event_status) == "Registration Closed")
-                                                <span class="btn pull-right btn-danger disabled">Registration Closed!</span>
-                                                @elseif($preference)
-                                                <span class="btn pull-right btn-success disabled">You have selected buyers!</span>
-                                                @else
-                                                <input type="button" class="btn pull-right btn-primary" onclick="location.href='/seller/pick/{{$sellerEvent->id}}';" value="Select Buyers" />
-                                                @endif
-                                            </div>
-                                        </div>
+
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <h2 class="box-title">{{$sellerEvent->event_name}}</h2>
+                                    </div>
+                                    <div class="box-body">
+                                        <p>{{$sellerEvent->event_description}}</p>
+                                    </div>
+                                    <div class="box-footer">
+                                        @if(($sellerEvent->event_status) == "Registration Closed")
+                                        <span class="btn pull-right btn-danger disabled">Registration Closed!</span>
+                                        @elseif($preference)
+                                        <span class="btn pull-right btn-success disabled">You have selected buyers!</span>
+                                        @else
+                                        <input type="button" class="btn pull-right btn-primary" onclick="location.href='/seller/pick/{{$sellerEvent->id}}';" value="Select Buyers" />
+                                        @endif
                                     </div>
                                 </div>
+
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="edit">
@@ -246,7 +271,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-6 col-sm-6">
-                                            <button type="submit" class="btn btn-danger">Edit</button>
+                                            <button type="submit" class="btn btn-primary pull-right">Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -255,31 +280,34 @@
 
 
                             <div class="tab-pane" id="final-schedule">
-                                <div class=" panel panel-default">
-                                    <div class="panel-heading">
-                                        Finalized Schedule
+
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <h2 class="box-title">Finalized Schedule</h2>
+                                    </div>
+                                    <div class="box-body">
                                         <p> {{ $sellerEvent->description }}</p>
                                         <p> {{ $sellerEvent->event_description  }}</p>
 
                                         @if($schedule->isEmpty())
                                         @else
                                             <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
-                                        @endif
+                                                @endif
 
-                                        <button class="btn btn-success btn-small {{$schedule->isEmpty() ? 'disabled' : ''}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                             Download PDF Schedule
-                                        </button>
+                                                <button class="btn btn-success btn-small {{$schedule->isEmpty() ? 'disabled' : ''}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                                    Download PDF Schedule
+                                                </button>
 
-                                        @if($schedule->isEmpty())
-                                        @else
-                                        </a>
+                                                @if($schedule->isEmpty())
+                                                @else
+                                            </a>
                                         @endif
                                     </div>
-                                                <!-- item -->
-                                    @if($schedule->isEmpty())
-                                        <p style="text-align: center"> No Schedule has been set</p>
-                                    @else
-                                    @foreach($schedule as $sched)
+                                    <div class="box-footer">
+                                        @if($schedule->isEmpty())
+                                            <p style="text-align: center"> No Schedule has been set</p>
+                                        @else
+                                            @foreach($schedule as $sched)
                                                 <div class="pane-width text-center">
                                                     <div class="panel panel-info">
                                                         <div class="panel-heading">
@@ -311,7 +339,7 @@
 
                                                                             <li class="list-group-item">
                                                                                 <p>Owner:
-                                                                                  {{ $bname->last_name.', '.$bname->first_name }}
+                                                                                    {{ $bname->last_name.', '.$bname->first_name }}
                                                                                 </p>
                                                                             </li>
 
@@ -338,10 +366,12 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                    @endforeach
+                                            @endforeach
                                         @endif
-
+                                    </div>
                                 </div>
+
+
                             </div>
                             <!-- /.tab-pane -->
 

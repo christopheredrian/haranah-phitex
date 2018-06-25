@@ -2,12 +2,9 @@
 
 @section('content')
 
-    @if(!empty($events))
+    @if(empty($events))
         <p class="alert alert-info"> There are currently no new Events. </p>
     @else
-
-
-
         <div class="content-wrapper">
             <div class="container">
                 <div class="panel panel-default">

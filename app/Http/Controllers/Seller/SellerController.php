@@ -476,7 +476,7 @@ class SellerController extends Controller
             }
             return redirect('seller/home/' . $request->event_id);
         } else {
-            return redirect('seller/pick')->with('status', 'No Buyers selected!');
+            return redirect('seller/pick/' . $request->event_id)->with('status', 'No Buyers selected!');
         }
 
     }

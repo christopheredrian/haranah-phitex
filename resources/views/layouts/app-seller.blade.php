@@ -9,6 +9,42 @@
 
     <!--responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+
+    <style>
+
+        .navbar-nav>.user-menu>.dropdown-menu {
+            width:auto !important;
+            -webkit-border-radius: 0 !important;
+            -moz-border-radius: 0 !important;
+            border-radius: 0 !important;
+        }
+
+        .user-footer .btn {
+            border: 0;
+            background-color: transparent;
+            display: block;
+            text-align: left;
+        }
+
+        .box.box-primary,
+        .nav-tabs-custom>.nav-tabs>li.active,
+        .box.box-info {
+            border-top-color: #605ca8 !important;
+        }
+        .box {
+            border-radius: 0 !important;
+        }
+        .btn-primary {
+            background-color: #605ca8 !important;
+        }
+        .btn {
+            border: 0 !important;
+            border-radius: 0 !important;
+        }
+    </style>
+
+
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
@@ -32,6 +68,9 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="/bower_components/DataTables/datatables.min.css">
+
+
+
     @yield('styles')
 </head>
 
@@ -55,22 +94,26 @@
                         <li class="drop down user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
-                                <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                {{--<img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">--}}
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">{{ Auth::user()->name  }}</span>
+                                <span class="hidden-xs">{{ Auth::user()->seller->company_name}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
-                                <li class="user-header">
-                                    <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                    <p>
-                                        {{ Auth::user()->name  }} - {{Auth::user()->role }}
-                                    </p>
+                                {{--<li class="user-header">--}}
+                                    {{--<img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">--}}
+                                    {{--<p>--}}
+                                        {{--{{ Auth::user()->seller->company_name  }} - {{Auth::user()->role }}--}}
+                                    {{--</p>--}}
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div a href="#" class="pull-left">
-                                        <a class="btn btn-default btn-lg btn-flat" href="{{ route('logout') }}"
+
+                                    <div class="">
+                                        <a href="/change-password" class="btn btn-default btn-sm btn-flat">Change Password</a>
+                                    </div>
+                                    <div a href="#" class="">
+                                        <a class="btn btn-default btn-sm btn-flat" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
                                             Logout
@@ -78,9 +121,6 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="/change-password" class="btn btn-default btn-lg btn-flat">Change Password</a>
                                     </div>
                                 </li>
                             </ul>
