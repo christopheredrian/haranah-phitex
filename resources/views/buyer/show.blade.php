@@ -169,10 +169,9 @@
                                                         @if($inf->event_param_id === $sched->id)
                                                             @foreach($seller as $bname)
                                                                 @if($bname->id === $inf->seller_id)
-                                                                    <img style="max-width: 290px" profile-user-img
-                                                                         img-responsive
-                                                                         img-circle
-                                                                         src="/uploads/buyer-{{ $bname->id }}.jpg"
+                                                                    <img style="margin: 0 auto;width: 120px; height: 120px; "
+                                                                         class="profile-user-img img-responsive img-circle"
+                                                                         src="/uploads/seller-{{ $bname->id }}.jpg"
                                                                          alt="User profile picture">
                                                                     @break
                                                                 @endif
