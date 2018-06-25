@@ -87,7 +87,6 @@
 
         <div class="col-sm-8 ">
 
-
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#event" data-toggle="tab">Event</a></li>
@@ -124,7 +123,6 @@
                                     </table>
                                 </div>
                             </div>
-
                         </div>
 
                     </div>

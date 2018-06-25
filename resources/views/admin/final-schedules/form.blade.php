@@ -5,7 +5,7 @@
         {!! $errors->first('event_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('buyer_id') ? 'has-error' : ''}}">
-    <label for="buyer_id" class="col-md-4 control-label">{{ 'Buyer Id' }}</label>
+    <label for="buyer_id" class="col-md-4 control-label">{{ 'Buyer' }}</label>
     <div class="col-md-6">
         <select name="buyer_id" id="buyer_id" class="form-control">
             @foreach($buyer_names as $buyer_name)
@@ -22,7 +22,7 @@
         {!! $errors->first('buyer_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('seller_id') ? 'has-error' : ''}}">
-    <label for="seller_id" class="col-md-4 control-label">{{ 'Seller Id' }}</label>
+    <label for="seller_id" class="col-md-4 control-label">{{ 'Seller' }}</label>
     <div class="col-md-6">
         <select name="seller_id" id="seller_id" class="form-control">
             @foreach($seller_names as $seller_name)
@@ -38,7 +38,7 @@
         {!! $errors->first('seller_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('event_param_id') ? 'has-error' : ''}}">
-    <label for="event_param_id" class="col-md-4 control-label">{{ 'Event Param Id' }}</label>
+    <label for="event_param_id" class="col-md-4 control-label">{{ 'Event Param' }}</label>
     <div class="col-md-6">
         <select name="event_param_id" id="event_param_id" class="form-control">
             @foreach($schedule_list as $schedule)
@@ -52,6 +52,15 @@
 
 
         </select>
+
+        {!! $errors->first('event_param_id', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+<div class="form-group {{ $errors->has('table') ? 'has-error' : ''}}">
+    <label for="event_param_id" class="col-md-4 control-label">{{ 'Table' }}</label>
+    <div class="col-md-6">
+        <input class="form-control" name="table" type="number" id="table" value="{{ $finalschedule->table }}" min="1" max="1000">
 
         {!! $errors->first('event_param_id', '<p class="help-block">:message</p>') !!}
     </div>

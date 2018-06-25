@@ -27,8 +27,8 @@ class FinalSchedulesController extends Controller
 //        $buyers = \App\User::whereIn('id', \App\Buyer::where('id' ,'>' ,0)->whereIn('id',\App\EventBuyer::where('event_id','=',$event_id)->pluck('buyer_id'))->pluck('user_id')->toArray())->orderBy('last_name')->get();
         $buyers = Event::find($event_id)->buyers;
         foreach ($buyers as $buyer) {
-            $buyerid = \App\Buyer::where('user_id' ,'=' ,$buyer->id)->value('id');
-            $buyer_names[$buyerid] = $buyer->last_name.", ".$buyer->first_name;
+            $buyerid = \App\Buyer::where('id' ,'=' ,$buyer->id)->value('id');
+            $buyer_names[$buyerid] = $buyer->company_name;
         }
         return $buyer_names;
     }
@@ -40,9 +40,10 @@ class FinalSchedulesController extends Controller
         $sellers = Event::find($event_id)->sellers;
         //whereNotIn('id',\App\EventSeller::where('event_id','=',$event_id))
         foreach ($sellers as $seller) {
-            $sellerid = \App\Seller::where('user_id' ,'=' ,$seller->id)->value('id');
-            $seller_names[$sellerid] = $seller->last_name.", ".$seller->first_name;
+            $sellerid = \App\Seller::where('id' ,'=' ,$seller->id)->value('id');
+            $seller_names[$sellerid] = $seller->company_name;
         }
+//        dd($seller_names);
         return $seller_names;
     }
 
@@ -185,13 +186,13 @@ class FinalSchedulesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $requestData = $request->all();
         
         $finalschedule = FinalSchedule::findOrFail($id);
         $finalschedule->update($requestData);
 
-        return redirect('admin/final-schedules')->with('flash_message', 'FinalSchedule updated!');
+        return redirect('admin/final-schedules/list/'.$request->event_id)
+            ->with('flash_message', 'FinalSchedule updated!');
     }
 
     /**
