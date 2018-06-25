@@ -1,17 +1,10 @@
-@extends('layouts.app-buyer')
+{{--@extends('layouts.app-buyer')--}}
 
-@section('content')
+{{--@section('content')--}}
 
-    <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4 class="">Edit Profile</h4></div>
+            <div class="panel-heading">Profile</div>
             <div class="panel-body">
-                <a href="{{ url('/buyer/profile/'.$buyer->id) }}" title="Back">
-                    <button class="btn btn-primary btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back
-                    </button>
-                </a>
-                <br/>
-                <br/>
 
                 @if ($errors->any())
                     <ul class="alert alert-danger">
@@ -32,6 +25,5 @@
 
             </div>
         </div>
-    </div>
 
-@endsection
+{{--@endsection--}}
