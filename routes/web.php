@@ -168,7 +168,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/home/{id}', [
             'as' => 'seller.index',
             'uses' => 'Seller\\SellerController@show'
-        ])->name('sellerHome');;
+        ])->name('sellerHome');
         
         Route::post('/submit', [
             'as' => 'seller.update',
