@@ -207,7 +207,7 @@ class EventsController extends Controller
                    $newSellerPreference = new \App\SellerPreference();
                    $newSellerPreference->event_id = $id;
                    $newSellerPreference->buyer_id = $buyer->id;
-                   $newSellerPreference->seller_id = $seller->id;
+                   $newSellerPreference->seller_id = $seller->seller_id;
                    $newSellerPreference->rank = $counter;
                    $newSellerPreference->save();
                    $counter=$counter+1;

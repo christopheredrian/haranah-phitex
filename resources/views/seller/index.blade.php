@@ -337,11 +337,11 @@
 
                                                                             </li>
 
-                                                                            <li class="list-group-item">
-                                                                                <p>Owner:
-                                                                                    {{ $bname->last_name.', '.$bname->first_name }}
-                                                                                </p>
-                                                                            </li>
+                                                                            {{--<li class="list-group-item">--}}
+                                                                                {{--<p>Owner:--}}
+                                                                               {{----}}
+                                                                                {{--</p>--}}
+                                                                            {{--</li>--}}
 
                                                                             <li class="list-group-item">
                                                                                 {{-- Time Stamps --}}
