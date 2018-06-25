@@ -50,6 +50,14 @@
                                     <th>Phone Number</th>
                                     <td>{{ $buyer->phone }}</td>
                                 </tr>
+                                <tr>
+                                    <th>Representatives</th>
+                                    <td>{{ $buyer->event_rep1 }}</td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>{{ $buyer->event_rep2 }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -57,7 +65,7 @@
                 </div>
                 <div class="bottom">
                     <a href="{{ url('/buyer/edit') }}" title="Edit buyer">
-                        <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <button class="btn btn-primary btn-md"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             Edit
                         </button>
                     </a>
@@ -86,6 +94,36 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    Event Details
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <th>Event</th>
+                                <td>{{ $buyerEvent->event_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Venue</th>
+                                <td>{{ $buyerEvent->event_place }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td>{{ $buyerEvent->event_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{ $buyerEvent->event_description }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     Finalized Schedule
                     <br>
                     @if($schedule->isEmpty())
@@ -111,7 +149,7 @@
                                         @if($inf->event_param_id === $sched->id)
                                             @foreach($seller as $bname)
                                                 @if($bname->id === $inf->seller_id)
-                                                    <img class="profile-user-img img-responsive img-circle"
+                                                    <img style="max-width: 290px" profile-user-img img-responsive img-circle"
                                                          src="/uploads/buyer-{{ $bname->id }}.jpg"
                                                          alt="User profile picture">
                                                     @break
@@ -132,11 +170,6 @@
 
                                                 </li>
 
-                                                <li class="list-group-item">
-                                                    <p>Owner:
-                                                        {{ $bname->last_name.', '.$bname->first_name }}
-                                                    </p>
-                                                </li>
 
                                                 <li class="list-group-item">
                                                     {{-- Time Stamps --}}
@@ -164,35 +197,7 @@
                 @endforeach
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Event Details
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>Event</th>
-                                    <td>{{ $buyerEvent->event_name }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Venue</th>
-                                    <td>{{ $buyerEvent->event_place }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Date</th>
-                                    <td>{{ $buyerEvent->event_date }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Description</th>
-                                    <td>{{ $buyerEvent->event_description }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 @endsection

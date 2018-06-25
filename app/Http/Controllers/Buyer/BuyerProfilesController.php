@@ -122,7 +122,7 @@ class BuyerProfilesController extends Controller
             ->with('buyerEvent', $eventOfBuyer)
             ->with('info', $info)
             ->with('seller', $seller)
-            ->with('event_id', $eventOfBuyer);
+            ->with('event_id', $eventOfBuyer->id);
     }
 
 
@@ -190,7 +190,7 @@ class BuyerProfilesController extends Controller
 
         }
 
-        return redirect('buyer/profile')->with('flash_message', 'Buyer updated!');
+        return redirect('buyer/profile/'.$buyer->id)->with('flash_message', 'Buyer updated!');
     }
 
     /**
