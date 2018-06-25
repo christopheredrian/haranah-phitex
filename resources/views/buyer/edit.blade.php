@@ -1,16 +1,13 @@
 @extends('layouts.app-buyer')
 
 @section('content')
-    <div class="col-md-12">
-        <h4 class="page-head-line">EDIT</h4>
-    </div>
 
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading">Profile</div>
+            <div class="panel-heading"><h4 class="">Edit Profile</h4></div>
             <div class="panel-body">
                 <a href="{{ url('/buyer/profile') }}" title="Back">
-                    <button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+                    <button class="btn btn-primary btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                     </button>
                 </a>
                 <br/>

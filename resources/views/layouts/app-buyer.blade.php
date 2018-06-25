@@ -8,6 +8,47 @@
     <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
+
+    <style>
+
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            margin-bottom: 20px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            border-top: 3px solid #C36464 !important;
+        }
+        .box-header.with-border {
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .box-header {
+            color: #444;
+            display: block;
+            padding: 10px;
+            position: relative;
+        }
+        .box-body {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            padding: 15px;
+        }
+        .btn-primary {
+            background-color: #C36464 !important;
+        }
+        .btn {
+            border: 0 !important;
+            border-radius: 0 !important;
+        }
+
+
+    </style>
+
+
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="/bp_assets/css/bootstrap.css" rel="stylesheet"/>
     <!-- FONT AWESOME ICONS  -->
@@ -46,11 +87,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/buyer/profile">
-
+            <a class="navbar-brand" href="/buyer/events">
                 <h3 style="color: white;">HARANAH PHITEX</h3>
             </a>
-
         </div>
 
         <div class="left-div">

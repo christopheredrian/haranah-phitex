@@ -42,6 +42,11 @@
             border: 0 !important;
             border-radius: 0 !important;
         }
+        .box-body {
+            padding: 15px !important;
+        }
+
+
     </style>
 
 

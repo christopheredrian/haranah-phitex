@@ -8,9 +8,9 @@
 
 @section('content')
     <div class="row" xmlns:http="http://www.w3.org/1999/xhtml">
-        <div class="col-md-12">
-            <h4 class="page-head-line">{{ $buyer->company_name }}</h4>
-        </div>
+        {{--<div class="col-md-12">--}}
+            {{--<h4 class="page-head-line">{{ $buyer->company_name }}</h4>--}}
+        {{--</div>--}}
 
         @if(Session::has('flash_message'))
             <div class="col-md-12">
@@ -18,7 +18,7 @@
             </div>
         @endif
 
-        <div class="col-lg-4 col-sm-6">
+        <div class="col-sm-4">
 
             <div class="card hovercard">
                 <div class="cardheader" style='background: url("/uploads/buyer-bg-{{$buyer->id}}.jpg")'>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="{{ $buyer->website }}">{{ $buyer->company_name }}</a>
+                        {{ $buyer->company_name }}
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -44,7 +44,7 @@
                                 </tr>
                                 <tr>
                                     <th>Website</th>
-                                    <td>{{ $buyer->website }}</td>
+                                    <td><a target="_blank" href="{{ $buyer->website }}">{{ $buyer->website }}</a></td>
                                 </tr>
                                 <tr>
                                     <th>Phone Number</th>
@@ -76,7 +76,7 @@
         {{--</form>--}}
 
         {{--View Schedule--}}
-        <div class="col-md-8">
+        <div class="col-sm-8 ">
 
             @if($schedule->isEmpty())
                 <div class="alert alert-info">
