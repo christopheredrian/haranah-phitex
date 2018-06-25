@@ -21,9 +21,9 @@ class RedirectIfAuthenticated
             if(Auth::user()->hasRole("admin") or Auth::user()->hasRole("superadmin")){
                 return redirect('/admin/home');
             } else if(Auth::user()->hasRole("buyer")){
-                return redirect('/buyer/home');
+                return redirect('/buyer/events');
             } else {
-                return redirect('/seller/home');
+                return redirect('/seller/events');
             }
         }
 
