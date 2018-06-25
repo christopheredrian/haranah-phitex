@@ -50,7 +50,8 @@ class BuyerProfilesController extends Controller
      */
     public function events(Request $request)
     {
-        return view('buyer.events', ['events' => Auth::user()->buyer->events]);
+        $buyer = Auth::user()->buyer;
+        return view('buyer.events', ['events' => Auth::user()->buyer->events, 'buyer' => $buyer]);
     }
 
     /**
