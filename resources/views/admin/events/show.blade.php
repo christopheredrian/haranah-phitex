@@ -7,19 +7,25 @@
                 <div class="panel x_panel">
                     <h1 class="x_title">Event: <b>{{ $event->event_name }}</b>
                         @if($event->event_status == "New Event")
-                            <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration" method="post" style="display:inline">
+                            <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration"
+                                  method="post" style="display:inline">
                                 {{ csrf_field() }}
                                 {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
                                 {{--Submit List</button>--}}
-                                <button type="submit" class="btn btn-small btn-primary pull-right">Open Registration</button>
+                                <button type="submit" class="btn btn-small btn-primary pull-right">Open Registration
+                                </button>
                             </form>
                         @endif
                         @if($event->event_status == "Registration Open")
-                            <form id="submit-form" action="/admin/events/{{ $event->id }}/closeRegistration" method="post" style="display:inline">
+                            <form id="submit-form" action="/admin/events/{{ $event->id }}/closeRegistration"
+                                  method="post" style="display:inline">
                                 {{ csrf_field() }}
                                 {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
                                 {{--Submit List</button>--}}
-                                <button type="submit" class="btn btn-small btn-danger pull-right" {{$event->event_params->isEmpty() ? 'disabled' : ''}}>Close Registration</button>
+                                <button type="submit"
+                                        class="btn btn-small btn-danger pull-right" {{$event->event_params->isEmpty() ? 'disabled' : ''}}>
+                                    Close Registration
+                                </button>
                             </form>
                         @endif
 
@@ -35,16 +41,20 @@
                             </a>
                         @endif
                         @if($event->event_status == "Schedule Finalized")
-                            <a href="{{ route('show.final.list.schedule', ['event_id' => $event->id]) }}" title="See Event">
+                            <a href="{{ route('show.final.list.schedule', ['event_id' => $event->id]) }}"
+                               title="See Event">
                                 <button class="btn btn-small btn-primary pull-right">View Finalized Schedules</button>
                             </a>
                         @endif
                         @if($event->event_status == "Registration Closed")
-                            <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration" method="post"  style="display:inline">
+                            <form id="submit-form" action="/admin/events/{{ $event->id }}/openRegistration"
+                                  method="post" style="display:inline">
                                 {{ csrf_field() }}
                                 {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
                                 {{--Submit List</button>--}}
-                                <button type="submit" class="btn btn-small btn-success pull-right">Re-Open Registration</button>
+                                <button type="submit" class="btn btn-small btn-success pull-right">Re-Open
+                                    Registration
+                                </button>
                             </form>
                         @endif
                     </h1>
@@ -60,13 +70,14 @@
                                                                       aria-hidden="true"></i> Edit
                             </button>
                         </a>
-{{--                        {{dd($schedule)}}--}}
+                        {{--                        {{dd($schedule)}}--}}
                         @if($schedule->isEmpty())
                         @else
                             <a href="{{ url('/reports/' . $event_id . '/pdf') }}" title="Download PDF Schedule">
                                 @endif
 
-                                <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                <button class="btn btn-success btn-xs {{$schedule->isEmpty() ? 'disabled' : ''}}"><i
+                                            class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                     Download PDF Schedule
                                 </button>
                                 @if($schedule->isEmpty())
@@ -87,14 +98,14 @@
                         </form>
 
                         {{--<a href="#">--}}
-                            {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewSellerModal">--}}
-                                {{--Show Sellers--}}
-                            {{--</button>--}}
+                        {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewSellerModal">--}}
+                        {{--Show Sellers--}}
+                        {{--</button>--}}
                         {{--</a>--}}
                         {{--<a href="#">--}}
-                            {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewBuyerModal">--}}
-                                {{--Show Buyers--}}
-                            {{--</button>--}}
+                        {{--<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myViewBuyerModal">--}}
+                        {{--Show Buyers--}}
+                        {{--</button>--}}
                         {{--</a>--}}
 
                         <br/>
@@ -102,15 +113,21 @@
 
                     <div class="x_panel">
                         <div>
-                            <h1 class="x_title"> <i class="fa fa-envelope-o"></i> Mail
+                            <h1 class="x_title"><i class="fa fa-envelope-o"></i> Mail
                                 <div class="btn-group pull-right">
-                                    <a class="btn btn-primary btn-md" href="{{ url('/admin/event/' . $event->id . '/mail?to=sellers') }}" title="Edit Event">
+                                    <a class="btn btn-primary btn-md"
+                                       href="{{ url('/admin/event/' . $event->id . '/mail?to=sellers') }}"
+                                       title="Edit Event">
                                         <i class="fa fa-users"></i> Sellers
                                     </a>
-                                    <a class="btn btn-primary btn-md" href="{{ url('/admin/event/' . $event->id . '/mail?to=buyers') }}" title="Edit Event">
+                                    <a class="btn btn-primary btn-md"
+                                       href="{{ url('/admin/event/' . $event->id . '/mail?to=buyers') }}"
+                                       title="Edit Event">
                                         <i class="fa fa-money"></i> Buyers
                                     </a>
-                                    <a class="btn btn-primary btn-md" href="{{ url('/admin/event/' . $event->id . '/mail?to=all') }}" title="Edit Event">
+                                    <a class="btn btn-primary btn-md"
+                                       href="{{ url('/admin/event/' . $event->id . '/mail?to=all') }}"
+                                       title="Edit Event">
                                         <i class="fa fa-reply-all"></i> Buyers and Sellers
                                     </a>
                                 </div>
@@ -154,15 +171,16 @@
                     <h1 class="x_title">Schedules
                         <a href="{{ route('create.event.params', ['event_id' => $event->id]) }}" title="Add Param">
                             <button class="btn btn-success btn-small pull-right"><i class="fa fa-pencil-square-o"
-                                                                                 aria-hidden="true"></i> Add Schedule
+                                                                                    aria-hidden="true"></i> Add Schedule
                             </button>
                         </a></h1>
                     <p class="x_content">
-                        <ul >
-                            @foreach($event->event_params as $s)
-                                <li>{{ date('g:i A', strtotime($s->start_time)) }} - {{ date('g:i A', strtotime($s->end_time)) }}</li>
-                            @endforeach
-                        </ul>
+                    <ul>
+                        @foreach($event->event_params as $s)
+                            <li>{{ date('g:i A', strtotime($s->start_time)) }}
+                                - {{ date('g:i A', strtotime($s->end_time)) }}</li>
+                        @endforeach
+                    </ul>
                     </p>
                 </div>
 
@@ -170,17 +188,19 @@
                 <div class="x_panel">
                     <div class="table-responsive">
                         <h1 class="x_title">Sellers
-                            <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}" title="Add Sellers">
+                            <a href="{{ route('create.event.sellers', ['event_id' => $event->id]) }}"
+                               title="Add Sellers">
                                 <button class="btn btn-success btn-small pull-right"><i class="fa fa-pencil-square-o"
-                                                                          aria-hidden="true"></i> Add Sellers
+                                                                                        aria-hidden="true"></i> Add
+                                    Sellers
                                 </button>
                             </a></h1>
                         <table id="sellers-table" class="table table-compresed table-borderless data-table">
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>Representative 1</th>
+                                <th>Representative 2</th>
                                 <th>Company</th>
-                                <th>Position</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Country</th>
@@ -189,9 +209,9 @@
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>Name</th>
+                                <th>Representative 1</th>
+                                <th>Representative 2</th>
                                 <th>Company</th>
-                                <th>Position</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Country</th>
@@ -201,17 +221,25 @@
                             <tbody>
                             @foreach($sellers as $s)
                                 <tr>
-                                    <td>{{ $s->user->name }}</td>
+                                    <td>{{ $s->event_rep1 }}</td>
+                                    <td>{{ $s->event_rep2 }}</td>
                                     <td>{{ $s->company_name }}</td>
-                                    <td>{{ $s->position }}</td>
                                     <td>{{ $s->user->email }}</td>
                                     <td>{{ $s->phone }}</td>
                                     <td>{{ $s->country }}</td>
-                                    <td><form method="POST" action="{{ url('/admin/event-sellers/'.$event->id.'/'.$s->id.'/delete' ) }}" accept-charset="UTF-8" style="display:inline">
+                                    <td>
+                                        <form method="POST"
+                                              action="{{ url('/admin/event-sellers/'.$event->id.'/'.$s->id.'/delete' ) }}"
+                                              accept-charset="UTF-8" style="display:inline">
 
                                             {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-danger btn-xs" title="Delete EventBuyer" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                                        </form></td>
+                                            <button type="submit" class="btn btn-danger btn-xs"
+                                                    title="Delete EventBuyer"
+                                                    onclick="return confirm(&quot;Confirm delete?&quot;)"><i
+                                                        class="fa fa-trash-o" aria-hidden="true"></i> Delete
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -224,16 +252,17 @@
                         <h1 class="x_title">Buyers
                             <a href="{{ route('create.event.buyers', ['event_id' => $event->id]) }}" title="Add Buyers">
                                 <button class="btn btn-success btn-small pull-right"><i class="fa fa-pencil-square-o"
-                                                                          aria-hidden="true"></i> Add Buyers
+                                                                                        aria-hidden="true"></i> Add
+                                    Buyers
                                 </button>
                             </a>
                         </h1>
                         <table id="buyers-table" class="table table-compresed table-borderless data-table">
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>Representative 1</th>
+                                <th>Representative 2</th>
                                 <th>Company</th>
-                                <th>Position</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Country</th>
@@ -242,9 +271,9 @@
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>Name</th>
+                                <th>Representative 1</th>
+                                <th>Representative 2</th>
                                 <th>Company</th>
-                                <th>Position</th>
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Country</th>
@@ -254,17 +283,25 @@
                             <tbody>
                             @foreach($buyers as $b)
                                 <tr>
-                                    <td>{{ $b->user->name }}</td>
+                                    <td>{{ $b->event_rep1}}</td>
+                                    <td>{{ $b->event_rep2}}</td>
                                     <td>{{ $b->company_name }}</td>
-                                    <td>{{ $b->position }}</td>
                                     <td>{{ $b->user->email }}</td>
                                     <td>{{ $b->phone }}</td>
                                     <td>{{ $b->country }}</td>
-                                    <td><form method="POST" action="{{ url('/admin/event-buyers/'.$event->id.'/'.$b->id.'/delete' ) }}" accept-charset="UTF-8" style="display:inline">
+                                    <td>
+                                        <form method="POST"
+                                              action="{{ url('/admin/event-buyers/'.$event->id.'/'.$b->id.'/delete' ) }}"
+                                              accept-charset="UTF-8" style="display:inline">
 
                                             {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-danger btn-xs" title="Delete EventBuyer" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                                        </form></td>
+                                            <button type="submit" class="btn btn-danger btn-xs"
+                                                    title="Delete EventBuyer"
+                                                    onclick="return confirm(&quot;Confirm delete?&quot;)"><i
+                                                        class="fa fa-trash-o" aria-hidden="true"></i> Delete
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
 
@@ -322,13 +359,9 @@
                     </div>
                 </div>
 
-                </div>
             </div>
+        </div>
 
-        </div>
-        </div>
-    </div>
-    </div>
     </div>
 @endsection
 
