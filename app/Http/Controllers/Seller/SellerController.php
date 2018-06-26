@@ -110,6 +110,7 @@ class SellerController extends Controller
             $schedule = DB::table('final_schedules')
                 ->join('event_params', 'final_schedules.event_param_id', '=', 'event_params.id')
                 ->where('final_schedules.seller_id', '=', $sellerID)
+                ->where('final_schedules.event_id', '=', $event_id)
                 ->get();
 
             // gets event information
