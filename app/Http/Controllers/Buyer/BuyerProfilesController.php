@@ -84,9 +84,9 @@ class BuyerProfilesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show($event_id)
     {
-        if (!in_array($id, Auth::user()->buyer->events->pluck('id')->toArray())) {
+        if (!in_array($event_id, Auth::user()->buyer->events->pluck('id')->toArray())) {
             abort(404);
         }
 
@@ -99,12 +99,12 @@ class BuyerProfilesController extends Controller
         $schedule = DB::table('final_schedules')
             ->join('event_params', 'final_schedules.event_param_id', '=', 'event_params.id')
             ->where('final_schedules.buyer_id', '=', $buyerID)
-            ->where('final_schedules.event_id', '=', $id)
+            ->where('final_schedules.event_id', '=', $event_id)
             ->get();
 
         // gets event information
 
-        $eventOfBuyer = Event::find($id);
+        $eventOfBuyer = Event::find($event_id);
 
         $info = DB::table('final_schedules')
             ->join('buyers', 'final_schedules.buyer_id', '=', 'buyers.id')
