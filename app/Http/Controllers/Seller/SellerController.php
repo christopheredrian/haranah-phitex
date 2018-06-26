@@ -467,25 +467,32 @@ class SellerController extends Controller
      */
     public function cacheSellerPreference(Request $request)
     {
-
+        // Get from request
         $event_id = $request->event_id;
         $seller_id = $request->seller_id;
-
         $buyer_ids = [];
-        foreach ($request->values as $value) {
-            $buyer_ids[] = explode("-", $value)[0];
+        if ($request->values) {
+            foreach ($request->values as $value) {
+                $buyer_ids[] = explode("-", $value)[0];
+            }
         }
 
-        $seller_preference_cache = SellerPreferenceCache::where('event_id', $event_id)->where('seller_id', $seller_id);
-        if (!$seller_preference_cache->exists()) {
-            $seller_preference_cache = new SellerPreferenceCache();
+        // Validate values
+        if ($event_id && $seller_id) {
+            $seller_preference_cache = SellerPreferenceCache::where('event_id', $event_id)->where('seller_id', $seller_id);
+            if (!$seller_preference_cache->exists()) {
+                $seller_preference_cache = new SellerPreferenceCache();
+            } else {
+                $seller_preference_cache = $seller_preference_cache->first();
+            }
+            $seller_preference_cache->buyer_ids = implode(",", $buyer_ids);
+            $seller_preference_cache->event_id = $event_id;
+            $seller_preference_cache->seller_id = $seller_id;
+            $seller_preference_cache->save();
         } else {
-            $seller_preference_cache = $seller_preference_cache->first();
+
         }
-        $seller_preference_cache->buyer_ids = implode(",", $buyer_ids);
-        $seller_preference_cache->event_id = $event_id;
-        $seller_preference_cache->seller_id = $seller_id;
-        $seller_preference_cache->save();
+
 
         return redirect('/seller/pick/' . $event_id)->with('flash_message', 'Draft saved!');
 

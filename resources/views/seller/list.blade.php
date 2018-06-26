@@ -268,7 +268,7 @@
 
                                         {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
                                         {{--Submit List</button>--}}
-                                        <button type="submit" class="btn btn-primary pull-right" style="margin-left: 5px">Submit</button>
+                                        <button onclick="return confirm('Are you sure you want to save your preference (This cannot be undone)')" type="submit" class="btn btn-primary pull-right" style="margin-left: 5px">Submit</button>
                                     </form>
                                     <form class="submit-form" action="/seller/cacheSellerPreference"
                                           method="post">
@@ -366,7 +366,7 @@
                 updateHiddenInputs();
             });
 
-            var buyerValues = "{{ $seller_cache->buyer_ids }}";
+            var buyerValues = "{{ $seller_cache->buyer_ids or '' }}";
             if (buyerValues) {
                 buyerValues = buyerValues.split(',');
             } else {
