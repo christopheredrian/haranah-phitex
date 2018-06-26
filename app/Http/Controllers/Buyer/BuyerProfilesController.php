@@ -99,12 +99,12 @@ class BuyerProfilesController extends Controller
         $schedule = DB::table('final_schedules')
             ->join('event_params', 'final_schedules.event_param_id', '=', 'event_params.id')
             ->where('final_schedules.buyer_id', '=', $buyerID)
+            ->where('final_schedules.event_id', '=', $id)
             ->get();
 
         // gets event information
 
         $eventOfBuyer = Event::find($id);
-
 
         $info = DB::table('final_schedules')
             ->join('buyers', 'final_schedules.buyer_id', '=', 'buyers.id')
