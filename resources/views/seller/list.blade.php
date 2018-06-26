@@ -117,7 +117,7 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="box box-info">
-                    <div class="box-header">List</div>
+                    <div class="box-header">List of Buyers</div>
                     <div class="box-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -234,7 +234,7 @@
             </div>
             <div class="col-md-7">
                 <div class="box box-info">
-                    <div class="box-header">List of selected buyers</div>
+                    <div class="box-header">List of Selected buyers</div>
                     <div class="box-body">
                         <div class="row">
                             <div class="col-lg-12"><!-- Second Table Selected Buyer List-->
@@ -286,17 +286,6 @@
             // Global vars
             var selectedCounter = 0;
 
-//            $('#buyer-list').DataTable({
-//                paging: false,
-//                "scrollY":        "200px",
-//                "scrollCollapse": true
-//            });
-//            $('#selected-buyer-table').DataTable({
-//                info: false,
-//                paging: false,
-//                "scrollY":        "200px",
-//                "scrollCollapse": true,
-//            });
             $('.dataTables_empty').remove();
 
             function updateHiddenInputs() {
@@ -316,7 +305,7 @@
             var util = function () {
                 selectedCounter++;
                 var currentElement = $(this).parent().parent();
-                currentElement.find('button').remove();
+                currentElement.find('button.add-btn').remove();
                 var removeBtn = $('<button class="btn btn-sm btn-danger">');
                 removeBtn.html("<i class=\"fa fa-times\"></i> ");
 
@@ -325,7 +314,7 @@
                     selectedCounter--;
                     var tdToRemove = $(this).parent().parent();
                     var addBtn = $('<button class="add-btn btn-sm btn btn-success">');
-                    addBtn.text("Add to List");
+                    addBtn.html("<i class='fa fa-plus'></i>");
                     addBtn.click(util);
                     tdToRemove.find('.action-btn-group').append(addBtn);
                     tdToRemove.find('.btn-danger').remove();
