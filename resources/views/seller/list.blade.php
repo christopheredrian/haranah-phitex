@@ -114,6 +114,11 @@
                 <p>{{session('status')}}</p>
             </div>
         @endif
+        @if(session('flash_message'))
+            <div class="alert alert-success">
+                {{ session('flash_message') }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-5">
                 <div class="box box-info">
@@ -128,7 +133,7 @@
                                     <tr>
                                         <th>Company</th>
                                         <th>Country</th>
-                                        <th>Action</th>
+                                        <th class="col-xs-2">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -146,7 +151,8 @@
                                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                                         data-target="#modal{{$buyer->id}}"><i class="fa fa-eye"></i>
                                                 </button>
-                                                <button type="button" class="add-btn btn btn-sm btn-success"><i
+                                                <button type="button" class="add-btn btn btn-sm btn-success"
+                                                        data-buyer="{{ $buyer->id }}"><i
                                                             class="fa fa-plus"></i>
                                                 </button>
                                                 <div class="list-profile-modal modal fade" id="modal{{$buyer->id}}"
@@ -254,14 +260,22 @@
 
                                         </tbody>
                                     </table>
-                                    <form id="submit-form" action="/seller/submitPick"
+
+                                    <form class="submit-form" action="/seller/submitPick"
                                           method="post">
                                         <input type="hidden" name="event_id" value="{{ $event->id }}">
                                         {{ csrf_field() }}
 
                                         {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">--}}
                                         {{--Submit List</button>--}}
-                                        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                                        <button type="submit" class="btn btn-primary pull-right" style="margin-left: 5px">Submit</button>
+                                    </form>
+                                    <form class="submit-form" action="/seller/cacheSellerPreference"
+                                          method="post">
+                                        <input type="hidden" name="event_id" value="{{ $event->id }}">
+                                        <input type="hidden" name="seller_id" value="{{ $seller->id }}">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-info pull-right">Save as Draft</button>
                                     </form>
                                 </div>
                             </div>
@@ -290,12 +304,12 @@
 
             function updateHiddenInputs() {
                 // add input type hidden
-                $('#submit-form input.buyer-id').remove();
+                $('.submit-form input.buyer-id').remove();
                 $('#preference_table input.buyer-id').each(function (index, value) {
                     // for each of the input
                     $input = $(value).clone(true);
                     $input.val($input.val() + '-' + (index + 1));
-                    $('#submit-form').append($input);
+                    $('.submit-form').append($input);
                 });
                 $('#preference_table tr').each(function (index, value) {
                     $(this).find('td').last().text(index + 1);
@@ -351,6 +365,21 @@
                 });
                 updateHiddenInputs();
             });
+
+            var buyerValues = "{{ $seller_cache->buyer_ids }}";
+            if (buyerValues) {
+                buyerValues = buyerValues.split(',');
+            } else {
+                buyerValues = [];
+            }
+            $.each($('button.add-btn'), function (index, value) {
+                $button = $(value);
+                $current_id = $button.data('buyer') + ''; //convert to string
+                if (buyerValues.indexOf($current_id) > -1) {
+                    $button.click();
+                }
+            })
+
         });
     </script>
 @endsection

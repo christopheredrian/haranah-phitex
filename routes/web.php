@@ -189,6 +189,7 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => 'Seller\\SellerController@sellerPreference'
         ]);
 
+        Route::post('/cacheSellerPreference', 'Seller\\SellerController@cacheSellerPreference');
         Route::post('/submitPick', [
             'as' => 'preference.submit',
             'uses' => 'Seller\\SellerController@submitPreferences'
