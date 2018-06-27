@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Seller;
+use App\SellerPreferenceCache;
 use App\User;
 use App\FinalSchedule;
 use App\EventParam;
@@ -91,13 +92,13 @@ class SellerController extends Controller
         $buyer_events = Auth::user()->seller->events;
 
         foreach ($buyer_events as $buyer_event) {
-            if($buyer_event->id == $event_id){
+            if ($buyer_event->id == $event_id) {
                 $flag = true;
                 break;
             }
         }
 
-        if($flag){
+        if ($flag) {
             $id = Auth::user()->id;
 
             $seller = Seller::where("sellers.user_id", "=", "$id")->first();
@@ -109,6 +110,7 @@ class SellerController extends Controller
             $schedule = DB::table('final_schedules')
                 ->join('event_params', 'final_schedules.event_param_id', '=', 'event_params.id')
                 ->where('final_schedules.seller_id', '=', $sellerID)
+                ->where('final_schedules.event_id', '=', $event_id)
                 ->get();
 
             // gets event information
@@ -451,9 +453,50 @@ class SellerController extends Controller
         $seller = Seller::where('user_id', Auth::user()->id)
             ->first();
         $event = Event::find($event_id);
+        $seller_cache = SellerPreferenceCache::where('event_id', $event_id)->where('seller_id', $seller->id)->first();
         return view('seller.list')
             ->with('buyers', $event->buyers)
-            ->with('event', $event);
+            ->with('event', $event)
+            ->with('seller', $seller)
+            ->with('seller_cache', $seller_cache);
+    }
+
+    /**
+     * Caching the results - Save to Draft button
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function cacheSellerPreference(Request $request)
+    {
+        // Get from request
+        $event_id = $request->event_id;
+        $seller_id = $request->seller_id;
+        $buyer_ids = [];
+        if ($request->values) {
+            foreach ($request->values as $value) {
+                $buyer_ids[] = explode("-", $value)[0];
+            }
+        }
+
+        // Validate values
+        if ($event_id && $seller_id) {
+            $seller_preference_cache = SellerPreferenceCache::where('event_id', $event_id)->where('seller_id', $seller_id);
+            if (!$seller_preference_cache->exists()) {
+                $seller_preference_cache = new SellerPreferenceCache();
+            } else {
+                $seller_preference_cache = $seller_preference_cache->first();
+            }
+            $seller_preference_cache->buyer_ids = implode(",", $buyer_ids);
+            $seller_preference_cache->event_id = $event_id;
+            $seller_preference_cache->seller_id = $seller_id;
+            $seller_preference_cache->save();
+        } else {
+
+        }
+
+
+        return redirect('/seller/pick/' . $event_id)->with('flash_message', 'Draft saved!');
+
     }
 
     /**
@@ -509,6 +552,6 @@ class SellerController extends Controller
             );
         }
 
-        return redirect('seller/home/'.$seller->id)->with('flash_message', 'Profile updated!');
+        return redirect('seller/home/' . $seller->id)->with('flash_message', 'Profile updated!');
     }
 }
