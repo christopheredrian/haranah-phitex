@@ -116,6 +116,11 @@
                             <h1 class="x_title"><i class="fa fa-envelope-o"></i> Mail
                                 <div class="btn-group pull-right">
                                     <a class="btn btn-primary btn-md"
+                                       href="{{ url('/admin/sendNotificationEmails/' . $event->id) }}"
+                                       title="Send Notification Email">
+                                        <i class="fa fa-envelope-o"></i> Send Notification Emails
+                                    </a>
+                                    <a class="btn btn-primary btn-md"
                                        href="{{ url('/admin/event/' . $event->id . '/mail?to=sellers') }}"
                                        title="Edit Event">
                                         <i class="fa fa-users"></i> Sellers

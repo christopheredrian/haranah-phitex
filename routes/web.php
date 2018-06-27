@@ -29,7 +29,7 @@ Route::get('/logout', function(){
 Route::get('/role', function(){
     dd(Auth::user()->role);
 });
-
+Route::get('/sendNotificationEmails/{event_id}', 'Admin\\EventsController@sendNotificationEmails');
 // End dev utilities
 
 Route::group(['middleware' => ['auth']], function () {
@@ -132,6 +132,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/event/{event_id}/sendmail', 'Admin\\MailController@sendMailParticipants');
         // Route::post('/admin/event/{event_id}/mail', 'Admin\\MailController@testmail');
         //Route::get('/mail/run', 'Admin\\MailController@run');
+        Route::get('/sendNotificationEmails/{event_id}', 'Admin\\EventsController@sendNotificationEmails');
 
     });
 

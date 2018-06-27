@@ -44,6 +44,32 @@ class Event extends Model
         return $this->belongsToMany(Seller::class);
     }
 
+    /**
+     * Returns all seller emails in this event
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sellerEmails()
+    {
+        $seller_emails = $this->sellers->map(function ($seller, $key) {
+            return $seller->user->email;
+        });
+
+        return $seller_emails->toArray();
+    }
+
+    /**
+     * Returns all buyers emails in this event
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function buyerEmails()
+    {
+        $buyer_emails = $this->buyers->map(function ($buyer, $key) {
+            return $buyer->user->email;
+        });
+
+        return $buyer_emails->toArray();
+    }
+
     public function event_params()
     {
         return $this->hasMany('App\EventParam');
