@@ -120,7 +120,8 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.haranahtours.com.ph/" target="_blank">Haranah Tours</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.haranahtours.com.ph/" target="_blank">Haranah
+                        Tours</a>.</strong> All rights reserved.
             </div>
             <div class="clearfix"></div>
         </footer>

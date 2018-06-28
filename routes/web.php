@@ -29,7 +29,7 @@ Route::get('/logout', function(){
 Route::get('/role', function(){
     dd(Auth::user()->role);
 });
-Route::get('/sendNotificationEmails/{event_id}', 'Admin\\EventsController@sendNotificationEmails');
+
 // End dev utilities
 
 Route::group(['middleware' => ['auth']], function () {
@@ -206,10 +206,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/events', 'Seller\\SellerController@events');
     });
 
-
-
     //
-    Route::post('/importBuyersOrSellers', 'FileController@importBuyersOrSellers');
+    Route::get('/importBuyersOrSellers', 'FileController@importBuyersOrSellers');
+    Route::get('/sendNotificationEmails/{event_id}', 'Admin\\EventsController@sendNotificationEmails');
+    Route::post('/verifyUsers', 'Admin\\UsersController@verifyUsers');
 });
 
 Auth::routes();

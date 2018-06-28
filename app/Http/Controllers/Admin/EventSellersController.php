@@ -37,7 +37,8 @@ class EventSellersController extends Controller
     {
         return view('admin.event-sellers.create')
             ->with('event_id', $event_id)
-            ->with('sellers', $this->getSellers($event_id));
+            ->with('sellers', $this->getSellers($event_id))
+            ->with('event', Event::find($event_id));
     }
 
     /**

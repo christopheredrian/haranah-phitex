@@ -17,48 +17,34 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class FileController extends Controller
 {
-    public function importBuyersOrSellers(Request $request){
+    public function importBuyersOrSellers(){
         try{
-            $path = $request->file('file')->getRealPath();
-            $data = Excel::load($path, function($reader) {})->get()->toArray();
-            $data = array_filter($data, function($value){
-                return isset($value['name']);
-            });
-            $event_id = $request->event_id;
+            $event_id = session('importEventID');
             $event_name = Event::find($event_id)->first()->event_name;
-            $user_type = $request->user_type;
-            $imported_users[] = array();
-            $new_imported_users[] = array();
-
-            unset($imported_users[0]);
-            unset($new_imported_users[0]);
-//            unset($imported_users_emails[0]);
+            $user_type = session('importUserType');
+            $imported_users = [];
+            $new_imported_users = [];
+            $users = session('importData');
 
             // Import to USERS table
-            if(!empty($data) && count($data)){
-                for($i=0;$i<count($data);$i++)
+            if(!empty($users) && count($users)){
+                foreach($users as $user)
                 {
-                    // remove unnecessary column 0
-                    unset($data[$i][0]);
-
                     try {
-                        if(isset($data[$i]['name']) && isset($data[$i]['email']) && isset($data[$i]['position']) && isset($data[$i]['company'])){
-//                            if($){
-//
-//                            }
-                            array_push($imported_users, $data[$i]);
+                        if(isset($user['name']) && isset($user['email']) && isset($user['position']) && isset($user['company'])){
+                            array_push($imported_users, $user);
 
                             // check if account exists using email
-                            if(User::where('email', $data[$i]['email'])->count() == false){
+                            if(User::where('email', $user['email'])->count() == false){
                                 $new_user = new User();
-                                $new_user->name = $data[$i]['name'];
-                                $new_user->email = $data[$i]['email'];
+                                $new_user->name = $user['name'];
+                                $new_user->email = $user['email'];
                                 $new_user->password = bcrypt('password');
                                 $new_user->role = $user_type;
                                 $new_user->activated = 1;
                                 $new_user->save();
 
-                                array_push($new_imported_users, $data[$i]);
+                                array_push($new_imported_users, $user);
                             }
                         }
                     } catch(Exception $e) {
@@ -89,13 +75,17 @@ class FileController extends Controller
 
                 if(count($imported_users) > 0){
                     foreach ($imported_users as $imported_buyer) {
-                        $imported_buyer_id = User::where('email', $imported_buyer['email'])->first()->buyer->id;
+                        if(!isset($imported_buyer['isVerifiedBuyer']) || $imported_buyer['isVerifiedBuyer']){
+                            $imported_buyer_id = User::where('email', $imported_buyer['email'])->first()->buyer->id;
 
-                        if (!BuyerEvent::where('event_id', $event_id)->where('buyer_id', $imported_buyer_id)->exists()) {
-                            $event_buyer = new BuyerEvent();
-                            $event_buyer->event_id = $event_id;
-                            $event_buyer->buyer_id = $imported_buyer_id;
-                            $event_buyer->save();
+                            if (!BuyerEvent::where('event_id', $event_id)->where('buyer_id', $imported_buyer_id)->exists()) {
+                                $event_buyer = new BuyerEvent();
+                                $event_buyer->event_id = $event_id;
+                                $event_buyer->buyer_id = $imported_buyer_id;
+                                $event_buyer->save();
+                            }
+                        } else {
+                            $user_count--;
                         }
                     }
                 }
@@ -117,18 +107,27 @@ class FileController extends Controller
 
                 if(count($imported_users) > 0){
                     foreach ($imported_users as $imported_seller) {
-                        $imported_seller_id = User::where('email', $imported_seller['email'])->first()->seller->id;
+                        if(!isset($imported_seller['isVerifiedSeller']) || $imported_seller['isVerifiedSeller']){
+                            $imported_seller_id = User::where('email', $imported_seller['email'])->first()->seller->id;
 
-                        if (!EventSeller::where('event_id', $event_id)->where('seller_id', $imported_seller_id)->exists()) {
-                            $event_seller = new EventSeller();
-                            $event_seller->event_id = $event_id;
-                            $event_seller->seller_id =  $imported_seller_id;
-                            $event_seller->save();
+                            if (!EventSeller::where('event_id', $event_id)->where('seller_id', $imported_seller_id)->exists()) {
+                                $event_seller = new EventSeller();
+                                $event_seller->event_id = $event_id;
+                                $event_seller->seller_id =  $imported_seller_id;
+                                $event_seller->save();
+                            }
+                        }  else {
+                            $user_count--;
                         }
                     }
                 }
                 Session::flash('flash_message', 'Import Complete! ' . $user_count . ($user_count > 1 ? ' sellers ' : ' seller') . ' added ' . 'to ' . $event_name. '!');
             }
+
+            // clear import data from session
+            session()->forget('importEventID');
+            session()->forget('importUserType');
+            session()->forget('importData');
 
             return redirect('admin/events/' . $event_id);
 
