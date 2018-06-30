@@ -94,6 +94,7 @@ class UsersController extends Controller
                     // remove unnecessary column 0
                     unset($data[$i][0]);
 
+
                     // check if necessary columns are present in Excel file
                     if (isset($data[$i]['name']) && isset($data[$i]['email']) && isset($data[$i]['position']) && isset($data[$i]['company'])) {
                         // check if account exists using email
@@ -105,6 +106,11 @@ class UsersController extends Controller
                         } elseif (!$data[$i]['isNew'] && $user_type === 'buyer') {
                             $data[$i]['isVerifiedBuyer'] = User::where('email', $data[$i]['email'])->first()->buyer == true ? 1 : 0;
                         }
+                    } else {
+                        Session::flash('flash_message', 'The following columns are required in the Excel file: Name, Position, Company, Email.');
+                        Session::flash('alert-class', 'alert-danger');
+
+                        return redirect('admin/events/' . $event_id);
                     }
                 }
 
