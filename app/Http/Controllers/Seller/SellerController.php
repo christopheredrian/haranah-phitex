@@ -132,6 +132,7 @@ class SellerController extends Controller
                 ->get();
 
             $count = \App\SellerPreference::where('seller_preferences.seller_id', '=', $sellerID)
+                ->where('event_id', '=', $event_id)
                 ->count();
 
             if ($count > 0) {
