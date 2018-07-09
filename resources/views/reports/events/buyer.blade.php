@@ -36,7 +36,9 @@
     <div class="text-center">
         <h3>Philippine Travel Exchange</h3>
         <hr>
+        <h4><strong>{{\Illuminate\Support\Facades\Auth::user()->name}}</strong></h4>
         <h4>Schedule for <strong>{{$event->event_name}}</strong></h4>
+        <h4>{{date("F j, Y", strtotime($event->event_date))}}</h4>
     </div>
     <br>
 
