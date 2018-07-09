@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Create New EventBuyer</div>
+                    <div class="panel-heading">Add Buyer to Event</div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/events/'.$event_id) }}" title="Back">
                             <button class="btn btn-warning btn-xs">
@@ -13,7 +13,7 @@
                             </button>
                         </a>
                         <a id="createButton" class="btn btn-info btn-xs" title="Import from Excel">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Create
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add
                         </a>
                         <a id="excelImportButton" class="btn btn-success btn-xs" title="Import from Excel">
                             <i class="fa fa-file-excel-o" aria-hidden="true"></i> Import from Excel or CSV

@@ -6,7 +6,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Finalschedules</div>
+                    <div class="panel-heading">Final Schedules</div>
                     <div class="panel-body">
                         <br/>
                         <br/>
