@@ -152,13 +152,15 @@ class BuyerProfilesController extends Controller
      */
     public function update(Request $request)
     {
-        $id = Auth::user()->id;
 
         $request->validate($this->buyer_validation);
         $requestData = $request->all();
 
-        $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->first();
+        $buyer = Auth::user()->buyer;
+
+//        $buyer = Buyer::findOrFail($id)->where("buyers.user_id", "=", "$id")->get();
         $buyer->update($requestData);
+
 
 //        $user = User::findOrFail($buyer->user->id);
 //        $user->update($requestData);
@@ -191,7 +193,8 @@ class BuyerProfilesController extends Controller
 
         }
 
-        return redirect('buyer/profile/'.$buyer->id)->with('flash_message', 'Buyer updated!');
+
+        return back()->with('flash_message', 'Buyer updated!');
     }
 
     /**

@@ -306,6 +306,6 @@ class SellerController extends Controller
             );
         }
 
-        return redirect('seller/home/' . $seller->id)->with('flash_message', 'Profile updated!');
+        return back()->with('flash_message', 'Profile updated!');
     }
 }
