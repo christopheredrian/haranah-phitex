@@ -172,21 +172,21 @@
                                             {!! $errors->first('company_address', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
+
+                                    <?php $countryList = config('country'); ?>
                                     <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
                                         <label for="company_name" class="col-md-4 control-label">{{ 'Country' }}</label>
                                         <div class="col-md-8">
                                             <select class="form-control" type="text" name="country" id="country">
                                                 <option value="{{old('country', isset($seller) ? $seller->country : '')}}" selected="selected" style="display:none;">{{ old('country', isset($seller) ? $seller->country : '') }}</option>
-                                                @foreach($countries as $key => $value)
-                                                    <option value="{{$value}}" title="{{$value}}">
-                                                        {{$value}}
-                                                    </option>
+                                                @foreach ($countryList as $countryId=>$name)
+                                                    <option value="{{ $countryId }}">{{ $name }}</option>
                                                 @endforeach
-
                                             </select>
                                             {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
+
                                     <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
                                         <label for="email" class="col-md-4 control-label">{{ 'Email' }}</label>
 
@@ -251,15 +251,14 @@
                                             {{--<input class="form-control" type="text" name="designation" id="designation"
                                                    value="{{ old('designation', isset($seller) ? $seller->designation : '') }}">
                                             {!! $errors->first('designation', '<p class="help-block">:message</p>') !!}--}}
-                                            <select class="form-control" type="text" name="designation" id="designation">
-                                                <option value="{{old('designation', isset($seller) ? $seller->designation : '')}}" selected="selected" style="display:none;">{{ old('designation', isset($seller) ? $seller->designation : '') }}</option>
-                                                @foreach($countries as $key => $value)
-                                                    <option value="{{$value}}" title="{{$value}}">
-                                                        {{$value}}
-                                                    </option>
-                                                @endforeach
 
-                                            </select>
+                                                    <select class="form-control" type="text" name="country" id="country">
+                                                        <option value="{{old('country', isset($seller) ? $seller->country : '')}}" selected="selected" style="display:none;">{{ old('country', isset($seller) ? $seller->country : '') }}</option>
+                                                        @foreach ($countryList as $countryId=>$name)
+                                                            <option value="{{ $countryId }}">{{ $name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                  
                                             {!! $errors->first('designation', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
