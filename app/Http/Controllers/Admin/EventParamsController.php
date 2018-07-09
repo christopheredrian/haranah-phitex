@@ -70,7 +70,7 @@ class EventParamsController extends Controller
 
 
 
-        return redirect('admin/events/'.$request->event_id)->with('flash_message', 'EventBuyer added!');
+        return redirect('admin/events/'.$request->event_id)->with('flash_message', 'Schedules added!');
     }
 
     /**

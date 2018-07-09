@@ -7,7 +7,7 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Finalschedules</div>
+                    <div class="panel-heading">Final Schedules</div>
                     <div class="panel-body">
                         <a href="{{ route('create.final.schedule', ['event_id' => $finalschedules->first()->event_id]) }}" class="btn btn-success btn-sm" title="Add New FinalSchedule">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
