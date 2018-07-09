@@ -263,26 +263,37 @@
                                             {!! $errors->first('event_rep2', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
+
                                     <div class="form-group {{ $errors->has('designation') ? 'has-error' : ''}}">
-                                        <label for="designation"
-                                               class="col-md-4 control-label">{{ 'Designation' }}</label>
+                                        <label for="website" class="col-md-4 control-label">{{ 'Designation' }}</label>
                                         <div class="col-md-8">
-                                            {{--<input class="form-control" type="text" name="designation" id="designation"
+                                            <input class="form-control" type="text" name="designation" id="designation"
                                                    value="{{ old('designation', isset($seller) ? $seller->designation : '') }}">
-                                            {!! $errors->first('designation', '<p class="help-block">:message</p>') !!}--}}
-
-                                            <select class="form-control" type="text" name="designation" id="designation">
-                                                <option value="{{old('designation', isset($seller) ? $seller->designation : '')}}"
-                                                        selected="selected"
-                                                        style="display:none;">{{ old('designation', isset($seller) ? $seller->designation : '') }}</option>
-                                                @foreach ($countryList as $countryId=>$name)
-                                                    <option value="{{ $name }}">{{ $name }}</option>
-                                                @endforeach
-                                            </select>
-
                                             {!! $errors->first('designation', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
+
+                                    {{--<div class="form-group {{ $errors->has('designation') ? 'has-error' : ''}}">--}}
+                                        {{--<label for="designation"--}}
+                                               {{--class="col-md-4 control-label">{{ 'Designation' }}</label>--}}
+                                        {{--<div class="col-md-8">--}}
+                                            {{--<input class="form-control" type="text" name="designation" id="designation"--}}
+                                                   {{--value="{{ old('designation', isset($seller) ? $seller->designation : '') }}">--}}
+                                            {{--{!! $errors->first('designation', '<p class="help-block">:message</p>') !!}--}}
+
+                                            {{--<select class="form-control" type="text" name="designation" id="designation">--}}
+                                                {{--<option value="{{old('designation', isset($seller) ? $seller->designation : '')}}"--}}
+                                                        {{--selected="selected"--}}
+                                                        {{--style="display:none;">{{ old('designation', isset($seller) ? $seller->designation : '') }}</option>--}}
+                                                {{--@foreach ($countryList as $countryId=>$name)--}}
+                                                    {{--<option value="{{ $name }}">{{ $name }}</option>--}}
+                                                {{--@endforeach--}}
+                                            {{--</select>--}}
+
+                                            {{--{!! $errors->first('designation', '<p class="help-block">:message</p>') !!}--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+
                                     <div class="form-group {{ $errors->has('products') ? 'has-error' : ''}}">
                                         <label for="products" class="col-md-4 control-label">{{ 'Products' }}</label>
                                         <div class="col-md-8">

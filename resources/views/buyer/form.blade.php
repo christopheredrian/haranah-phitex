@@ -40,7 +40,7 @@
         <select class="form-control" type="text" name="country" id="country">
             <option value="{{old('country', isset($buyer) ? $buyer->country : '')}}" selected="selected" style="display:none;">{{ old('country', isset($buyer) ? $buyer->country : '') }}</option>
             @foreach ($countryList as $countryId=>$name)
-                <option value="{{ $countryId }}">{{ $name }}</option>
+                <option value="{{ $name }}">{{ $name }}</option>
             @endforeach
         </select>
         {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
