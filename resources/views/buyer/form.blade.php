@@ -46,6 +46,7 @@
         {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+
 <div class="form-group {{ $errors->has('website') ? 'has-error' : ''}}">
     <label for="website" class="col-md-4 col-xs-4 control-label">{{ 'Website' }}</label>
     <div class="col-md-6 col-xs-6">
